@@ -1,0 +1,22 @@
+project(ScopyBio)
+
+cmake_minimum_required(VERSION 3.1.0)
+
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED on)
+set(CMAKE_CXX_EXTENSIONS off)
+
+find_package(Qt5Widgets REQUIRED)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+add_compile_options(-Wall -Wpedantic)
+endif()
+
+aux_source_directory(. SRC_LIST)
+add_subdirectory(Controler)
+add_subdirectory(View)
+add_subdirectory(Model)
+add_executable(${PROJECT_NAME} ${SRC_LIST})
+target_link_libraries (${PROJECT_NAME} Qt5::Widgets Controler View Model)
