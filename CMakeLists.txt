@@ -78,17 +78,18 @@ SET(CIMG_FFTW3_CCFLAGS  -Dcimg_use_fftw3)
 
 
 # ### Search Additional Libraries ##########
-FIND_PACKAGE(OpenCV)
-FIND_PACKAGE(JPEG)
-FIND_PACKAGE(TIFF)
-FIND_PACKAGE(PNG)
-FIND_PACKAGE(ZLIB)
-FIND_PACKAGE(LAPACK)
-FIND_PACKAGE(BLAS)
+# FIND_PACKAGE(OpenCV)
+# FIND_PACKAGE(JPEG)
+# FIND_PACKAGE(TIFF)
+# FIND_PACKAGE(PNG)
+# FIND_PACKAGE(ZLIB)
+# FIND_PACKAGE(LAPACK)
+# FIND_PACKAGE(BLAS)
 
-PKG_CHECK_MODULES(FFTW3 fftw3)
-PKG_CHECK_MODULES(OPENEXR OpenEXR)
-PKG_CHECK_MODULES(MAGICK Magick++)
+# va poser problème sous windows
+# PKG_CHECK_MODULES(FFTW3 fftw3)
+# PKG_CHECK_MODULES(OPENEXR OpenEXR)
+# PKG_CHECK_MODULES(MAGICK Magick++)
 
 # PKG_CHECK_MODULES(LIBAVCODEC libavcodec)
 # PKG_CHECK_MODULES(LIBAVFORMAT libavformat)
@@ -242,6 +243,10 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CIMG_CFLAGS}")
 
 ########
 
+add_definitions("-std=c++11")
+
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
 
 aux_source_directory(. SRC_LIST)
 add_subdirectory(Controler)

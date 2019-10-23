@@ -1,12 +1,13 @@
 #include <iostream>
-#include <Controler/scopybio_controller.h>
-#include "CImg.h"
+/*#include <Model/pile_model.h>*/
 
-using namespace std;
-using namespace cimg_library;
+// commande pour build
+// conan install .. --build protobuf --build openexr --build opencv
 
 int main()
 {
+    //pile_model test("Data/pileTest.tif");
+   std:: cout << "gab il a une maitr yi op" << std::endl;
     return 0;
 
 //    CImg<unsigned char> image("milla.bmp"), visu(500,400,1,3,0);

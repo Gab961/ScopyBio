@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../lib/libModel.a  CMakeFiles/Model.dir/pile_model.cpp.o CMakeFiles/Model.dir/coordonnee.cpp.o CMakeFiles/Model.dir/annotation_pile_model.cpp.o CMakeFiles/Model.dir/data_model.cpp.o CMakeFiles/Model.dir/faisceau_model.cpp.o CMakeFiles/Model.dir/image_model.cpp.o CMakeFiles/Model.dir/Model_automoc.cpp.o
+/usr/bin/ranlib ../lib/libModel.a

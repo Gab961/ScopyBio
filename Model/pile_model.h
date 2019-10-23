@@ -5,7 +5,10 @@
 #include <iostream>
 #include <fstream>
 
+//defini dans le cmake
+//#define cimg_use_tiff
 #include "CImg.h"
+
 
 using namespace cimg_library;
 using namespace std;
@@ -18,6 +21,7 @@ private:
 
 public:
     pile_model();
+    pile_model(string filename);
     void load(string path);
     void save(string path);
 };

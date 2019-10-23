@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/etudiant/Workspace/ScopyBio/Build/ScopyBio_automoc.cpp
+
+/home/etudiant/Workspace/ScopyBio/main.cpp
+iostream
+-
+
