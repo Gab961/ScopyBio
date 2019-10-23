@@ -15,7 +15,7 @@ void pile_model::load(string path)
       images.clear();
 
           // Open a Stream and decode a TIFF image
-          ifstream imageStreamSource = new ifstream(path, "r");
+          file.open(path);
           TiffBitmapDecoder decoder = new TiffBitmapDecoder(imageStreamSource,     BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
 
           foreach(BitmapSource bmpS in decoder.Frames)
