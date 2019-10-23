@@ -14,16 +14,16 @@ private:
 public:
     ScopyBio_Controller();
 
-    void setPercentOfBlack(float black);
+    void setPercentOfBlack(float black); //TODO
 
-    void putColorGreen();
-    void putColorWhite();
+    void putColorGreen();//TODO
+    void putColorWhite();//TODO
 
-    void displayAnnotation();
-    void hideAnnotation();
+    void displayAnnotation();//TODO
+    void hideAnnotation();//TODO
 
-    void displayContour();
-    void hideContour();
+    void displayContour();//TODO
+    void hideContour();//TODO
 
 
 };
