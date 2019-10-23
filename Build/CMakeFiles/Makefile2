@@ -63,10 +63,10 @@ CMAKE_BINARY_DIR = /home/etudiant/Workspace/ScopyBio/Build
 # Target rules for target CMakeFiles/ScopyBio.dir
 
 # All Build rule for target.
+CMakeFiles/ScopyBio.dir/all: CMakeFiles/ScopyBio_automoc.dir/all
 CMakeFiles/ScopyBio.dir/all: Controler/CMakeFiles/Controler.dir/all
 CMakeFiles/ScopyBio.dir/all: View/CMakeFiles/View.dir/all
 CMakeFiles/ScopyBio.dir/all: Model/CMakeFiles/Model.dir/all
-CMakeFiles/ScopyBio.dir/all: CMakeFiles/ScopyBio_automoc.dir/all
 	$(MAKE) -f CMakeFiles/ScopyBio.dir/build.make CMakeFiles/ScopyBio.dir/depend
 	$(MAKE) -f CMakeFiles/ScopyBio.dir/build.make CMakeFiles/ScopyBio.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=15,16,17 "Built target ScopyBio"

@@ -48,6 +48,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.5/Modules/FindPackageHandleStandardArgs.cmake"
   "/usr/share/cmake-3.5/Modules/FindPackageMessage.cmake"
   "/usr/share/cmake-3.5/Modules/FindPkgConfig.cmake"
+  "/usr/share/cmake-3.5/Modules/FindTIFF.cmake"
   "/usr/share/cmake-3.5/Modules/FindThreads.cmake"
   "/usr/share/cmake-3.5/Modules/FindX11.cmake"
   "/usr/share/cmake-3.5/Modules/MultiArchCross.cmake"
@@ -56,6 +57,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.5/Modules/Platform/Linux-GNU.cmake"
   "/usr/share/cmake-3.5/Modules/Platform/Linux.cmake"
   "/usr/share/cmake-3.5/Modules/Platform/UnixPaths.cmake"
+  "/usr/share/cmake-3.5/Modules/SelectLibraryConfigurations.cmake"
   )
 
 # The corresponding makefile is:

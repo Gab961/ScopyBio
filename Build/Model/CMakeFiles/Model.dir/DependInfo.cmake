@@ -20,6 +20,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../Model"
   "../"
   "../.."
+  "/home/etudiant/anaconda3/include"
   "/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include"
   "/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4"
   "/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include"
