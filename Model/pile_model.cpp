@@ -5,33 +5,26 @@ pile_model::pile_model()
 
 }
 
+pile_model::pile_model(string filename)
+{
+    load(filename);
+
+}
+
 void pile_model::load(string path)
 {
-    ifstream file;
+    ifstream file (path, std::ifstream::in | std::ifstream::binary);;
     file.exceptions ( std::ifstream::failbit | std::ifstream::badbit );
     try {
-      file.open (path);
 
       images.clear();
 
-          // Open a Stream and decode a TIFF image
-          ifstream imageStreamSource = new ifstream(path, "r");
-          TiffBitmapDecoder decoder = new TiffBitmapDecoder(imageStreamSource,     BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+      images.load_tiff(path.c_str());
 
-          foreach(BitmapSource bmpS in decoder.Frames)
-          {
-             Image img = new Image();
-             img.Source = bmpS;
-             img.Stretch = Stretch.None;
-             img.Margin = new Thickness(10);
-
-             images.Add(img);
-          }
-
-          if(images.Count > 0)
-              pictureBox1.Image = images[0];
+      images.display();
 
       file.close();
+
     }
     catch (std::ifstream::failure e) {
       std::cerr << "Exception opening/reading/closing file\n";

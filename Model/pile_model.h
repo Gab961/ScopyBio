@@ -5,15 +5,16 @@
 #include <iostream>
 #include <fstream>
 
-#include "image_model.h"
+#include "CImg.h"
 
+using namespace cimg_library;
 using namespace std;
 
 class pile_model
 {
 private:
-    vector<image_model> images;
-    image_model* currentImages;
+    CImgList<float> images;
+    CImg<float> currentImages;
 
 public:
     pile_model();
