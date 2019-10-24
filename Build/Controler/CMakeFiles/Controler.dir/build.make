@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/etudiant/Workspace/ScopyBio
+CMAKE_SOURCE_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/etudiant/Workspace/ScopyBio/Build
+CMAKE_BINARY_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio/Build
 
 # Include any dependencies generated for this target.
 include Controler/CMakeFiles/Controler.dir/depend.make
@@ -59,16 +59,16 @@ include Controler/CMakeFiles/Controler.dir/flags.make
 
 Controler/CMakeFiles/Controler.dir/scopybio_controller.cpp.o: Controler/CMakeFiles/Controler.dir/flags.make
 Controler/CMakeFiles/Controler.dir/scopybio_controller.cpp.o: ../Controler/scopybio_controller.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object Controler/CMakeFiles/Controler.dir/scopybio_controller.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Controler && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Controler.dir/scopybio_controller.cpp.o -c /home/etudiant/Workspace/ScopyBio/Controler/scopybio_controller.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object Controler/CMakeFiles/Controler.dir/scopybio_controller.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Controler.dir/scopybio_controller.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/scopybio_controller.cpp
 
 Controler/CMakeFiles/Controler.dir/scopybio_controller.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Controler.dir/scopybio_controller.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Controler && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/Controler/scopybio_controller.cpp > CMakeFiles/Controler.dir/scopybio_controller.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/scopybio_controller.cpp > CMakeFiles/Controler.dir/scopybio_controller.cpp.i
 
 Controler/CMakeFiles/Controler.dir/scopybio_controller.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Controler.dir/scopybio_controller.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Controler && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/Controler/scopybio_controller.cpp -o CMakeFiles/Controler.dir/scopybio_controller.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/scopybio_controller.cpp -o CMakeFiles/Controler.dir/scopybio_controller.cpp.s
 
 Controler/CMakeFiles/Controler.dir/scopybio_controller.cpp.o.requires:
 
@@ -83,16 +83,16 @@ Controler/CMakeFiles/Controler.dir/scopybio_controller.cpp.o.provides.build: Con
 
 Controler/CMakeFiles/Controler.dir/mouselistener.cpp.o: Controler/CMakeFiles/Controler.dir/flags.make
 Controler/CMakeFiles/Controler.dir/mouselistener.cpp.o: ../Controler/mouselistener.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object Controler/CMakeFiles/Controler.dir/mouselistener.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Controler && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Controler.dir/mouselistener.cpp.o -c /home/etudiant/Workspace/ScopyBio/Controler/mouselistener.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object Controler/CMakeFiles/Controler.dir/mouselistener.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Controler.dir/mouselistener.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/mouselistener.cpp
 
 Controler/CMakeFiles/Controler.dir/mouselistener.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Controler.dir/mouselistener.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Controler && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/Controler/mouselistener.cpp > CMakeFiles/Controler.dir/mouselistener.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/mouselistener.cpp > CMakeFiles/Controler.dir/mouselistener.cpp.i
 
 Controler/CMakeFiles/Controler.dir/mouselistener.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Controler.dir/mouselistener.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Controler && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/Controler/mouselistener.cpp -o CMakeFiles/Controler.dir/mouselistener.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/mouselistener.cpp -o CMakeFiles/Controler.dir/mouselistener.cpp.s
 
 Controler/CMakeFiles/Controler.dir/mouselistener.cpp.o.requires:
 
@@ -107,16 +107,16 @@ Controler/CMakeFiles/Controler.dir/mouselistener.cpp.o.provides.build: Controler
 
 Controler/CMakeFiles/Controler.dir/Controler_automoc.cpp.o: Controler/CMakeFiles/Controler.dir/flags.make
 Controler/CMakeFiles/Controler.dir/Controler_automoc.cpp.o: Controler/Controler_automoc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object Controler/CMakeFiles/Controler.dir/Controler_automoc.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Controler && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Controler.dir/Controler_automoc.cpp.o -c /home/etudiant/Workspace/ScopyBio/Build/Controler/Controler_automoc.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object Controler/CMakeFiles/Controler.dir/Controler_automoc.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Controler.dir/Controler_automoc.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Controler_automoc.cpp
 
 Controler/CMakeFiles/Controler.dir/Controler_automoc.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Controler.dir/Controler_automoc.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Controler && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/Build/Controler/Controler_automoc.cpp > CMakeFiles/Controler.dir/Controler_automoc.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Controler_automoc.cpp > CMakeFiles/Controler.dir/Controler_automoc.cpp.i
 
 Controler/CMakeFiles/Controler.dir/Controler_automoc.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Controler.dir/Controler_automoc.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Controler && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/Build/Controler/Controler_automoc.cpp -o CMakeFiles/Controler.dir/Controler_automoc.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Controler_automoc.cpp -o CMakeFiles/Controler.dir/Controler_automoc.cpp.s
 
 Controler/CMakeFiles/Controler.dir/Controler_automoc.cpp.o.requires:
 
@@ -143,9 +143,9 @@ lib/libControler.a: Controler/CMakeFiles/Controler.dir/mouselistener.cpp.o
 lib/libControler.a: Controler/CMakeFiles/Controler.dir/Controler_automoc.cpp.o
 lib/libControler.a: Controler/CMakeFiles/Controler.dir/build.make
 lib/libControler.a: Controler/CMakeFiles/Controler.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library ../lib/libControler.a"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Controler && $(CMAKE_COMMAND) -P CMakeFiles/Controler.dir/cmake_clean_target.cmake
-	cd /home/etudiant/Workspace/ScopyBio/Build/Controler && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Controler.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library ../lib/libControler.a"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler && $(CMAKE_COMMAND) -P CMakeFiles/Controler.dir/cmake_clean_target.cmake
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Controler.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 Controler/CMakeFiles/Controler.dir/build: lib/libControler.a
@@ -159,10 +159,10 @@ Controler/CMakeFiles/Controler.dir/requires: Controler/CMakeFiles/Controler.dir/
 .PHONY : Controler/CMakeFiles/Controler.dir/requires
 
 Controler/CMakeFiles/Controler.dir/clean:
-	cd /home/etudiant/Workspace/ScopyBio/Build/Controler && $(CMAKE_COMMAND) -P CMakeFiles/Controler.dir/cmake_clean.cmake
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler && $(CMAKE_COMMAND) -P CMakeFiles/Controler.dir/cmake_clean.cmake
 .PHONY : Controler/CMakeFiles/Controler.dir/clean
 
 Controler/CMakeFiles/Controler.dir/depend:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/etudiant/Workspace/ScopyBio /home/etudiant/Workspace/ScopyBio/Controler /home/etudiant/Workspace/ScopyBio/Build /home/etudiant/Workspace/ScopyBio/Build/Controler /home/etudiant/Workspace/ScopyBio/Build/Controler/CMakeFiles/Controler.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/etudiant/Bureau/ScopyBio/ScopyBio /home/etudiant/Bureau/ScopyBio/ScopyBio/Controler /home/etudiant/Bureau/ScopyBio/ScopyBio/Build /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/CMakeFiles/Controler.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : Controler/CMakeFiles/Controler.dir/depend
 

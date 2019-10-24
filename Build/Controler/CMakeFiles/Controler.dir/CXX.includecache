@@ -6,19 +6,19 @@
 
 #IncludeRegexTransform: 
 
-/home/etudiant/Workspace/ScopyBio/Build/Controler/Controler_automoc.cpp
+/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Controler_automoc.cpp
 
-/home/etudiant/Workspace/ScopyBio/Controler/mouselistener.cpp
+/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/mouselistener.cpp
 mouselistener.h
-/home/etudiant/Workspace/ScopyBio/Controler/mouselistener.h
+/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/mouselistener.h
 
-/home/etudiant/Workspace/ScopyBio/Controler/mouselistener.h
+/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/mouselistener.h
 
-/home/etudiant/Workspace/ScopyBio/Controler/scopybio_controller.cpp
+/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/scopybio_controller.cpp
 scopybio_controller.h
-/home/etudiant/Workspace/ScopyBio/Controler/scopybio_controller.h
+/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/scopybio_controller.h
 
-/home/etudiant/Workspace/ScopyBio/Controler/scopybio_controller.h
+/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/scopybio_controller.h
 iostream
 -
 

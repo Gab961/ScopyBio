@@ -4,8 +4,8 @@
 
 class menu_option
 {
-public:
-    menu_option();
+    public:
+        menu_option();
 };
 
 #endif // MENU_OPTION_H

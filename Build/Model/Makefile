@@ -48,24 +48,13 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/etudiant/Workspace/ScopyBio
+CMAKE_SOURCE_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/etudiant/Workspace/ScopyBio/Build
+CMAKE_BINARY_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio/Build
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -78,16 +67,27 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/cmake-gui -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_progress_start /home/etudiant/Workspace/ScopyBio/Build/CMakeFiles /home/etudiant/Workspace/ScopyBio/Build/Model/CMakeFiles/progress.marks
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 Model/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/etudiant/Workspace/ScopyBio/Build/CMakeFiles 0
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_progress_start /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/CMakeFiles/progress.marks
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 Model/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 Model/clean
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 Model/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 Model/preinstall
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 Model/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 Model/preinstall
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 Model/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 Model/CMakeFiles/Model.dir/rule:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 Model/CMakeFiles/Model.dir/rule
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 Model/CMakeFiles/Model.dir/rule
 .PHONY : Model/CMakeFiles/Model.dir/rule
 
 # Convenience name for target.
@@ -122,12 +122,12 @@ Model: Model/CMakeFiles/Model.dir/rule
 
 # fast build rule for target.
 Model/fast:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/build
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/build
 .PHONY : Model/fast
 
 # Convenience name for target.
 Model/CMakeFiles/Model_automoc.dir/rule:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 Model/CMakeFiles/Model_automoc.dir/rule
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 Model/CMakeFiles/Model_automoc.dir/rule
 .PHONY : Model/CMakeFiles/Model_automoc.dir/rule
 
 # Convenience name for target.
@@ -137,7 +137,7 @@ Model_automoc: Model/CMakeFiles/Model_automoc.dir/rule
 
 # fast build rule for target.
 Model_automoc/fast:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model_automoc.dir/build.make Model/CMakeFiles/Model_automoc.dir/build
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model_automoc.dir/build.make Model/CMakeFiles/Model_automoc.dir/build
 .PHONY : Model_automoc/fast
 
 Model_automoc.o: Model_automoc.cpp.o
@@ -146,7 +146,7 @@ Model_automoc.o: Model_automoc.cpp.o
 
 # target to build an object file
 Model_automoc.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/Model_automoc.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/Model_automoc.cpp.o
 .PHONY : Model_automoc.cpp.o
 
 Model_automoc.i: Model_automoc.cpp.i
@@ -155,7 +155,7 @@ Model_automoc.i: Model_automoc.cpp.i
 
 # target to preprocess a source file
 Model_automoc.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/Model_automoc.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/Model_automoc.cpp.i
 .PHONY : Model_automoc.cpp.i
 
 Model_automoc.s: Model_automoc.cpp.s
@@ -164,7 +164,7 @@ Model_automoc.s: Model_automoc.cpp.s
 
 # target to generate assembly for a file
 Model_automoc.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/Model_automoc.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/Model_automoc.cpp.s
 .PHONY : Model_automoc.cpp.s
 
 annotation_pile_model.o: annotation_pile_model.cpp.o
@@ -173,7 +173,7 @@ annotation_pile_model.o: annotation_pile_model.cpp.o
 
 # target to build an object file
 annotation_pile_model.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/annotation_pile_model.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/annotation_pile_model.cpp.o
 .PHONY : annotation_pile_model.cpp.o
 
 annotation_pile_model.i: annotation_pile_model.cpp.i
@@ -182,7 +182,7 @@ annotation_pile_model.i: annotation_pile_model.cpp.i
 
 # target to preprocess a source file
 annotation_pile_model.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/annotation_pile_model.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/annotation_pile_model.cpp.i
 .PHONY : annotation_pile_model.cpp.i
 
 annotation_pile_model.s: annotation_pile_model.cpp.s
@@ -191,7 +191,7 @@ annotation_pile_model.s: annotation_pile_model.cpp.s
 
 # target to generate assembly for a file
 annotation_pile_model.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/annotation_pile_model.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/annotation_pile_model.cpp.s
 .PHONY : annotation_pile_model.cpp.s
 
 coordonnee.o: coordonnee.cpp.o
@@ -200,7 +200,7 @@ coordonnee.o: coordonnee.cpp.o
 
 # target to build an object file
 coordonnee.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/coordonnee.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/coordonnee.cpp.o
 .PHONY : coordonnee.cpp.o
 
 coordonnee.i: coordonnee.cpp.i
@@ -209,7 +209,7 @@ coordonnee.i: coordonnee.cpp.i
 
 # target to preprocess a source file
 coordonnee.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/coordonnee.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/coordonnee.cpp.i
 .PHONY : coordonnee.cpp.i
 
 coordonnee.s: coordonnee.cpp.s
@@ -218,7 +218,7 @@ coordonnee.s: coordonnee.cpp.s
 
 # target to generate assembly for a file
 coordonnee.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/coordonnee.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/coordonnee.cpp.s
 .PHONY : coordonnee.cpp.s
 
 data_model.o: data_model.cpp.o
@@ -227,7 +227,7 @@ data_model.o: data_model.cpp.o
 
 # target to build an object file
 data_model.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/data_model.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/data_model.cpp.o
 .PHONY : data_model.cpp.o
 
 data_model.i: data_model.cpp.i
@@ -236,7 +236,7 @@ data_model.i: data_model.cpp.i
 
 # target to preprocess a source file
 data_model.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/data_model.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/data_model.cpp.i
 .PHONY : data_model.cpp.i
 
 data_model.s: data_model.cpp.s
@@ -245,7 +245,7 @@ data_model.s: data_model.cpp.s
 
 # target to generate assembly for a file
 data_model.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/data_model.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/data_model.cpp.s
 .PHONY : data_model.cpp.s
 
 faisceau_model.o: faisceau_model.cpp.o
@@ -254,7 +254,7 @@ faisceau_model.o: faisceau_model.cpp.o
 
 # target to build an object file
 faisceau_model.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/faisceau_model.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/faisceau_model.cpp.o
 .PHONY : faisceau_model.cpp.o
 
 faisceau_model.i: faisceau_model.cpp.i
@@ -263,7 +263,7 @@ faisceau_model.i: faisceau_model.cpp.i
 
 # target to preprocess a source file
 faisceau_model.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/faisceau_model.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/faisceau_model.cpp.i
 .PHONY : faisceau_model.cpp.i
 
 faisceau_model.s: faisceau_model.cpp.s
@@ -272,7 +272,7 @@ faisceau_model.s: faisceau_model.cpp.s
 
 # target to generate assembly for a file
 faisceau_model.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/faisceau_model.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/faisceau_model.cpp.s
 .PHONY : faisceau_model.cpp.s
 
 image_model.o: image_model.cpp.o
@@ -281,7 +281,7 @@ image_model.o: image_model.cpp.o
 
 # target to build an object file
 image_model.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/image_model.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/image_model.cpp.o
 .PHONY : image_model.cpp.o
 
 image_model.i: image_model.cpp.i
@@ -290,7 +290,7 @@ image_model.i: image_model.cpp.i
 
 # target to preprocess a source file
 image_model.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/image_model.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/image_model.cpp.i
 .PHONY : image_model.cpp.i
 
 image_model.s: image_model.cpp.s
@@ -299,7 +299,7 @@ image_model.s: image_model.cpp.s
 
 # target to generate assembly for a file
 image_model.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/image_model.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/image_model.cpp.s
 .PHONY : image_model.cpp.s
 
 pile_model.o: pile_model.cpp.o
@@ -308,7 +308,7 @@ pile_model.o: pile_model.cpp.o
 
 # target to build an object file
 pile_model.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/pile_model.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/pile_model.cpp.o
 .PHONY : pile_model.cpp.o
 
 pile_model.i: pile_model.cpp.i
@@ -317,7 +317,7 @@ pile_model.i: pile_model.cpp.i
 
 # target to preprocess a source file
 pile_model.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/pile_model.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/pile_model.cpp.i
 .PHONY : pile_model.cpp.i
 
 pile_model.s: pile_model.cpp.s
@@ -326,7 +326,7 @@ pile_model.s: pile_model.cpp.s
 
 # target to generate assembly for a file
 pile_model.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/pile_model.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f Model/CMakeFiles/Model.dir/build.make Model/CMakeFiles/Model.dir/pile_model.cpp.s
 .PHONY : pile_model.cpp.s
 
 # Help Target
@@ -335,9 +335,9 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Model"
-	@echo "... rebuild_cache"
 	@echo "... Model_automoc"
 	@echo "... Model_automoc.o"
 	@echo "... Model_automoc.i"
@@ -371,6 +371,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

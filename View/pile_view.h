@@ -4,8 +4,8 @@
 
 class Pile_View
 {
-public:
-    Pile_View();
+    public:
+        Pile_View();
 };
 
 #endif // PILE_VIEW_H

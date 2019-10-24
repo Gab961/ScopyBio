@@ -2,8 +2,8 @@
     arch=x86_64
     build_type=Release
     compiler=gcc
-    compiler.libcxx=libstdc++11
-    compiler.version=9
+    compiler.libcxx=libstdc++
+    compiler.version=5
     os=Linux
 
 [requires]
@@ -17,22 +17,22 @@
     arch_build=x86_64
     build_type=Release
     compiler=gcc
-    compiler.libcxx=libstdc++11
-    compiler.version=9
+    compiler.libcxx=libstdc++
+    compiler.version=5
     os=Linux
     os_build=Linux
 
 [full_requires]
     eigen/3.3.7@conan/stable:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
-    jasper/2.0.14@conan/stable:053e0fc709ec0df88b52ce7490933443fe28d8fb
-    libjpeg/9c@bincrafters/stable:6af9cc7cb931c5ad942174fd7838eb655717c709
-    libpng/1.6.37@bincrafters/stable:f99afdbf2a1cc98ba2029817b35103455b6a9b77
-    libtiff/4.0.9@bincrafters/stable:f99afdbf2a1cc98ba2029817b35103455b6a9b77
-    libwebp/1.0.3@bincrafters/stable:034afc24309e6fc60dbccb1dab5b0f9cad6ec656
-    opencv/4.1.1@conan/stable:9e1a415b90880fb9097cf4b02ddba5356b33d599
-    openexr/2.3.0@conan/stable:757206c9e326c2de6ec97a517e684a8a495a2e0e
-    protobuf/3.5.2@bincrafters/stable:b911f48570f9bb2902d9e83b2b9ebf9d376c8c56
-    zlib/1.2.11@conan/stable:6af9cc7cb931c5ad942174fd7838eb655717c709
+    jasper/2.0.14@conan/stable:90e4709644a0be73a4987cd73b787947bf1d8417
+    libjpeg/9c@bincrafters/stable:76f87539fc90ff313e0b3182641a9bb558a717d2
+    libpng/1.6.37@bincrafters/stable:d5204605bf864d4bd98fc6a9e624938e8e04ad03
+    libtiff/4.0.9@bincrafters/stable:d5204605bf864d4bd98fc6a9e624938e8e04ad03
+    libwebp/1.0.3@bincrafters/stable:9914f4fbedcef15a1908dc721c310d135acd4987
+    opencv/4.1.1@conan/stable:cd50ecd06cbd831fef9e6eb699704a26b0bfefff
+    openexr/2.3.0@conan/stable:6edc9d41efe772952b507760158edf5402f50a38
+    protobuf/3.5.2@bincrafters/stable:b759e10106fc0b4923414b05bb78eba0bbc8b30b
+    zlib/1.2.11@conan/stable:76f87539fc90ff313e0b3182641a9bb558a717d2
 
 [full_options]
     jasper:fPIC=True

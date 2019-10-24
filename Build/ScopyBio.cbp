@@ -5,555 +5,582 @@
       <Option title="ScopyBio" />
       <Option makefile_is_custom="1" />
       <Option compiler="gcc" />
-      <Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\;CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\;CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\;CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\;CMake Files\Build\;CMake Files\Controler\;CMake Files\View\;CMake Files\Model\;" />
+      <Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\;CMake Files\Build\;CMake Files\Controler\;CMake Files\View\;CMake Files\Model\;" />
       <Build>
       <Target title="all">
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build" />
          <Option type="4" />
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 all" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       <Target title="edit_cache">
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build" />
          <Option type="4" />
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 edit_cache" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
-         </MakeCommands>
-      </Target>
-      <Target title="ScopyBio">
-         <Option output="/home/etudiant/Workspace/ScopyBio/Build/bin/ScopyBio" prefix_auto="0" extension_auto="0" />
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build/bin" />
-         <Option object_output="./" />
-         <Option type="1" />
-         <Option compiler="gcc" />
-         <Compiler>
-            <Add option="-DQT_WIDGETS_LIB" />
-            <Add option="-DQT_GUI_LIB" />
-            <Add option="-DQT_CORE_LIB" />
-            <Add option="-DQT_NO_DEBUG" />
-            <Add directory="/home/etudiant/.conan/data/eigen/3.3.7/conan/stable/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include/eigen3" />
-            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb/include" />
-            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include/OpenEXR" />
-            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/include" />
-            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/.." />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Build" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Controler" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Model" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/View" />
-            <Add directory="/usr/include" />
-            <Add directory="/usr/include/c++/9" />
-            <Add directory="/usr/include/c++/9/backward" />
-            <Add directory="/usr/include/x86_64-linux-gnu" />
-            <Add directory="/usr/include/x86_64-linux-gnu/c++/9" />
-            <Add directory="/usr/include/x86_64-linux-gnu/qt5" />
-            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore" />
-            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui" />
-            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed" />
-            <Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64" />
-            <Add directory="/usr/local/include" />
-         </Compiler>
-         <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 ScopyBio" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
-         </MakeCommands>
-      </Target>
-      <Target title="ScopyBio/fast">
-         <Option output="/home/etudiant/Workspace/ScopyBio/Build/bin/ScopyBio" prefix_auto="0" extension_auto="0" />
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build/bin" />
-         <Option object_output="./" />
-         <Option type="1" />
-         <Option compiler="gcc" />
-         <Compiler>
-            <Add option="-DQT_WIDGETS_LIB" />
-            <Add option="-DQT_GUI_LIB" />
-            <Add option="-DQT_CORE_LIB" />
-            <Add option="-DQT_NO_DEBUG" />
-            <Add directory="/home/etudiant/.conan/data/eigen/3.3.7/conan/stable/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include/eigen3" />
-            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb/include" />
-            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include/OpenEXR" />
-            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/include" />
-            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/.." />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Build" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Controler" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Model" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/View" />
-            <Add directory="/usr/include" />
-            <Add directory="/usr/include/c++/9" />
-            <Add directory="/usr/include/c++/9/backward" />
-            <Add directory="/usr/include/x86_64-linux-gnu" />
-            <Add directory="/usr/include/x86_64-linux-gnu/c++/9" />
-            <Add directory="/usr/include/x86_64-linux-gnu/qt5" />
-            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore" />
-            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui" />
-            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed" />
-            <Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64" />
-            <Add directory="/usr/local/include" />
-         </Compiler>
-         <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 ScopyBio/fast" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 edit_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       <Target title="rebuild_cache">
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build" />
          <Option type="4" />
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 rebuild_cache" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="ScopyBio">
+         <Option output="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/bin/ScopyBio" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DQT_WIDGETS_LIB" />
+            <Add option="-DQT_GUI_LIB" />
+            <Add option="-DQT_CORE_LIB" />
+            <Add option="-DQT_NO_DEBUG" />
+            <Add directory="/home/etudiant/.conan/data/eigen/3.3.7/conan/stable/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include/eigen3" />
+            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417/include" />
+            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include/opencv4" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include/OpenEXR" />
+            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b/include" />
+            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/.." />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/View" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 ScopyBio" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="ScopyBio/fast">
+         <Option output="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/bin/ScopyBio" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DQT_WIDGETS_LIB" />
+            <Add option="-DQT_GUI_LIB" />
+            <Add option="-DQT_CORE_LIB" />
+            <Add option="-DQT_NO_DEBUG" />
+            <Add directory="/home/etudiant/.conan/data/eigen/3.3.7/conan/stable/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include/eigen3" />
+            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417/include" />
+            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include/opencv4" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include/OpenEXR" />
+            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b/include" />
+            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/.." />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/View" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 ScopyBio/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       <Target title="ScopyBio_automoc">
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build" />
          <Option type="4" />
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 ScopyBio_automoc" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 ScopyBio_automoc" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       <Target title="Controler">
-         <Option output="/home/etudiant/Workspace/ScopyBio/Build/lib/libControler.a" prefix_auto="0" extension_auto="0" />
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build/Controler" />
+         <Option output="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/lib/libControler.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler" />
          <Option object_output="./" />
          <Option type="2" />
          <Option compiler="gcc" />
          <Compiler>
             <Add directory="/home/etudiant/.conan/data/eigen/3.3.7/conan/stable/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include/eigen3" />
-            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb/include" />
-            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include/OpenEXR" />
-            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/include" />
-            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/.." />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Build/Controler" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Controler" />
+            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417/include" />
+            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include/opencv4" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include/OpenEXR" />
+            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b/include" />
+            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/.." />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler" />
             <Add directory="/usr/include" />
-            <Add directory="/usr/include/c++/9" />
-            <Add directory="/usr/include/c++/9/backward" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
             <Add directory="/usr/include/x86_64-linux-gnu" />
-            <Add directory="/usr/include/x86_64-linux-gnu/c++/9" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
             <Add directory="/usr/local/include" />
          </Compiler>
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 Controler" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 clean" />
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 Controler" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       <Target title="Controler/fast">
-         <Option output="/home/etudiant/Workspace/ScopyBio/Build/lib/libControler.a" prefix_auto="0" extension_auto="0" />
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build/Controler" />
+         <Option output="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/lib/libControler.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler" />
          <Option object_output="./" />
          <Option type="2" />
          <Option compiler="gcc" />
          <Compiler>
             <Add directory="/home/etudiant/.conan/data/eigen/3.3.7/conan/stable/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include/eigen3" />
-            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb/include" />
-            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include/OpenEXR" />
-            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/include" />
-            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/.." />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Build/Controler" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Controler" />
+            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417/include" />
+            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include/opencv4" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include/OpenEXR" />
+            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b/include" />
+            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/.." />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler" />
             <Add directory="/usr/include" />
-            <Add directory="/usr/include/c++/9" />
-            <Add directory="/usr/include/c++/9/backward" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
             <Add directory="/usr/include/x86_64-linux-gnu" />
-            <Add directory="/usr/include/x86_64-linux-gnu/c++/9" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
             <Add directory="/usr/local/include" />
          </Compiler>
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 Controler/fast" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 clean" />
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 Controler/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       <Target title="Controler_automoc">
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build/Controler" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler" />
          <Option type="4" />
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 Controler_automoc" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 clean" />
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 Controler_automoc" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Controler/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       <Target title="View">
-         <Option output="/home/etudiant/Workspace/ScopyBio/Build/lib/libView.a" prefix_auto="0" extension_auto="0" />
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build/View" />
+         <Option output="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/lib/libView.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View" />
          <Option object_output="./" />
          <Option type="2" />
          <Option compiler="gcc" />
          <Compiler>
+            <Add option="-DQT_WIDGETS_LIB" />
+            <Add option="-DQT_GUI_LIB" />
+            <Add option="-DQT_CORE_LIB" />
+            <Add option="-DQT_NO_DEBUG" />
             <Add directory="/home/etudiant/.conan/data/eigen/3.3.7/conan/stable/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include/eigen3" />
-            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb/include" />
-            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include/OpenEXR" />
-            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/include" />
-            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/.." />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Build/View" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/View" />
+            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417/include" />
+            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include/opencv4" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include/OpenEXR" />
+            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b/include" />
+            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/.." />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/View" />
             <Add directory="/usr/include" />
-            <Add directory="/usr/include/c++/9" />
-            <Add directory="/usr/include/c++/9/backward" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
             <Add directory="/usr/include/x86_64-linux-gnu" />
-            <Add directory="/usr/include/x86_64-linux-gnu/c++/9" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64" />
             <Add directory="/usr/local/include" />
          </Compiler>
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 View" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 clean" />
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 View" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       <Target title="View/fast">
-         <Option output="/home/etudiant/Workspace/ScopyBio/Build/lib/libView.a" prefix_auto="0" extension_auto="0" />
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build/View" />
+         <Option output="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/lib/libView.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View" />
          <Option object_output="./" />
          <Option type="2" />
          <Option compiler="gcc" />
          <Compiler>
+            <Add option="-DQT_WIDGETS_LIB" />
+            <Add option="-DQT_GUI_LIB" />
+            <Add option="-DQT_CORE_LIB" />
+            <Add option="-DQT_NO_DEBUG" />
             <Add directory="/home/etudiant/.conan/data/eigen/3.3.7/conan/stable/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include/eigen3" />
-            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb/include" />
-            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include/OpenEXR" />
-            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/include" />
-            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/.." />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Build/View" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/View" />
+            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417/include" />
+            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include/opencv4" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include/OpenEXR" />
+            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b/include" />
+            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/.." />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/View" />
             <Add directory="/usr/include" />
-            <Add directory="/usr/include/c++/9" />
-            <Add directory="/usr/include/c++/9/backward" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
             <Add directory="/usr/include/x86_64-linux-gnu" />
-            <Add directory="/usr/include/x86_64-linux-gnu/c++/9" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui" />
+            <Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64" />
             <Add directory="/usr/local/include" />
          </Compiler>
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 View/fast" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 clean" />
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 View/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       <Target title="View_automoc">
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build/View" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View" />
          <Option type="4" />
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 View_automoc" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 clean" />
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 View_automoc" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       <Target title="Model">
-         <Option output="/home/etudiant/Workspace/ScopyBio/Build/lib/libModel.a" prefix_auto="0" extension_auto="0" />
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build/Model" />
+         <Option output="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/lib/libModel.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model" />
          <Option object_output="./" />
          <Option type="2" />
          <Option compiler="gcc" />
          <Compiler>
             <Add directory="/home/etudiant/.conan/data/eigen/3.3.7/conan/stable/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include/eigen3" />
-            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb/include" />
-            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include/OpenEXR" />
-            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/include" />
-            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/.." />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Build/Model" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Model" />
+            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417/include" />
+            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include/opencv4" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include/OpenEXR" />
+            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b/include" />
+            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/.." />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model" />
             <Add directory="/usr/include" />
-            <Add directory="/usr/include/c++/9" />
-            <Add directory="/usr/include/c++/9/backward" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
             <Add directory="/usr/include/x86_64-linux-gnu" />
-            <Add directory="/usr/include/x86_64-linux-gnu/c++/9" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
             <Add directory="/usr/local/include" />
          </Compiler>
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 Model" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 clean" />
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 Model" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       <Target title="Model/fast">
-         <Option output="/home/etudiant/Workspace/ScopyBio/Build/lib/libModel.a" prefix_auto="0" extension_auto="0" />
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build/Model" />
+         <Option output="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/lib/libModel.a" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model" />
          <Option object_output="./" />
          <Option type="2" />
          <Option compiler="gcc" />
          <Compiler>
             <Add directory="/home/etudiant/.conan/data/eigen/3.3.7/conan/stable/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include/eigen3" />
-            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb/include" />
-            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include" />
-            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include" />
-            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include" />
-            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include/OpenEXR" />
-            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/include" />
-            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/.." />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Build/Model" />
-            <Add directory="/home/etudiant/Workspace/ScopyBio/Model" />
+            <Add directory="/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417/include" />
+            <Add directory="/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include" />
+            <Add directory="/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include" />
+            <Add directory="/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include/opencv4" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include" />
+            <Add directory="/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include/OpenEXR" />
+            <Add directory="/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b/include" />
+            <Add directory="/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/.." />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model" />
+            <Add directory="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model" />
             <Add directory="/usr/include" />
-            <Add directory="/usr/include/c++/9" />
-            <Add directory="/usr/include/c++/9/backward" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
             <Add directory="/usr/include/x86_64-linux-gnu" />
-            <Add directory="/usr/include/x86_64-linux-gnu/c++/9" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include" />
-            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
             <Add directory="/usr/local/include" />
          </Compiler>
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 Model/fast" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 clean" />
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 Model/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       <Target title="Model_automoc">
-         <Option working_dir="/home/etudiant/Workspace/ScopyBio/Build/Model" />
+         <Option working_dir="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model" />
          <Option type="4" />
          <MakeCommands>
-            <Build command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 Model_automoc" />
-            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
-            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 clean" />
-            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Workspace/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 clean" />
+            <Build command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 Model_automoc" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Makefile&quot;  VERBOSE=1 clean" />
          </MakeCommands>
       </Target>
       </Build>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Controler/mouselistener.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/mouselistener.cpp">
          <Option target="Controler"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Controler/mouselistener.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/mouselistener.h">
          <Option target="Controler"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Controler/scopybio_controller.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/scopybio_controller.cpp">
          <Option target="Controler"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Controler/scopybio_controller.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/scopybio_controller.h">
          <Option target="Controler"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Model/annotation_pile_model.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model/annotation_pile_model.cpp">
          <Option target="Model"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Model/annotation_pile_model.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model/annotation_pile_model.h">
          <Option target="Model"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Model/coordonnee.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model/coordonnee.cpp">
          <Option target="Model"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Model/coordonnee.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model/coordonnee.h">
          <Option target="Model"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Model/data_model.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model/data_model.cpp">
          <Option target="Model"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Model/data_model.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model/data_model.h">
          <Option target="Model"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Model/faisceau_model.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model/faisceau_model.cpp">
          <Option target="Model"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Model/faisceau_model.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model/faisceau_model.h">
          <Option target="Model"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Model/image_model.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model/image_model.cpp">
          <Option target="Model"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Model/image_model.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model/image_model.h">
          <Option target="Model"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Model/pile_model.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model/pile_model.cpp">
          <Option target="Model"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Model/pile_model.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model/pile_model.h">
          <Option target="Model"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/data_view.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/data_view.cpp">
          <Option target="View"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/data_view.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/data_view.h">
          <Option target="View"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/image_view.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/image_view.cpp">
          <Option target="View"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/image_view.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/image_view.h">
          <Option target="View"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/mainwindow.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/mainwindow.cpp">
          <Option target="View"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/mainwindow.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/mainwindow.h">
          <Option target="View"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/menu_draw_button.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/menu_draw_button.cpp">
          <Option target="View"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/menu_draw_button.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/menu_draw_button.h">
          <Option target="View"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/menu_option.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/menu_option.cpp">
          <Option target="View"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/menu_option.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/menu_option.h">
          <Option target="View"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/pile_view.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/pile_view.cpp">
          <Option target="View"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/pile_view.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/pile_view.h">
          <Option target="View"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/zoom_view.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/zoom_view.cpp">
          <Option target="View"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/zoom_view.h">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/zoom_view.h">
          <Option target="View"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/main.cpp">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/main.cpp">
          <Option target="ScopyBio"/>
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/CMakeLists.txt">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/CMakeLists.txt">
           <Option virtualFolder="CMake Files\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
-          <Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\" />
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
-          <Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\" />
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
-          <Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\" />
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
-          <Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\" />
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake">
-          <Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\" />
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfig.cmake">
-          <Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\" />
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake">
-          <Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\" />
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
-          <Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\" />
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfig.cmake">
-          <Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\" />
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
-          <Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\" />
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
-          <Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\" />
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreMacros.cmake">
-          <Option virtualFolder="CMake Files\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\" />
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Build/conanbuildinfo.cmake">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\" />
+      </Unit>
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreMacros.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\" />
+      </Unit>
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/conanbuildinfo.cmake">
           <Option virtualFolder="CMake Files\Build\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Controler/CMakeLists.txt">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/conanbuildinfo.cmake">
+          <Option virtualFolder="CMake Files\Build\" />
+      </Unit>
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Controler/CMakeLists.txt">
           <Option virtualFolder="CMake Files\Controler\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/View/CMakeLists.txt">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/View/CMakeLists.txt">
           <Option virtualFolder="CMake Files\View\" />
       </Unit>
-      <Unit filename="/home/etudiant/Workspace/ScopyBio/Model/CMakeLists.txt">
+      <Unit filename="/home/etudiant/Bureau/ScopyBio/ScopyBio/Model/CMakeLists.txt">
           <Option virtualFolder="CMake Files\Model\" />
       </Unit>
    </Project>

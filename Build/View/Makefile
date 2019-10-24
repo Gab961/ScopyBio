@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/etudiant/Workspace/ScopyBio
+CMAKE_SOURCE_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/etudiant/Workspace/ScopyBio/Build
+CMAKE_BINARY_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio/Build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,14 +80,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_progress_start /home/etudiant/Workspace/ScopyBio/Build/CMakeFiles /home/etudiant/Workspace/ScopyBio/Build/View/CMakeFiles/progress.marks
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 View/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/etudiant/Workspace/ScopyBio/Build/CMakeFiles 0
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_progress_start /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/CMakeFiles/progress.marks
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 View/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 View/clean
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 View/clean
 .PHONY : clean
 
 # The main clean target
@@ -97,22 +97,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 View/preinstall
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 View/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 View/preinstall
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 View/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 View/CMakeFiles/View.dir/rule:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 View/CMakeFiles/View.dir/rule
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 View/CMakeFiles/View.dir/rule
 .PHONY : View/CMakeFiles/View.dir/rule
 
 # Convenience name for target.
@@ -122,12 +122,12 @@ View: View/CMakeFiles/View.dir/rule
 
 # fast build rule for target.
 View/fast:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/build
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/build
 .PHONY : View/fast
 
 # Convenience name for target.
 View/CMakeFiles/View_automoc.dir/rule:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 View/CMakeFiles/View_automoc.dir/rule
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f CMakeFiles/Makefile2 View/CMakeFiles/View_automoc.dir/rule
 .PHONY : View/CMakeFiles/View_automoc.dir/rule
 
 # Convenience name for target.
@@ -137,7 +137,7 @@ View_automoc: View/CMakeFiles/View_automoc.dir/rule
 
 # fast build rule for target.
 View_automoc/fast:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View_automoc.dir/build.make View/CMakeFiles/View_automoc.dir/build
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View_automoc.dir/build.make View/CMakeFiles/View_automoc.dir/build
 .PHONY : View_automoc/fast
 
 View_automoc.o: View_automoc.cpp.o
@@ -146,7 +146,7 @@ View_automoc.o: View_automoc.cpp.o
 
 # target to build an object file
 View_automoc.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/View_automoc.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/View_automoc.cpp.o
 .PHONY : View_automoc.cpp.o
 
 View_automoc.i: View_automoc.cpp.i
@@ -155,7 +155,7 @@ View_automoc.i: View_automoc.cpp.i
 
 # target to preprocess a source file
 View_automoc.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/View_automoc.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/View_automoc.cpp.i
 .PHONY : View_automoc.cpp.i
 
 View_automoc.s: View_automoc.cpp.s
@@ -164,7 +164,7 @@ View_automoc.s: View_automoc.cpp.s
 
 # target to generate assembly for a file
 View_automoc.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/View_automoc.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/View_automoc.cpp.s
 .PHONY : View_automoc.cpp.s
 
 data_view.o: data_view.cpp.o
@@ -173,7 +173,7 @@ data_view.o: data_view.cpp.o
 
 # target to build an object file
 data_view.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/data_view.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/data_view.cpp.o
 .PHONY : data_view.cpp.o
 
 data_view.i: data_view.cpp.i
@@ -182,7 +182,7 @@ data_view.i: data_view.cpp.i
 
 # target to preprocess a source file
 data_view.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/data_view.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/data_view.cpp.i
 .PHONY : data_view.cpp.i
 
 data_view.s: data_view.cpp.s
@@ -191,7 +191,7 @@ data_view.s: data_view.cpp.s
 
 # target to generate assembly for a file
 data_view.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/data_view.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/data_view.cpp.s
 .PHONY : data_view.cpp.s
 
 image_view.o: image_view.cpp.o
@@ -200,7 +200,7 @@ image_view.o: image_view.cpp.o
 
 # target to build an object file
 image_view.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/image_view.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/image_view.cpp.o
 .PHONY : image_view.cpp.o
 
 image_view.i: image_view.cpp.i
@@ -209,7 +209,7 @@ image_view.i: image_view.cpp.i
 
 # target to preprocess a source file
 image_view.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/image_view.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/image_view.cpp.i
 .PHONY : image_view.cpp.i
 
 image_view.s: image_view.cpp.s
@@ -218,7 +218,7 @@ image_view.s: image_view.cpp.s
 
 # target to generate assembly for a file
 image_view.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/image_view.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/image_view.cpp.s
 .PHONY : image_view.cpp.s
 
 mainwindow.o: mainwindow.cpp.o
@@ -227,7 +227,7 @@ mainwindow.o: mainwindow.cpp.o
 
 # target to build an object file
 mainwindow.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/mainwindow.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/mainwindow.cpp.o
 .PHONY : mainwindow.cpp.o
 
 mainwindow.i: mainwindow.cpp.i
@@ -236,7 +236,7 @@ mainwindow.i: mainwindow.cpp.i
 
 # target to preprocess a source file
 mainwindow.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/mainwindow.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/mainwindow.cpp.i
 .PHONY : mainwindow.cpp.i
 
 mainwindow.s: mainwindow.cpp.s
@@ -245,7 +245,7 @@ mainwindow.s: mainwindow.cpp.s
 
 # target to generate assembly for a file
 mainwindow.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/mainwindow.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/mainwindow.cpp.s
 .PHONY : mainwindow.cpp.s
 
 menu_draw_button.o: menu_draw_button.cpp.o
@@ -254,7 +254,7 @@ menu_draw_button.o: menu_draw_button.cpp.o
 
 # target to build an object file
 menu_draw_button.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/menu_draw_button.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/menu_draw_button.cpp.o
 .PHONY : menu_draw_button.cpp.o
 
 menu_draw_button.i: menu_draw_button.cpp.i
@@ -263,7 +263,7 @@ menu_draw_button.i: menu_draw_button.cpp.i
 
 # target to preprocess a source file
 menu_draw_button.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/menu_draw_button.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/menu_draw_button.cpp.i
 .PHONY : menu_draw_button.cpp.i
 
 menu_draw_button.s: menu_draw_button.cpp.s
@@ -272,7 +272,7 @@ menu_draw_button.s: menu_draw_button.cpp.s
 
 # target to generate assembly for a file
 menu_draw_button.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/menu_draw_button.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/menu_draw_button.cpp.s
 .PHONY : menu_draw_button.cpp.s
 
 menu_option.o: menu_option.cpp.o
@@ -281,7 +281,7 @@ menu_option.o: menu_option.cpp.o
 
 # target to build an object file
 menu_option.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/menu_option.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/menu_option.cpp.o
 .PHONY : menu_option.cpp.o
 
 menu_option.i: menu_option.cpp.i
@@ -290,7 +290,7 @@ menu_option.i: menu_option.cpp.i
 
 # target to preprocess a source file
 menu_option.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/menu_option.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/menu_option.cpp.i
 .PHONY : menu_option.cpp.i
 
 menu_option.s: menu_option.cpp.s
@@ -299,7 +299,7 @@ menu_option.s: menu_option.cpp.s
 
 # target to generate assembly for a file
 menu_option.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/menu_option.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/menu_option.cpp.s
 .PHONY : menu_option.cpp.s
 
 pile_view.o: pile_view.cpp.o
@@ -308,7 +308,7 @@ pile_view.o: pile_view.cpp.o
 
 # target to build an object file
 pile_view.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/pile_view.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/pile_view.cpp.o
 .PHONY : pile_view.cpp.o
 
 pile_view.i: pile_view.cpp.i
@@ -317,7 +317,7 @@ pile_view.i: pile_view.cpp.i
 
 # target to preprocess a source file
 pile_view.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/pile_view.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/pile_view.cpp.i
 .PHONY : pile_view.cpp.i
 
 pile_view.s: pile_view.cpp.s
@@ -326,7 +326,7 @@ pile_view.s: pile_view.cpp.s
 
 # target to generate assembly for a file
 pile_view.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/pile_view.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/pile_view.cpp.s
 .PHONY : pile_view.cpp.s
 
 zoom_view.o: zoom_view.cpp.o
@@ -335,7 +335,7 @@ zoom_view.o: zoom_view.cpp.o
 
 # target to build an object file
 zoom_view.cpp.o:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/zoom_view.cpp.o
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/zoom_view.cpp.o
 .PHONY : zoom_view.cpp.o
 
 zoom_view.i: zoom_view.cpp.i
@@ -344,7 +344,7 @@ zoom_view.i: zoom_view.cpp.i
 
 # target to preprocess a source file
 zoom_view.cpp.i:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/zoom_view.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/zoom_view.cpp.i
 .PHONY : zoom_view.cpp.i
 
 zoom_view.s: zoom_view.cpp.s
@@ -353,7 +353,7 @@ zoom_view.s: zoom_view.cpp.s
 
 # target to generate assembly for a file
 zoom_view.cpp.s:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/zoom_view.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(MAKE) -f View/CMakeFiles/View.dir/build.make View/CMakeFiles/View.dir/zoom_view.cpp.s
 .PHONY : zoom_view.cpp.s
 
 # Help Target
@@ -363,8 +363,8 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... View"
 	@echo "... rebuild_cache"
+	@echo "... View"
 	@echo "... View_automoc"
 	@echo "... View_automoc.o"
 	@echo "... View_automoc.i"
@@ -401,6 +401,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

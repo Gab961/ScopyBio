@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/etudiant/Workspace/ScopyBio
+CMAKE_SOURCE_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/etudiant/Workspace/ScopyBio/Build
+CMAKE_BINARY_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio/Build
 
 # Utility rule file for View_automoc.
 
@@ -54,8 +54,8 @@ CMAKE_BINARY_DIR = /home/etudiant/Workspace/ScopyBio/Build
 include View/CMakeFiles/View_automoc.dir/progress.make
 
 View/CMakeFiles/View_automoc:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic moc and uic for target View"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/cmake -E cmake_autogen /home/etudiant/Workspace/ScopyBio/Build/View/CMakeFiles/View_automoc.dir/ ""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic moc and uic for target View"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/cmake -E cmake_autogen /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/CMakeFiles/View_automoc.dir/ ""
 
 View_automoc: View/CMakeFiles/View_automoc
 View_automoc: View/CMakeFiles/View_automoc.dir/build.make
@@ -68,10 +68,10 @@ View/CMakeFiles/View_automoc.dir/build: View_automoc
 .PHONY : View/CMakeFiles/View_automoc.dir/build
 
 View/CMakeFiles/View_automoc.dir/clean:
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && $(CMAKE_COMMAND) -P CMakeFiles/View_automoc.dir/cmake_clean.cmake
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && $(CMAKE_COMMAND) -P CMakeFiles/View_automoc.dir/cmake_clean.cmake
 .PHONY : View/CMakeFiles/View_automoc.dir/clean
 
 View/CMakeFiles/View_automoc.dir/depend:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/etudiant/Workspace/ScopyBio /home/etudiant/Workspace/ScopyBio/View /home/etudiant/Workspace/ScopyBio/Build /home/etudiant/Workspace/ScopyBio/Build/View /home/etudiant/Workspace/ScopyBio/Build/View/CMakeFiles/View_automoc.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/etudiant/Bureau/ScopyBio/ScopyBio /home/etudiant/Bureau/ScopyBio/ScopyBio/View /home/etudiant/Bureau/ScopyBio/ScopyBio/Build /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/CMakeFiles/View_automoc.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : View/CMakeFiles/View_automoc.dir/depend
 

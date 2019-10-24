@@ -1,11 +1,15 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
+
+#include <QWidget>
+#include <QMenuBar>
 
 
-class MainWindow
+class MainWindow: public QWidget
 {
-public:
-    MainWindow();
+    public:
+        MainWindow();
+
+    private:
+        QMenuBar *m_menu;
 };
 
-#endif // MAINWINDOW_H

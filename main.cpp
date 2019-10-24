@@ -1,27 +1,18 @@
 #include <iostream>
-/*#include <Model/pile_model.h>*/
+#include <QApplication>
+#include "mainwindow.h"
+#include <QWidget>
 
 // commande pour build
 // conan install .. --build protobuf --build openexr --build opencv
 
-int main()
+int main(int argc, char* argv[])
 {
-    //pile_model test("Data/pileTest.tif");
-   std:: cout << "gab il a une maitr yi op" << std::endl;
-    return 0;
+    QApplication scopyBio(argc, argv);
 
-//    CImg<unsigned char> image("milla.bmp"), visu(500,400,1,3,0);
-//    const unsigned char red[] = { 255,0,0 }, green[] = { 0,255,0 }, blue[] = { 0,0,255 };
-//    image.blur(2.5);
-//    CImgDisplay main_disp(image,"Click a point"), draw_disp(visu,"Intensity profile");
-//    while (!main_disp.is_closed() && !draw_disp.is_closed()) {
-//      main_disp.wait();
-//      if (main_disp.button() && main_disp.mouse_y()>=0) {
-//        const int y = main_disp.mouse_y();
-//        visu.fill(0).draw_graph(image.get_crop(0,y,0,0,image.width()-1,y,0,0),red,1,1,0,255,0);
-//        visu.draw_graph(image.get_crop(0,y,0,1,image.width()-1,y,0,1),green,1,1,0,255,0);
-//        visu.draw_graph(image.get_crop(0,y,0,2,image.width()-1,y,0,2),blue,1,1,0,255,0).display(draw_disp);
-//        }
-//      }
-//    return 0;
+    MainWindow mainWindow;
+    mainWindow.show();
+
+    std:: cout << "gab il a une maitr yi op" << std::endl;
+    return scopyBio.exec();
 }

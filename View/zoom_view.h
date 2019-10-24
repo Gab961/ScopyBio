@@ -4,8 +4,8 @@
 
 class zoom_view
 {
-public:
-    zoom_view();
+    public:
+        zoom_view();
 };
 
 #endif // ZOOM_VIEW_H

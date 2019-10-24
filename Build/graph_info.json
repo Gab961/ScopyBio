@@ -190,9 +190,9 @@
   ]
  ],
  "root": {
-  "name": null,
-  "version": null,
   "user": null,
-  "channel": null
+  "version": null,
+  "channel": null,
+  "name": null
  }
 }

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/etudiant/Workspace/ScopyBio
+CMAKE_SOURCE_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/etudiant/Workspace/ScopyBio/Build
+CMAKE_BINARY_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio/Build
 
 # Utility rule file for Model_automoc.
 
@@ -54,8 +54,8 @@ CMAKE_BINARY_DIR = /home/etudiant/Workspace/ScopyBio/Build
 include Model/CMakeFiles/Model_automoc.dir/progress.make
 
 Model/CMakeFiles/Model_automoc:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic moc and uic for target Model"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/cmake -E cmake_autogen /home/etudiant/Workspace/ScopyBio/Build/Model/CMakeFiles/Model_automoc.dir/ ""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic moc and uic for target Model"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/cmake -E cmake_autogen /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/CMakeFiles/Model_automoc.dir/ ""
 
 Model_automoc: Model/CMakeFiles/Model_automoc
 Model_automoc: Model/CMakeFiles/Model_automoc.dir/build.make
@@ -68,10 +68,10 @@ Model/CMakeFiles/Model_automoc.dir/build: Model_automoc
 .PHONY : Model/CMakeFiles/Model_automoc.dir/build
 
 Model/CMakeFiles/Model_automoc.dir/clean:
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && $(CMAKE_COMMAND) -P CMakeFiles/Model_automoc.dir/cmake_clean.cmake
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && $(CMAKE_COMMAND) -P CMakeFiles/Model_automoc.dir/cmake_clean.cmake
 .PHONY : Model/CMakeFiles/Model_automoc.dir/clean
 
 Model/CMakeFiles/Model_automoc.dir/depend:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/etudiant/Workspace/ScopyBio /home/etudiant/Workspace/ScopyBio/Model /home/etudiant/Workspace/ScopyBio/Build /home/etudiant/Workspace/ScopyBio/Build/Model /home/etudiant/Workspace/ScopyBio/Build/Model/CMakeFiles/Model_automoc.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/etudiant/Bureau/ScopyBio/ScopyBio /home/etudiant/Bureau/ScopyBio/ScopyBio/Model /home/etudiant/Bureau/ScopyBio/ScopyBio/Build /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/CMakeFiles/Model_automoc.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : Model/CMakeFiles/Model_automoc.dir/depend
 

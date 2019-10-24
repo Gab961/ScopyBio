@@ -1,4 +1,4 @@
-# Install script for directory: /home/etudiant/Workspace/ScopyBio/View
+# Install script for directory: /home/etudiant/Bureau/ScopyBio/ScopyBio/View
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

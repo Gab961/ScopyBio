@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/etudiant/Workspace/ScopyBio
+CMAKE_SOURCE_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/etudiant/Workspace/ScopyBio/Build
+CMAKE_BINARY_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio/Build
 
 # Include any dependencies generated for this target.
 include View/CMakeFiles/View.dir/depend.make
@@ -59,16 +59,16 @@ include View/CMakeFiles/View.dir/flags.make
 
 View/CMakeFiles/View.dir/mainwindow.cpp.o: View/CMakeFiles/View.dir/flags.make
 View/CMakeFiles/View.dir/mainwindow.cpp.o: ../View/mainwindow.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object View/CMakeFiles/View.dir/mainwindow.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/mainwindow.cpp.o -c /home/etudiant/Workspace/ScopyBio/View/mainwindow.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object View/CMakeFiles/View.dir/mainwindow.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/mainwindow.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/View/mainwindow.cpp
 
 View/CMakeFiles/View.dir/mainwindow.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/View.dir/mainwindow.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/View/mainwindow.cpp > CMakeFiles/View.dir/mainwindow.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/View/mainwindow.cpp > CMakeFiles/View.dir/mainwindow.cpp.i
 
 View/CMakeFiles/View.dir/mainwindow.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/View.dir/mainwindow.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/View/mainwindow.cpp -o CMakeFiles/View.dir/mainwindow.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/View/mainwindow.cpp -o CMakeFiles/View.dir/mainwindow.cpp.s
 
 View/CMakeFiles/View.dir/mainwindow.cpp.o.requires:
 
@@ -83,16 +83,16 @@ View/CMakeFiles/View.dir/mainwindow.cpp.o.provides.build: View/CMakeFiles/View.d
 
 View/CMakeFiles/View.dir/menu_draw_button.cpp.o: View/CMakeFiles/View.dir/flags.make
 View/CMakeFiles/View.dir/menu_draw_button.cpp.o: ../View/menu_draw_button.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object View/CMakeFiles/View.dir/menu_draw_button.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/menu_draw_button.cpp.o -c /home/etudiant/Workspace/ScopyBio/View/menu_draw_button.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object View/CMakeFiles/View.dir/menu_draw_button.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/menu_draw_button.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/View/menu_draw_button.cpp
 
 View/CMakeFiles/View.dir/menu_draw_button.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/View.dir/menu_draw_button.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/View/menu_draw_button.cpp > CMakeFiles/View.dir/menu_draw_button.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/View/menu_draw_button.cpp > CMakeFiles/View.dir/menu_draw_button.cpp.i
 
 View/CMakeFiles/View.dir/menu_draw_button.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/View.dir/menu_draw_button.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/View/menu_draw_button.cpp -o CMakeFiles/View.dir/menu_draw_button.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/View/menu_draw_button.cpp -o CMakeFiles/View.dir/menu_draw_button.cpp.s
 
 View/CMakeFiles/View.dir/menu_draw_button.cpp.o.requires:
 
@@ -107,16 +107,16 @@ View/CMakeFiles/View.dir/menu_draw_button.cpp.o.provides.build: View/CMakeFiles/
 
 View/CMakeFiles/View.dir/menu_option.cpp.o: View/CMakeFiles/View.dir/flags.make
 View/CMakeFiles/View.dir/menu_option.cpp.o: ../View/menu_option.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object View/CMakeFiles/View.dir/menu_option.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/menu_option.cpp.o -c /home/etudiant/Workspace/ScopyBio/View/menu_option.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object View/CMakeFiles/View.dir/menu_option.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/menu_option.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/View/menu_option.cpp
 
 View/CMakeFiles/View.dir/menu_option.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/View.dir/menu_option.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/View/menu_option.cpp > CMakeFiles/View.dir/menu_option.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/View/menu_option.cpp > CMakeFiles/View.dir/menu_option.cpp.i
 
 View/CMakeFiles/View.dir/menu_option.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/View.dir/menu_option.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/View/menu_option.cpp -o CMakeFiles/View.dir/menu_option.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/View/menu_option.cpp -o CMakeFiles/View.dir/menu_option.cpp.s
 
 View/CMakeFiles/View.dir/menu_option.cpp.o.requires:
 
@@ -131,16 +131,16 @@ View/CMakeFiles/View.dir/menu_option.cpp.o.provides.build: View/CMakeFiles/View.
 
 View/CMakeFiles/View.dir/image_view.cpp.o: View/CMakeFiles/View.dir/flags.make
 View/CMakeFiles/View.dir/image_view.cpp.o: ../View/image_view.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object View/CMakeFiles/View.dir/image_view.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/image_view.cpp.o -c /home/etudiant/Workspace/ScopyBio/View/image_view.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object View/CMakeFiles/View.dir/image_view.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/image_view.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/View/image_view.cpp
 
 View/CMakeFiles/View.dir/image_view.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/View.dir/image_view.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/View/image_view.cpp > CMakeFiles/View.dir/image_view.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/View/image_view.cpp > CMakeFiles/View.dir/image_view.cpp.i
 
 View/CMakeFiles/View.dir/image_view.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/View.dir/image_view.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/View/image_view.cpp -o CMakeFiles/View.dir/image_view.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/View/image_view.cpp -o CMakeFiles/View.dir/image_view.cpp.s
 
 View/CMakeFiles/View.dir/image_view.cpp.o.requires:
 
@@ -155,16 +155,16 @@ View/CMakeFiles/View.dir/image_view.cpp.o.provides.build: View/CMakeFiles/View.d
 
 View/CMakeFiles/View.dir/pile_view.cpp.o: View/CMakeFiles/View.dir/flags.make
 View/CMakeFiles/View.dir/pile_view.cpp.o: ../View/pile_view.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object View/CMakeFiles/View.dir/pile_view.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/pile_view.cpp.o -c /home/etudiant/Workspace/ScopyBio/View/pile_view.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object View/CMakeFiles/View.dir/pile_view.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/pile_view.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/View/pile_view.cpp
 
 View/CMakeFiles/View.dir/pile_view.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/View.dir/pile_view.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/View/pile_view.cpp > CMakeFiles/View.dir/pile_view.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/View/pile_view.cpp > CMakeFiles/View.dir/pile_view.cpp.i
 
 View/CMakeFiles/View.dir/pile_view.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/View.dir/pile_view.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/View/pile_view.cpp -o CMakeFiles/View.dir/pile_view.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/View/pile_view.cpp -o CMakeFiles/View.dir/pile_view.cpp.s
 
 View/CMakeFiles/View.dir/pile_view.cpp.o.requires:
 
@@ -179,16 +179,16 @@ View/CMakeFiles/View.dir/pile_view.cpp.o.provides.build: View/CMakeFiles/View.di
 
 View/CMakeFiles/View.dir/zoom_view.cpp.o: View/CMakeFiles/View.dir/flags.make
 View/CMakeFiles/View.dir/zoom_view.cpp.o: ../View/zoom_view.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object View/CMakeFiles/View.dir/zoom_view.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/zoom_view.cpp.o -c /home/etudiant/Workspace/ScopyBio/View/zoom_view.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object View/CMakeFiles/View.dir/zoom_view.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/zoom_view.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/View/zoom_view.cpp
 
 View/CMakeFiles/View.dir/zoom_view.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/View.dir/zoom_view.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/View/zoom_view.cpp > CMakeFiles/View.dir/zoom_view.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/View/zoom_view.cpp > CMakeFiles/View.dir/zoom_view.cpp.i
 
 View/CMakeFiles/View.dir/zoom_view.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/View.dir/zoom_view.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/View/zoom_view.cpp -o CMakeFiles/View.dir/zoom_view.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/View/zoom_view.cpp -o CMakeFiles/View.dir/zoom_view.cpp.s
 
 View/CMakeFiles/View.dir/zoom_view.cpp.o.requires:
 
@@ -203,16 +203,16 @@ View/CMakeFiles/View.dir/zoom_view.cpp.o.provides.build: View/CMakeFiles/View.di
 
 View/CMakeFiles/View.dir/data_view.cpp.o: View/CMakeFiles/View.dir/flags.make
 View/CMakeFiles/View.dir/data_view.cpp.o: ../View/data_view.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object View/CMakeFiles/View.dir/data_view.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/data_view.cpp.o -c /home/etudiant/Workspace/ScopyBio/View/data_view.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object View/CMakeFiles/View.dir/data_view.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/data_view.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/View/data_view.cpp
 
 View/CMakeFiles/View.dir/data_view.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/View.dir/data_view.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/View/data_view.cpp > CMakeFiles/View.dir/data_view.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/View/data_view.cpp > CMakeFiles/View.dir/data_view.cpp.i
 
 View/CMakeFiles/View.dir/data_view.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/View.dir/data_view.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/View/data_view.cpp -o CMakeFiles/View.dir/data_view.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/View/data_view.cpp -o CMakeFiles/View.dir/data_view.cpp.s
 
 View/CMakeFiles/View.dir/data_view.cpp.o.requires:
 
@@ -227,16 +227,16 @@ View/CMakeFiles/View.dir/data_view.cpp.o.provides.build: View/CMakeFiles/View.di
 
 View/CMakeFiles/View.dir/View_automoc.cpp.o: View/CMakeFiles/View.dir/flags.make
 View/CMakeFiles/View.dir/View_automoc.cpp.o: View/View_automoc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object View/CMakeFiles/View.dir/View_automoc.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/View_automoc.cpp.o -c /home/etudiant/Workspace/ScopyBio/Build/View/View_automoc.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object View/CMakeFiles/View.dir/View_automoc.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/View.dir/View_automoc.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/View_automoc.cpp
 
 View/CMakeFiles/View.dir/View_automoc.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/View.dir/View_automoc.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/Build/View/View_automoc.cpp > CMakeFiles/View.dir/View_automoc.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/View_automoc.cpp > CMakeFiles/View.dir/View_automoc.cpp.i
 
 View/CMakeFiles/View.dir/View_automoc.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/View.dir/View_automoc.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/Build/View/View_automoc.cpp -o CMakeFiles/View.dir/View_automoc.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/View_automoc.cpp -o CMakeFiles/View.dir/View_automoc.cpp.s
 
 View/CMakeFiles/View.dir/View_automoc.cpp.o.requires:
 
@@ -273,9 +273,9 @@ lib/libView.a: View/CMakeFiles/View.dir/data_view.cpp.o
 lib/libView.a: View/CMakeFiles/View.dir/View_automoc.cpp.o
 lib/libView.a: View/CMakeFiles/View.dir/build.make
 lib/libView.a: View/CMakeFiles/View.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX static library ../lib/libView.a"
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && $(CMAKE_COMMAND) -P CMakeFiles/View.dir/cmake_clean_target.cmake
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/View.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX static library ../lib/libView.a"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && $(CMAKE_COMMAND) -P CMakeFiles/View.dir/cmake_clean_target.cmake
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/View.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 View/CMakeFiles/View.dir/build: lib/libView.a
@@ -294,10 +294,10 @@ View/CMakeFiles/View.dir/requires: View/CMakeFiles/View.dir/View_automoc.cpp.o.r
 .PHONY : View/CMakeFiles/View.dir/requires
 
 View/CMakeFiles/View.dir/clean:
-	cd /home/etudiant/Workspace/ScopyBio/Build/View && $(CMAKE_COMMAND) -P CMakeFiles/View.dir/cmake_clean.cmake
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View && $(CMAKE_COMMAND) -P CMakeFiles/View.dir/cmake_clean.cmake
 .PHONY : View/CMakeFiles/View.dir/clean
 
 View/CMakeFiles/View.dir/depend:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/etudiant/Workspace/ScopyBio /home/etudiant/Workspace/ScopyBio/View /home/etudiant/Workspace/ScopyBio/Build /home/etudiant/Workspace/ScopyBio/Build/View /home/etudiant/Workspace/ScopyBio/Build/View/CMakeFiles/View.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/etudiant/Bureau/ScopyBio/ScopyBio /home/etudiant/Bureau/ScopyBio/ScopyBio/View /home/etudiant/Bureau/ScopyBio/ScopyBio/Build /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/View/CMakeFiles/View.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : View/CMakeFiles/View.dir/depend
 

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/etudiant/Workspace/ScopyBio
+CMAKE_SOURCE_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/etudiant/Workspace/ScopyBio/Build
+CMAKE_BINARY_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio/Build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/ScopyBio.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/ScopyBio.dir/flags.make
 
 CMakeFiles/ScopyBio.dir/main.cpp.o: CMakeFiles/ScopyBio.dir/flags.make
 CMakeFiles/ScopyBio.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ScopyBio.dir/main.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ScopyBio.dir/main.cpp.o -c /home/etudiant/Workspace/ScopyBio/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ScopyBio.dir/main.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ScopyBio.dir/main.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/main.cpp
 
 CMakeFiles/ScopyBio.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ScopyBio.dir/main.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/main.cpp > CMakeFiles/ScopyBio.dir/main.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/main.cpp > CMakeFiles/ScopyBio.dir/main.cpp.i
 
 CMakeFiles/ScopyBio.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ScopyBio.dir/main.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/main.cpp -o CMakeFiles/ScopyBio.dir/main.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/main.cpp -o CMakeFiles/ScopyBio.dir/main.cpp.s
 
 CMakeFiles/ScopyBio.dir/main.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/ScopyBio.dir/main.cpp.o.provides.build: CMakeFiles/ScopyBio.dir/main.
 
 CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.o: CMakeFiles/ScopyBio.dir/flags.make
 CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.o: ScopyBio_automoc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.o -c /home/etudiant/Workspace/ScopyBio/Build/ScopyBio_automoc.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/ScopyBio_automoc.cpp
 
 CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/Build/ScopyBio_automoc.cpp > CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/ScopyBio_automoc.cpp > CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.i
 
 CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/Build/ScopyBio_automoc.cpp -o CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/ScopyBio_automoc.cpp -o CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.s
 
 CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.o.requires:
 
@@ -120,14 +120,18 @@ bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libSM.so
 bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libICE.so
 bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libX11.so
 bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libXext.so
-bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.5.1
 bin/ScopyBio: lib/libControler.a
 bin/ScopyBio: lib/libView.a
 bin/ScopyBio: lib/libModel.a
+bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libSM.so
+bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libICE.so
+bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libX11.so
+bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libXext.so
+bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.5.1
 bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.5.1
 bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.5.1
 bin/ScopyBio: CMakeFiles/ScopyBio.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable bin/ScopyBio"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable bin/ScopyBio"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ScopyBio.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -145,6 +149,6 @@ CMakeFiles/ScopyBio.dir/clean:
 .PHONY : CMakeFiles/ScopyBio.dir/clean
 
 CMakeFiles/ScopyBio.dir/depend:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/etudiant/Workspace/ScopyBio /home/etudiant/Workspace/ScopyBio /home/etudiant/Workspace/ScopyBio/Build /home/etudiant/Workspace/ScopyBio/Build /home/etudiant/Workspace/ScopyBio/Build/CMakeFiles/ScopyBio.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/etudiant/Bureau/ScopyBio/ScopyBio /home/etudiant/Bureau/ScopyBio/ScopyBio /home/etudiant/Bureau/ScopyBio/ScopyBio/Build /home/etudiant/Bureau/ScopyBio/ScopyBio/Build /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles/ScopyBio.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ScopyBio.dir/depend
 

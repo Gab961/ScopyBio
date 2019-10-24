@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/etudiant/Workspace/ScopyBio
+CMAKE_SOURCE_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/etudiant/Workspace/ScopyBio/Build
+CMAKE_BINARY_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio/Build
 
 # Include any dependencies generated for this target.
 include Model/CMakeFiles/Model.dir/depend.make
@@ -59,16 +59,16 @@ include Model/CMakeFiles/Model.dir/flags.make
 
 Model/CMakeFiles/Model.dir/pile_model.cpp.o: Model/CMakeFiles/Model.dir/flags.make
 Model/CMakeFiles/Model.dir/pile_model.cpp.o: ../Model/pile_model.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object Model/CMakeFiles/Model.dir/pile_model.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Model.dir/pile_model.cpp.o -c /home/etudiant/Workspace/ScopyBio/Model/pile_model.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object Model/CMakeFiles/Model.dir/pile_model.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Model.dir/pile_model.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/pile_model.cpp
 
 Model/CMakeFiles/Model.dir/pile_model.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Model.dir/pile_model.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/Model/pile_model.cpp > CMakeFiles/Model.dir/pile_model.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/pile_model.cpp > CMakeFiles/Model.dir/pile_model.cpp.i
 
 Model/CMakeFiles/Model.dir/pile_model.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Model.dir/pile_model.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/Model/pile_model.cpp -o CMakeFiles/Model.dir/pile_model.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/pile_model.cpp -o CMakeFiles/Model.dir/pile_model.cpp.s
 
 Model/CMakeFiles/Model.dir/pile_model.cpp.o.requires:
 
@@ -83,16 +83,16 @@ Model/CMakeFiles/Model.dir/pile_model.cpp.o.provides.build: Model/CMakeFiles/Mod
 
 Model/CMakeFiles/Model.dir/coordonnee.cpp.o: Model/CMakeFiles/Model.dir/flags.make
 Model/CMakeFiles/Model.dir/coordonnee.cpp.o: ../Model/coordonnee.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object Model/CMakeFiles/Model.dir/coordonnee.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Model.dir/coordonnee.cpp.o -c /home/etudiant/Workspace/ScopyBio/Model/coordonnee.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object Model/CMakeFiles/Model.dir/coordonnee.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Model.dir/coordonnee.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/coordonnee.cpp
 
 Model/CMakeFiles/Model.dir/coordonnee.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Model.dir/coordonnee.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/Model/coordonnee.cpp > CMakeFiles/Model.dir/coordonnee.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/coordonnee.cpp > CMakeFiles/Model.dir/coordonnee.cpp.i
 
 Model/CMakeFiles/Model.dir/coordonnee.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Model.dir/coordonnee.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/Model/coordonnee.cpp -o CMakeFiles/Model.dir/coordonnee.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/coordonnee.cpp -o CMakeFiles/Model.dir/coordonnee.cpp.s
 
 Model/CMakeFiles/Model.dir/coordonnee.cpp.o.requires:
 
@@ -107,16 +107,16 @@ Model/CMakeFiles/Model.dir/coordonnee.cpp.o.provides.build: Model/CMakeFiles/Mod
 
 Model/CMakeFiles/Model.dir/annotation_pile_model.cpp.o: Model/CMakeFiles/Model.dir/flags.make
 Model/CMakeFiles/Model.dir/annotation_pile_model.cpp.o: ../Model/annotation_pile_model.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object Model/CMakeFiles/Model.dir/annotation_pile_model.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Model.dir/annotation_pile_model.cpp.o -c /home/etudiant/Workspace/ScopyBio/Model/annotation_pile_model.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object Model/CMakeFiles/Model.dir/annotation_pile_model.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Model.dir/annotation_pile_model.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/annotation_pile_model.cpp
 
 Model/CMakeFiles/Model.dir/annotation_pile_model.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Model.dir/annotation_pile_model.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/Model/annotation_pile_model.cpp > CMakeFiles/Model.dir/annotation_pile_model.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/annotation_pile_model.cpp > CMakeFiles/Model.dir/annotation_pile_model.cpp.i
 
 Model/CMakeFiles/Model.dir/annotation_pile_model.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Model.dir/annotation_pile_model.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/Model/annotation_pile_model.cpp -o CMakeFiles/Model.dir/annotation_pile_model.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/annotation_pile_model.cpp -o CMakeFiles/Model.dir/annotation_pile_model.cpp.s
 
 Model/CMakeFiles/Model.dir/annotation_pile_model.cpp.o.requires:
 
@@ -131,16 +131,16 @@ Model/CMakeFiles/Model.dir/annotation_pile_model.cpp.o.provides.build: Model/CMa
 
 Model/CMakeFiles/Model.dir/data_model.cpp.o: Model/CMakeFiles/Model.dir/flags.make
 Model/CMakeFiles/Model.dir/data_model.cpp.o: ../Model/data_model.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object Model/CMakeFiles/Model.dir/data_model.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Model.dir/data_model.cpp.o -c /home/etudiant/Workspace/ScopyBio/Model/data_model.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object Model/CMakeFiles/Model.dir/data_model.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Model.dir/data_model.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/data_model.cpp
 
 Model/CMakeFiles/Model.dir/data_model.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Model.dir/data_model.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/Model/data_model.cpp > CMakeFiles/Model.dir/data_model.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/data_model.cpp > CMakeFiles/Model.dir/data_model.cpp.i
 
 Model/CMakeFiles/Model.dir/data_model.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Model.dir/data_model.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/Model/data_model.cpp -o CMakeFiles/Model.dir/data_model.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/data_model.cpp -o CMakeFiles/Model.dir/data_model.cpp.s
 
 Model/CMakeFiles/Model.dir/data_model.cpp.o.requires:
 
@@ -155,16 +155,16 @@ Model/CMakeFiles/Model.dir/data_model.cpp.o.provides.build: Model/CMakeFiles/Mod
 
 Model/CMakeFiles/Model.dir/faisceau_model.cpp.o: Model/CMakeFiles/Model.dir/flags.make
 Model/CMakeFiles/Model.dir/faisceau_model.cpp.o: ../Model/faisceau_model.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object Model/CMakeFiles/Model.dir/faisceau_model.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Model.dir/faisceau_model.cpp.o -c /home/etudiant/Workspace/ScopyBio/Model/faisceau_model.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object Model/CMakeFiles/Model.dir/faisceau_model.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Model.dir/faisceau_model.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/faisceau_model.cpp
 
 Model/CMakeFiles/Model.dir/faisceau_model.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Model.dir/faisceau_model.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/Model/faisceau_model.cpp > CMakeFiles/Model.dir/faisceau_model.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/faisceau_model.cpp > CMakeFiles/Model.dir/faisceau_model.cpp.i
 
 Model/CMakeFiles/Model.dir/faisceau_model.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Model.dir/faisceau_model.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/Model/faisceau_model.cpp -o CMakeFiles/Model.dir/faisceau_model.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/faisceau_model.cpp -o CMakeFiles/Model.dir/faisceau_model.cpp.s
 
 Model/CMakeFiles/Model.dir/faisceau_model.cpp.o.requires:
 
@@ -179,16 +179,16 @@ Model/CMakeFiles/Model.dir/faisceau_model.cpp.o.provides.build: Model/CMakeFiles
 
 Model/CMakeFiles/Model.dir/image_model.cpp.o: Model/CMakeFiles/Model.dir/flags.make
 Model/CMakeFiles/Model.dir/image_model.cpp.o: ../Model/image_model.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object Model/CMakeFiles/Model.dir/image_model.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Model.dir/image_model.cpp.o -c /home/etudiant/Workspace/ScopyBio/Model/image_model.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object Model/CMakeFiles/Model.dir/image_model.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Model.dir/image_model.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/image_model.cpp
 
 Model/CMakeFiles/Model.dir/image_model.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Model.dir/image_model.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/Model/image_model.cpp > CMakeFiles/Model.dir/image_model.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/image_model.cpp > CMakeFiles/Model.dir/image_model.cpp.i
 
 Model/CMakeFiles/Model.dir/image_model.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Model.dir/image_model.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/Model/image_model.cpp -o CMakeFiles/Model.dir/image_model.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/Model/image_model.cpp -o CMakeFiles/Model.dir/image_model.cpp.s
 
 Model/CMakeFiles/Model.dir/image_model.cpp.o.requires:
 
@@ -203,16 +203,16 @@ Model/CMakeFiles/Model.dir/image_model.cpp.o.provides.build: Model/CMakeFiles/Mo
 
 Model/CMakeFiles/Model.dir/Model_automoc.cpp.o: Model/CMakeFiles/Model.dir/flags.make
 Model/CMakeFiles/Model.dir/Model_automoc.cpp.o: Model/Model_automoc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object Model/CMakeFiles/Model.dir/Model_automoc.cpp.o"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Model.dir/Model_automoc.cpp.o -c /home/etudiant/Workspace/ScopyBio/Build/Model/Model_automoc.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object Model/CMakeFiles/Model.dir/Model_automoc.cpp.o"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Model.dir/Model_automoc.cpp.o -c /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Model_automoc.cpp
 
 Model/CMakeFiles/Model.dir/Model_automoc.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Model.dir/Model_automoc.cpp.i"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Workspace/ScopyBio/Build/Model/Model_automoc.cpp > CMakeFiles/Model.dir/Model_automoc.cpp.i
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Model_automoc.cpp > CMakeFiles/Model.dir/Model_automoc.cpp.i
 
 Model/CMakeFiles/Model.dir/Model_automoc.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Model.dir/Model_automoc.cpp.s"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Workspace/ScopyBio/Build/Model/Model_automoc.cpp -o CMakeFiles/Model.dir/Model_automoc.cpp.s
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/Model_automoc.cpp -o CMakeFiles/Model.dir/Model_automoc.cpp.s
 
 Model/CMakeFiles/Model.dir/Model_automoc.cpp.o.requires:
 
@@ -247,9 +247,9 @@ lib/libModel.a: Model/CMakeFiles/Model.dir/image_model.cpp.o
 lib/libModel.a: Model/CMakeFiles/Model.dir/Model_automoc.cpp.o
 lib/libModel.a: Model/CMakeFiles/Model.dir/build.make
 lib/libModel.a: Model/CMakeFiles/Model.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library ../lib/libModel.a"
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && $(CMAKE_COMMAND) -P CMakeFiles/Model.dir/cmake_clean_target.cmake
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Model.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library ../lib/libModel.a"
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && $(CMAKE_COMMAND) -P CMakeFiles/Model.dir/cmake_clean_target.cmake
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Model.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 Model/CMakeFiles/Model.dir/build: lib/libModel.a
@@ -267,10 +267,10 @@ Model/CMakeFiles/Model.dir/requires: Model/CMakeFiles/Model.dir/Model_automoc.cp
 .PHONY : Model/CMakeFiles/Model.dir/requires
 
 Model/CMakeFiles/Model.dir/clean:
-	cd /home/etudiant/Workspace/ScopyBio/Build/Model && $(CMAKE_COMMAND) -P CMakeFiles/Model.dir/cmake_clean.cmake
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model && $(CMAKE_COMMAND) -P CMakeFiles/Model.dir/cmake_clean.cmake
 .PHONY : Model/CMakeFiles/Model.dir/clean
 
 Model/CMakeFiles/Model.dir/depend:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/etudiant/Workspace/ScopyBio /home/etudiant/Workspace/ScopyBio/Model /home/etudiant/Workspace/ScopyBio/Build /home/etudiant/Workspace/ScopyBio/Build/Model /home/etudiant/Workspace/ScopyBio/Build/Model/CMakeFiles/Model.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/etudiant/Bureau/ScopyBio/ScopyBio /home/etudiant/Bureau/ScopyBio/ScopyBio/Model /home/etudiant/Bureau/ScopyBio/ScopyBio/Build /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/Model/CMakeFiles/Model.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : Model/CMakeFiles/Model.dir/depend
 

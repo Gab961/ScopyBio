@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/etudiant/Workspace/ScopyBio
+CMAKE_SOURCE_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/etudiant/Workspace/ScopyBio/Build
+CMAKE_BINARY_DIR = /home/etudiant/Bureau/ScopyBio/ScopyBio/Build
 
 # Utility rule file for ScopyBio_automoc.
 
@@ -54,8 +54,8 @@ CMAKE_BINARY_DIR = /home/etudiant/Workspace/ScopyBio/Build
 include CMakeFiles/ScopyBio_automoc.dir/progress.make
 
 CMakeFiles/ScopyBio_automoc:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/etudiant/Workspace/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic moc and uic for target ScopyBio"
-	/usr/bin/cmake -E cmake_autogen /home/etudiant/Workspace/ScopyBio/Build/CMakeFiles/ScopyBio_automoc.dir/ ""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic moc and uic for target ScopyBio"
+	/usr/bin/cmake -E cmake_autogen /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles/ScopyBio_automoc.dir/ ""
 
 ScopyBio_automoc: CMakeFiles/ScopyBio_automoc
 ScopyBio_automoc: CMakeFiles/ScopyBio_automoc.dir/build.make
@@ -72,6 +72,6 @@ CMakeFiles/ScopyBio_automoc.dir/clean:
 .PHONY : CMakeFiles/ScopyBio_automoc.dir/clean
 
 CMakeFiles/ScopyBio_automoc.dir/depend:
-	cd /home/etudiant/Workspace/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/etudiant/Workspace/ScopyBio /home/etudiant/Workspace/ScopyBio /home/etudiant/Workspace/ScopyBio/Build /home/etudiant/Workspace/ScopyBio/Build /home/etudiant/Workspace/ScopyBio/Build/CMakeFiles/ScopyBio_automoc.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/etudiant/Bureau/ScopyBio/ScopyBio/Build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/etudiant/Bureau/ScopyBio/ScopyBio /home/etudiant/Bureau/ScopyBio/ScopyBio /home/etudiant/Bureau/ScopyBio/ScopyBio/Build /home/etudiant/Bureau/ScopyBio/ScopyBio/Build /home/etudiant/Bureau/ScopyBio/ScopyBio/Build/CMakeFiles/ScopyBio_automoc.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ScopyBio_automoc.dir/depend
 

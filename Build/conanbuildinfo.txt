@@ -1,46 +1,46 @@
 [includedirs]
-/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include
-/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4
-/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include
-/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656/include
-/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include
-/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb/include
-/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include/OpenEXR
-/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include
-/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/include
+/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include
+/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include/opencv4
+/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include
+/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987/include
+/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include
+/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417/include
+/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include/OpenEXR
+/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include
+/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b/include
 /home/etudiant/.conan/data/eigen/3.3.7/conan/stable/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include/eigen3
-/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include
-/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include
+/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include
+/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include
 
 [libdirs]
-/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/lib
-/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/lib
-/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656/lib
-/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/lib
-/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb/lib
-/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/lib
-/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/lib
-/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/lib
-/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/lib
+/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/lib
+/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/lib
+/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987/lib
+/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/lib
+/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417/lib
+/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/lib
+/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b/lib
+/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/lib
+/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/lib
 
 [bindirs]
-/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/bin
-/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/bin
+/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/bin
+/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/bin
 
 [resdirs]
-/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/res
+/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/res
 
 [builddirs]
-/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/
-/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/
-/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656/
-/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/
-/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb/
-/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/
-/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/
+/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/
+/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/
+/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987/
+/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/
+/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417/
+/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/
+/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b/
 /home/etudiant/.conan/data/eigen/3.3.7/conan/stable/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/
-/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/
-/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/
+/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/
+/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/
 
 [libs]
 opencv_stitching
@@ -109,20 +109,20 @@ jpeg
 
 
 [includedirs_opencv]
-/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include
-/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4
+/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include
+/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/include/opencv4
 
 [libdirs_opencv]
-/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/lib
+/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/lib
 
 [bindirs_opencv]
-/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/bin
+/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/bin
 
 [resdirs_opencv]
-/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/res
+/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/res
 
 [builddirs_opencv]
-/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/
+/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff/
 
 [libs_opencv]
 opencv_stitching
@@ -173,14 +173,14 @@ ade
 
 
 [rootpath_opencv]
-/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599
+/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/cd50ecd06cbd831fef9e6eb699704a26b0bfefff
 
 
 [includedirs_libtiff]
-/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include
+/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include
 
 [libdirs_libtiff]
-/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/lib
+/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/lib
 
 [bindirs_libtiff]
 
@@ -189,7 +189,7 @@ ade
 
 
 [builddirs_libtiff]
-/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/
+/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/
 
 [libs_libtiff]
 tiff
@@ -224,14 +224,14 @@ m
 
 
 [rootpath_libtiff]
-/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77
+/home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03
 
 
 [includedirs_libwebp]
-/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656/include
+/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987/include
 
 [libdirs_libwebp]
-/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656/lib
+/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987/lib
 
 [bindirs_libwebp]
 
@@ -240,7 +240,7 @@ m
 
 
 [builddirs_libwebp]
-/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656/
+/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987/
 
 [libs_libwebp]
 webpmux
@@ -277,23 +277,23 @@ pthread
 
 
 [rootpath_libwebp]
-/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/034afc24309e6fc60dbccb1dab5b0f9cad6ec656
+/home/etudiant/.conan/data/libwebp/1.0.3/bincrafters/stable/package/9914f4fbedcef15a1908dc721c310d135acd4987
 
 
 [includedirs_libpng]
-/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include
+/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/include
 
 [libdirs_libpng]
-/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/lib
+/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/lib
 
 [bindirs_libpng]
-/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/bin
+/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/bin
 
 [resdirs_libpng]
 
 
 [builddirs_libpng]
-/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/
+/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03/
 
 [libs_libpng]
 png16
@@ -327,14 +327,14 @@ m
 
 
 [rootpath_libpng]
-/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77
+/home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/d5204605bf864d4bd98fc6a9e624938e8e04ad03
 
 
 [includedirs_jasper]
-/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb/include
+/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417/include
 
 [libdirs_jasper]
-/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb/lib
+/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417/lib
 
 [bindirs_jasper]
 
@@ -343,7 +343,7 @@ m
 
 
 [builddirs_jasper]
-/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb/
+/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417/
 
 [libs_jasper]
 jasper
@@ -377,15 +377,15 @@ m
 
 
 [rootpath_jasper]
-/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/053e0fc709ec0df88b52ce7490933443fe28d8fb
+/home/etudiant/.conan/data/jasper/2.0.14/conan/stable/package/90e4709644a0be73a4987cd73b787947bf1d8417
 
 
 [includedirs_openexr]
-/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include/OpenEXR
-/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include
+/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include/OpenEXR
+/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/include
 
 [libdirs_openexr]
-/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/lib
+/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/lib
 
 [bindirs_openexr]
 
@@ -394,7 +394,7 @@ m
 
 
 [builddirs_openexr]
-/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/
+/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38/
 
 [libs_openexr]
 IlmImf-2_3_s
@@ -431,14 +431,14 @@ Half-2_3_s
 
 
 [rootpath_openexr]
-/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e
+/home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/6edc9d41efe772952b507760158edf5402f50a38
 
 
 [includedirs_protobuf]
-/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/include
+/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b/include
 
 [libdirs_protobuf]
-/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/lib
+/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b/lib
 
 [bindirs_protobuf]
 
@@ -447,7 +447,7 @@ Half-2_3_s
 
 
 [builddirs_protobuf]
-/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/
+/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b/
 
 [libs_protobuf]
 protobuf
@@ -482,7 +482,7 @@ pthread
 
 
 [rootpath_protobuf]
-/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56
+/home/etudiant/.conan/data/protobuf/3.5.2/bincrafters/stable/package/b759e10106fc0b4923414b05bb78eba0bbc8b30b
 
 
 [includedirs_eigen]
@@ -535,10 +535,10 @@ pthread
 
 
 [includedirs_zlib]
-/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include
+/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include
 
 [libdirs_zlib]
-/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/lib
+/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/lib
 
 [bindirs_zlib]
 
@@ -547,7 +547,7 @@ pthread
 
 
 [builddirs_zlib]
-/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/
+/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/
 
 [libs_zlib]
 z
@@ -580,14 +580,14 @@ z
 
 
 [rootpath_zlib]
-/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709
+/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2
 
 
 [includedirs_libjpeg]
-/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include
+/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/include
 
 [libdirs_libjpeg]
-/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/lib
+/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/lib
 
 [bindirs_libjpeg]
 
@@ -596,7 +596,7 @@ z
 
 
 [builddirs_libjpeg]
-/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/
+/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2/
 
 [libs_libjpeg]
 jpeg
@@ -629,19 +629,19 @@ jpeg
 
 
 [rootpath_libjpeg]
-/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709
+/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/76f87539fc90ff313e0b3182641a9bb558a717d2
 
 
-[USER_opencv]
-[USER_libtiff]
+[USER_libjpeg]
+[USER_zlib]
 [USER_libwebp]
+[USER_opencv]
 [USER_libpng]
-[USER_jasper]
+[USER_libtiff]
 [USER_openexr]
 [USER_protobuf]
+[USER_jasper]
 [USER_eigen]
-[USER_zlib]
-[USER_libjpeg]
 [ENV_opencv]
 [ENV_libtiff]
 [ENV_libwebp]
