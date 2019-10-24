@@ -1,19 +1,6 @@
 #include <cstdio>
 #include <iostream>
-/*#include <Model/pile_model.h>*/
 
-// commande pour build
-// conan install .. --build protobuf --build openexr --build opencv
-
-#ifndef cimg_debug
-#define cimg_debug 1
-#endif
-#undef min
-#undef max
-
-#define cimg_use_tiff
-
-#define cimg_display 0
 #define cimg_use_tiff
 #define cimg_use_png
 #include "CImg.h"
@@ -27,9 +14,10 @@ int main()
     std:: cout << "gab il a une maitr yi op" << std::endl;
 
     CImgList<float> images;
-    images.load_tiff("../../Data/pileTest.tiff",0,25,1);
+    images.load_tiff("../../Data/pileTest.tiff",0,29,1);
     std::cout<< images.size() << std::endl;
 
+    images.at(1).display("coucou");
     images.data(1)->display("test");
     images.data(24)->display("24");
     images[24].display("24bis");

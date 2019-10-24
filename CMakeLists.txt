@@ -20,6 +20,9 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 #############
+FIND_PACKAGE("LIBTIFF")
+FIND_PACKAGE("EIGEN")
+
 
 # Prevent compilation in-source
 if( ${CMAKE_BINARY_DIR} STREQUAL ${PROJECT_SOURCE_DIR} )
@@ -33,7 +36,7 @@ endif()
 find_package(PkgConfig)
 
 #    Tell CMake where to leave executables
-SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/Build/bin)
 
 #Path of CImg.h file relative to this file path
 set(CIMG_H_PATH ${PROJECT_SOURCE_DIR}/..)
@@ -75,9 +78,6 @@ if( WIN32)
   SET( CONAN_LIBS  ${CONAN_LIBS}  gdi32 )
 endif()
 
-# Add CIMG Flags to Compilation Flags
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CIMG_CFLAGS}")
-
 
 ########
 
@@ -117,6 +117,9 @@ SET(CIMG_MAGICK_CCFLAGS -Dcimg_use_magick)
 # Flags to enable faster Discrete Fourier Transform computation, using the FFTW3 library
 # ( http://www.fftw.org/ )
 SET(CIMG_FFTW3_CCFLAGS  -Dcimg_use_fftw3)
+
+# Add CIMG Flags to Compilation Flags
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CIMG_CFLAGS}")
 
 aux_source_directory(. SRC_LIST)
 add_subdirectory(Controler)
