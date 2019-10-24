@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 
+#include <iostream>
+
 #include <QDesktopWidget>
 #include <QFileDialog>
 #include <QDialog>
@@ -22,47 +24,14 @@ MainWindow::MainWindow(QWidget *parent)
     setMinimumSize(screenWidth*0.7, screenHeight*0.7);
 }
 
-static void initializeImageFileDialog(QFileDialog &dialog, QFileDialog::AcceptMode acceptMode)
-{
-    static bool firstDialog = true;
-
-    if (firstDialog) {
-        firstDialog = false;
-        const QStringList picturesLocations = QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
-        dialog.setDirectory(picturesLocations.isEmpty() ? QDir::currentPath() : picturesLocations.last());
-    }
-
-    QStringList mimeTypeFilters;
-    const QByteArrayList supportedMimeTypes = acceptMode == QFileDialog::AcceptOpen
-        ? QImageReader::supportedMimeTypes() : QImageWriter::supportedMimeTypes();
-    for (const QByteArray &mimeTypeName : supportedMimeTypes)
-        mimeTypeFilters.append(mimeTypeName);
-    mimeTypeFilters.sort();
-    dialog.setMimeTypeFilters(mimeTypeFilters);
-    dialog.selectMimeTypeFilter("document/tif");
-    if (acceptMode == QFileDialog::AcceptSave)
-        dialog.setDefaultSuffix("tif");
-}
 
 void MainWindow::open()
 {
-    QFileDialog dialog(this, tr("Open File"));
-    initializeImageFileDialog(dialog, QFileDialog::AcceptOpen);
-
-    while (dialog.exec() == QDialog::Accepted && !loadFile(dialog.selectedFiles().first())) {}
-}
-
-bool MainWindow::loadFile(const QString &fileName)
-{
-    QImageReader reader(fileName);
-    reader.setAutoTransform(true);
-    const QImage newImage = reader.read();
-    if (newImage.isNull()) {
-        QMessageBox::information(this, QGuiApplication::applicationDisplayName(),
-                                 tr("Cannot load %1: %2")
-                                 .arg(QDir::toNativeSeparators(fileName), reader.errorString()));
-        return false;
-    }
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                    "/home",
+                                                    tr("Images (*.tiff *.tif)"));
+    std::string current_locale_text = fileName.toLocal8Bit().constData();
+    std::cout << current_locale_text << std::endl;
 }
 
 void MainWindow::saveAs()
