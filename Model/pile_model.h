@@ -7,7 +7,7 @@
 
 //defini dans le cmake
 //#define cimg_use_tiff
-#include "CImg.h"
+#include "../CImg.h"
 
 
 using namespace cimg_library;

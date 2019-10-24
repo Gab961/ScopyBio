@@ -1,10 +1,12 @@
+#include <cstdio>
 #include <iostream>
 #include <QApplication>
 #include "mainwindow.h"
 #include <QWidget>
 
-// commande pour build
-// conan install .. --build protobuf --build openexr --build opencv
+#define cimg_use_tiff
+#define cimg_use_png
+#include "CImg.h"
 
 int main(int argc, char* argv[])
 {
