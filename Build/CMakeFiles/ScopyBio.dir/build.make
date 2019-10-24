@@ -116,7 +116,6 @@ ScopyBio_EXTERNAL_OBJECTS =
 bin/ScopyBio: CMakeFiles/ScopyBio.dir/main.cpp.o
 bin/ScopyBio: CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.o
 bin/ScopyBio: CMakeFiles/ScopyBio.dir/build.make
-bin/ScopyBio: /home/etudiant/anaconda3/lib/libtiff.so
 bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libSM.so
 bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libICE.so
 bin/ScopyBio: /usr/lib/x86_64-linux-gnu/libX11.so

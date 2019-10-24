@@ -3,7 +3,17 @@
 
 CMakeFiles/ScopyBio.dir/ScopyBio_automoc.cpp.o: ScopyBio_automoc.cpp
 
-CMakeFiles/ScopyBio.dir/main.cpp.o: ../CImg.h
+CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include/jconfig.h
+CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include/jerror.h
+CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include/jmorecfg.h
+CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include/jpeglib.h
+CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include/png.h
+CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include/pngconf.h
+CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/libpng/1.6.37/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include/pnglibconf.h
+CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include/tiff.h
+CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include/tiffconf.h
+CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include/tiffio.h
+CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/libtiff/4.0.9/bincrafters/stable/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include/tiffvers.h
 CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4/opencv2/calib3d.hpp
 CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4/opencv2/core.hpp
 CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4/opencv2/core/affine.hpp
@@ -147,25 +157,8 @@ CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/openexr/2.3.0/con
 CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include/OpenEXR/OpenEXRConfig.h
 CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include/OpenEXR/half.h
 CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/openexr/2.3.0/conan/stable/package/757206c9e326c2de6ec97a517e684a8a495a2e0e/include/OpenEXR/halfExport.h
+CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include/zconf.h
+CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include/zlib.h
+CMakeFiles/ScopyBio.dir/main.cpp.o: ../CImg.h
 CMakeFiles/ScopyBio.dir/main.cpp.o: ../main.cpp
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/curl/curl.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/curl/curlver.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/curl/easy.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/curl/multi.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/curl/system.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/curl/typecheck-gcc.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/curl/urlapi.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/jconfig.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/jerror.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/jmorecfg.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/jpeglib.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/png.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/pngconf.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/pnglibconf.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/tiff.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/tiffconf.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/tiffio.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/tiffvers.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/zconf.h
-CMakeFiles/ScopyBio.dir/main.cpp.o: /home/etudiant/anaconda3/include/zlib.h
 
