@@ -14,6 +14,11 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
 add_compile_options(-Wall -Wpedantic)
 endif()
 
+add_definitions("-std=c++11")
+
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
+
 #############
 
 # Prevent compilation in-source
@@ -76,10 +81,6 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CIMG_CFLAGS}")
 
 ########
 
-add_definitions("-std=c++11")
-
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
 
 
 # ### CIMG related stuff

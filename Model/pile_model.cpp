@@ -15,7 +15,6 @@ void pile_model::load(string path)
 {
     ifstream file (path, std::ifstream::in | std::ifstream::binary);;
     file.exceptions ( std::ifstream::failbit | std::ifstream::badbit );
-    try {
 
       images.clear();
 
@@ -25,10 +24,7 @@ void pile_model::load(string path)
 
       file.close();
 
-    }
-    catch (std::ifstream::failure e) {
-      std::cerr << "Exception opening/reading/closing file\n";
-    }
+
     return;
 
 }

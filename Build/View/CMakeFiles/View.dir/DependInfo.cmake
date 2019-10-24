@@ -19,8 +19,6 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "View"
   "../View"
-  "../"
-  "../.."
   "/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include"
   "/home/etudiant/.conan/data/opencv/4.1.1/conan/stable/package/9e1a415b90880fb9097cf4b02ddba5356b33d599/include/opencv4"
   "/home/etudiant/.conan/data/jsoncpp/1.8.4/theirix/stable/package/abd3ca9581f5ec3d6672fa2ee8818b1f09dbb082/include"
@@ -34,6 +32,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/home/etudiant/.conan/data/eigen/3.3.7/conan/stable/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include/eigen3"
   "/home/etudiant/.conan/data/zlib/1.2.11/conan/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include"
   "/home/etudiant/.conan/data/libjpeg/9c/bincrafters/stable/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include"
+  "../"
+  "../.."
   )
 
 # Targets to which this target links.
