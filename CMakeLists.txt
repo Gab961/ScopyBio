@@ -20,8 +20,8 @@ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 #############
-FIND_PACKAGE("LIBTIFF")
-FIND_PACKAGE("EIGEN")
+#FIND_PACKAGE("LIBTIFF")
+#FIND_PACKAGE("EIGEN")
 
 
 # Prevent compilation in-source

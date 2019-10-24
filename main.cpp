@@ -1,26 +1,16 @@
 #include <cstdio>
 #include <iostream>
-
-#define cimg_use_tiff
-#define cimg_use_png
-#include "CImg.h"
-
 #include <cstdlib>
 
-using namespace cimg_library;
+#include "Controler/scopybio_controller.h"
+
+
+using namespace std;
 
 int main()
 {
-    std:: cout << "gab il a une maitr yi op" << std::endl;
+    ScopyBio_Controller scopy;
 
-    CImgList<float> images;
-    images.load_tiff("../../Data/pileTest.tiff",0,29,1);
-    std::cout<< images.size() << std::endl;
-
-    images.at(1).display("coucou");
-    images.data(1)->display("test");
-    images.data(24)->display("24");
-    images[24].display("24bis");
     return 0;
 
 

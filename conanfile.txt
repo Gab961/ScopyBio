@@ -5,10 +5,13 @@
 
  [generators]
  cmake
+ txt
 
  [options]
  opencv:shared=False
  libtiff:shared=False
+ jsoncpp:shared=True # false
+ jsoncpp:use_cmake_installer=True
 
  [imports]
  bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder
