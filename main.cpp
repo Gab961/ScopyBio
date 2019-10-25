@@ -1,9 +1,11 @@
 #include <cstdio>
 #include <iostream>
+
+#define cimg_use_tiff
+#define cimg_use_png
+#include "CImg.h"
+
 #include <cstdlib>
-
-#include "Controler/scopybio_controller.h"
-
 
 // include pour jsoncpp
 #include <json/json.h>
@@ -12,7 +14,6 @@
 #include <scopybio_controller.h>
 
 using namespace cimg_library;
-using namespace std;
 using namespace std;
 
 int main()
