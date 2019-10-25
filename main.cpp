@@ -7,11 +7,18 @@
 
 #include <cstdlib>
 
+// include pour jsoncpp
+#include <json/json.h>
+#include <fstream>
+
+#include <scopybio_controller.h>
+
 using namespace cimg_library;
+using namespace std;
 
 int main()
 {
-    std:: cout << "gab il a une maitr yi op" << std::endl;
+    ScopyBio_Controller test;
 
     CImgList<float> images;
     images.load_tiff("../../Data/pileTest.tiff",0,29,1);
