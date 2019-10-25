@@ -2,7 +2,7 @@
 #define SCOPYBIO_CONTROLLER_H
 
 #include <iostream>
-#include <jsoncpp/json/json.h>
+#include <json/json.h>
 #include <fstream>
 
 class ScopyBio_Controller
