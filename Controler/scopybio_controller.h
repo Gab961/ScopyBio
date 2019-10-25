@@ -2,6 +2,8 @@
 #define SCOPYBIO_CONTROLLER_H
 
 #include <iostream>
+#include <json/json.h>
+#include <fstream>
 
 class ScopyBio_Controller
 {

@@ -1,7 +1,9 @@
  [requires]
  opencv/4.1.1@conan/stable
  libtiff/4.0.9@bincrafters/stable
- jsoncpp/1.8.4@theirix/stable
+ jsoncpp/1.9.0@theirix/stable
+ gtest/1.8.1@bincrafters/stable
+
 
  [generators]
  cmake
@@ -9,9 +11,15 @@
  [options]
  opencv:shared=False
  libtiff:shared=False
+ jsoncpp:shared=False # false
+ Qt:qtmultimedia=True
+ Qt:qtsvg=True
+ Qt:qttools=True
+
 
  [imports]
  bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder
  lib, *.dylib* -> ./bin # Copies all dylib files from packages lib folder to my "bin" folder
+
 
 
