@@ -18,7 +18,7 @@ using namespace std;
 
 int main()
 {
-    ScopyBio_Controller test;
+    //ScopyBio_Controller test;
 
     CImgList<float> images;
     images.load_tiff("../../Data/pileTest.tiff",0,29,1);
