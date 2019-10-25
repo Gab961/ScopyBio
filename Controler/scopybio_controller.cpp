@@ -2,22 +2,33 @@
 #include <fstream>
 #include <json/json.h>
 
-using namespace std;
+#define PATH "../../Config/config.json"
 
 ScopyBio_Controller::ScopyBio_Controller()
 {
-    std:: cout << "gab il a une maitr yi op" << std::endl;
+    Json::Value config;
 
-    Json::Value Config;
+    std::ifstream config_file(PATH, std::ifstream::binary);
+    config_file >> config;
 
-    ifstream gloubiboulqua("../test.json", ifstream::binary);
+    std::cout<<config; //This will print the entire json object.
 
-    if (gloubiboulqua.is_open()){
-        cout << "gloubiboulqua est bien ouvert" << endl;
-    }
+    //The following lines will let you access the indexed objects.
+//    cout<<people["Anna"]; //Prints the value for "Anna"
+//    cout<<people["ben"]; //Prints the value for "Ben"
+//    cout<<people["Anna"]["profession"]; //Prints the value corresponding to "profession" in the json for "Anna"
 
-    gloubiboulqua >> Config;
-
-    cout << Config ;
+//    cout<<people["profession"];
 }
 
+
+
+//=====================
+
+//       SETTERS
+
+//=====================
+
+void ScopyBio_Controller::setPercentOfBlack(float black){
+    percentageOfBlack = black;
+}

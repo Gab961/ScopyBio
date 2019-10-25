@@ -1,11 +1,9 @@
 #include <cstdio>
 #include <iostream>
-
-#define cimg_use_tiff
-#define cimg_use_png
-#include "CImg.h"
-
 #include <cstdlib>
+
+#include "Controler/scopybio_controller.h"
+
 
 // include pour jsoncpp
 #include <json/json.h>
@@ -15,19 +13,12 @@
 
 using namespace cimg_library;
 using namespace std;
+using namespace std;
 
 int main()
 {
     //ScopyBio_Controller test;
 
-    CImgList<float> images;
-    images.load_tiff("../../Data/pileTest.tiff",0,29,1);
-    std::cout<< images.size() << std::endl;
-
-    images.at(1).display("coucou");
-    images.data(1)->display("test");
-    images.data(24)->display("24");
-    images[24].display("24bis");
     return 0;
 
 

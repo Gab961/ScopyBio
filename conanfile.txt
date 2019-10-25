@@ -11,9 +11,11 @@
  [options]
  opencv:shared=False
  libtiff:shared=False
+ jsoncpp:shared=False # false
  Qt:qtmultimedia=True
  Qt:qtsvg=True
  Qt:qttools=True
+
 
  [imports]
  bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder
