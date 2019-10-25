@@ -5,10 +5,19 @@
 #include "Controler/scopybio_controller.h"
 
 
+// include pour jsoncpp
+#include <json/json.h>
+#include <fstream>
+
+#include <scopybio_controller.h>
+
+using namespace cimg_library;
+using namespace std;
 using namespace std;
 
 int main()
 {
+    ScopyBio_Controller test;
     ScopyBio_Controller scopy;
 
     return 0;

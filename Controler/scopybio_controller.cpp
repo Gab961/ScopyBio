@@ -1,4 +1,6 @@
 #include "scopybio_controller.h"
+#include <fstream>
+#include <json/json.h>
 
 #define PATH "../../Config/config.json"
 
