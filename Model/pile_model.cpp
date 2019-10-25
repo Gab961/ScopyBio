@@ -7,6 +7,11 @@ void pile_model::setPercentageOfBlack(float value)
     percentageOfBlack = value;
 }
 
+CImgList<float> pile_model::getImages() const
+{
+    return images;
+}
+
 pile_model::pile_model()
 {
 
@@ -14,11 +19,12 @@ pile_model::pile_model()
 
 pile_model::pile_model(string filename)
 {
+    fileName = filename;
     load(filename);
 
-    //=============
+    //=======================
     // Configure the project
-    //=============
+    //=======================
 
     read_json_config();
 

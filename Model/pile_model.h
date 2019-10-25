@@ -22,6 +22,7 @@ private:
     CImgList<float> images;
     image_model currentImage;
 
+    std::string fileName;
     float percentageOfBlack;        //Put the limit of percentage of black for treatment.
     bool isGreen;                   //To display the image with white or green
     bool isDisplayingAnnotation;    //To display or hide annotation on the image
@@ -34,6 +35,12 @@ public:
     void load(string path);
     void save(string path);
     void read_json_config();
+
+//===================
+//      Getter
+//===================
+
+    CImgList<float> getImages() const;
 
 //===================
 //      Setter
