@@ -1,5 +1,8 @@
 #pragma once
 
+#include "pile_view.h"
+
+#include <iostream>
 #include <QWidget>
 #include <QMenuBar>
 #include <QMainWindow>
@@ -11,18 +14,23 @@ class MainWindow: public QMainWindow
 
     public:
         MainWindow(QWidget *parent = nullptr);
-        bool loadFile(const QString &);
+
+    signals:
+        void sendPath(std::string path);
 
     private slots:
         void open();
+        void save();
         void saveAs();
         void aboutUs();
         void howToUse();
 
     private:
         void createActions();
-        void updateActions();
+        void updateSaveAs();
+        void updateSave();
 
+        Pile_View *m_pileView;
         QAction *m_loadFile;
         QAction *m_saveFile;
         QAction *m_saveAs;

@@ -1,11 +1,21 @@
-#ifndef PILE_VIEW_H
-#define PILE_VIEW_H
+#pragma once
 
+#include <iostream>
+#include <QWidget>
 
-class Pile_View
+class Pile_View: public QWidget
 {
+    Q_OBJECT
+
     public:
         Pile_View();
-};
 
-#endif // PILE_VIEW_H
+    signals:
+
+    public slots:
+        void openFile(std::string path);
+
+    private:
+        std::string *m_path;
+//        CImgList<float> *m_imgList;
+};

@@ -7,14 +7,11 @@
 #include <QDialog>
 #include <QMenuBar>
 #include <QMessageBox>
-#include <QStandardPaths>
-#include <QImageReader>
-#include <QImageWriter>
-#include <QGuiApplication>
 
 MainWindow::MainWindow(QWidget *parent)
 {
     QDesktopWidget dw;
+    m_pileView = new Pile_View();
 
     int screenWidth = dw.width();
     int screenHeight = dw.height();
@@ -22,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
     createActions();
 
     setMinimumSize(screenWidth*0.7, screenHeight*0.7);
+
+    QObject::connect(this, &MainWindow::sendPath, m_pileView, &Pile_View::openFile);
 }
 
 
@@ -30,13 +29,19 @@ void MainWindow::open()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                     "/home",
                                                     tr("Images (*.tiff *.tif)"));
-    std::string current_locale_text = fileName.toLocal8Bit().constData();
-    std::cout << current_locale_text << std::endl;
+    std::string path = fileName.toLocal8Bit().constData();
+
+    emit sendPath(path);
 }
 
 void MainWindow::saveAs()
 {
     //TODO
+}
+
+void MainWindow::save()
+{
+
 }
 
 void MainWindow::aboutUs()
@@ -67,7 +72,7 @@ void MainWindow::createActions()
 
     // TODO
     m_saveFile = new QAction(tr("&Save"), this);
-    QObject::connect(m_saveFile, &QAction::triggered, this, &MainWindow::saveAs);
+    QObject::connect(m_saveFile, &QAction::triggered, this, &MainWindow::save);
     m_saveFile->setEnabled(false);
     m_saveFile->setShortcut(tr("&Ctrl+S"));
     fileMenu->addAction(m_saveFile);
@@ -88,8 +93,12 @@ void MainWindow::createActions()
     helpMenu->addAction(m_howToUse);
 }
 
-void MainWindow::updateActions()
+void MainWindow::updateSaveAs()
+{
+    m_saveAs->setEnabled(true);
+}
+
+void MainWindow::updateSave()
 {
     m_saveFile->setEnabled(true);
-    m_saveAs->setEnabled(true);
 }
