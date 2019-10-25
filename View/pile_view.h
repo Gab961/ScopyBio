@@ -3,6 +3,12 @@
 #include <iostream>
 #include <QWidget>
 
+
+#define cimg_use_tiff
+#include "CImg.h"
+
+using namespace cimg_library;
+
 class Pile_View: public QWidget
 {
     Q_OBJECT
@@ -17,5 +23,5 @@ class Pile_View: public QWidget
 
     private:
         std::string *m_path;
-//        CImgList<float> *m_imgList;
+        CImgList<float> m_imgList;
 };

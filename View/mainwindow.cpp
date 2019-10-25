@@ -7,6 +7,7 @@
 #include <QDialog>
 #include <QMenuBar>
 #include <QMessageBox>
+#include "pile_view.h"
 
 MainWindow::MainWindow(QWidget *parent)
 {

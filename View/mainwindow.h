@@ -1,12 +1,11 @@
 #pragma once
 
-#include "pile_view.h"
-
 #include <iostream>
 #include <QWidget>
 #include <QMenuBar>
 #include <QMainWindow>
 
+class Pile_View;
 
 class MainWindow: public QMainWindow
 {
