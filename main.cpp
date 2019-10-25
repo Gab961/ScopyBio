@@ -3,9 +3,6 @@
 #include <QApplication>
 #include "mainwindow.h"
 #include <QWidget>
-
-
-int main(int argc, char* argv[])
 #include <cstdlib>
 
 // include pour jsoncpp
@@ -14,10 +11,9 @@ int main(int argc, char* argv[])
 
 #include <scopybio_controller.h>
 
-using namespace cimg_library;
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
     QApplication scopyBio(argc, argv);
 

@@ -1,9 +1,10 @@
 #include "pile_view.h"
 
 #include <iostream>
-#include "CImg.h"
 
 #define cimg_use_tiff
+#include "CImg.h"
+
 using namespace cimg_library;
 
 Pile_View::Pile_View()
