@@ -4,8 +4,8 @@
 
 class data_view
 {
-public:
-    data_view();
+    public:
+        data_view();
 };
 
 #endif // DATA_VIEW_H

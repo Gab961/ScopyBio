@@ -4,8 +4,8 @@
 
 class Menu_Draw_Button
 {
-public:
-    Menu_Draw_Button();
+    public:
+        Menu_Draw_Button();
 };
 
 #endif // MENU_DRAW_BUTTON_H
