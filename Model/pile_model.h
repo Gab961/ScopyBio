@@ -9,16 +9,18 @@
 //defini dans le cmake
 //#define cimg_use_tiff
 #include "../CImg.h"
+#include "image_model.h"
 
 
 using namespace cimg_library;
 using namespace std;
 
+
 class pile_model
 {
 private:
     CImgList<float> images;
-    CImg<float> currentImages;
+    image_model currentImage;
 
     float percentageOfBlack;        //Put the limit of percentage of black for treatment.
     bool isGreen;                   //To display the image with white or green
@@ -31,18 +33,20 @@ public:
     pile_model(string filename);
     void load(string path);
     void save(string path);
+    void read_json_config();
+
+//===================
+//      Setter
+//===================
+
+    void setPercentageOfBlack(float value);
+
+//===================
+//      Methods
+//===================
 
 
-    void setPercentOfBlack(float black); //TODO
 
-    void putColorGreen();//TODO
-    void putColorWhite();//TODO
-
-    void displayAnnotation();//TODO
-    void hideAnnotation();//TODO
-
-    void displayContour();//TODO
-    void hideContour();//TODO
 };
 
 #endif // PILE_MODEL_H

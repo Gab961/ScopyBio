@@ -2,6 +2,11 @@
 
 #define PATH "../../Config/config.json"
 
+void pile_model::setPercentageOfBlack(float value)
+{
+    percentageOfBlack = value;
+}
+
 pile_model::pile_model()
 {
 
@@ -15,6 +20,11 @@ pile_model::pile_model(string filename)
     // Configure the project
     //=============
 
+    read_json_config();
+
+}
+
+void pile_model::read_json_config(){
     Json::Value config;
 
     std::ifstream config_file(PATH, std::ifstream::binary);
@@ -43,7 +53,6 @@ pile_model::pile_model(string filename)
     }else{
         isDisplayingContour = false;
     }
-
 }
 
 void pile_model::load(string path)
