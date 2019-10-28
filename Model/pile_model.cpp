@@ -12,6 +12,11 @@ CImgList<float> pile_model::getImages() const
     return images;
 }
 
+image_model pile_model::getCurrentImage() const
+{
+    return currentImage;
+}
+
 pile_model::pile_model()
 {
 

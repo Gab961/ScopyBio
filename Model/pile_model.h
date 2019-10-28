@@ -41,6 +41,7 @@ public:
 //===================
 
     CImgList<float> getImages() const;
+    image_model getCurrentImage() const;
 
 //===================
 //      Setter
