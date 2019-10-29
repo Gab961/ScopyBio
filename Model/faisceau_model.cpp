@@ -30,16 +30,6 @@ void faisceau_model::setP_Piles(pile_model *value)
     p_Piles = value;
 }
 
-vector<data_model> faisceau_model::getDatas() const
-{
-    return Datas;
-}
-
-void faisceau_model::setDatas(const vector<data_model> &value)
-{
-    Datas = value;
-}
-
 void faisceau_model::fillData()
 {
 

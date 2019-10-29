@@ -4,6 +4,7 @@
 #include <coordonnee.h>
 #include <data_model.h>
 #include <pile_model.h>
+#include <vector>
 
 class faisceau_model
 {
@@ -26,8 +27,11 @@ public:
 
     data_model getData() const;
     void setData(const data_model &value);
+
     pile_model *getP_Piles() const;
     void setP_Piles(pile_model *value);
+
+    void fillData();
 };
 
 #endif // FAISCEAU_MODEL_H
