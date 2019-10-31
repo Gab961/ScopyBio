@@ -30,7 +30,6 @@ private:
 
 
 public:
-    pile_model();
     pile_model(string filename);
     void load(string path);
     void save(string path);

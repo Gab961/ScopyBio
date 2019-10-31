@@ -17,10 +17,6 @@ image_model pile_model::getCurrentImage() const
     return currentImage;
 }
 
-pile_model::pile_model()
-{
-
-}
 
 pile_model::pile_model(string filename)
 {
