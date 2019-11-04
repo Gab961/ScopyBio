@@ -35,5 +35,13 @@ void Pile_View::openFile(std::string path)
         this->insertItem(0, item);
     }
 
+    emit pileInitDone();
+
     this->update();
+}
+
+
+CImg<float> Pile_View::getImage(int i)
+{
+    return m_imgList[i];
 }
