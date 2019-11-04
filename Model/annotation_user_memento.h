@@ -1,7 +1,6 @@
-#ifndef ANNOTATION_USER_MEMENTO_H
-#define ANNOTATION_USER_MEMENTO_H
+#pragma once
 
-#include "../CImg.h"
+#include "CImg.h"
 
 #include "annotation_user.h"
 
@@ -25,9 +24,5 @@ public:
     CImg<float> getCalque() const;
 };
 
-#endif // ANNOTATION_USER_MEMENTO_H
 
 
-CImg<float> annotation_user_memento::getCalque() const{
-    return calque;
-}

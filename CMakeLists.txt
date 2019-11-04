@@ -24,8 +24,6 @@ FIND_PACKAGE("libtiff")
 FIND_PACKAGE("eigen")
 FIND_PACKAGE("jsoncpp")
 
-
-
 # Prevent compilation in-source
 if( ${CMAKE_BINARY_DIR} STREQUAL ${PROJECT_SOURCE_DIR} )
   Message( " " )

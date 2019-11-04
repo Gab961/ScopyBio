@@ -1,17 +1,17 @@
 #include <cstdio>
 #include <iostream>
 #include <QApplication>
-#include "mainwindow.h"
 #include <QWidget>
 #include <cstdlib>
 
-
-#include <scopybio_controller.h>
+#include "mainwindow.h"
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
+//    ScopyBio_Controller scopybioController;
+//    scopybioController.startApplication(argc, argv);
     QApplication scopyBio(argc, argv);
 
     MainWindow mainWindow;
@@ -19,3 +19,4 @@ int main(int argc, char* argv[])
 
     return scopyBio.exec();
 }
+

@@ -14,6 +14,7 @@
 #include "zoom_view.h"
 #include "image_view.h"
 #include "menu_draw_button.h"
+#include "Controler/scopybio_controller.h"
 
 MainWindow::MainWindow(QWidget *parent)
 {
@@ -86,6 +87,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Gestion du changement dans la liste
     QObject::connect(m_pileView,&Pile_View::currentRowChanged,this,&MainWindow::changeActualItem);
+
+    m_scopybioController = new ScopyBio_Controller();
+    m_scopybioController->ecrireCoucou();
 }
 
 

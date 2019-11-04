@@ -13,6 +13,7 @@ class Image_View;
 class Zoom_View;
 class Menu_Draw_Button;
 class Data_View;
+class ScopyBio_Controller;
 
 class MainWindow: public QMainWindow
 {
@@ -67,5 +68,7 @@ class MainWindow: public QMainWindow
         std::string pathOfZoomedDisplay = "tmp/zoomedDisplay.bmp";
         //SERA SUPPRIME CAR GERE PAR LE MVC
         int indiceEnCours = 0;
+
+        ScopyBio_Controller *m_scopybioController;
 };
 

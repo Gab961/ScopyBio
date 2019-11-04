@@ -1,14 +1,13 @@
-#ifndef SCOPYBIO_CONTROLLER_H
-#define SCOPYBIO_CONTROLLER_H
-
-#include <iostream>
-
+#pragma once
+#include "Model/pile_model.h"
 
 class ScopyBio_Controller
 {
 public:
     ScopyBio_Controller();
+    void ecrireCoucou();
+    void testModele();
 
+private:
+    pile_model *pileModel;
 };
-
-#endif // SCOPYBIO_CONTROLLER_H

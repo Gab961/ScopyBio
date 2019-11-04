@@ -2,14 +2,11 @@
 
 #include <vector>
 #include <iostream>
-#include <json/json.h>
 #include <fstream>
 
-//defini dans le cmake
-//#define cimg_use_tiff
-#include "image_model.h"
+#include "CImg.h"
 
-
+class image_model;
 using namespace cimg_library;
 using namespace std;
 
@@ -29,8 +26,9 @@ private:
 
 
 public:
-    pile_model(string filename);
+    pile_model();
 
+    void setFilename(std::string filename);
     void setCurrentImage(int position);
     void load(string path);
     void save(string path);

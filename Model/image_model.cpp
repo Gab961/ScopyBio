@@ -1,10 +1,11 @@
 #include "image_model.h"
+#include "annotation_user.h"
+#include "annotation_user_memento.h"
 
 image_model::image_model(int numImg, annotation_user *_receiver, Action _action):
     numImage(numImg),
     receiver(_receiver),
     action(_action){}
-
 
 
 void image_model::execute()
