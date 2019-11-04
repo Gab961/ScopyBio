@@ -44,6 +44,10 @@ CImg<float> pile_model::getCurrentImage() const
     return currentImage;
 }
 
+void pile_model::setCurrentImage(int position){
+    currentImage = images[position];
+}
+
 //=======================================================
 
 //                  METHODS
@@ -105,6 +109,8 @@ void pile_model::load(string path)
 
 void pile_model::save(string path)
 {
-    return;
+    for(auto img : images_modified){
+        img.save(path);
+    }
 }
 

@@ -1,6 +1,7 @@
 #include "image_model.h"
 
-image_model::image_model(annotation_user *_receiver, Action _action):
+image_model::image_model(int numImg, annotation_user *_receiver, Action _action):
+    numImage(numImg),
     receiver(_receiver),
     action(_action){}
 
@@ -37,3 +38,10 @@ void image_model::redo()
     numCommands++;
 }
 
+void image_model::save(std::string pathToSave){
+    CImg<float> toSave = mementoList[numCommands]->getCalque();
+    std::string pathTmp = pathToSave + "/Calques/calque" + std::to_string(numImage) + ".png";
+    char * path = NULL;
+    std::strcpy(path, pathTmp.c_str());
+    toSave.save_png(path,0);
+}

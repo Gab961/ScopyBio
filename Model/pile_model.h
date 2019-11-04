@@ -31,6 +31,8 @@ private:
 
 public:
     pile_model(string filename);
+
+    void setCurrentImage(int position);
     void load(string path);
     void save(string path);
     void read_json_config();

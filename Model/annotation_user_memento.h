@@ -22,7 +22,12 @@ public:
     }
 
 
+    CImg<float> getCalque() const;
 };
 
 #endif // ANNOTATION_USER_MEMENTO_H
 
+
+CImg<float> annotation_user_memento::getCalque() const{
+    return calque;
+}
