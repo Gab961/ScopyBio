@@ -21,6 +21,10 @@ class MainWindow: public QMainWindow
     public:
         MainWindow(QWidget *parent = nullptr);
 
+
+//    protected:
+//        resizeEvent(QResizeEvent *event);
+
     signals:
         void sendPath(std::string path);
         void changeMainPicture(std::string path);

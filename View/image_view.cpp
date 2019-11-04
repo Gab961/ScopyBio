@@ -10,6 +10,8 @@ using namespace cimg_library;
 
 Image_View::Image_View( QWidget * parent) : QLabel( parent )
 {
+    // TODO ALIGNEMENT CNTRE VERTICAL
+    m_image = new QLabel(this);
     TEMPS_CLIC_LONG=100;
 
     //Affichage du rectangle
@@ -51,10 +53,37 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
  */
 void Image_View::setNewPicture(std::string path)
 {
+    // Largeur du widget <= hauteur
+    // Sert à créer une image qui va prendre un maximum de place possible
+    // sans empiéter sur les autres widgets
+    if (size().width() <= size().height()) {
+        std::cout << "IF WIDTH <= HEIGHT" << std::endl;
+        std::cout << "width widget : " << size().width() << std::endl;
+        float ratio = size().width() / 514.0;
+        std::cout << "ratio : " << ratio << std::endl;
+        m_image->setFixedWidth(size().width());
+        std::cout << "image width : " << m_image->size().width() <<std::endl;
+        m_image->setFixedHeight(static_cast<int>(476*ratio));
+        std::cout << "height widget : " << size().height() << std::endl;
+        std::cout << "image height : " << static_cast<int>(476*ratio)<< std::endl;
+    } else {
+        std::cout << "IF HEIGHT < WIDTH" << std::endl;
+        std::cout << "height widget : " << size().height() << std::endl;
+        float ratio = size().height() / 476.0;
+        std::cout << "ratio : " << ratio << std::endl;
+        m_image->setFixedHeight(size().height());
+        std::cout << "image height : " << m_image->size().height() <<std::endl;
+        m_image->setFixedWidth(514*ratio);
+        std::cout << size().width() << std::endl;
+        std::cout << 514*ratio << std::endl;
+        std::cout << "width widget : " << size().width() << std::endl;
+        std::cout << "image width : " << 514*ratio << std::endl;
+    }
+
     this->path = path;
     QPixmap pm(path.c_str());
-    this->setPixmap(pm);
-    this->setScaledContents(true);
+    m_image->setPixmap(pm);
+    m_image->setScaledContents(true);
     update();
 }
 

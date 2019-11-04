@@ -30,6 +30,8 @@ private:
     quint64 TEMPS_CLIC_LONG;
     quint64 temps_pression_orig;
 
+    QLabel *m_image;
+
     //TODO Voir si on les garde
     std::string pathOfMainDisplay = "tmp/mainDisplay.bmp";
     std::string pathOfZoomedDisplay = "tmp/zoomedDisplay.bmp";
