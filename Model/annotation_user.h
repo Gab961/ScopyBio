@@ -1,25 +1,25 @@
 #ifndef ANNOTATION_USER_H
 #define ANNOTATION_USER_H
 
-#include <string>
+#include <../CImg.h>
 #include "annotation_user_memento.h"
 
+using namespace cimg_library;
 
 class annotation_user
 {
 private:
-    std::string path;
+    CImg<float> calque;
 
 public:
-    annotation_user(std::string _path);
+    annotation_user(CImg<float> _calque);
 
 
-    std::string getPath();
-
+    void save();
     annotation_user_memento *createMemento();
-
     void reinstateMemento(annotation_user_memento *mem);
 
+    CImg<float> getCalque() const;
 };
 
 #endif // ANNOTATION_USER_H

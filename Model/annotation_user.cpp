@@ -1,19 +1,22 @@
 #include "annotation_user.h"
 
-annotation_user::annotation_user(std::string _path):
-    path(_path)
+CImg<float> annotation_user::getCalque() const
+{
+    return calque;
+}
+
+annotation_user::annotation_user(CImg<float> _calque):
+    calque(_calque)
 {
 
 }
 
-std::string annotation_user::getPath(){
-    return path;
-}
+
 
 annotation_user_memento *annotation_user::createMemento(){
-    return new annotation_user_memento(path);
+    return new annotation_user_memento(calque);
 }
 
 void annotation_user::reinstateMemento(annotation_user_memento *mem){
-    path = mem->path;
+    calque = mem->calque;
 }

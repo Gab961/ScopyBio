@@ -13,7 +13,7 @@ void image_model::execute()
         if (numCommands > highWater)
           highWater = numCommands;
         numCommands++;
-        (receiver-> *action)();
+        (receiver->*action)();
 }
 
 void image_model::undo()
