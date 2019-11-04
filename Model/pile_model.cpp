@@ -1,5 +1,22 @@
 #include "pile_model.h"
 
+#define PATH "../../Config/config.json"
+
+void pile_model::setPercentageOfBlack(float value)
+{
+    percentageOfBlack = value;
+}
+
+CImgList<float> pile_model::getImages() const
+{
+    return images;
+}
+
+image_model pile_model::getCurrentImage() const
+{
+    return currentImage;
+}
+
 pile_model::pile_model()
 {
 
@@ -7,8 +24,46 @@ pile_model::pile_model()
 
 pile_model::pile_model(string filename)
 {
+    fileName = filename;
     load(filename);
 
+    //=======================
+    // Configure the project
+    //=======================
+
+    read_json_config();
+
+}
+
+void pile_model::read_json_config(){
+    Json::Value config;
+
+    std::ifstream config_file(PATH, std::ifstream::binary);
+    config_file >> config;
+
+    if(config["black"] != Json::Value::null){
+        percentageOfBlack = config["black"].asFloat();
+    }else{
+        percentageOfBlack = 100.0;
+    }
+
+    if(config["green"] != Json::Value::null){
+        isGreen = config["green"].asBool();
+    }else{
+        isGreen = false;
+    }
+
+    if(config["annotation"] != Json::Value::null){
+        isDisplayingAnnotation = config["annotation"].asBool();
+    }else{
+        isDisplayingAnnotation = true;
+    }
+
+    if(config["contour"] != Json::Value::null){
+        isDisplayingContour = config["contour"].asBool();
+    }else{
+        isDisplayingContour = false;
+    }
 }
 
 void pile_model::load(string path)
@@ -23,7 +78,6 @@ void pile_model::load(string path)
       images.display();
 
       file.close();
-
 
     return;
 

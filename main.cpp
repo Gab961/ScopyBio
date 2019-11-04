@@ -5,9 +5,6 @@
 #include <QWidget>
 #include <cstdlib>
 
-// include pour jsoncpp
-#include <json/json.h>
-#include <fstream>
 
 #include <scopybio_controller.h>
 
