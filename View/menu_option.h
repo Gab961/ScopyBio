@@ -1,11 +1,21 @@
-#ifndef MENU_OPTION_H
-#define MENU_OPTION_H
+#pragma once
+
+#include <QCheckBox>
+#include <QLabel>
+#include <QGridLayout>
+#include <QGroupBox>
 
 
-class menu_option
+class menu_option: public QGroupBox
 {
-    public:
-        menu_option();
-};
+    Q_OBJECT
 
-#endif // MENU_OPTION_H
+    public:
+        menu_option(QWidget *parent);
+
+    private:
+        QGridLayout *m_gridOptions;
+
+        QCheckBox *m_notes;
+        QCheckBox *m_filter;
+};

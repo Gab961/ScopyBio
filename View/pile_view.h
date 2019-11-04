@@ -4,7 +4,6 @@
 #include <QLayout>
 #include <QListWidget>
 
-
 #define cimg_use_tiff
 #include "CImg.h"
 

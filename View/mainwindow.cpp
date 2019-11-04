@@ -8,25 +8,27 @@
 #include <QMenuBar>
 #include <QMessageBox>
 #include "pile_view.h"
+#include "menu_option.h"
 
 MainWindow::MainWindow(QWidget *parent)
 {
     QDesktopWidget dw;
-    int screenWidth = dw.width();
-    int screenHeight = dw.height();
-    setMinimumSize(screenWidth*0.7, screenHeight*0.7);
+    int screenWidth = dw.width()*0.7;
+    int screenHeight = dw.height()*0.7;
+    setMinimumSize(screenWidth, screenHeight);
 
     createActions();
 
     m_mainLayout = new QGridLayout();
 
     m_pileView = new Pile_View(this);
-    m_pileView->setFixedHeight(500);
-    m_pileView->setFixedWidth(250);
-    //m_pileView->move(50,50);
-//    setCentralWidget(m_pileView);
+   // m_pileView->setFixedSize(screenWidth*0.25, screenHeight*0.5);
 
-    m_mainLayout->addWidget(m_pileView);
+    m_options = new menu_option(this);
+   // m_options->setFixedSize(screenWidth*0.25, screenHeight*0.25);
+
+    m_mainLayout->addWidget(m_options, 1, 0);
+    m_mainLayout->addWidget(m_pileView, 2, 0);
 
     m_window = new QWidget();
     m_window->setLayout(m_mainLayout);

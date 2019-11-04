@@ -7,6 +7,7 @@
 #include <QGridLayout>
 
 class Pile_View;
+class menu_option;
 
 class MainWindow: public QMainWindow
 {
@@ -31,6 +32,8 @@ class MainWindow: public QMainWindow
         void updateSave();
 
         Pile_View *m_pileView;
+        menu_option *m_options;
+
         QAction *m_loadFile;
         QAction *m_saveFile;
         QAction *m_saveAs;
