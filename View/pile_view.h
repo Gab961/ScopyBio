@@ -15,8 +15,10 @@ class Pile_View: public QListWidget
 
     public:
         Pile_View(QWidget *parent);
+        CImg<float> getImage(int i);
 
     signals:
+        void pileInitDone();
 
     public slots:
         void openFile(std::string path);

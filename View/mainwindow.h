@@ -8,6 +8,8 @@
 
 class Pile_View;
 class menu_option;
+class Image_View;
+class Zoom_View;
 
 class MainWindow: public QMainWindow
 {
@@ -18,6 +20,8 @@ class MainWindow: public QMainWindow
 
     signals:
         void sendPath(std::string path);
+        void changeMainPicture(std::string path);
+        void changeZoomedPicture(std::string path);
 
     private slots:
         void open();
@@ -25,6 +29,7 @@ class MainWindow: public QMainWindow
         void saveAs();
         void aboutUs();
         void howToUse();
+        void showFirstInPile();
 
     private:
         void createActions();
@@ -32,6 +37,8 @@ class MainWindow: public QMainWindow
         void updateSave();
 
         Pile_View *m_pileView;
+        Image_View *m_imageView;
+        Zoom_View *m_zoomView;
         menu_option *m_options;
 
         QAction *m_loadFile;
@@ -42,5 +49,9 @@ class MainWindow: public QMainWindow
 
         QWidget *m_window;
         QGridLayout *m_mainLayout;
+
+        //TODO Voir si on les garde
+        std::string pathOfMainDisplay = "tmp/mainDisplay.bmp";
+        std::string pathOfZoomedDisplay = "tmp/zoomedDisplay.bmp";
 };
 
