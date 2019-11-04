@@ -7,8 +7,10 @@
 #include <QDialog>
 #include <QMenuBar>
 #include <QMessageBox>
+
 #include "pile_view.h"
 #include "menu_option.h"
+#include "menu_draw_button.h"
 
 MainWindow::MainWindow(QWidget *parent)
 {
@@ -27,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_options = new menu_option(this);
    // m_options->setFixedSize(screenWidth*0.25, screenHeight*0.25);
 
+    m_tools = new Menu_Draw_Button(this);
+
+    m_mainLayout->addWidget(m_tools, 0, 0);
     m_mainLayout->addWidget(m_options, 1, 0);
     m_mainLayout->addWidget(m_pileView, 2, 0);
 

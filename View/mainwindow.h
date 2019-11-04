@@ -8,6 +8,7 @@
 
 class Pile_View;
 class menu_option;
+class Menu_Draw_Button;
 
 class MainWindow: public QMainWindow
 {
@@ -33,6 +34,7 @@ class MainWindow: public QMainWindow
 
         Pile_View *m_pileView;
         menu_option *m_options;
+        Menu_Draw_Button *m_tools;
 
         QAction *m_loadFile;
         QAction *m_saveFile;
