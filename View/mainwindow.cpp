@@ -12,14 +12,25 @@
 MainWindow::MainWindow(QWidget *parent)
 {
     QDesktopWidget dw;
-    m_pileView = new Pile_View();
-
     int screenWidth = dw.width();
     int screenHeight = dw.height();
+    setMinimumSize(screenWidth*0.7, screenHeight*0.7);
 
     createActions();
 
-    setMinimumSize(screenWidth*0.7, screenHeight*0.7);
+    m_mainLayout = new QGridLayout();
+
+    m_pileView = new Pile_View(this);
+    m_pileView->setFixedHeight(500);
+    m_pileView->setFixedWidth(250);
+    //m_pileView->move(50,50);
+//    setCentralWidget(m_pileView);
+
+    m_mainLayout->addWidget(m_pileView);
+
+    m_window = new QWidget();
+    m_window->setLayout(m_mainLayout);
+    setCentralWidget(m_window);
 
     QObject::connect(this, &MainWindow::sendPath, m_pileView, &Pile_View::openFile);
 }

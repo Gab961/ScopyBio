@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QMenuBar>
 #include <QMainWindow>
+#include <QGridLayout>
 
 class Pile_View;
 
@@ -35,5 +36,8 @@ class MainWindow: public QMainWindow
         QAction *m_saveAs;
         QAction *m_aboutUs;
         QAction *m_howToUse;
+
+        QWidget *m_window;
+        QGridLayout *m_mainLayout;
 };
 

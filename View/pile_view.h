@@ -1,7 +1,8 @@
 #pragma once
 
 #include <iostream>
-#include <QWidget>
+#include <QLayout>
+#include <QListWidget>
 
 
 #define cimg_use_tiff
@@ -9,12 +10,12 @@
 
 using namespace cimg_library;
 
-class Pile_View: public QWidget
+class Pile_View: public QListWidget
 {
     Q_OBJECT
 
     public:
-        Pile_View();
+        Pile_View(QWidget *parent);
 
     signals:
 
