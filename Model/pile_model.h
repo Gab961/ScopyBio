@@ -1,5 +1,4 @@
-#ifndef PILE_MODEL_H
-#define PILE_MODEL_H
+#pragma once
 
 #include <vector>
 #include <iostream>
@@ -57,5 +56,3 @@ public:
 
 
 };
-
-#endif // PILE_MODEL_H

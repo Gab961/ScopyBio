@@ -1,11 +1,21 @@
-#ifndef DATA_VIEW_H
-#define DATA_VIEW_H
+#pragma once
+#include <QLabel>
+#include <vector>
 
-
-class data_view
+class Data_View : public QLabel
 {
-    public:
-        data_view();
-};
+    Q_OBJECT
 
-#endif // DATA_VIEW_H
+public slots:
+    void setData(std::vector<int> vec);
+
+public:
+    Data_View(QWidget* parent = 0);
+
+private:
+    int calculPlacementY(int imageHeight, int y);
+    void drawResults();
+
+    std::string pathToResult = "tmp/result.bmp";
+    std::vector<int> data;
+};

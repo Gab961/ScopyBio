@@ -1,16 +1,13 @@
-#ifndef ZOOM_VIEW_H
-#define ZOOM_VIEW_H
+#pragma once
+#include <QLabel>
 
-
-#define cimg_use_tiff
-#include "CImg.h"
-
-using namespace cimg_library;
-
-class zoom_view
+class Zoom_View : public QLabel
 {
-    public:
-        zoom_view();
-};
+    Q_OBJECT
 
-#endif // ZOOM_VIEW_H
+public slots:
+    void setNewPicture(std::string path);
+
+public:
+    Zoom_View(QWidget* parent = 0);
+};
