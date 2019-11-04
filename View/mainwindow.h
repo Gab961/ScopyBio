@@ -11,6 +11,7 @@ class menu_option;
 class Image_View;
 class Zoom_View;
 class Menu_Draw_Button;
+class Data_View;
 
 class MainWindow: public QMainWindow
 {
@@ -46,6 +47,7 @@ class MainWindow: public QMainWindow
         Image_View *m_imageView;
 
         QGridLayout *m_rightLayout;
+        Data_View *m_dataView;
         Zoom_View *m_zoomView;
 
         QAction *m_loadFile;

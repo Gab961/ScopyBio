@@ -7,8 +7,8 @@
 #include <QDialog>
 #include <QMenuBar>
 #include <QMessageBox>
-//#include "CImg.h"
 
+#include "data_view.h"
 #include "pile_view.h"
 #include "menu_option.h"
 #include "zoom_view.h"
@@ -38,6 +38,11 @@ MainWindow::MainWindow(QWidget *parent)
     m_tools = new Menu_Draw_Button(this);
     // m_tools->setFixedSize(screenWidth*0.25, screenHeight*0.25);
 
+    m_dataView = new Data_View(this);
+    m_dataView->setFixedHeight(200);
+    m_dataView->setFixedWidth(300);
+    m_dataView->setStyleSheet("QLabel { background-color : green;}");
+
     m_leftLayout->addWidget(m_tools, 0, 0);
     m_leftLayout->addWidget(m_options, 1, 0);
     m_leftLayout->addWidget(m_pileView, 2, 0);
@@ -56,6 +61,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_zoomView->setFixedWidth(514);
     m_zoomView->setStyleSheet("QLabel { background-color : red;}");
 
+    m_rightLayout->addWidget(m_dataView, 0, 0);
     m_rightLayout->addWidget(m_zoomView, 1, 0);
 
     m_mainLayout->addLayout(m_leftLayout, 0, 0);
