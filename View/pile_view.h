@@ -19,7 +19,6 @@ class Pile_View: public QListWidget
 
     signals:
         void pileInitDone();
-        void itemClicked();
 
     public slots:
         void openFile(std::string path);

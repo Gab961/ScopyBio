@@ -5,6 +5,7 @@
 #include <QMenuBar>
 #include <QMainWindow>
 #include <QGridLayout>
+#include <QListWidgetItem>
 
 class Pile_View;
 class menu_option;
@@ -32,11 +33,13 @@ class MainWindow: public QMainWindow
         void aboutUs();
         void howToUse();
         void showFirstInPile();
+        void changeActualItem();
 
     private:
         void createActions();
         void updateSaveAs();
         void updateSave();
+        void nouveauClicCreerRectangle(QPoint pos1, QPoint pos2);
 
         QGridLayout *m_leftLayout;
         Pile_View *m_pileView;
@@ -62,5 +65,7 @@ class MainWindow: public QMainWindow
         //TODO Voir si on les garde
         std::string pathOfMainDisplay = "tmp/mainDisplay.bmp";
         std::string pathOfZoomedDisplay = "tmp/zoomedDisplay.bmp";
+        //SERA SUPPRIME CAR GERE PAR LE MVC
+        int indiceEnCours = 0;
 };
 

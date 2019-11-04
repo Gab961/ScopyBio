@@ -82,8 +82,10 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(this,&MainWindow::changeMainPicture,m_imageView,&Image_View::setNewPicture);
 
     //Demande d'affichage dans la fenêtre de zoom
-    QObject::connect(this,&MainWindow::changeZoomedPicture,m_zoomView,&Zoom_View::setNewPicture);
+    QObject::connect(m_imageView,&Image_View::changeZoomedPicture,m_zoomView,&Zoom_View::setNewPicture);
 
+    //Gestion du changement dans la liste
+    QObject::connect(m_pileView,&Pile_View::currentRowChanged,this,&MainWindow::changeActualItem);
 }
 
 
@@ -168,10 +170,20 @@ void MainWindow::updateSave()
 
 void MainWindow::showFirstInPile()
 {
-    std::cout << "Coucou :) " << std::endl;
     CImg<float> img = m_pileView->getImage(0);
     img.save_bmp(pathOfMainDisplay.c_str());
     emit changeMainPicture(pathOfMainDisplay);
 
     update();
+}
+
+void MainWindow::changeActualItem()
+{
+    std::cout << "Chg = " << m_pileView->currentRow() << std::endl;
+    //A VOIR?
+    indiceEnCours = m_pileView->currentRow();
+    //TODO Méthode récupérerBmpDepuisCImg à faire avec ce qui suit DANS LE MODELE ET CONTROLLEUR
+    CImg<float> image = m_pileView->getImage(indiceEnCours);
+    image.save_bmp(pathOfMainDisplay.c_str());
+    emit changeMainPicture(pathOfMainDisplay);
 }

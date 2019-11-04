@@ -1,5 +1,4 @@
-#ifndef PILE_MODEL_H
-#define PILE_MODEL_H
+#pragma once
 
 #include <vector>
 #include <iostream>
@@ -7,7 +6,7 @@
 
 //defini dans le cmake
 //#define cimg_use_tiff
-#include "../CImg.h"
+#include "CImg.h"
 
 
 using namespace cimg_library;
@@ -25,5 +24,3 @@ public:
     void load(string path);
     void save(string path);
 };
-
-#endif // PILE_MODEL_H
