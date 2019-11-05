@@ -25,7 +25,7 @@ private:
     bool isGreen;                   //To display the image with white or green
     bool isDisplayingAnnotation;    //To display or hide annotation on the image
     bool isDisplayingContour;       //To display or hide Contour on the image
-
+    bool fileIsLoaded;
 
 public:
     pile_model();
@@ -47,6 +47,7 @@ public:
     std::string getMainDisplayPath() const;
     std::string getZoomDisplayPath() const;
     std::string getResultDisplayPath() const;
+    bool fileReady();
 
 
 //===================

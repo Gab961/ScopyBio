@@ -12,7 +12,9 @@
 //=======================================================
 
 pile_model::pile_model()
-{}
+{
+    fileIsLoaded = false;
+}
 
 //=======================================================
 
@@ -22,10 +24,9 @@ pile_model::pile_model()
 
 void pile_model::loadNewFilename(std::string filename)
 {
-    std::cout << "Test modèle: " << filename << std::endl;
     fileName = filename;
     load(filename);
-
+    fileIsLoaded = true;
     //=======================
     // Configure the project
     //=======================
@@ -41,6 +42,7 @@ CImg<float> pile_model::getCurrentImage() const { return currentImage; }
 CImg<float> pile_model::getImageAtIndex(int i) const { return images[i]; }
 void pile_model::setCurrentImage(int position){ currentImage = images[position]; }
 std::vector<string> pile_model::getIconFilenames() { return images_icons_filename; }
+bool pile_model::fileReady() { return fileIsLoaded; }
 
 //=======================================================
 

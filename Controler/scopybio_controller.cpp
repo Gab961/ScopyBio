@@ -55,6 +55,10 @@ CImg<float> ScopyBio_Controller::getImageAtIndex(int i) const
     return m_pileModel->getImageAtIndex(i);
 }
 
+bool ScopyBio_Controller::fileReady()
+{
+    return m_pileModel->fileReady();
+}
 
 //=======================
 // Dessin_Modele

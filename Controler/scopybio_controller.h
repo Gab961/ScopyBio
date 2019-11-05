@@ -18,6 +18,7 @@ public:
     CImg<float> getCurrentTiff();
     std::vector<std::string> getIconFilenames();
     CImg<float> getImageAtIndex(int i) const;
+    bool fileReady();
 
 
     /** Partie dessin_model **/

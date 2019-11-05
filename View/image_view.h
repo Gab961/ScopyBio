@@ -24,7 +24,7 @@ public:
 signals:
     void drawCircleOnMouse( const QPoint& );
     void drawRectOnMouse(const QPoint&, const QPoint&);
-    void changeZoomedPicture();
+    void changeZoomedPicture(int zoneWidth, int zoneHeight);
     void processResults(QPoint pos1, QPoint pos2);
 
 public slots:

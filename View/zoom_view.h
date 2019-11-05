@@ -9,7 +9,7 @@ class Zoom_View : public QLabel
     Q_OBJECT
 
 public slots:
-    void setNewPicture();
+    void setNewPicture(int zoneWidth, int zoneHeight);
 
     private:
         QGridLayout *m_layout;

@@ -39,17 +39,20 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
  */
 void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 {
-    quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
+    if (m_scopybioController->fileReady())
+    {
+        quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
 
-    //Si c'est un clic court
-    if (temps < TEMPS_CLIC_LONG)
-    {
-        emit drawCircleOnMouse(origPoint);
-    }
-    else
-    {
-        QPoint secondPoint = ev->pos();
-        emit drawRectOnMouse(origPoint,secondPoint);
+        //Si c'est un clic court
+        if (temps < TEMPS_CLIC_LONG)
+        {
+            emit drawCircleOnMouse(origPoint);
+        }
+        else
+        {
+            QPoint secondPoint = ev->pos();
+            emit drawRectOnMouse(origPoint,secondPoint);
+        }
     }
 }
 
@@ -91,7 +94,11 @@ void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2)
     setNewPicture();
 
     //Demande de rafraichir le zoom
-    emit changeZoomedPicture();
+    int largeurZone = pos1.x() - pos2.x();
+    if (largeurZone < 0) largeurZone = largeurZone * -1;
+    int hauteurZone = pos1.y() - pos2.y();
+    if (hauteurZone < 0) hauteurZone = hauteurZone * -1;
+    emit changeZoomedPicture(largeurZone, hauteurZone);
 
     //Demande de calculer les résultats pour la zone
     emit processResults(pos1,pos2);
