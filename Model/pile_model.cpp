@@ -2,25 +2,12 @@
 
 #define PATH "../../Config/config.json"
 
-void pile_model::setPercentageOfBlack(float value)
-{
-    percentageOfBlack = value;
-}
 
-CImgList<float> pile_model::getImages() const
-{
-    return images;
-}
+//=======================================================
 
-image_model pile_model::getCurrentImage() const
-{
-    return currentImage;
-}
+//                  CONSTRUCTOR
 
-pile_model::pile_model()
-{
-
-}
+//=======================================================
 
 pile_model::pile_model(string filename)
 {
@@ -34,6 +21,40 @@ pile_model::pile_model(string filename)
     read_json_config();
 
 }
+
+//=======================================================
+
+//                  GETTERS AND SETTERS
+
+//=======================================================
+
+void pile_model::setPercentageOfBlack(float value)
+{
+    percentageOfBlack = value;
+}
+
+CImgList<float> pile_model::getImages() const
+{
+    return images;
+}
+
+
+CImg<float> pile_model::getCurrentImage() const
+{
+    return currentImage;
+}
+
+void pile_model::setCurrentImage(int position){
+    currentImage = images[position];
+}
+
+//=======================================================
+
+//                  METHODS
+
+//=======================================================
+
+
 
 void pile_model::read_json_config(){
     Json::Value config;
@@ -64,6 +85,9 @@ void pile_model::read_json_config(){
     }else{
         isDisplayingContour = false;
     }
+
+
+
 }
 
 void pile_model::load(string path)
@@ -75,7 +99,7 @@ void pile_model::load(string path)
 
       images.load_tiff(path.c_str());
 
-      images.display();
+      currentImage = images[0];
 
       file.close();
 
@@ -85,6 +109,8 @@ void pile_model::load(string path)
 
 void pile_model::save(string path)
 {
-    return;
+    for(auto img : images_modified){
+        img.save(path);
+    }
 }
 

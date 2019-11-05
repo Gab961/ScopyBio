@@ -7,7 +7,6 @@
 
 //defini dans le cmake
 //#define cimg_use_tiff
-#include "../CImg.h"
 #include "image_model.h"
 
 
@@ -19,7 +18,8 @@ class pile_model
 {
 private:
     CImgList<float> images;
-    image_model currentImage;
+    CImg<float> currentImage;
+    std::vector<image_model> images_modified;
 
     std::string fileName;
     float percentageOfBlack;        //Put the limit of percentage of black for treatment.
@@ -29,8 +29,9 @@ private:
 
 
 public:
-    pile_model();
     pile_model(string filename);
+
+    void setCurrentImage(int position);
     void load(string path);
     void save(string path);
     void read_json_config();
@@ -40,7 +41,7 @@ public:
 //===================
 
     CImgList<float> getImages() const;
-    image_model getCurrentImage() const;
+    CImg<float> getCurrentImage() const;
 
 //===================
 //      Setter
