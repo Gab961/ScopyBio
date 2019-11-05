@@ -58,9 +58,9 @@ void ScopyBio_Controller::saveCurrent(int indiceEnCours)
 //=======================
 // Dessin_Modele
 //=======================
-void ScopyBio_Controller::dessinerRectangle(QPoint pos1, QPoint pos2)
+void ScopyBio_Controller::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
-    m_dessinModel->dessinerRectangle(pos1, pos2, m_pileModel->getCurrentImage());
+    m_dessinModel->dessinerRectangle(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
 }
 
 std::string ScopyBio_Controller::getMainDisplayPath()

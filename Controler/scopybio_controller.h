@@ -21,7 +21,7 @@ public:
 
 
     /** Partie dessin_model **/
-    void dessinerRectangle(QPoint pos1, QPoint pos2);
+    void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     std::string getMainDisplayPath();
     std::string getZoomDisplayPath();
     void saveAsMainDisplay(int i);

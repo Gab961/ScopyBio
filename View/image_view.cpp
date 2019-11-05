@@ -48,8 +48,8 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
 
     std::cout << "Position cliquée = " << origPoint.x() << "x" << origPoint.y() << std::endl;
 
-    origPoint.setX(origPoint.x()+m_image->x());
-    origPoint.setY(origPoint.y()+m_image->y());
+    origPoint.setX(origPoint.x()-m_image->x());
+    origPoint.setY(origPoint.y()-m_image->y());
 
 
     std::cout << "Position du label = " << m_image->x() << "x" << m_image->y() << std::endl;
@@ -66,15 +66,6 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
  */
 void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 {
-    QSize tailleEntier = this->size();
-    int tailleEntierLargeur = tailleEntier.width();
-    int tailleEntierHauteur = tailleEntier.height();
-
-
-    QSize tailleLabel = m_image->size();
-    int tailleLabelLargeur = tailleLabel.width();
-    int tailleLabelHauteur = tailleLabel.height();
-
     if (m_scopybioController->fileReady())
     {
         quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
@@ -87,10 +78,12 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
         else
         {
             QPoint secondPoint = ev->pos();
+            int widthOfLabel = m_image->width();
+            int heightOfLabel = m_image->height();
 
-            secondPoint.setX(secondPoint.x()+m_image->x());
-            secondPoint.setY(secondPoint.y()+m_image->y());
-            emit drawRectOnMouse(origPoint,secondPoint);
+            secondPoint.setX(secondPoint.x()-m_image->x());
+            secondPoint.setY(secondPoint.y()-m_image->y());
+            emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
         }
     }
 }
@@ -121,10 +114,10 @@ void Image_View::setNewPicture()
     update();
 }
 
-void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2)
+void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
     //Dessine le rectangle sur l'image et créer l'image zoomée
-    m_scopybioController->dessinerRectangle(pos1, pos2);
+    m_scopybioController->dessinerRectangle(pos1, pos2, labelWidth, labelHeight);
     setNewPicture();
 
     //Demande de rafraichir le zoom
