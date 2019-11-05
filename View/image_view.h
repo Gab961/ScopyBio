@@ -8,12 +8,14 @@
 
 using namespace std::chrono;
 
+class ScopyBio_Controller;
+
 class Image_View : public QLabel
 {
     Q_OBJECT
 
 public:
-    Image_View( QWidget* parent = 0);
+    Image_View( QWidget* parent, ScopyBio_Controller *scopybioController);
     void nouveauClicCreerRectangle(QPoint pos1, QPoint pos2);
 
     void mousePressEvent( QMouseEvent* ev );
@@ -22,21 +24,18 @@ public:
 signals:
     void drawCircleOnMouse( const QPoint& );
     void drawRectOnMouse(const QPoint&, const QPoint&);
-    void changeZoomedPicture(std::string path);
+    void changeZoomedPicture(int zoneWidth, int zoneHeight);
+    void processResults(QPoint pos1, QPoint pos2);
 
 public slots:
-    void setNewPicture(std::string path);
+    void setNewPicture();
 
 private:
-    std::string path;
     QPoint origPoint;
     quint64 TEMPS_CLIC_LONG;
     quint64 temps_pression_orig;
 
+    ScopyBio_Controller *m_scopybioController;
     QGridLayout *m_layout;
     QLabel *m_image;
-
-    //TODO Voir si on les garde
-    std::string pathOfMainDisplay = "tmp/mainDisplay.bmp";
-    std::string pathOfZoomedDisplay = "tmp/zoomedDisplay.bmp";
 };

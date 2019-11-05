@@ -1,7 +1,9 @@
 #include "pile_model.h"
+#include <json/json.h>
+#include "image_model.h"
+#include <iostream>
 
 #define PATH "../../Config/config.json"
-
 
 //=======================================================
 
@@ -9,17 +11,9 @@
 
 //=======================================================
 
-pile_model::pile_model(string filename)
+pile_model::pile_model()
 {
-    fileName = filename;
-    load(filename);
-
-    //=======================
-    // Configure the project
-    //=======================
-
-    read_json_config();
-
+    fileIsLoaded = false;
 }
 
 //=======================================================
@@ -28,33 +22,33 @@ pile_model::pile_model(string filename)
 
 //=======================================================
 
-void pile_model::setPercentageOfBlack(float value)
+void pile_model::loadNewFilename(std::string filename)
 {
-    percentageOfBlack = value;
+    fileName = filename;
+    load(filename);
+    fileIsLoaded = true;
+    //=======================
+    // Configure the project
+    //=======================
+
+    //TODO
+    //    read_json_config();
 }
 
-CImgList<float> pile_model::getImages() const
-{
-    return images;
-}
+void pile_model::setPercentageOfBlack(float value) { percentageOfBlack = value; }
 
-
-CImg<float> pile_model::getCurrentImage() const
-{
-    return currentImage;
-}
-
-void pile_model::setCurrentImage(int position){
-    currentImage = images[position];
-}
+CImgList<float> pile_model::getImages() const { return images; }
+CImg<float> pile_model::getCurrentImage() const { return currentImage; }
+CImg<float> pile_model::getImageAtIndex(int i) const { return images[i]; }
+void pile_model::setCurrentImage(int position){ currentImage = images[position]; }
+std::vector<string> pile_model::getIconFilenames() { return images_icons_filename; }
+bool pile_model::fileReady() { return fileIsLoaded; }
 
 //=======================================================
 
 //                  METHODS
 
 //=======================================================
-
-
 
 void pile_model::read_json_config(){
     Json::Value config;
@@ -85,23 +79,25 @@ void pile_model::read_json_config(){
     }else{
         isDisplayingContour = false;
     }
-
-
-
 }
 
 void pile_model::load(string path)
 {
-    ifstream file (path, std::ifstream::in | std::ifstream::binary);;
-    file.exceptions ( std::ifstream::failbit | std::ifstream::badbit );
+    images.clear();
+    images.load_tiff(path.c_str());
 
-      images.clear();
+    //Enregistrement dans un fichier temporaire
+    for (unsigned int i=0; i<images.size(); i++)
+    {
+        CImg<float> img = images[i];
 
-      images.load_tiff(path.c_str());
+        //TODO TBD où on l'enregistre
+        std::string chemin = "tmp/" + std::to_string(i) + ".bpm";
+        img.save_bmp(chemin.c_str());
+        images_icons_filename.push_back(chemin);
+    }
 
-      currentImage = images[0];
-
-      file.close();
+    currentImage = images[0];
 
     return;
 

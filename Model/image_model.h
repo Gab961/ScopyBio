@@ -1,11 +1,11 @@
-#ifndef IMAGE_MODEL_H
-#define IMAGE_MODEL_H
+#pragma once
 
 #include <string>
 #include <cstdlib>
 
-#include "../CImg.h"
-#include "annotation_user.h"
+#include "CImg.h"
+class annotation_user;
+class annotation_user_memento;
 
 class image_model
 {
@@ -15,17 +15,15 @@ public:
 
     void save(std::string pathToSave);
     virtual void execute();
-    static void undo();
-    void static redo();
+    void undo();
+    void redo();
 
 protected:
       int numImage;
       annotation_user *receiver;
       Action action;
-      static image_model *commandList[20];
-      static annotation_user_memento *mementoList[20];
-      static int numCommands;
-      static int highWater;
+      image_model *commandList[20];
+      annotation_user_memento *mementoList[20];
+      int numCommands = 0;
+      int highWater = 0;
 };
-
-#endif // IMAGE_MODEL_H

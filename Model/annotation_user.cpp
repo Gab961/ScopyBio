@@ -1,4 +1,5 @@
 #include "annotation_user.h"
+#include "annotation_user_memento.h"
 
 CImg<float> annotation_user::getCalque() const
 {

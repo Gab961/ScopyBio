@@ -14,9 +14,12 @@
 #include "zoom_view.h"
 #include "image_view.h"
 #include "menu_draw_button.h"
+#include "Controler/scopybio_controller.h"
 
 MainWindow::MainWindow(QWidget *parent)
 {
+    m_scopybioController = new ScopyBio_Controller();
+
     QDesktopWidget dw;
     int screenWidth = dw.width()*0.7;
     int screenHeight = dw.height()*0.7;
@@ -29,8 +32,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_centerLayout = new QGridLayout();
     m_rightLayout = new QGridLayout();
 
-    m_pileView = new Pile_View(this);
+    m_pileView = new Pile_View(this, m_scopybioController);
     m_pileView->setFixedSize(screenWidth*0.25, screenHeight*0.50);
+    // m_pileView->setFixedSize(screenWidth*0.25, screenHeight*0.5);
 
     m_options = new menu_option(this);
     m_options->setFixedSize(screenWidth*0.25, screenHeight*0.30);
@@ -43,20 +47,20 @@ MainWindow::MainWindow(QWidget *parent)
     m_leftLayout->addWidget(m_pileView, 2, 0);
 
     //Affichage principal des images
-    m_imageView = new Image_View(this);
+    m_imageView = new Image_View(this, m_scopybioController);
     m_imageView->setFixedSize(screenWidth*0.45, screenHeight*0.95);
     m_imageView->setStyleSheet("QLabel { background-color : blue;}");
 
     m_centerLayout->addWidget(m_imageView, 0, 0);
 
     // Datas graph
-    m_dataView = new Data_View(this);
+    m_dataView = new Data_View(this, m_scopybioController);
     m_dataView->setFixedSize(screenWidth*0.25, screenHeight*0.45);
     m_dataView->setStyleSheet("QLabel { background-color : green;}");
 
 
     //Affichage de la partie sélectionnée zoomée
-    m_zoomView = new Zoom_View(this);
+    m_zoomView = new Zoom_View(this, m_scopybioController);
     m_zoomView->setFixedSize(screenWidth*0.25, screenHeight*0.45);
     m_zoomView->setStyleSheet("QLabel { background-color : red;}");
 
@@ -85,6 +89,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Gestion du changement dans la liste
     QObject::connect(m_pileView,&Pile_View::currentRowChanged,this,&MainWindow::changeActualItem);
+
+    //Demande d'affichage dans la fenêtre de data
+    QObject::connect(m_imageView,&Image_View::processResults,m_dataView,&Data_View::processingResults);
 }
 
 
@@ -169,27 +176,17 @@ void MainWindow::updateSave()
 
 void MainWindow::showFirstInPile()
 {
-    CImg<float> img = m_pileView->getImage(0);
-    img.save_bmp(pathOfMainDisplay.c_str());
-    emit changeMainPicture(pathOfMainDisplay);
+    std::cout << "showInFirstPile" << std::endl;
+    m_scopybioController->saveAsMainDisplay(0);
+    emit changeMainPicture();
 
     update();
 }
 
 void MainWindow::changeActualItem()
 {
-    std::cout << "Chg = " << m_pileView->currentRow() << std::endl;
-    //A VOIR?
-    indiceEnCours = m_pileView->currentRow();
-    //TODO Méthode récupérerBmpDepuisCImg à faire avec ce qui suit DANS LE MODELE ET CONTROLLEUR
-    CImg<float> image = m_pileView->getImage(indiceEnCours);
-    image.save_bmp(pathOfMainDisplay.c_str());
-    emit changeMainPicture(pathOfMainDisplay);
+    std::cout << "Changer actuel" << std::endl;
+    int indiceEnCours = m_pileView->currentRow();
+    m_scopybioController->saveAsMainDisplay(indiceEnCours);
+    emit changeMainPicture();
 }
-
-//void MainWindow::resizeEvent(QResizeEvent *event) {
-//    int width = size().width();
-//    int heigth = size().height();
-
-//    QWidget::resizeEvent(event);
-//}
