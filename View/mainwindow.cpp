@@ -89,6 +89,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Gestion du changement dans la liste
     QObject::connect(m_pileView,&Pile_View::currentRowChanged,this,&MainWindow::changeActualItem);
+
+    //Demande d'affichage dans la fenêtre de data
+    QObject::connect(m_imageView,&Image_View::processResults,m_dataView,&Data_View::processingResults);
 }
 
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "Model/pile_model.h"
 #include "Model/dessin_model.h"
+#include "Model/data_model.h"
 
 class ScopyBio_Controller
 {
@@ -25,7 +26,15 @@ public:
     std::string getZoomDisplayPath();
     void saveAsMainDisplay(int i);
 
+
+    /** Partie data_model **/
+    std::string getResultDisplayPath();
+    void processResultsWithCrop(QPoint pos1, QPoint pos2);
+    void processResultsOnEverything();
+    void getResults();
+
 private:
     pile_model *m_pileModel;
     dessin_model *m_dessinModel;
+    data_model *m_dataModel;
 };

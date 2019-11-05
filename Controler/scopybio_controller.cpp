@@ -2,7 +2,7 @@
 #include "scopybio_controller.h"
 #include <iostream>
 
-ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model())
+ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new data_model())
 {}
 
 void ScopyBio_Controller::ecrireCoucou()
@@ -78,4 +78,28 @@ std::string ScopyBio_Controller::getZoomDisplayPath()
 void ScopyBio_Controller::saveAsMainDisplay(int i)
 {
     m_dessinModel->saveImageAsMainDisplay(m_pileModel->getImageAtIndex(i));
+}
+
+//=======================
+// Data_Modele
+//=======================
+
+std::string ScopyBio_Controller::getResultDisplayPath()
+{
+    return m_dataModel->getResultDisplayPath();
+}
+
+void ScopyBio_Controller::processResultsWithCrop(QPoint pos1, QPoint pos2)
+{
+    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), pos1, pos2);
+}
+
+void ScopyBio_Controller::processResultsOnEverything()
+{
+    m_dataModel->processResults(m_pileModel->getImages());
+}
+
+void ScopyBio_Controller::getResults()
+{
+    m_dataModel->getResults();
 }

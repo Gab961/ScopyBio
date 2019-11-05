@@ -67,5 +67,8 @@ void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2)
     //Demande de rafraichir le zoom
     emit changeZoomedPicture();
 
+    //Demande de calculer les résultats pour la zone
+    emit processResults(pos1,pos2);
+
     update();
 }
