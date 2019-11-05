@@ -18,9 +18,9 @@ void Zoom_View::setNewPicture()
     m_layout->removeWidget(m_image);
     m_image = new QLabel(this);
 
-    // Largeur du widget <= hauteur
-    // Sert à créer une image qui va prendre un maximum de place possible
-    // sans empiéter sur les autres widgets
+//     Largeur du widget <= hauteur
+//     Sert à créer une image qui va prendre un maximum de place possible
+//     sans empiéter sur les autres widgets
     if (m_image->size().width() >= m_image->size().height()) {
         std::cout << "IF WIDTH >= HEIGHT" << std::endl;
         std::cout << "width widget : " << size().width() << std::endl;
@@ -71,12 +71,9 @@ void Zoom_View::setNewPicture()
     m_layout->setMargin(0);
     m_image->setAlignment(Qt::AlignCenter);
 
-    QPixmap pm(path.c_str());
+    QPixmap pm(m_scopybioController->getZoomDisplayPath().c_str());
     m_image->setPixmap(pm);
     m_image->setScaledContents(true);
-    QPixmap pm(m_scopybioController->getZoomDisplayPath().c_str());
-    this->setPixmap(pm);
-    this->setScaledContents(true);
     update();
 }
 

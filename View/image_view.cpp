@@ -75,15 +75,12 @@ void Image_View::setNewPicture()
     // TODO REPARER DECALAGE RECTANGLES
     setFixedHeight(m_image->size().height());
     setFixedWidth(m_image->size().width());
+    setAlignment(Qt::AlignCenter);
 
-    this->path = path;
-    QPixmap pm(path.c_str());
+    QPixmap pm(m_scopybioController->getMainDisplayPath().c_str());
     m_image->setPixmap(pm);
     m_image->setScaledContents(true);
 
-    QPixmap pm(m_scopybioController->getMainDisplayPath().c_str());
-    this->setPixmap(pm);
-    this->setScaledContents(true);
     update();
 }
 
@@ -98,44 +95,6 @@ void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2)
 
     //Demande de calculer les résultats pour la zone
     emit processResults(pos1,pos2);
-
-    //Gestion des positions
-    if (x1 > x2)
-    {
-        int tmp = x2;
-        x2 = x1;
-        x1 = tmp;
-    }
-    if (y1 > y2)
-    {
-        int tmp = y2;
-        y2 = y1;
-        y1 = tmp;
-    }
-
-    if (x1<0)
-        x1 = -1;
-    if (y1 < 0)
-        y1 = -1;
-    if (x2 > img.width())
-        x2 = img.width();
-    if (y2 > img.height())
-        y2 = img.height();
-
-    std::cout << "x1 : " << x1 << std::endl;
-    std::cout << "x2 : " << x2 << std::endl;
-    std::cout << "y1 : " << y1 << std::endl;
-    std::cout << "y2 : " << y2 << std::endl;
-
-    //Dessin du rectangle et affichage sur l'image principale
-    img.draw_rectangle(x1,y1,x2,y2,color,1,~0U);
-    img.save_bmp(pathOfMainDisplay.c_str());
-    setNewPicture(pathOfMainDisplay);
-
-    //Création de l'image zoomée et demande d'affichage dans la partie zoomée
-    CImg<float> zoom = img.get_crop(x1+1,y1+1,0,x2-1,y2-1,0);
-    zoom.save_bmp(pathOfZoomedDisplay.c_str());
-    emit changeZoomedPicture(pathOfZoomedDisplay);
 
     update();
 }

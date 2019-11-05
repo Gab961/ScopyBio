@@ -32,8 +32,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_centerLayout = new QGridLayout();
     m_rightLayout = new QGridLayout();
 
-    m_pileView->setFixedSize(screenWidth*0.25, screenHeight*0.50);
     m_pileView = new Pile_View(this, m_scopybioController);
+    m_pileView->setFixedSize(screenWidth*0.25, screenHeight*0.50);
     // m_pileView->setFixedSize(screenWidth*0.25, screenHeight*0.5);
 
     m_options = new menu_option(this);
@@ -42,27 +42,26 @@ MainWindow::MainWindow(QWidget *parent)
     m_tools = new Menu_Draw_Button(this);
     m_tools->setFixedSize(screenWidth*0.25, screenHeight*0.15);
 
-    m_dataView = new Data_View(this, m_scopybioController);
     m_leftLayout->addWidget(m_tools, 0, 0);
     m_leftLayout->addWidget(m_options, 1, 0);
     m_leftLayout->addWidget(m_pileView, 2, 0);
 
     //Affichage principal des images
-    m_imageView->setFixedSize(screenWidth*0.45, screenHeight*0.95);
     m_imageView = new Image_View(this, m_scopybioController);
+    m_imageView->setFixedSize(screenWidth*0.45, screenHeight*0.95);
     m_imageView->setStyleSheet("QLabel { background-color : blue;}");
 
     m_centerLayout->addWidget(m_imageView, 0, 0);
 
     // Datas graph
-    m_dataView = new Data_View(this);
+    m_dataView = new Data_View(this, m_scopybioController);
     m_dataView->setFixedSize(screenWidth*0.25, screenHeight*0.45);
     m_dataView->setStyleSheet("QLabel { background-color : green;}");
 
 
     //Affichage de la partie sélectionnée zoomée
-    m_zoomView->setFixedSize(screenWidth*0.25, screenHeight*0.45);
     m_zoomView = new Zoom_View(this, m_scopybioController);
+    m_zoomView->setFixedSize(screenWidth*0.25, screenHeight*0.45);
     m_zoomView->setStyleSheet("QLabel { background-color : red;}");
 
     m_rightLayout->addWidget(m_dataView, 0, 0);
@@ -177,6 +176,7 @@ void MainWindow::updateSave()
 
 void MainWindow::showFirstInPile()
 {
+    std::cout << "showInFirstPile" << std::endl;
     m_scopybioController->saveAsMainDisplay(0);
     emit changeMainPicture();
 
@@ -185,14 +185,8 @@ void MainWindow::showFirstInPile()
 
 void MainWindow::changeActualItem()
 {
+    std::cout << "Changer actuel" << std::endl;
     int indiceEnCours = m_pileView->currentRow();
     m_scopybioController->saveAsMainDisplay(indiceEnCours);
     emit changeMainPicture();
 }
-
-//void MainWindow::resizeEvent(QResizeEvent *event) {
-//    int width = size().width();
-//    int heigth = size().height();
-
-//    QWidget::resizeEvent(event);
-//}
