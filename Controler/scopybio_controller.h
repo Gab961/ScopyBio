@@ -9,8 +9,6 @@ class ScopyBio_Controller
 
 public:
     ScopyBio_Controller();
-    void ecrireCoucou();
-    void testModele();
 
     /** Partie pile_model **/
     void loadNewTiffFile(std::string filename);
@@ -19,6 +17,7 @@ public:
     std::vector<std::string> getIconFilenames();
     CImg<float> getImageAtIndex(int i) const;
     bool fileReady();
+    void saveCurrent(int indiceEnCours);
 
 
     /** Partie dessin_model **/

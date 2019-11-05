@@ -31,7 +31,6 @@ public:
     pile_model();
 
     void loadNewFilename(std::string filename);
-    void setCurrentImage(int position);
     void load(string path);
     void save(string path);
     void read_json_config();
@@ -55,6 +54,7 @@ public:
 //===================
 
     void setPercentageOfBlack(float value);
+    void setCurrentImage(int position);
 
 //===================
 //      Methods

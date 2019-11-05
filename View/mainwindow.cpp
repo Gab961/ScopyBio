@@ -98,7 +98,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::open()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                    "/home",
+                                                    "../../Data",
                                                     tr("Images (*.tiff *.tif)"));
     std::string path = fileName.toLocal8Bit().constData();
 
@@ -187,6 +187,7 @@ void MainWindow::changeActualItem()
 {
     std::cout << "Changer actuel" << std::endl;
     int indiceEnCours = m_pileView->currentRow();
+    m_scopybioController->saveCurrent(indiceEnCours);
     m_scopybioController->saveAsMainDisplay(indiceEnCours);
     emit changeMainPicture();
 }
