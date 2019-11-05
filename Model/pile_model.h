@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 
+#define cimg_use_tiff
 #include "CImg.h"
 
 class image_model;
@@ -17,6 +18,7 @@ private:
     CImgList<float> images;
     CImg<float> currentImage;
     std::vector<image_model> images_modified;
+    std::vector<std::string> images_icons_filename; //Le nom des fichiers utilisés pour affichage dans la pile
 
     std::string fileName;
     float percentageOfBlack;        //Put the limit of percentage of black for treatment.
@@ -28,7 +30,7 @@ private:
 public:
     pile_model();
 
-    void setFilename(std::string filename);
+    void loadNewFilename(std::string filename);
     void setCurrentImage(int position);
     void load(string path);
     void save(string path);
@@ -40,6 +42,9 @@ public:
 
     CImgList<float> getImages() const;
     CImg<float> getCurrentImage() const;
+    std::vector<string> getIconFilenames();
+    CImg<float> getImageAtIndex(int i) const;
+
 
 //===================
 //      Setter

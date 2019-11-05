@@ -18,6 +18,8 @@
 
 MainWindow::MainWindow(QWidget *parent)
 {
+    m_scopybioController = new ScopyBio_Controller();
+
     QDesktopWidget dw;
     int screenWidth = dw.width()*0.7;
     int screenHeight = dw.height()*0.7;
@@ -30,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_centerLayout = new QGridLayout();
     m_rightLayout = new QGridLayout();
 
-    m_pileView = new Pile_View(this);
+    m_pileView = new Pile_View(this, m_scopybioController);
     // m_pileView->setFixedSize(screenWidth*0.25, screenHeight*0.5);
 
     m_options = new menu_option(this);
@@ -39,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_tools = new Menu_Draw_Button(this);
     // m_tools->setFixedSize(screenWidth*0.25, screenHeight*0.25);
 
-    m_dataView = new Data_View(this);
+    m_dataView = new Data_View(this, m_scopybioController);
     m_dataView->setFixedHeight(200);
     m_dataView->setFixedWidth(300);
     m_dataView->setStyleSheet("QLabel { background-color : green;}");
@@ -49,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_leftLayout->addWidget(m_pileView, 2, 0);
 
     //Affichage principal des images
-    m_imageView = new Image_View(this);
+    m_imageView = new Image_View(this, m_scopybioController);
     m_imageView->setFixedHeight(476);
     m_imageView->setFixedWidth(514);
     m_imageView->setStyleSheet("QLabel { background-color : blue;}");
@@ -57,7 +59,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_centerLayout->addWidget(m_imageView, 0, 0);
 
     //Affichage de la partie sélectionnée zoomée
-    m_zoomView = new Zoom_View(this);
+    m_zoomView = new Zoom_View(this, m_scopybioController);
     m_zoomView->setFixedHeight(476);
     m_zoomView->setFixedWidth(514);
     m_zoomView->setStyleSheet("QLabel { background-color : red;}");
@@ -87,9 +89,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Gestion du changement dans la liste
     QObject::connect(m_pileView,&Pile_View::currentRowChanged,this,&MainWindow::changeActualItem);
-
-    m_scopybioController = new ScopyBio_Controller();
-    m_scopybioController->ecrireCoucou();
 }
 
 
@@ -183,7 +182,6 @@ void MainWindow::showFirstInPile()
 
 void MainWindow::changeActualItem()
 {
-    std::cout << "Chg = " << m_pileView->currentRow() << std::endl;
     //A VOIR?
     indiceEnCours = m_pileView->currentRow();
     //TODO Méthode récupérerBmpDepuisCImg à faire avec ce qui suit DANS LE MODELE ET CONTROLLEUR

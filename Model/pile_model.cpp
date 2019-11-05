@@ -5,7 +5,6 @@
 
 #define PATH "../../Config/config.json"
 
-
 //=======================================================
 
 //                  CONSTRUCTOR
@@ -21,17 +20,17 @@ pile_model::pile_model()
 
 //=======================================================
 
-void pile_model::setFilename(std::string filename)
+void pile_model::loadNewFilename(std::string filename)
 {
+    std::cout << "Test modèle: " << filename << std::endl;
     fileName = filename;
-    //TODO Marche pas
-//    load(filename);
+    load(filename);
 
     //=======================
     // Configure the project
     //=======================
 
-    read_json_config();
+    //    read_json_config();
 }
 
 void pile_model::setPercentageOfBlack(float value)
@@ -50,8 +49,19 @@ CImg<float> pile_model::getCurrentImage() const
     return currentImage;
 }
 
+CImg<float> pile_model::getImageAtIndex(int i) const
+{
+    return images[i];
+}
+
 void pile_model::setCurrentImage(int position){
     currentImage = images[position];
+}
+
+
+std::vector<string> pile_model::getIconFilenames()
+{
+    return images_icons_filename;
 }
 
 //=======================================================
@@ -95,16 +105,21 @@ void pile_model::read_json_config(){
 
 void pile_model::load(string path)
 {
-    ifstream file (path, std::ifstream::in | std::ifstream::binary);;
-    file.exceptions ( std::ifstream::failbit | std::ifstream::badbit );
+    images.clear();
+    images.load_tiff(path.c_str());
 
-      images.clear();
+    //Enregistrement dans un fichier temporaire
+    for (unsigned int i=0; i<images.size(); i++)
+    {
+        CImg<float> img = images[i];
 
-      images.load_tiff(path.c_str());
+        //TODO TBD où on l'enregistre
+        std::string chemin = "tmp/" + std::to_string(i) + ".bpm";
+        img.save_bmp(chemin.c_str());
+        images_icons_filename.push_back(chemin);
+    }
 
-      currentImage = images[0];
-
-      file.close();
+    currentImage = images[0];
 
     return;
 

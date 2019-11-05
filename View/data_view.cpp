@@ -6,10 +6,8 @@
 
 using namespace cimg_library;
 
-Data_View::Data_View( QWidget * parent) : QLabel( parent )
-{
-
-}
+Data_View::Data_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QLabel( parent ), m_scopybioController(scopybioController)
+{}
 
 void Data_View::setData(std::vector<int> vec)
 {

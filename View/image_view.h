@@ -5,12 +5,14 @@
 #include <chrono>
 using namespace std::chrono;
 
+class ScopyBio_Controller;
+
 class Image_View : public QLabel
 {
     Q_OBJECT
 
 public:
-    Image_View( QWidget* parent = 0);
+    Image_View( QWidget* parent, ScopyBio_Controller *scopybioController);
     void nouveauClicCreerRectangle(QPoint pos1, QPoint pos2);
 
     void mousePressEvent( QMouseEvent* ev );
@@ -33,4 +35,6 @@ private:
     //TODO Voir si on les garde
     std::string pathOfMainDisplay = "tmp/mainDisplay.bmp";
     std::string pathOfZoomedDisplay = "tmp/zoomedDisplay.bmp";
+
+    ScopyBio_Controller *m_scopybioController;
 };

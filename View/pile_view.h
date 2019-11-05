@@ -8,13 +8,14 @@
 #include "CImg.h"
 
 using namespace cimg_library;
+class ScopyBio_Controller;
 
 class Pile_View: public QListWidget
 {
     Q_OBJECT
 
     public:
-        Pile_View(QWidget *parent);
+        Pile_View(QWidget *parent, ScopyBio_Controller *scopybioController);
         CImg<float> getImage(int i);
 
     signals:
@@ -24,6 +25,5 @@ class Pile_View: public QListWidget
         void openFile(std::string path);
 
     private:
-        std::string *m_path;
-        CImgList<float> m_imgList;
+        ScopyBio_Controller *m_scopybioController;
 };

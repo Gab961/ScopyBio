@@ -8,7 +8,7 @@
 
 using namespace cimg_library;
 
-Image_View::Image_View( QWidget * parent) : QLabel( parent )
+Image_View::Image_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QLabel( parent ), m_scopybioController(scopybioController)
 {
     TEMPS_CLIC_LONG=100;
 

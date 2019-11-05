@@ -3,7 +3,7 @@
 #include <string>
 #include <cstdlib>
 
-#include "../CImg.h"
+#include "CImg.h"
 class annotation_user;
 class annotation_user_memento;
 

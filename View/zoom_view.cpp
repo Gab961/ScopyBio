@@ -1,7 +1,7 @@
 #include "zoom_view.h"
 #include <iostream>
 
-Zoom_View::Zoom_View( QWidget * parent) : QLabel( parent )
+Zoom_View::Zoom_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QLabel( parent ), m_scopybioController(scopybioController)
 {
 
 }
@@ -12,8 +12,6 @@ Zoom_View::Zoom_View( QWidget * parent) : QLabel( parent )
  */
 void Zoom_View::setNewPicture(std::string path)
 {
-    std::cout << "Coucou ici" << std::endl;
-
     QPixmap pm(path.c_str());
     this->setPixmap(pm);
     this->setScaledContents(true);
