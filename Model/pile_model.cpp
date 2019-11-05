@@ -23,16 +23,15 @@ pile_model::pile_model()
 
 void pile_model::setFilename(std::string filename)
 {
-    std::cout << "Coucou, on remercie Mouget pour avoir perdu 1h30. 'foiré." <<std::endl;
-    std::cout << "Blabla json tagueule (en vrai faut le corriger hein)." <<std::endl;
-//    fileName = filename;
+    fileName = filename;
+    //TODO Marche pas
 //    load(filename);
 
     //=======================
     // Configure the project
     //=======================
 
-//    read_json_config();
+    read_json_config();
 }
 
 void pile_model::setPercentageOfBlack(float value)
@@ -64,34 +63,34 @@ void pile_model::setCurrentImage(int position){
 
 
 void pile_model::read_json_config(){
-//    Json::Value config;
+    Json::Value config;
 
-//    std::ifstream config_file(PATH, std::ifstream::binary);
-//    config_file >> config;
+    std::ifstream config_file(PATH, std::ifstream::binary);
+    config_file >> config;
 
-//    if(config["black"] != Json::Value::null){
-//        percentageOfBlack = config["black"].asFloat();
-//    }else{
-//        percentageOfBlack = 100.0;
-//    }
+    if(config["black"] != Json::Value::null){
+        percentageOfBlack = config["black"].asFloat();
+    }else{
+        percentageOfBlack = 100.0;
+    }
 
-//    if(config["green"] != Json::Value::null){
-//        isGreen = config["green"].asBool();
-//    }else{
-//        isGreen = false;
-//    }
+    if(config["green"] != Json::Value::null){
+        isGreen = config["green"].asBool();
+    }else{
+        isGreen = false;
+    }
 
-//    if(config["annotation"] != Json::Value::null){
-//        isDisplayingAnnotation = config["annotation"].asBool();
-//    }else{
-//        isDisplayingAnnotation = true;
-//    }
+    if(config["annotation"] != Json::Value::null){
+        isDisplayingAnnotation = config["annotation"].asBool();
+    }else{
+        isDisplayingAnnotation = true;
+    }
 
-//    if(config["contour"] != Json::Value::null){
-//        isDisplayingContour = config["contour"].asBool();
-//    }else{
-//        isDisplayingContour = false;
-//    }
+    if(config["contour"] != Json::Value::null){
+        isDisplayingContour = config["contour"].asBool();
+    }else{
+        isDisplayingContour = false;
+    }
 }
 
 void pile_model::load(string path)
