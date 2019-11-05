@@ -40,7 +40,6 @@ CImg<float> pile_model::getCurrentImage() const { return currentImage; }
 CImg<float> pile_model::getImageAtIndex(int i) const { return images[i]; }
 void pile_model::setCurrentImage(int position){ currentImage = images[position]; }
 std::vector<string> pile_model::getIconFilenames() { return images_icons_filename; }
-std::string pile_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
 
 //=======================================================
 
