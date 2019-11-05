@@ -45,6 +45,7 @@ class MainWindow: public QMainWindow
         void updateSaveAs();
         void updateSave();
         void nouveauClicCreerRectangle(QPoint pos1, QPoint pos2);
+        void resizeEvent(QResizeEvent* event);
 
         QGridLayout *m_leftLayout;
         Pile_View *m_pileView;

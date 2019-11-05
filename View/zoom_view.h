@@ -1,10 +1,11 @@
 #pragma once
 #include <QLabel>
 #include <QGridLayout>
+#include <QGroupBox>
 
 class ScopyBio_Controller;
 
-class Zoom_View : public QLabel
+class Zoom_View : public QGroupBox
 {
     Q_OBJECT
 

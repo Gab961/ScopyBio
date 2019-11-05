@@ -5,12 +5,13 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QPoint>
+#include <QGroupBox>
 
 using namespace std::chrono;
 
 class ScopyBio_Controller;
 
-class Image_View : public QLabel
+class Image_View : public QGroupBox
 {
     Q_OBJECT
 

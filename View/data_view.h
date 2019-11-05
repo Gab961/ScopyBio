@@ -1,10 +1,12 @@
 #pragma once
 #include <QLabel>
 #include <vector>
+#include <QGroupBox>
+#include <QGridLayout>
 
 class ScopyBio_Controller;
 
-class Data_View : public QLabel
+class Data_View : public QGroupBox
 {
     Q_OBJECT
 
@@ -18,4 +20,6 @@ private:
     void drawResults();
 
     ScopyBio_Controller *m_scopybioController;
+    QGridLayout *m_layout;
+    QLabel *m_image;
 };

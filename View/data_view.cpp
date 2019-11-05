@@ -7,15 +7,26 @@
 
 using namespace cimg_library;
 
-Data_View::Data_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QLabel( parent ), m_scopybioController(scopybioController)
-{}
+Data_View::Data_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController)
+{
+    setTitle("Datas view");
+
+    m_layout = new QGridLayout(this);
+    m_image = new QLabel(this);
+
+    m_layout->addWidget(m_image);
+    m_layout->setMargin(0);
+    m_image->setAlignment(Qt::AlignCenter);
+
+    setLayout(m_layout);
+}
 
 void Data_View::drawResults()
 {
     std::cout << "On est dans drawResults" << std::endl;
     QPixmap pm(m_scopybioController->getResultDisplayPath().c_str());
-    this->setPixmap(pm);
-    this->setScaledContents(true);
+    m_image->setPixmap(pm);
+    m_image->setScaledContents(true);
     update();
 }
 
