@@ -1,8 +1,11 @@
 #pragma once
-#include <QLabel>
-#include <QPoint>
 #include <string>
 #include <chrono>
+
+#include <QGridLayout>
+#include <QLabel>
+#include <QPoint>
+
 using namespace std::chrono;
 
 class Image_View : public QLabel
@@ -30,6 +33,7 @@ private:
     quint64 TEMPS_CLIC_LONG;
     quint64 temps_pression_orig;
 
+    QGridLayout *m_layout;
     QLabel *m_image;
 
     //TODO Voir si on les garde

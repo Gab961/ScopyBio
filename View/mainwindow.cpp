@@ -49,19 +49,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_centerLayout->addWidget(m_imageView, 0, 0);
 
-
+    // Datas graph
     m_dataView = new Data_View(this);
     m_dataView->setFixedSize(screenWidth*0.25, screenHeight*0.45);
-//    m_dataView->setFixedHeight(200);
-//    m_dataView->setFixedWidth(300);
     m_dataView->setStyleSheet("QLabel { background-color : green;}");
 
 
     //Affichage de la partie sélectionnée zoomée
     m_zoomView = new Zoom_View(this);
     m_zoomView->setFixedSize(screenWidth*0.25, screenHeight*0.45);
-//    m_zoomView->setFixedHeight(476);
-//    m_zoomView->setFixedWidth(514);
     m_zoomView->setStyleSheet("QLabel { background-color : red;}");
 
     m_rightLayout->addWidget(m_dataView, 0, 0);
