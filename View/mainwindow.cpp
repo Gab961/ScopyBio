@@ -175,7 +175,7 @@ void MainWindow::showFirstInPile()
 {
     CImg<float> img = m_pileView->getImage(0);
     img.save_bmp(pathOfMainDisplay.c_str());
-    emit changeMainPicture(pathOfMainDisplay);
+    emit changeMainPicture();
 
     update();
 }
@@ -187,5 +187,5 @@ void MainWindow::changeActualItem()
     //TODO Méthode récupérerBmpDepuisCImg à faire avec ce qui suit DANS LE MODELE ET CONTROLLEUR
     CImg<float> image = m_pileView->getImage(indiceEnCours);
     image.save_bmp(pathOfMainDisplay.c_str());
-    emit changeMainPicture(pathOfMainDisplay);
+    emit changeMainPicture();
 }

@@ -8,7 +8,7 @@ class Zoom_View : public QLabel
     Q_OBJECT
 
 public slots:
-    void setNewPicture(std::string path);
+    void setNewPicture();
 
 public:
     Zoom_View(QWidget* parent, ScopyBio_Controller *scopybioController);

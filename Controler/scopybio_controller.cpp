@@ -1,7 +1,8 @@
+#include <QPoint>
 #include "scopybio_controller.h"
 #include <iostream>
 
-ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model())
+ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model())
 {}
 
 void ScopyBio_Controller::ecrireCoucou()
@@ -12,7 +13,7 @@ void ScopyBio_Controller::ecrireCoucou()
 
 void ScopyBio_Controller::testModele()
 {
-//    m_pileModel->loadNewFilename("Coucou le gentil modèle");
+    //    m_pileModel->loadNewFilename("Coucou le gentil modèle");
 }
 
 //=======================
@@ -52,4 +53,23 @@ std::vector<std::string> ScopyBio_Controller::getIconFilenames()
 CImg<float> ScopyBio_Controller::getImageAtIndex(int i) const
 {
     return m_pileModel->getImageAtIndex(i);
+}
+
+
+//=======================
+// Dessin_Modele
+//=======================
+void ScopyBio_Controller::dessinerRectangle(QPoint pos1, QPoint pos2)
+{
+    m_dessinModel->dessinerRectangle(pos1, pos2, m_pileModel->getCurrentImage());
+}
+
+std::string ScopyBio_Controller::getMainDisplayPath()
+{
+    return m_dessinModel->getMainDisplayPath();
+}
+
+std::string ScopyBio_Controller::getZoomDisplayPath()
+{
+    return m_dessinModel->getZoomDisplayPath();
 }

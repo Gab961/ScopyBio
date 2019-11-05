@@ -21,8 +21,6 @@ private:
     std::vector<std::string> images_icons_filename; //Le nom des fichiers utilisés pour affichage dans la pile
 
     std::string fileName;
-    std::string pathOfMainDisplay = "tmp/mainDisplay.bmp";
-    std::string pathOfZoomedDisplay = "tmp/zoomedDisplay.bmp";
     std::string pathOfResultsDisplay = "tmp/resultDisplay.bmp";
     float percentageOfBlack;        //Put the limit of percentage of black for treatment.
     bool isGreen;                   //To display the image with white or green

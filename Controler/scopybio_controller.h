@@ -1,5 +1,6 @@
 #pragma once
 #include "Model/pile_model.h"
+#include "Model/dessin_model.h"
 
 class ScopyBio_Controller
 {
@@ -17,6 +18,13 @@ public:
     std::vector<std::string> getIconFilenames();
     CImg<float> getImageAtIndex(int i) const;
 
+
+    /** Partie dessin_model **/
+    void dessinerRectangle(QPoint pos1, QPoint pos2);
+    std::string getMainDisplayPath();
+    std::string getZoomDisplayPath();
+
 private:
     pile_model *m_pileModel;
+    dessin_model *m_dessinModel;
 };

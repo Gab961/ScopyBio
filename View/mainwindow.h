@@ -24,8 +24,8 @@ class MainWindow: public QMainWindow
 
     signals:
         void sendPath(std::string path);
-        void changeMainPicture(std::string path);
-        void changeZoomedPicture(std::string path);
+        void changeMainPicture();
+        void changeZoomedPicture();
 
     private slots:
         void open();
