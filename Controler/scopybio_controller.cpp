@@ -5,17 +5,6 @@
 ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new data_model())
 {}
 
-void ScopyBio_Controller::ecrireCoucou()
-{
-    std::cout << "Marche controler" << std::endl;
-    testModele();
-}
-
-void ScopyBio_Controller::testModele()
-{
-    //    m_pileModel->loadNewFilename("Coucou le gentil modèle");
-}
-
 //=======================
 // Pile_Modele
 //=======================
@@ -58,6 +47,12 @@ CImg<float> ScopyBio_Controller::getImageAtIndex(int i) const
 bool ScopyBio_Controller::fileReady()
 {
     return m_pileModel->fileReady();
+}
+
+
+void ScopyBio_Controller::saveCurrent(int indiceEnCours)
+{
+    m_pileModel->setCurrentImage(indiceEnCours);
 }
 
 //=======================
