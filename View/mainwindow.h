@@ -63,12 +63,6 @@ class MainWindow: public QMainWindow
         QWidget *m_window;
         QGridLayout *m_mainLayout;
 
-        //TODO Voir si on les garde
-        std::string pathOfMainDisplay = "tmp/mainDisplay.bmp";
-        std::string pathOfZoomedDisplay = "tmp/zoomedDisplay.bmp";
-        //SERA SUPPRIME CAR GERE PAR LE MVC
-        int indiceEnCours = 0;
-
         ScopyBio_Controller *m_scopybioController;
 };
 

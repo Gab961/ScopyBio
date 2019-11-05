@@ -73,3 +73,9 @@ std::string ScopyBio_Controller::getZoomDisplayPath()
 {
     return m_dessinModel->getZoomDisplayPath();
 }
+
+
+void ScopyBio_Controller::saveAsMainDisplay(int i)
+{
+    m_dessinModel->saveImageAsMainDisplay(m_pileModel->getImageAtIndex(i));
+}

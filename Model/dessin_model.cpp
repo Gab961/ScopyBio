@@ -46,5 +46,6 @@ void dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, CImg<float> curre
     zoom.save_bmp(pathOfZoomedDisplay.c_str());
 }
 
+void dessin_model::saveImageAsMainDisplay(CImg<float> pictureToShow) { pictureToShow.save_bmp(pathOfMainDisplay.c_str()); }
 std::string dessin_model::getMainDisplayPath() const { return pathOfMainDisplay; }
 std::string dessin_model::getZoomDisplayPath() const { return pathOfZoomedDisplay; }

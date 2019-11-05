@@ -173,8 +173,7 @@ void MainWindow::updateSave()
 
 void MainWindow::showFirstInPile()
 {
-    CImg<float> img = m_pileView->getImage(0);
-    img.save_bmp(pathOfMainDisplay.c_str());
+    m_scopybioController->saveAsMainDisplay(0);
     emit changeMainPicture();
 
     update();
@@ -182,10 +181,7 @@ void MainWindow::showFirstInPile()
 
 void MainWindow::changeActualItem()
 {
-    //A VOIR?
-    indiceEnCours = m_pileView->currentRow();
-    //TODO Méthode récupérerBmpDepuisCImg à faire avec ce qui suit DANS LE MODELE ET CONTROLLEUR
-    CImg<float> image = m_pileView->getImage(indiceEnCours);
-    image.save_bmp(pathOfMainDisplay.c_str());
+    int indiceEnCours = m_pileView->currentRow();
+    m_scopybioController->saveAsMainDisplay(indiceEnCours);
     emit changeMainPicture();
 }

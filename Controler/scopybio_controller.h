@@ -23,6 +23,7 @@ public:
     void dessinerRectangle(QPoint pos1, QPoint pos2);
     std::string getMainDisplayPath();
     std::string getZoomDisplayPath();
+    void saveAsMainDisplay(int i);
 
 private:
     pile_model *m_pileModel;
