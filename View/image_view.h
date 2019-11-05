@@ -1,8 +1,11 @@
 #pragma once
-#include <QLabel>
-#include <QPoint>
 #include <string>
 #include <chrono>
+
+#include <QGridLayout>
+#include <QLabel>
+#include <QPoint>
+
 using namespace std::chrono;
 
 class ScopyBio_Controller;
@@ -33,4 +36,6 @@ private:
     quint64 temps_pression_orig;
 
     ScopyBio_Controller *m_scopybioController;
+    QGridLayout *m_layout;
+    QLabel *m_image;
 };

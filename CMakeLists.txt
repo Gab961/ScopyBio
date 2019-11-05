@@ -76,6 +76,7 @@ endif()
 
 if( WIN32)
   SET( CONAN_LIBS  ${CONAN_LIBS}  gdi32 )
+  SET (CMAKE_PREFIX_PATH "C:\\Qt\\Qt5.0.1\\5.0.1\\msvc2010\\")
 endif()
 
 

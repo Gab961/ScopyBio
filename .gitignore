@@ -1,5 +1,8 @@
 CMakeLists.txt.*
 Build/*
+.vs/*
+CMakeFiles/*
+out/*
 
 
 main.cpp.autosave
