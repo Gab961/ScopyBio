@@ -25,6 +25,8 @@ public:
     std::string getMainDisplayPath();
     std::string getZoomDisplayPath();
     void saveAsMainDisplay(int i);
+    void applyGreenFilter();
+    void removeGreenFilter();
 
 
     /** Partie data_model **/

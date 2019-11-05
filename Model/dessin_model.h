@@ -15,6 +15,8 @@ public:
     std::string getZoomDisplayPath() const;
     void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> currentPicture);
     void saveImageAsMainDisplay(CImg<float> pictureToShow);
+    void applyGreenFilter(CImg<float> picture);
+    void removeGreenFilter(CImg<float> picture);
 
 private:
     std::string pathOfMainDisplay = "tmp/mainDisplay.bmp";

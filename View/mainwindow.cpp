@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_pileView = new Pile_View(this, m_scopybioController);
     m_pileView->setFixedSize(screenWidth*0.20, screenHeight*0.50);
 
-    m_options = new menu_option(this);
+    m_options = new menu_option(this, m_scopybioController);
     m_options->setFixedSize(screenWidth*0.20, screenHeight*0.25);
 
     m_tools = new Menu_Draw_Button(this);
@@ -87,6 +87,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Demande d'affichage dans la fenêtre de data
     QObject::connect(m_imageView,&Image_View::processResults,m_dataView,&Data_View::processingResults);
+
+    //Demande d'affichage de l'image principale depuis menuOption
+    QObject::connect(m_options,&menu_option::refreshMainDisplay,m_imageView,&Image_View::setNewPicture);
 }
 
 

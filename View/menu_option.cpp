@@ -1,6 +1,8 @@
 #include "menu_option.h"
+#include <iostream>
+#include "scopybio_controller.h"
 
-menu_option::menu_option(QWidget *parent)
+menu_option::menu_option(QWidget *parent, ScopyBio_Controller *scopybioController): m_scopybioController(scopybioController)
 {
     setTitle("Options");
 
@@ -35,4 +37,22 @@ menu_option::menu_option(QWidget *parent)
     m_gridOptions->addWidget(m_shape, 4, 0);
 
     setLayout(m_gridOptions);
+
+    m_scopybioController = scopybioController;
+
+    //Demande d'affichage dans la fenêtre de data
+    QObject::connect(m_filter,&QCheckBox::toggled,this,&menu_option::onFilterToggled);
+}
+
+void menu_option::onFilterToggled(bool checked)
+{
+    if(checked){
+        m_scopybioController->applyGreenFilter();
+        emit refreshMainDisplay();
+    }
+    else
+    {
+        m_scopybioController->removeGreenFilter();
+        emit refreshMainDisplay();
+    }
 }

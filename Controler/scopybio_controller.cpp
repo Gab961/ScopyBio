@@ -79,6 +79,17 @@ void ScopyBio_Controller::saveAsMainDisplay(int i)
     m_dessinModel->saveImageAsMainDisplay(m_pileModel->getImageAtIndex(i));
 }
 
+
+void ScopyBio_Controller::applyGreenFilter()
+{
+    m_dessinModel->applyGreenFilter(m_pileModel->getCurrentImage());
+}
+
+void ScopyBio_Controller::removeGreenFilter()
+{
+    m_dessinModel->removeGreenFilter(m_pileModel->getCurrentImage());
+}
+
 //=======================
 // Data_Modele
 //=======================
