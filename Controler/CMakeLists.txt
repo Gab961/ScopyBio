@@ -10,5 +10,5 @@ conan_basic_setup()
 
 FIND_PACKAGE("jsoncpp")
 
-target_link_libraries(Controler jsoncpp)
 target_include_directories (Controler PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
+target_link_libraries (Controler View Model jsoncpp ${CONAN_LIBS} Qt5::Widgets)
