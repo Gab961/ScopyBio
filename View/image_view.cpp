@@ -9,8 +9,10 @@
 
 using namespace cimg_library;
 
-Image_View::Image_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QLabel( parent ), m_scopybioController(scopybioController)
+Image_View::Image_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController)
 {
+    setTitle("Main view");
+
     m_layout = new QGridLayout(this);
     m_image = new QLabel(this);
 
@@ -22,6 +24,8 @@ Image_View::Image_View( QWidget * parent, ScopyBio_Controller *scopybioControlle
 
     //Affichage du rectangle
     QObject::connect(this, &Image_View::drawRectOnMouse, this, &Image_View::nouveauClicCreerRectangle);
+
+    setLayout(m_layout);
 }
 
 
@@ -74,11 +78,6 @@ void Image_View::setNewPicture()
         m_image->setFixedHeight(size().height());
         m_image->setFixedWidth(static_cast<int>(514*ratio));
     }
-
-    // TODO REPARER DECALAGE RECTANGLES
-    setFixedHeight(m_image->size().height());
-    setFixedWidth(m_image->size().width());
-    setAlignment(Qt::AlignCenter);
 
     QPixmap pm(m_scopybioController->getMainDisplayPath().c_str());
     m_image->setPixmap(pm);

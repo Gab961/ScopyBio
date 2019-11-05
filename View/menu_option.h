@@ -16,6 +16,7 @@ class menu_option: public QGroupBox
     private:
         QGridLayout *m_gridOptions;
         QGridLayout *m_gridContrast;
+        QGridLayout *m_gridSlider;
 
         QLabel *m_contrast_title;
         QLabel *m_contrast_min;

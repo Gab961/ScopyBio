@@ -6,6 +6,7 @@ menu_option::menu_option(QWidget *parent)
 
     m_gridOptions = new QGridLayout();
     m_gridContrast = new QGridLayout();
+    m_gridSlider = new QGridLayout();
 
     m_contrast_title = new QLabel("Contrast : ", this);
     m_contrast_min = new QLabel("0", this);
@@ -15,9 +16,10 @@ menu_option::menu_option(QWidget *parent)
     m_contrast->setMaximum(100);
     m_contrast->setValue(50);
     m_gridContrast->addWidget(m_contrast_title, 0, 0);
-    m_gridContrast->addWidget(m_contrast, 1, 0, 1, 7);
-    m_gridContrast->addWidget(m_contrast_min, 2, 0);
-    m_gridContrast->addWidget(m_contrast_max, 2, 7);
+    m_gridSlider->addWidget(m_contrast, 0, 1, 1, 7);
+    m_gridSlider->addWidget(m_contrast_min, 0, 0);
+    m_gridSlider->addWidget(m_contrast_max, 0, 8);
+    m_gridContrast->addLayout(m_gridSlider, 1, 0);
     m_gridOptions->addLayout(m_gridContrast, 0, 0);
 
     m_notes = new QCheckBox("Show annotations", this);
