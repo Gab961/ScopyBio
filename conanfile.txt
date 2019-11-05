@@ -7,7 +7,6 @@
  libgit2/0.26.3@arsen-studio/stable
  OpenSSL/1.0.2n@conan/stable
 
-
  [generators]
  cmake
 
