@@ -6,7 +6,9 @@
 #include <QMainWindow>
 #include <QGridLayout>
 #include <QListWidgetItem>
+#include <QPushButton>
 
+class LayerView;
 class Pile_View;
 class menu_option;
 class Image_View;
@@ -27,7 +29,7 @@ class MainWindow: public QMainWindow
         void changeMainPicture();
         void changeZoomedPicture();
 
-    private slots:
+    public slots:
         void open();
         void save();
         void saveAs();
@@ -37,6 +39,8 @@ class MainWindow: public QMainWindow
         void changeActualItem();
 
     private:
+        void buildView();
+        void connections();
         void createActions();
         void updateSaveAs();
         void updateSave();
@@ -44,16 +48,21 @@ class MainWindow: public QMainWindow
         void resizeEvent(QResizeEvent* event);
 
         QGridLayout *m_leftLayout;
-        Pile_View *m_pileView;
-        menu_option *m_options;
+        Zoom_View *m_zoomView;
         Menu_Draw_Button *m_tools;
+        menu_option *m_options;
 
         QGridLayout *m_centerLayout;
+        QGridLayout *m_buttonLayout;
         Image_View *m_imageView;
+        QPushButton *m_openLoop;
+        QPushButton *m_openCompare;
 
         QGridLayout *m_rightLayout;
+        QGridLayout *m_pileLayerLayout;
         Data_View *m_dataView;
-        Zoom_View *m_zoomView;
+        Pile_View *m_pileView;
+        LayerView *m_layerView;
 
         QAction *m_loadFile;
         QAction *m_saveFile;

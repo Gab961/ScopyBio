@@ -11,6 +11,13 @@ using namespace cimg_library;
 
 Image_View::Image_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController)
 {
+    createView();
+
+    connections();
+}
+
+void Image_View::createView()
+{
     setTitle("Main view");
 
     m_layout = new QGridLayout(this);
@@ -22,12 +29,14 @@ Image_View::Image_View( QWidget * parent, ScopyBio_Controller *scopybioControlle
 
     TEMPS_CLIC_LONG=100;
 
-    //Affichage du rectangle
-    QObject::connect(this, &Image_View::drawRectOnMouse, this, &Image_View::nouveauClicCreerRectangle);
-
     setLayout(m_layout);
 }
 
+void Image_View::connections()
+{
+    //Affichage du rectangle
+    QObject::connect(this, &Image_View::drawRectOnMouse, this, &Image_View::nouveauClicCreerRectangle);
+}
 
 void Image_View::mousePressEvent( QMouseEvent* ev )
 {
@@ -72,6 +81,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
  * @brief Image_View::setNewPicture Modifie l'image affichée dans le label par l'image située au chemin donné
  * @param path
  */
+
 void Image_View::setNewPicture()
 {
     // Largeur du widget <= hauteur

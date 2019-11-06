@@ -10,6 +10,7 @@ class Menu_Draw_Button: public QGroupBox
 
     public:
         Menu_Draw_Button(QWidget *parent);
+        void createView();
 
     private:
         QGridLayout *m_gridTools;

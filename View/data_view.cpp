@@ -9,6 +9,11 @@ using namespace cimg_library;
 
 Data_View::Data_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController)
 {
+    createView();
+}
+
+void Data_View::createView()
+{
     setTitle("Datas view");
 
     m_layout = new QGridLayout(this);

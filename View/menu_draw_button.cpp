@@ -2,6 +2,11 @@
 
 Menu_Draw_Button::Menu_Draw_Button(QWidget *parent)
 {
+    createView();
+}
+
+void Menu_Draw_Button::createView()
+{
     setTitle("Tools");
 
     m_gridTools = new QGridLayout();
@@ -26,4 +31,3 @@ Menu_Draw_Button::Menu_Draw_Button(QWidget *parent)
 
     setLayout(m_gridTools);
 }
-
