@@ -58,9 +58,13 @@ void ScopyBio_Controller::saveCurrent(int indiceEnCours)
 //=======================
 // Dessin_Modele
 //=======================
-void ScopyBio_Controller::dessinerRectangle(QPoint pos1, QPoint pos2)
+void ScopyBio_Controller::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
-    m_dessinModel->dessinerRectangle(pos1, pos2, m_pileModel->getCurrentImage());
+    //    calque = leNouveauClaque;
+    //    m_gestionCalques->ajouterNouveauCalque(leNouveauClaque);
+    //    m_dessinModel->dessinerRectangle(pos1, pos2, labelWidth, labelHeight, leNouveauClaque);
+
+    m_dessinModel->dessinerRectangle(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
 }
 
 std::string ScopyBio_Controller::getMainDisplayPath()
@@ -79,6 +83,28 @@ void ScopyBio_Controller::saveAsMainDisplay(int i)
     m_dessinModel->saveImageAsMainDisplay(m_pileModel->getImageAtIndex(i));
 }
 
+
+void ScopyBio_Controller::applyGreenFilter()
+{
+    m_dessinModel->applyGreenFilter(m_pileModel->getCurrentImage());
+}
+
+void ScopyBio_Controller::removeGreenFilter()
+{
+    m_dessinModel->removeGreenFilter(m_pileModel->getCurrentImage());
+}
+
+
+void ScopyBio_Controller::applyHistogramFilter()
+{
+    m_dessinModel->applyHistogramFilter(m_pileModel->getCurrentImage());
+}
+
+void ScopyBio_Controller::removeHistogramFilter()
+{
+    m_dessinModel->removeHistogramFilter(m_pileModel->getCurrentImage());
+}
+
 //=======================
 // Data_Modele
 //=======================
@@ -88,9 +114,9 @@ std::string ScopyBio_Controller::getResultDisplayPath()
     return m_dataModel->getResultDisplayPath();
 }
 
-void ScopyBio_Controller::processResultsWithCrop(QPoint pos1, QPoint pos2)
+void ScopyBio_Controller::processResultsWithCrop(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
-    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), pos1, pos2);
+    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), pos1, pos2, labelWidth, labelHeight);
 }
 
 void ScopyBio_Controller::processResultsOnEverything()
@@ -101,4 +127,14 @@ void ScopyBio_Controller::processResultsOnEverything()
 void ScopyBio_Controller::getResults()
 {
     m_dataModel->getResults();
+}
+
+int ScopyBio_Controller::getItemAtPoint(int posX, int labelWidth)
+{
+    return m_dataModel->getItemAtPoint(posX, labelWidth);
+}
+
+bool ScopyBio_Controller::dataReady()
+{
+    return m_dataModel->dataReady();
 }

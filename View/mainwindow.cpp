@@ -35,8 +35,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_pileView = new Pile_View(this, m_scopybioController);
     m_pileView->setFixedSize(screenWidth*0.20, screenHeight*0.50);
 
-    m_options = new menu_option(this);
-    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.25);
+    m_options = new menu_option(this, m_scopybioController);
+    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.30);
 
     m_tools = new Menu_Draw_Button(this);
     m_tools->setFixedSize(screenWidth*0.20, screenHeight*0.17);
@@ -87,6 +87,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Demande d'affichage dans la fenêtre de data
     QObject::connect(m_imageView,&Image_View::processResults,m_dataView,&Data_View::processingResults);
+
+    //Demande d'affichage de l'image principale depuis menuOption
+    QObject::connect(m_options,&menu_option::refreshMainDisplay,m_imageView,&Image_View::setNewPicture);
+
+    //Demande de modification dans la liste depuis le graphique
+    QObject::connect(m_dataView,&Data_View::graphClic,m_pileView,&Pile_View::changeToElement);
 }
 
 
@@ -171,7 +177,6 @@ void MainWindow::updateSave()
 
 void MainWindow::showFirstInPile()
 {
-    std::cout << "showInFirstPile" << std::endl;
     m_scopybioController->saveAsMainDisplay(0);
     emit changeMainPicture();
 
@@ -180,7 +185,6 @@ void MainWindow::showFirstInPile()
 
 void MainWindow::changeActualItem()
 {
-    std::cout << "Changer actuel" << std::endl;
     int indiceEnCours = m_pileView->currentRow();
     m_scopybioController->saveCurrent(indiceEnCours);
     m_scopybioController->saveAsMainDisplay(indiceEnCours);
@@ -196,7 +200,7 @@ void MainWindow::resizeEvent(QResizeEvent* event)
 
     m_pileView->setFixedSize(screenWidth*0.20, screenHeight*0.50);
 
-    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.25);
+    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.30);
 
     m_tools->setFixedSize(screenWidth*0.20, screenHeight*0.17);
 

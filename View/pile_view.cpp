@@ -12,6 +12,7 @@ Pile_View::Pile_View(QWidget *parent, ScopyBio_Controller *scopybioController) :
 
 void Pile_View::openFile(std::string path)
 {
+    clear();
     m_scopybioController->loadNewTiffFile(path);
     std::vector<std::string> iconsfilenames = m_scopybioController->getIconFilenames();
 
@@ -35,4 +36,14 @@ void Pile_View::openFile(std::string path)
 CImg<float> Pile_View::getImage(int i)
 {
     return m_scopybioController->getImageAtIndex(i);
+}
+
+
+void Pile_View::changeToElement(int i)
+{
+    if (m_scopybioController->fileReady())
+    {
+        setCurrentRow(i);
+        getImage(i);
+    }
 }

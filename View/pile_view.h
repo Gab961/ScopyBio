@@ -23,6 +23,7 @@ class Pile_View: public QListWidget
 
     public slots:
         void openFile(std::string path);
+        void changeToElement(int i);
 
     private:
         ScopyBio_Controller *m_scopybioController;

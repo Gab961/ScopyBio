@@ -21,17 +21,23 @@ public:
 
 
     /** Partie dessin_model **/
-    void dessinerRectangle(QPoint pos1, QPoint pos2);
+    void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     std::string getMainDisplayPath();
     std::string getZoomDisplayPath();
     void saveAsMainDisplay(int i);
+    void applyGreenFilter();
+    void removeGreenFilter();
+    void applyHistogramFilter();
+    void removeHistogramFilter();
 
 
     /** Partie data_model **/
     std::string getResultDisplayPath();
-    void processResultsWithCrop(QPoint pos1, QPoint pos2);
+    void processResultsWithCrop(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void processResultsOnEverything();
     void getResults();
+    int getItemAtPoint(int posX, int labelWidth);
+    bool dataReady();
 
 private:
     pile_model *m_pileModel;

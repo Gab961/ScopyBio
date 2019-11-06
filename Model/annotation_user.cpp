@@ -1,18 +1,15 @@
 #include "annotation_user.h"
 #include "annotation_user_memento.h"
 
+annotation_user::annotation_user(int min, int max) : intervalMin(min), intervalMax(max)
+{
+
+}
+
 CImg<float> annotation_user::getCalque() const
 {
     return calque;
 }
-
-annotation_user::annotation_user(CImg<float> _calque):
-    calque(_calque)
-{
-
-}
-
-
 
 annotation_user_memento *annotation_user::createMemento(){
     return new annotation_user_memento(calque);
