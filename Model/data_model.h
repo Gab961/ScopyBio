@@ -14,10 +14,10 @@ public:
     data_model();
     std::string getResultDisplayPath() const;
     std::vector<int> getResults() const;
-    void processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight);
     void processResults(CImgList<float> allPictures);
-    void createResultsDisplay();
-    int calculPlacementY(int imageHeight, int y);
+    void createResultsDisplay(int whiteValue);
+    int calculPlacementY(int imageHeight, int y, int whiteValue);
     int getItemAtPoint(int posX, int labelWidth);
     bool dataReady();
 

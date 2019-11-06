@@ -110,6 +110,10 @@ void ScopyBio_Controller::manageNewWhite(QPoint pos, int labelWidth, int labelHe
     m_dessinModel->manageNewWhiteColor(pos, labelWidth, labelHeight);
 }
 
+int ScopyBio_Controller::getWhiteColor()
+{
+    return m_dessinModel->getWhiteValue();
+}
 
 //=======================
 // Data_Modele
@@ -122,7 +126,7 @@ std::string ScopyBio_Controller::getResultDisplayPath()
 
 void ScopyBio_Controller::processResultsWithCrop(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
-    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), pos1, pos2, labelWidth, labelHeight);
+    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), pos1, pos2, m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
 }
 
 void ScopyBio_Controller::processResultsOnEverything()

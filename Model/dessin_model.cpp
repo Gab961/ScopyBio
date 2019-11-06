@@ -89,7 +89,7 @@ void dessin_model::applyHistogramFilter(CImg<float> picture)
     }
 
     CImg<unsigned int> output_img(w, h, 1, 1, 0);
-    cimg_forXY(output_img, x, y) // calculate histogram equalization result
+    cimg_forXY(output_img, x, y)
         output_img(x, y, 0) = equalized[input_img(x, y)];
 
     output_img.save_bmp(pathOfMainDisplay.c_str());
@@ -103,16 +103,12 @@ void dessin_model::removeHistogramFilter(CImg<float> picture)
 
 void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight)
 {
-    std::cout << "Point initial: " << pos.x() << "," << pos.y() << std::endl;
     CImg<float> zoomPicture;
     zoomPicture.load_bmp(pathOfZoomedDisplay.c_str());
     int realX = pos.x() * zoomPicture.width() / labelWidth;
     int realY = pos.y() * zoomPicture.height() / labelHeight;
 
-    std::cout << "Point modifie: " << realX << "," << realY << std::endl;
-
-    int nuance = (int)zoomPicture(realX, realY, 0, 0);
-    std::cout << "Nuance = " << nuance << std::endl;
+    whiteColor = (int)zoomPicture(realX, realY, 0, 0);
 }
 
 void dessin_model::saveImageAsMainDisplay(CImg<float> pictureToShow) { pictureToShow.save_bmp(pathOfMainDisplay.c_str()); }

@@ -10,7 +10,7 @@ std::string data_model::getResultDisplayPath() const { return pathOfResultsDispl
 std::vector<int> data_model::getResults() const { return results; }
 
 
-void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
+void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight)
 {
     results.clear();
 
@@ -48,7 +48,7 @@ void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos
         results.push_back(totalNuance/nombrePixels);
     }
 
-    createResultsDisplay();
+    createResultsDisplay(whiteValue);
 }
 
 void data_model::processResults(CImgList<float> allPictures)
@@ -82,12 +82,14 @@ void data_model::processResults(CImgList<float> allPictures)
         results.push_back(totalNuance/nombrePixels);
     }
 
-    createResultsDisplay();
+    createResultsDisplay(200);
 }
 
 
-void data_model::createResultsDisplay()
+void data_model::createResultsDisplay(int whiteValue)
 {
+    std::cout << "Valeur de blanc en cours: " << whiteValue << std::endl;
+
     int black[] = { 0,0,0 };
     int red[] = { 255,0,0 };
 
@@ -95,7 +97,7 @@ void data_model::createResultsDisplay()
     image.assign(300,200,1,3);
     image.fill(255);
 
-    image.draw_axes(0,results.size(),100,0.0f,black);
+    image.draw_axes(0,results.size(),50,-50,black);
 
     //Calculs pour placer les points correctement
     int decalageX = image.width()/results.size();
@@ -107,14 +109,14 @@ void data_model::createResultsDisplay()
     {
         if (firstIteration)
         {
-            oldY = calculPlacementY(image.height(),y);
+            oldY = calculPlacementY(image.height(),y, whiteValue);
             image.draw_point(oldX,oldY,red,1);
             firstIteration = false;
         }
         else
         {
             int newX = oldX+decalageX;
-            int newY = calculPlacementY(image.height(),y);
+            int newY = calculPlacementY(image.height(),y, whiteValue);
 
             image.draw_line(oldX,oldY,newX,newY,red);
             oldX = newX;
@@ -126,10 +128,15 @@ void data_model::createResultsDisplay()
     isDataReady = true;
 }
 
-int data_model::calculPlacementY(int imageHeight, int y)
+int data_model::calculPlacementY(int imageHeight, int y, int whiteValue)
 {
-    int percentageValue = y*100/255;
-    return imageHeight - percentageValue*imageHeight/100;
+    //TODO faire le super calcul
+    int valeurDepuisWhite = y-whiteValue;
+    std::cout << "Valeur = " << valeurDepuisWhite << std::endl;
+    int percentageValue = valeurDepuisWhite*50/255;
+    std::cout << "Pourcentage = " << valeurDepuisWhite << std::endl;
+
+    return imageHeight/2 - percentageValue*imageHeight/100;
 }
 
 
