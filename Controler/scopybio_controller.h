@@ -21,7 +21,7 @@ public:
 
 
     /** Partie dessin_model **/
-    void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     std::string getMainDisplayPath();
     std::string getZoomDisplayPath();
     void saveAsMainDisplay(int i);
@@ -41,4 +41,5 @@ private:
     pile_model *m_pileModel;
     dessin_model *m_dessinModel;
     data_model *m_dataModel;
+    gestionnaire_calque_model gestion_calque;
 };

@@ -97,7 +97,7 @@ void Image_View::setNewPicture()
 void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
     //Dessine le rectangle sur l'image et créer l'image zoomée
-    m_scopybioController->dessinerRectangle(pos1, pos2, labelWidth, labelHeight);
+    m_scopybioController->dessinerFaisceau(pos1, pos2, labelWidth, labelHeight);
     setNewPicture();
 
     //Demande de rafraichir le zoom

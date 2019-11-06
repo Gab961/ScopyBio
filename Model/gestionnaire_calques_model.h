@@ -2,28 +2,34 @@
 
 #include <string>
 #include <cstdlib>
+#include <vector>
+#include <map>
 
-#include "CImg.h"
-class annotation_user;
-class annotation_user_memento;
+class QPoint;
+
+#include "calque.h"
+
+using numImg = int;
+
+class calque;
+class command_memento;
 
 class gestionnaire_calque_model
 {
 public:
-    typedef void(annotation_user:: *Action)();
-    gestionnaire_calque_model(int numImg, annotation_user *_receiver, Action _action);
+    gestionnaire_calque_model();
 
     void save(std::string pathToSave);
-    virtual void execute();
-    void undo();
-    void redo();
+
+    bool existeCalque(int min, int max);
+
+    void creerCalque(int min, int max, int taille);
+    calque &getCalque(int min, int max);
+    void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
 protected:
-      int numImage;
-      annotation_user *receiver;
-      Action action;
-      gestionnaire_calque_model *commandList[20];
-      annotation_user_memento *mementoList[20];
-      int numCommands = 0;
-      int highWater = 0;
+
+      std::map<numImg,std::vector<int>> dictionnaireImgMap;
+      std::vector<calque> listOfCalque;
+      int id;
 };

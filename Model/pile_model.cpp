@@ -106,8 +106,6 @@ void pile_model::load(string path)
 
 void pile_model::save(string path)
 {
-    for(auto img : images_modified){
-        img.save(path);
-    }
+
 }
 

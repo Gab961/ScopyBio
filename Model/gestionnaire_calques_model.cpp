@@ -1,48 +1,67 @@
+#include <QPoint>
 #include "gestionnaire_calques_model.h"
-#include "annotation_user.h"
-#include "annotation_user_memento.h"
+#include <algorithm>
 
-gestionnaire_calque_model::gestionnaire_calque_model(int numImg, annotation_user *_receiver, Action _action):
-    numImage(numImg),
-    receiver(_receiver),
-    action(_action){}
-
-
-void gestionnaire_calque_model::execute()
-{
-        mementoList[numCommands] = receiver->createMemento();
-        commandList[numCommands] = this;
-        if (numCommands > highWater)
-          highWater = numCommands;
-        numCommands++;
-        (receiver->*action)();
-}
-
-void gestionnaire_calque_model::undo()
-{
-    if (numCommands == 0)
-    {
-        return ;
-    }
-    commandList[numCommands - 1]->receiver->reinstateMemento
-      (mementoList[numCommands - 1]);
-    numCommands--;
-}
-
-void gestionnaire_calque_model::redo()
-{
-    if (numCommands > highWater)
-    {
-        return ;
-    }
-    (commandList[numCommands]->receiver->*(commandList[numCommands]->action))();
-    numCommands++;
-}
+gestionnaire_calque_model::gestionnaire_calque_model():id(0){}
 
 void gestionnaire_calque_model::save(std::string pathToSave){
-    CImg<float> toSave = mementoList[numCommands]->getCalque();
-    std::string pathTmp = pathToSave + "/Calques/calque" + std::to_string(numImage) + ".png";
-    char * path = NULL;
-    std::strcpy(path, pathTmp.c_str());
-    toSave.save_png(path,0);
+
+}
+
+bool gestionnaire_calque_model::existeCalque(int min, int max){
+    auto res = std::find_if(listOfCalque.begin(), listOfCalque.end(), [&min,&max](calque &a)->bool { return a.getIntervalMin() == min && a.getIntervalMax() == max; } );
+    if(res != listOfCalque.end()){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+calque &gestionnaire_calque_model::getCalque(int min, int max){
+    auto res = std::find(listOfCalque.begin(), listOfCalque.end(), [&min,&max](calque &a)->bool { return a.getIntervalMin() == min && a.getIntervalMax() == max; } );
+    return listOfCalque.at(res);
+}
+
+
+void gestionnaire_calque_model::creerCalque(int min, int max, int taille){
+    calque _calque(min,max,id);
+    id++;
+
+    listOfCalque.push_back(_calque);
+
+    int minimum = min, maximum = max;
+    if(min < 0){
+        minimum = 0;
+    }
+
+    if(max < 0){
+        maximum = taille;
+    }
+
+    for(int i = minimum; i < maximum; i++){
+
+        //Recherche dans le dictionnaire
+        auto search = dictionnaireImgMap.find(i);
+        //Si il trouve il ajoute le calque
+        if (search != dictionnaireImgMap.end()) {
+            search->second.push_back(id);
+
+        }else{//Sinon on crée
+            std::map<int,std::vector<int>>::iterator it = dictionnaireImgMap.begin();
+            std::vector<int> vec;
+            vec.push_back(id);
+            dictionnaireImgMap.insert (it, std::pair<int,std::vector<int>>(i,vec));
+        }
+
+    }
+}
+
+void gestionnaire_calque_model::dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
+
+    auto search = existeCalque();
+
+    if (search != dictionnaireImgMap.end()) {
+        CImg<float> tmp(labelWidth,labelWidth);
+
+    }
 }

@@ -2,7 +2,7 @@
 
 #include "CImg.h"
 
-#include "annotation_user.h"
+#include "calque.h"
 
 using namespace cimg_library;
 
@@ -10,14 +10,14 @@ class annotation_user_memento
 {
 
 private:
-  friend class annotation_user;
-  CImg<float> calque;
+  friend class calque;
+  CImg<float> _calque;
 
 public:
 
-    annotation_user_memento(CImg<float> _calque)
+    annotation_user_memento(CImg<float> _cal)
     {
-        calque = _calque;
+        _calque = _cal;
     }
 
 

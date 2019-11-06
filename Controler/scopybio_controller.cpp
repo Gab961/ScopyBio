@@ -58,13 +58,28 @@ void ScopyBio_Controller::saveCurrent(int indiceEnCours)
 //=======================
 // Dessin_Modele
 //=======================
-void ScopyBio_Controller::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
+void ScopyBio_Controller::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
+    //TODO :
+    int taille = m_pileModel->getImages().size();
+
+    //Verifier s'il existe dans le dico
+    if(!gestion_calque.existeCalque(-2,-2)){
+        //Si n'existe pas Creer le calque et mettre à jour le dico
+        gestion_calque.creerCalque(-2,-2,taille);
+        gestion_calque.dessineFaisceau(-2,-2,pos1,pos2,labelWidth,labelHeight);
+    }else{
+        //Sinon prendre le calque existant
+        gestion_calque.dessineFaisceau(-2,-2,pos1,pos2,labelWidth,labelHeight);
+    }
+
+    //Dessiner le rectangle dans le modèle.
+
 //    calque = leNouveauClaque;
 //    m_gestionCalques->ajouterNouveauCalque(leNouveauClaque);
 //    m_dessinModel->dessinerRectangle(pos1, pos2, labelWidth, labelHeight, leNouveauClaque);
 
-    m_dessinModel->dessinerRectangle(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
+//    m_dessinModel->dessinerRectangle(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
 }
 
 std::string ScopyBio_Controller::getMainDisplayPath()

@@ -5,7 +5,7 @@
 dessin_model::dessin_model()
 {}
 
-void dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> currentPicture)
+CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
     const unsigned char color[] = { 255,174,0 };
 
@@ -37,8 +37,15 @@ void dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, i
     if (y2 > currentPicture.height())
         y2 = currentPicture.height();
 
-    //Dessin du rectangle et affichage sur l'image principale
     currentPicture.draw_rectangle(x1,y1,x2,y2,color,1,~0U);
+
+    return currentPicture;
+}
+
+void dessin_model::savePics(int x1, int y1, int x2, int y2, unsigned char color, CImg<float> currentPicture){
+
+    //Dessin du rectangle et affichage sur l'image principale
+    //currentPicture.draw_rectangle(x1,y1,x2,y2,color,1,~0U);
     currentPicture.save_bmp(pathOfMainDisplay.c_str());
 
     //Création de l'image zoomée et demande d'affichage dans la partie zoomée
