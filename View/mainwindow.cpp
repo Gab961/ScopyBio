@@ -21,14 +21,14 @@ MainWindow::MainWindow(QWidget *parent)
 {
     m_scopybioController = new ScopyBio_Controller();
 
-    buildView();
+    createView();
 
     createActions();
 
     connections();
 }
 
-void MainWindow::buildView()
+void MainWindow::createView()
 {
     QDesktopWidget dw;
     int screenWidth = dw.width()*0.7;

@@ -23,6 +23,8 @@ class MainWindow: public QMainWindow
 
     public:
         MainWindow(QWidget *parent = nullptr);
+        void createView();
+        void connections();
 
     signals:
         void sendPath(std::string path);
@@ -39,8 +41,6 @@ class MainWindow: public QMainWindow
         void changeActualItem();
 
     private:
-        void buildView();
-        void connections();
         void createActions();
         void updateSaveAs();
         void updateSave();
