@@ -35,6 +35,7 @@ public:
     void processResultsOnEverything();
     void getResults();
     int getItemAtPoint(int posX, int labelWidth);
+    bool dataReady();
 
 private:
     pile_model *m_pileModel;

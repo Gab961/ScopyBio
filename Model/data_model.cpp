@@ -2,10 +2,8 @@
 #include <iostream>
 #include "data_model.h"
 
-data_model::data_model()
-{
-
-}
+data_model::data_model() : isDataReady(false)
+{}
 
 std::string data_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
 
@@ -90,41 +88,42 @@ void data_model::processResults(CImgList<float> allPictures)
 
 void data_model::createResultsDisplay()
 {
-        int black[] = { 0,0,0 };
-        int red[] = { 255,0,0 };
+    int black[] = { 0,0,0 };
+    int red[] = { 255,0,0 };
 
-        CImg<float> image;
-        image.assign(300,200,1,3);
-        image.fill(255);
+    CImg<float> image;
+    image.assign(300,200,1,3);
+    image.fill(255);
 
-        image.draw_axes(0,results.size(),100,0.0f,black);
+    image.draw_axes(0,results.size(),100,0.0f,black);
 
-        //Calculs pour placer les points correctement
-        int decalageX = image.width()/results.size();
+    //Calculs pour placer les points correctement
+    int decalageX = image.width()/results.size();
 
-        int oldX = 0;
-        int oldY = 0;
-        bool firstIteration = true;
-        for (int y : results)
+    int oldX = 0;
+    int oldY = 0;
+    bool firstIteration = true;
+    for (int y : results)
+    {
+        if (firstIteration)
         {
-            if (firstIteration)
-            {
-                oldY = calculPlacementY(image.height(),y);
-                image.draw_point(oldX,oldY,red,1);
-                firstIteration = false;
-            }
-            else
-            {
-                int newX = oldX+decalageX;
-                int newY = calculPlacementY(image.height(),y);
-
-                image.draw_line(oldX,oldY,newX,newY,red);
-                oldX = newX;
-                oldY = newY;
-            }
+            oldY = calculPlacementY(image.height(),y);
+            image.draw_point(oldX,oldY,red,1);
+            firstIteration = false;
         }
+        else
+        {
+            int newX = oldX+decalageX;
+            int newY = calculPlacementY(image.height(),y);
 
-        image.save_bmp(pathOfResultsDisplay.c_str());
+            image.draw_line(oldX,oldY,newX,newY,red);
+            oldX = newX;
+            oldY = newY;
+        }
+    }
+
+    image.save_bmp(pathOfResultsDisplay.c_str());
+    isDataReady = true;
 }
 
 int data_model::calculPlacementY(int imageHeight, int y)
@@ -141,3 +140,6 @@ int data_model::getItemAtPoint(int posX, int labelWidth)
     int xSpace = labelWidth / resultsAmount;
     return posX/xSpace;
 }
+
+
+bool data_model::dataReady() { return isDataReady; }

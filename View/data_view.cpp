@@ -38,6 +38,9 @@ void Data_View::processingResults(QPoint pos1, QPoint pos2, int labelWidth, int 
 void Data_View::mousePressEvent( QMouseEvent* ev )
 {
     QPoint origPoint = ev->pos();
-    int item = m_scopybioController->getItemAtPoint(origPoint.x(),m_image->width());
-    emit graphClic(item);
+    if (m_scopybioController->dataReady())
+    {
+        int item = m_scopybioController->getItemAtPoint(origPoint.x(),m_image->width());
+        emit graphClic(item);
+    }
 }

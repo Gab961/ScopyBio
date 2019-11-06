@@ -122,3 +122,8 @@ int ScopyBio_Controller::getItemAtPoint(int posX, int labelWidth)
 {
     return m_dataModel->getItemAtPoint(posX, labelWidth);
 }
+
+bool ScopyBio_Controller::dataReady()
+{
+    return m_dataModel->dataReady();
+}

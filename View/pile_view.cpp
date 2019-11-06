@@ -41,6 +41,9 @@ CImg<float> Pile_View::getImage(int i)
 
 void Pile_View::changeToElement(int i)
 {
-    setCurrentRow(i);
-    getImage(i);
+    if (m_scopybioController->fileReady())
+    {
+        setCurrentRow(i);
+        getImage(i);
+    }
 }

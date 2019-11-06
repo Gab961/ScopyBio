@@ -19,8 +19,10 @@ public:
     void createResultsDisplay();
     int calculPlacementY(int imageHeight, int y);
     int getItemAtPoint(int posX, int labelWidth);
+    bool dataReady();
 
 private:
+    bool isDataReady;
     std::string pathOfResultsDisplay = "tmp/resultDisplay.bmp";
     std::vector<int> results;
 };
