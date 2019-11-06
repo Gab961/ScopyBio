@@ -7,7 +7,7 @@
 #define cimg_use_tiff
 #include "CImg.h"
 
-class image_model;
+class gestionnaire_calque_model;
 using namespace cimg_library;
 using namespace std;
 
@@ -17,7 +17,7 @@ class pile_model
 private:
     CImgList<float> images;
     CImg<float> currentImage;
-    std::vector<image_model> images_modified;
+    std::vector<gestionnaire_calque_model> images_modified;
     std::vector<std::string> images_icons_filename; //Le nom des fichiers utilisés pour affichage dans la pile
 
     std::string fileName;
