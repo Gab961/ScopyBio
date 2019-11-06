@@ -26,11 +26,12 @@ private:
     QGridLayout *m_gridContrast;
     QGridLayout *m_gridSlider;
 
-    QLabel *m_contrast_title;
-    QLabel *m_contrast_min;
-    QLabel *m_contrast_max;
-    QSlider *m_contrast;
+    QLabel *m_marginError_title;
+    QLabel *m_marginError_min;
+    QLabel *m_marginError_max;
+    QSlider *m_marginError;
 
+    QCheckBox *m_histoEqulization;
     QCheckBox *m_notes;
     QCheckBox *m_filter;
     QCheckBox *m_drawOnAllLayers;

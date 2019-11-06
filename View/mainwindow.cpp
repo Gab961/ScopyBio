@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_pileView->setFixedSize(screenWidth*0.20, screenHeight*0.50);
 
     m_options = new menu_option(this, m_scopybioController);
-    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.25);
+    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.30);
 
     m_tools = new Menu_Draw_Button(this);
     m_tools->setFixedSize(screenWidth*0.20, screenHeight*0.17);
@@ -177,7 +177,6 @@ void MainWindow::updateSave()
 
 void MainWindow::showFirstInPile()
 {
-    std::cout << "showInFirstPile" << std::endl;
     m_scopybioController->saveAsMainDisplay(0);
     emit changeMainPicture();
 
@@ -186,7 +185,6 @@ void MainWindow::showFirstInPile()
 
 void MainWindow::changeActualItem()
 {
-    std::cout << "Changer actuel" << std::endl;
     int indiceEnCours = m_pileView->currentRow();
     m_scopybioController->saveCurrent(indiceEnCours);
     m_scopybioController->saveAsMainDisplay(indiceEnCours);
@@ -202,7 +200,7 @@ void MainWindow::resizeEvent(QResizeEvent* event)
 
     m_pileView->setFixedSize(screenWidth*0.20, screenHeight*0.50);
 
-    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.25);
+    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.30);
 
     m_tools->setFixedSize(screenWidth*0.20, screenHeight*0.17);
 
