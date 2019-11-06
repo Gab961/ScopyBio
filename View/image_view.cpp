@@ -31,31 +31,11 @@ Image_View::Image_View( QWidget * parent, ScopyBio_Controller *scopybioControlle
 
 void Image_View::mousePressEvent( QMouseEvent* ev )
 {
-    QSize tailleEntier = this->size();
-    int tailleEntierLargeur = tailleEntier.width();
-    int tailleEntierHauteur = tailleEntier.height();
-
-    std::cout << "Taille entière = " << tailleEntierLargeur << "x" << tailleEntierHauteur << std::endl;
-
-    QSize tailleLabel = m_image->size();
-    int tailleLabelLargeur = tailleLabel.width();
-    int tailleLabelHauteur = tailleLabel.height();
-
-    std::cout << "Taille label = " << tailleLabelLargeur << "x" << tailleLabelHauteur << std::endl;
-
     temps_pression_orig = QDateTime::currentMSecsSinceEpoch();
     origPoint = ev->pos();
 
-    std::cout << "Position cliquée = " << origPoint.x() << "x" << origPoint.y() << std::endl;
-
     origPoint.setX(origPoint.x()-m_image->x());
     origPoint.setY(origPoint.y()-m_image->y());
-
-
-    std::cout << "Position du label = " << m_image->x() << "x" << m_image->y() << std::endl;
-
-
-    std::cout << "Position MODIFIEE = " << origPoint.x() << "x" << origPoint.y() << std::endl;
 }
 
 /**

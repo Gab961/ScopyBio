@@ -49,7 +49,6 @@ void dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, i
 
 void dessin_model::applyGreenFilter(CImg<float> picture)
 {
-    std::cout << "Coucou ici?" << std::endl;
     const unsigned char green[] = { 0,150,0 };
     picture.draw_rectangle(0,0,picture.width(),picture.height(),green,0.5);
     picture.save_bmp(pathOfMainDisplay.c_str());
