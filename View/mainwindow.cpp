@@ -90,6 +90,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Demande d'affichage de l'image principale depuis menuOption
     QObject::connect(m_options,&menu_option::refreshMainDisplay,m_imageView,&Image_View::setNewPicture);
+
+    //Demande de modification dans la liste depuis le graphique
+    QObject::connect(m_dataView,&Data_View::graphClic,m_pileView,&Pile_View::changeToElement);
 }
 
 

@@ -23,7 +23,6 @@ Data_View::Data_View( QWidget * parent, ScopyBio_Controller *scopybioController)
 
 void Data_View::drawResults()
 {
-    std::cout << "On est dans drawResults" << std::endl;
     QPixmap pm(m_scopybioController->getResultDisplayPath().c_str());
     m_image->setPixmap(pm);
     m_image->setScaledContents(true);
@@ -32,8 +31,13 @@ void Data_View::drawResults()
 
 void Data_View::processingResults(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
-    std::cout << "On est dans processing results" << std::endl;
     m_scopybioController->processResultsWithCrop(pos1, pos2, labelWidth, labelHeight);
     drawResults();
 }
 
+void Data_View::mousePressEvent( QMouseEvent* ev )
+{
+    QPoint origPoint = ev->pos();
+    int item = m_scopybioController->getItemAtPoint(origPoint.x(),m_image->width());
+    emit graphClic(item);
+}

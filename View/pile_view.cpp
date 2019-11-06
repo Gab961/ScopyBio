@@ -16,8 +16,6 @@ void Pile_View::openFile(std::string path)
     m_scopybioController->loadNewTiffFile(path);
     std::vector<std::string> iconsfilenames = m_scopybioController->getIconFilenames();
 
-    std::cout << "%%%%%%%%%%%%%ù TAILLE = " << iconsfilenames.size() << std::endl;
-
     for (unsigned int i=0; i<iconsfilenames.size();i++)
     {
         //Obtention d'un QIcon depuis le fichier temporaire
@@ -38,4 +36,11 @@ void Pile_View::openFile(std::string path)
 CImg<float> Pile_View::getImage(int i)
 {
     return m_scopybioController->getImageAtIndex(i);
+}
+
+
+void Pile_View::changeToElement(int i)
+{
+    setCurrentRow(i);
+    getImage(i);
 }

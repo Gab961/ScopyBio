@@ -34,6 +34,7 @@ public:
     void processResultsWithCrop(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void processResultsOnEverything();
     void getResults();
+    int getItemAtPoint(int posX, int labelWidth);
 
 private:
     pile_model *m_pileModel;

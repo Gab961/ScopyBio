@@ -18,6 +18,7 @@ public:
     void processResults(CImgList<float> allPictures);
     void createResultsDisplay();
     int calculPlacementY(int imageHeight, int y);
+    int getItemAtPoint(int posX, int labelWidth);
 
 private:
     std::string pathOfResultsDisplay = "tmp/resultDisplay.bmp";

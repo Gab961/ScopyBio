@@ -132,3 +132,12 @@ int data_model::calculPlacementY(int imageHeight, int y)
     int percentageValue = y*100/255;
     return imageHeight - percentageValue*imageHeight/100;
 }
+
+
+int data_model::getItemAtPoint(int posX, int labelWidth)
+{
+    int resultsAmount = results.size();
+    //Pixels entre chaque élément du vecteur
+    int xSpace = labelWidth / resultsAmount;
+    return posX/xSpace;
+}
