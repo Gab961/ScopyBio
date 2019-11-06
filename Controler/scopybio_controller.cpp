@@ -105,6 +105,12 @@ void ScopyBio_Controller::removeHistogramFilter()
     m_dessinModel->removeHistogramFilter(m_pileModel->getCurrentImage());
 }
 
+void ScopyBio_Controller::manageNewWhite(QPoint pos, int labelWidth, int labelHeight)
+{
+    m_dessinModel->manageNewWhiteColor(pos, labelWidth, labelHeight);
+}
+
+
 //=======================
 // Data_Modele
 //=======================

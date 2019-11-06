@@ -4,6 +4,7 @@
 #include <QGroupBox>
 
 class ScopyBio_Controller;
+class QMouseEvent;
 
 class Zoom_View : public QGroupBox
 {
@@ -11,11 +12,15 @@ class Zoom_View : public QGroupBox
 
 public slots:
     void setNewPicture(int zoneWidth, int zoneHeight);
+    void readyForClick();
 
     private:
         QGridLayout *m_layout;
         QLabel *m_image;
+        ScopyBio_Controller *m_scopybioController;
+        bool listenClick;
+
 public:
     Zoom_View(QWidget* parent, ScopyBio_Controller *scopybioController);
-    ScopyBio_Controller *m_scopybioController;
+    void mousePressEvent( QMouseEvent* ev );
 };

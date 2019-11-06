@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_options = new menu_option(this, m_scopybioController);
     m_options->setFixedSize(screenWidth*0.20, screenHeight*0.30);
 
-    m_tools = new Menu_Draw_Button(this);
+    m_tools = new Menu_Draw_Button(this, m_scopybioController);
     m_tools->setFixedSize(screenWidth*0.20, screenHeight*0.17);
 
     m_leftLayout->addWidget(m_tools, 0, 0);
@@ -93,6 +93,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Demande de modification dans la liste depuis le graphique
     QObject::connect(m_dataView,&Data_View::graphClic,m_pileView,&Pile_View::changeToElement);
+
+    //Prise en compte du prochain clic dans le zoom
+    QObject::connect(m_tools,&Menu_Draw_Button::waitingForZoomClick,m_zoomView,&Zoom_View::readyForClick);
 }
 
 

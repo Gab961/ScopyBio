@@ -29,6 +29,7 @@ public:
     void removeGreenFilter();
     void applyHistogramFilter();
     void removeHistogramFilter();
+    void manageNewWhite(QPoint pos, int labelWidth, int labelHeight);
 
 
     /** Partie data_model **/

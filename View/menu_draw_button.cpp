@@ -1,6 +1,7 @@
 #include "menu_draw_button.h"
+#include "scopybio_controller.h"
 
-Menu_Draw_Button::Menu_Draw_Button(QWidget *parent)
+Menu_Draw_Button::Menu_Draw_Button(QWidget *parent, ScopyBio_Controller *scopybioController)
 {
     setTitle("Tools");
 
@@ -21,9 +22,19 @@ Menu_Draw_Button::Menu_Draw_Button(QWidget *parent)
     m_eraser = new QPushButton("Eraser", this);
     m_gridTools->addWidget(m_eraser, 1, 1);
 
-    m_removeSelectedZone = new QPushButton("Remove selected zone", this);
-    m_gridTools->addWidget(m_removeSelectedZone, 2, 1);
+    m_pipette = new QPushButton("Pipette", this);
+    m_gridTools->addWidget(m_pipette, 2, 1);
 
     setLayout(m_gridTools);
+
+    m_scopybioController = scopybioController;
+
+    //Demande d'affichage dans la fenêtre de data
+    QObject::connect(m_pipette,&QPushButton::clicked,this,&Menu_Draw_Button::activatePipetteWaiting);
 }
 
+
+void Menu_Draw_Button::activatePipetteWaiting()
+{
+    emit waitingForZoomClick();
+}

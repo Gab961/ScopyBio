@@ -23,6 +23,7 @@ public:
 
 private:
     bool isDataReady;
+
     std::string pathOfResultsDisplay = "tmp/resultDisplay.bmp";
     std::vector<int> results;
 };
