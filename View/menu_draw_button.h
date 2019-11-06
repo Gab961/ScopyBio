@@ -15,7 +15,7 @@ class Menu_Draw_Button: public QGroupBox
         QGridLayout *m_gridTools;
 
         QPushButton *m_eraser;
-        QPushButton *m_removeSelectedZone;
+        QPushButton *m_pipette;
         QPushButton *m_pen;
         QPushButton *m_selectSquare;
         QPushButton *m_selectCircle;
