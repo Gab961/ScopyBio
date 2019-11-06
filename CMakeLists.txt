@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 set(CMAKE_CXX_EXTENSIONS off)
 
-find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Widgets CONFIG REQUIRED)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
@@ -23,8 +23,6 @@ conan_basic_setup()
 FIND_PACKAGE("libtiff")
 FIND_PACKAGE("eigen")
 FIND_PACKAGE("jsoncpp")
-
-
 
 # Prevent compilation in-source
 if( ${CMAKE_BINARY_DIR} STREQUAL ${PROJECT_SOURCE_DIR} )

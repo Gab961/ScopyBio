@@ -2,14 +2,17 @@
 #include <iostream>
 #include <QMouseEvent>
 #include <QDateTime>
+#include "scopybio_controller.h"
 
 #define cimg_use_tiff
 #include "CImg.h"
 
 using namespace cimg_library;
 
-Image_View::Image_View( QWidget * parent) : QLabel( parent )
+Image_View::Image_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController)
 {
+    setTitle("Main view");
+
     m_layout = new QGridLayout(this);
     m_image = new QLabel(this);
 
@@ -21,13 +24,38 @@ Image_View::Image_View( QWidget * parent) : QLabel( parent )
 
     //Affichage du rectangle
     QObject::connect(this, &Image_View::drawRectOnMouse, this, &Image_View::nouveauClicCreerRectangle);
+
+    setLayout(m_layout);
 }
 
 
 void Image_View::mousePressEvent( QMouseEvent* ev )
 {
+    QSize tailleEntier = this->size();
+    int tailleEntierLargeur = tailleEntier.width();
+    int tailleEntierHauteur = tailleEntier.height();
+
+    std::cout << "Taille entière = " << tailleEntierLargeur << "x" << tailleEntierHauteur << std::endl;
+
+    QSize tailleLabel = m_image->size();
+    int tailleLabelLargeur = tailleLabel.width();
+    int tailleLabelHauteur = tailleLabel.height();
+
+    std::cout << "Taille label = " << tailleLabelLargeur << "x" << tailleLabelHauteur << std::endl;
+
     temps_pression_orig = QDateTime::currentMSecsSinceEpoch();
     origPoint = ev->pos();
+
+    std::cout << "Position cliquée = " << origPoint.x() << "x" << origPoint.y() << std::endl;
+
+    origPoint.setX(origPoint.x()-m_image->x());
+    origPoint.setY(origPoint.y()-m_image->y());
+
+
+    std::cout << "Position du label = " << m_image->x() << "x" << m_image->y() << std::endl;
+
+
+    std::cout << "Position MODIFIEE = " << origPoint.x() << "x" << origPoint.y() << std::endl;
 }
 
 /**
@@ -38,17 +66,25 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
  */
 void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 {
-    quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
+    if (m_scopybioController->fileReady())
+    {
+        quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
 
-    //Si c'est un clic court
-    if (temps < TEMPS_CLIC_LONG)
-    {
-        emit drawCircleOnMouse(origPoint);
-    }
-    else
-    {
-        QPoint secondPoint = ev->pos();
-        emit drawRectOnMouse(origPoint,secondPoint);
+        //Si c'est un clic court
+        if (temps < TEMPS_CLIC_LONG)
+        {
+            emit drawCircleOnMouse(origPoint);
+        }
+        else
+        {
+            QPoint secondPoint = ev->pos();
+            int widthOfLabel = m_image->width();
+            int heightOfLabel = m_image->height();
+
+            secondPoint.setX(secondPoint.x()-m_image->x());
+            secondPoint.setY(secondPoint.y()-m_image->y());
+            emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
+        }
     }
 }
 
@@ -56,7 +92,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
  * @brief Image_View::setNewPicture Modifie l'image affichée dans le label par l'image située au chemin donné
  * @param path
  */
-void Image_View::setNewPicture(std::string path)
+void Image_View::setNewPicture()
 {
     // Largeur du widget <= hauteur
     // Sert à créer une image qui va prendre un maximum de place possible
@@ -71,67 +107,28 @@ void Image_View::setNewPicture(std::string path)
         m_image->setFixedWidth(static_cast<int>(514*ratio));
     }
 
-    // TODO REPARER DECALAGE RECTANGLES
-    setFixedHeight(m_image->size().height());
-    setFixedWidth(m_image->size().width());
-
-    this->path = path;
-    QPixmap pm(path.c_str());
+    QPixmap pm(m_scopybioController->getMainDisplayPath().c_str());
     m_image->setPixmap(pm);
     m_image->setScaledContents(true);
 
     update();
 }
 
-void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2)
+void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
-    CImg<float> img;
-    img.load_bmp(path.c_str());
+    //Dessine le rectangle sur l'image et créer l'image zoomée
+    m_scopybioController->dessinerRectangle(pos1, pos2, labelWidth, labelHeight);
+    setNewPicture();
 
-    const unsigned char color[] = { 255,174,0 };
+    //Demande de rafraichir le zoom
+    int largeurZone = pos1.x() - pos2.x();
+    if (largeurZone < 0) largeurZone = largeurZone * -1;
+    int hauteurZone = pos1.y() - pos2.y();
+    if (hauteurZone < 0) hauteurZone = hauteurZone * -1;
+    emit changeZoomedPicture(largeurZone, hauteurZone);
 
-    int x1 = pos1.x();
-    int y1 = pos1.y();
-    int x2 = pos2.x();
-    int y2 = pos2.y();
-
-    //Gestion des positions
-    if (x1 > x2)
-    {
-        int tmp = x2;
-        x2 = x1;
-        x1 = tmp;
-    }
-    if (y1 > y2)
-    {
-        int tmp = y2;
-        y2 = y1;
-        y1 = tmp;
-    }
-
-    if (x1<0)
-        x1 = -1;
-    if (y1 < 0)
-        y1 = -1;
-    if (x2 > img.width())
-        x2 = img.width();
-    if (y2 > img.height())
-        y2 = img.height();
-
-    std::cout << "x1 : " << x1 << std::endl;
-    std::cout << "x2 : " << x2 << std::endl;
-    std::cout << "y1 : " << y1 << std::endl;
-    std::cout << "y2 : " << y2 << std::endl;
-
-    //Dessin du rectangle et affichage sur l'image principale
-    img.draw_rectangle(x1,y1,x2,y2,color,1,~0U);
-    img.save_bmp(pathOfMainDisplay.c_str());
-    setNewPicture(pathOfMainDisplay);
-
-    //Création de l'image zoomée et demande d'affichage dans la partie zoomée
-    CImg<float> zoom = img.get_crop(x1+1,y1+1,0,x2-1,y2-1,0);
-    zoom.save_bmp(pathOfZoomedDisplay.c_str());
-    emit changeZoomedPicture(pathOfZoomedDisplay);
+    //Demande de calculer les résultats pour la zone
+    emit processResults(pos1,pos2,m_image->width(),m_image->height());
 
     update();
 }

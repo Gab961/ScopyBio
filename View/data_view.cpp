@@ -1,4 +1,5 @@
 #include "data_view.h"
+#include "scopybio_controller.h"
 #include <iostream>
 
 #define cimg_use_tiff
@@ -6,61 +7,33 @@
 
 using namespace cimg_library;
 
-Data_View::Data_View( QWidget * parent) : QLabel( parent )
+Data_View::Data_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController)
 {
+    setTitle("Datas view");
 
-}
+    m_layout = new QGridLayout(this);
+    m_image = new QLabel(this);
 
-void Data_View::setData(std::vector<int> vec)
-{
-    data = vec;
-    drawResults();
+    m_layout->addWidget(m_image);
+    m_layout->setMargin(0);
+    m_image->setAlignment(Qt::AlignCenter);
+
+    setLayout(m_layout);
 }
 
 void Data_View::drawResults()
 {
-    int black[] = { 0,0,0 };
-    int red[] = { 255,0,0 };
-
-    CImg<float> image;
-    image.assign(300,200,1,3);
-    image.fill(255);
-
-    image.draw_axes(0,data.size(),100,0.0f,black);
-
-    //Calculs pour placer les points correctement
-    int decalageX = image.width()/data.size();
-
-    int oldX = 0;
-    int oldY = 0;
-    bool firstIteration = true;
-    for (int y : data)
-    {
-        if (firstIteration)
-        {
-            oldY = calculPlacementY(image.height(),y);
-            image.draw_point(oldX,oldY,red,1);
-            firstIteration = false;
-        }
-        else
-        {
-            int newX = oldX+decalageX;
-            int newY = calculPlacementY(image.height(),y);
-            image.draw_line(oldX,oldY,newX,newY,red);
-            oldX = newX;
-            oldY = newY;
-        }
-    }
-
-    image.save_bmp(pathToResult.c_str());
-
-    QPixmap pm(pathToResult.c_str());
-    this->setPixmap(pm);
-    this->setScaledContents(true);
+    std::cout << "On est dans drawResults" << std::endl;
+    QPixmap pm(m_scopybioController->getResultDisplayPath().c_str());
+    m_image->setPixmap(pm);
+    m_image->setScaledContents(true);
     update();
 }
 
-int Data_View::calculPlacementY(int imageHeight, int y)
+void Data_View::processingResults(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
-    return imageHeight - ( y*100/255 );
+    std::cout << "On est dans processing results" << std::endl;
+    m_scopybioController->processResultsWithCrop(pos1, pos2, labelWidth, labelHeight);
+    drawResults();
 }
+
