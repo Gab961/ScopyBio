@@ -14,6 +14,7 @@ class menu_option: public QGroupBox
 
 public slots:
     void onFilterToggled(bool checked);
+    void onHistoToggled(bool checked);
 
 signals:
     void refreshMainDisplay();

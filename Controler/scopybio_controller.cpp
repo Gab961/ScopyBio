@@ -60,9 +60,9 @@ void ScopyBio_Controller::saveCurrent(int indiceEnCours)
 //=======================
 void ScopyBio_Controller::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
-//    calque = leNouveauClaque;
-//    m_gestionCalques->ajouterNouveauCalque(leNouveauClaque);
-//    m_dessinModel->dessinerRectangle(pos1, pos2, labelWidth, labelHeight, leNouveauClaque);
+    //    calque = leNouveauClaque;
+    //    m_gestionCalques->ajouterNouveauCalque(leNouveauClaque);
+    //    m_dessinModel->dessinerRectangle(pos1, pos2, labelWidth, labelHeight, leNouveauClaque);
 
     m_dessinModel->dessinerRectangle(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
 }
@@ -92,6 +92,17 @@ void ScopyBio_Controller::applyGreenFilter()
 void ScopyBio_Controller::removeGreenFilter()
 {
     m_dessinModel->removeGreenFilter(m_pileModel->getCurrentImage());
+}
+
+
+void ScopyBio_Controller::applyHistogramFilter()
+{
+    m_dessinModel->applyHistogramFilter(m_pileModel->getCurrentImage());
+}
+
+void ScopyBio_Controller::removeHistogramFilter()
+{
+    m_dessinModel->removeHistogramFilter(m_pileModel->getCurrentImage());
 }
 
 //=======================

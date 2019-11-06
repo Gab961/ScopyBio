@@ -56,6 +56,48 @@ void dessin_model::applyGreenFilter(CImg<float> picture)
 
 void dessin_model::removeGreenFilter(CImg<float> picture)
 {
+    //TODO VIRER LE CALQUE
+    picture.save_bmp(pathOfMainDisplay.c_str());
+}
+
+/**
+ * Source du code: https://github.com/HYPJUDY/histogram-equalization-on-grayscale-and-color-image/edit/master/histogram_equalization.cpp
+ * @brief dessin_model::applyHistogramFilter
+ * @param picture
+ */
+void dessin_model::applyHistogramFilter(CImg<float> picture)
+{
+    CImg<unsigned int> input_img;
+    input_img = picture;
+    int L = 256; // number of grey levels used
+    int w = input_img.width();
+    int h = input_img.height();
+    int number_of_pixels = w * h;
+
+    double cdf[256] = { 0 };
+    unsigned int equalized[256] = { 0 };
+
+    CImg<unsigned int> histogram(256, 1, 1, 1, 0);
+    cimg_forXY(input_img, x, y)
+            ++histogram[input_img(x, y)];
+
+    int count = 0;
+    cimg_forX(histogram, pos) { // calculate cdf and equalized transform
+        count += histogram[pos];
+        cdf[pos] = 1.0 * count / number_of_pixels;
+        equalized[pos] = round(cdf[pos] * (L - 1));
+    }
+
+    CImg<unsigned int> output_img(w, h, 1, 1, 0);
+    cimg_forXY(output_img, x, y) // calculate histogram equalization result
+        output_img(x, y, 0) = equalized[input_img(x, y)];
+
+    output_img.save_bmp(pathOfMainDisplay.c_str());
+}
+
+void dessin_model::removeHistogramFilter(CImg<float> picture)
+{
+    //TODO VIRER LE CALQUE
     picture.save_bmp(pathOfMainDisplay.c_str());
 }
 

@@ -27,6 +27,8 @@ public:
     void saveAsMainDisplay(int i);
     void applyGreenFilter();
     void removeGreenFilter();
+    void applyHistogramFilter();
+    void removeHistogramFilter();
 
 
     /** Partie data_model **/

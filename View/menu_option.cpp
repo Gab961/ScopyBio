@@ -45,6 +45,9 @@ menu_option::menu_option(QWidget *parent, ScopyBio_Controller *scopybioControlle
 
     //Demande d'affichage dans la fenêtre de data
     QObject::connect(m_filter,&QCheckBox::toggled,this,&menu_option::onFilterToggled);
+
+    //Demande d'affichage dans la fenêtre de data
+    QObject::connect(m_histoEqulization,&QCheckBox::toggled,this,&menu_option::onHistoToggled);
 }
 
 void menu_option::onFilterToggled(bool checked)
@@ -56,6 +59,19 @@ void menu_option::onFilterToggled(bool checked)
     else
     {
         m_scopybioController->removeGreenFilter();
+        emit refreshMainDisplay();
+    }
+}
+
+void menu_option::onHistoToggled(bool checked)
+{
+    if(checked){
+        m_scopybioController->applyHistogramFilter();
+        emit refreshMainDisplay();
+    }
+    else
+    {
+        m_scopybioController->removeHistogramFilter();
         emit refreshMainDisplay();
     }
 }
