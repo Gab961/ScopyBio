@@ -99,9 +99,9 @@ std::string ScopyBio_Controller::getResultDisplayPath()
     return m_dataModel->getResultDisplayPath();
 }
 
-void ScopyBio_Controller::processResultsWithCrop(QPoint pos1, QPoint pos2)
+void ScopyBio_Controller::processResultsWithCrop(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
-    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), pos1, pos2);
+    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), pos1, pos2, labelWidth, labelHeight);
 }
 
 void ScopyBio_Controller::processResultsOnEverything()

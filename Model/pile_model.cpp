@@ -84,6 +84,7 @@ void pile_model::read_json_config(){
 void pile_model::load(string path)
 {
     images.clear();
+    images_icons_filename.clear();
     images.load_tiff(path.c_str());
 
     //Enregistrement dans un fichier temporaire

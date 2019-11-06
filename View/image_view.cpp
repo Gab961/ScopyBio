@@ -128,7 +128,7 @@ void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWi
     emit changeZoomedPicture(largeurZone, hauteurZone);
 
     //Demande de calculer les résultats pour la zone
-    emit processResults(pos1,pos2);
+    emit processResults(pos1,pos2,m_image->width(),m_image->height());
 
     update();
 }

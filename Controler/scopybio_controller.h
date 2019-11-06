@@ -31,7 +31,7 @@ public:
 
     /** Partie data_model **/
     std::string getResultDisplayPath();
-    void processResultsWithCrop(QPoint pos1, QPoint pos2);
+    void processResultsWithCrop(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void processResultsOnEverything();
     void getResults();
 

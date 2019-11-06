@@ -26,7 +26,7 @@ signals:
     void drawCircleOnMouse( const QPoint& );
     void drawRectOnMouse(const QPoint&, const QPoint&, int labelWidth, int labelHeight);
     void changeZoomedPicture(int zoneWidth, int zoneHeight);
-    void processResults(QPoint pos1, QPoint pos2);
+    void processResults(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
 public slots:
     void setNewPicture();

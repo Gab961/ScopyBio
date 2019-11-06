@@ -30,10 +30,10 @@ void Data_View::drawResults()
     update();
 }
 
-void Data_View::processingResults(QPoint pos1, QPoint pos2)
+void Data_View::processingResults(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
     std::cout << "On est dans processing results" << std::endl;
-    m_scopybioController->processResultsWithCrop(pos1, pos2);
+    m_scopybioController->processResultsWithCrop(pos1, pos2, labelWidth, labelHeight);
     drawResults();
 }
 

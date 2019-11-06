@@ -12,14 +12,14 @@ std::string data_model::getResultDisplayPath() const { return pathOfResultsDispl
 std::vector<int> data_model::getResults() const { return results; }
 
 
-void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2)
+void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
     results.clear();
 
-    int x1 = pos1.x();
-    int x2 = pos2.x();
-    int y1 = pos1.y();
-    int y2 = pos2.y();
+    int x1 = pos1.x() * allPictures[0].width() / labelWidth;
+    int y1 = pos1.y() * allPictures[0].height() / labelHeight;
+    int x2 = pos2.x() * allPictures[0].width() / labelWidth;
+    int y2 = pos2.y() * allPictures[0].height() / labelHeight;
 
     for(CImg<float> image : allPictures)
     {
@@ -56,7 +56,6 @@ void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos
 void data_model::processResults(CImgList<float> allPictures)
 {
     results.clear();
-
     for(CImg<float> image : allPictures)
     {
         int nombrePixels = 0;
@@ -118,17 +117,18 @@ void data_model::createResultsDisplay()
             {
                 int newX = oldX+decalageX;
                 int newY = calculPlacementY(image.height(),y);
+
                 image.draw_line(oldX,oldY,newX,newY,red);
                 oldX = newX;
                 oldY = newY;
             }
         }
 
-        std::cout << "Enregistrement dans " << pathOfResultsDisplay << std::endl;
         image.save_bmp(pathOfResultsDisplay.c_str());
 }
 
 int data_model::calculPlacementY(int imageHeight, int y)
 {
-    return imageHeight - ( y*100/255 );
+    int percentageValue = y*100/255;
+    return imageHeight - percentageValue*imageHeight/100;
 }

@@ -12,8 +12,11 @@ Pile_View::Pile_View(QWidget *parent, ScopyBio_Controller *scopybioController) :
 
 void Pile_View::openFile(std::string path)
 {
+    clear();
     m_scopybioController->loadNewTiffFile(path);
     std::vector<std::string> iconsfilenames = m_scopybioController->getIconFilenames();
+
+    std::cout << "%%%%%%%%%%%%%ù TAILLE = " << iconsfilenames.size() << std::endl;
 
     for (unsigned int i=0; i<iconsfilenames.size();i++)
     {

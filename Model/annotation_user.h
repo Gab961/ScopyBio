@@ -9,9 +9,11 @@ class annotation_user
 {
 private:
     CImg<float> calque;
+    int intervalMin;
+    int intervalMax;
 
 public:
-    annotation_user(CImg<float> _calque);
+    annotation_user(int min, int max);
 
     annotation_user_memento *createMemento();
     void reinstateMemento(annotation_user_memento *mem);

@@ -11,7 +11,7 @@ class Data_View : public QGroupBox
     Q_OBJECT
 
 public slots:
-    void processingResults(QPoint pos1, QPoint pos2);
+    void processingResults(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
 public:
     Data_View(QWidget* parent, ScopyBio_Controller *scopybioController);
