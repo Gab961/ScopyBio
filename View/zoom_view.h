@@ -10,17 +10,17 @@ class Zoom_View : public QGroupBox
 {
     Q_OBJECT
 
-public slots:
-    void setNewPicture(int zoneWidth, int zoneHeight);
     void readyForClick();
+        void createView();
+
+    public slots:
+        void setNewPicture(int zoneWidth, int zoneHeight);
 
     private:
         QGridLayout *m_layout;
         QLabel *m_image;
-        ScopyBio_Controller *m_scopybioController;
         bool listenClick;
-
-public:
+        ScopyBio_Controller *m_scopybioController;
     Zoom_View(QWidget* parent, ScopyBio_Controller *scopybioController);
     void mousePressEvent( QMouseEvent* ev );
 };

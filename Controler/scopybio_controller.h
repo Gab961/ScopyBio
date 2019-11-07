@@ -19,7 +19,6 @@ public:
     bool fileReady();
     void saveCurrent(int indiceEnCours);
 
-
     /** Partie dessin_model **/
     void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     std::string getMainDisplayPath();

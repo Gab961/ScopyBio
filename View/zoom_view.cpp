@@ -5,6 +5,11 @@
 
 Zoom_View::Zoom_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController), listenClick(false)
 {
+    createView();
+}
+
+void Zoom_View::createView()
+{
     setTitle("Zoom view");
 
     m_layout = new QGridLayout(this);

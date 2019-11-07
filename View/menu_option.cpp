@@ -4,6 +4,15 @@
 
 menu_option::menu_option(QWidget *parent, ScopyBio_Controller *scopybioController): m_scopybioController(scopybioController)
 {
+    createView();
+
+    connections();
+
+    m_scopybioController = scopybioController;
+}
+
+void menu_option::createView()
+{
     setTitle("Options");
 
     m_gridOptions = new QGridLayout();
@@ -40,9 +49,10 @@ menu_option::menu_option(QWidget *parent, ScopyBio_Controller *scopybioControlle
     m_gridOptions->addWidget(m_histoEqulization, 5, 0);
 
     setLayout(m_gridOptions);
+}
 
-    m_scopybioController = scopybioController;
-
+void menu_option::connections()
+{
     //Demande d'affichage dans la fenêtre de data
     QObject::connect(m_filter,&QCheckBox::toggled,this,&menu_option::onFilterToggled);
 

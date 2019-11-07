@@ -3,6 +3,11 @@
 
 Menu_Draw_Button::Menu_Draw_Button(QWidget *parent, ScopyBio_Controller *scopybioController)
 {
+    createView();
+}
+
+void Menu_Draw_Button::createView()
+{
     setTitle("Tools");
 
     m_gridTools = new QGridLayout();

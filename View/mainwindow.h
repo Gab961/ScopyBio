@@ -6,7 +6,9 @@
 #include <QMainWindow>
 #include <QGridLayout>
 #include <QListWidgetItem>
+#include <QPushButton>
 
+class LayerView;
 class Pile_View;
 class menu_option;
 class Image_View;
@@ -14,6 +16,7 @@ class Zoom_View;
 class Menu_Draw_Button;
 class Data_View;
 class ScopyBio_Controller;
+class LoopView;
 
 class MainWindow: public QMainWindow
 {
@@ -21,20 +24,23 @@ class MainWindow: public QMainWindow
 
     public:
         MainWindow(QWidget *parent = nullptr);
+        void createView();
+        void connections();
 
     signals:
         void sendPath(std::string path);
         void changeMainPicture();
         void changeZoomedPicture();
 
-    private slots:
+    public slots:
         void open();
         void save();
         void saveAs();
         void aboutUs();
         void howToUse();
         void showFirstInPile();
-        void changeActualItem();
+        void changeActualItem();     
+        void createLoopView();
 
     private:
         void createActions();
@@ -44,16 +50,22 @@ class MainWindow: public QMainWindow
         void resizeEvent(QResizeEvent* event);
 
         QGridLayout *m_leftLayout;
-        Pile_View *m_pileView;
-        menu_option *m_options;
+        Zoom_View *m_zoomView;
         Menu_Draw_Button *m_tools;
+        menu_option *m_options;
 
         QGridLayout *m_centerLayout;
+        QGridLayout *m_buttonLayout;
         Image_View *m_imageView;
+        QPushButton *m_openLoop;
+        LoopView *m_loopWindow;
+        QPushButton *m_openCompare;
 
         QGridLayout *m_rightLayout;
+        QGridLayout *m_pileLayerLayout;
         Data_View *m_dataView;
-        Zoom_View *m_zoomView;
+        Pile_View *m_pileView;
+        LayerView *m_layerView;
 
         QAction *m_loadFile;
         QAction *m_saveFile;

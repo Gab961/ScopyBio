@@ -15,28 +15,30 @@ class Image_View : public QGroupBox
 {
     Q_OBJECT
 
-public:
-    Image_View( QWidget* parent, ScopyBio_Controller *scopybioController);
-    void nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    public:
+        Image_View( QWidget* parent, ScopyBio_Controller *scopybioController);
+        void createView();
+        void connections();
+        void nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
-    void mousePressEvent( QMouseEvent* ev );
-    void mouseReleaseEvent( QMouseEvent* ev);
+        void mousePressEvent( QMouseEvent* ev );
+        void mouseReleaseEvent( QMouseEvent* ev);
 
-signals:
-    void drawCircleOnMouse( const QPoint& );
-    void drawRectOnMouse(const QPoint&, const QPoint&, int labelWidth, int labelHeight);
-    void changeZoomedPicture(int zoneWidth, int zoneHeight);
-    void processResults(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    signals:
+        void drawCircleOnMouse( const QPoint& );
+        void drawRectOnMouse(const QPoint&, const QPoint&, int labelWidth, int labelHeight);
+        void changeZoomedPicture(int zoneWidth, int zoneHeight);
+        void processResults(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
-public slots:
-    void setNewPicture();
+    public slots:
+        void setNewPicture();
 
-private:
-    QPoint origPoint;
-    quint64 TEMPS_CLIC_LONG;
-    quint64 temps_pression_orig;
+    private:
+        QPoint origPoint;
+        quint64 TEMPS_CLIC_LONG;
+        quint64 temps_pression_orig;
 
-    ScopyBio_Controller *m_scopybioController;
-    QGridLayout *m_layout;
-    QLabel *m_image;
+        ScopyBio_Controller *m_scopybioController;
+        QGridLayout *m_layout;
+        QLabel *m_image;
 };
