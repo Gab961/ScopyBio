@@ -28,11 +28,13 @@ public:
     void setWhiteValue(int color);
     bool getListenPipetteClick() const;
     void setListenPipetteClick(bool pipetteClick);
-
+    void saveZoomFromPicture(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> currentPicture);
+    bool getZoomReady() const;
 
 private:
     std::string pathOfMainDisplay = "tmp/mainDisplay.bmp";
     std::string pathOfZoomedDisplay = "tmp/zoomedDisplay.bmp";
+    bool zoomReady;
 
     int whiteColor;
     bool listenPipetteClick;

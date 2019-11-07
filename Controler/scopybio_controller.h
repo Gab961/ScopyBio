@@ -33,6 +33,7 @@ public:
     int getWhiteColor();
     void setPipetteClick(bool pipetteClick);
     bool getPipetteClick();
+    bool getZoomReady();
 
 
     /** Partie data_model **/

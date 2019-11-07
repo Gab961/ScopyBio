@@ -68,11 +68,12 @@ void ScopyBio_Controller::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWi
         //Si n'existe pas Creer le calque et mettre à jour le dico
         gestion_calque.creerCalque(-2,-2,taille);
         gestion_calque.dessineFaisceau(-2,-2,pos1,pos2,labelWidth,labelHeight);
-        gestion_calque.saveTmpforDisplay(-2,-2);
+        m_dessinModel->saveZoomFromPicture(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
     }else{
         //Sinon prendre le calque existant
         gestion_calque.dessineFaisceau(-2,-2,pos1,pos2,labelWidth,labelHeight);
         gestion_calque.saveTmpforDisplay(-2,-2);
+        m_dessinModel->saveZoomFromPicture(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
     }
 
 }
@@ -133,6 +134,11 @@ void ScopyBio_Controller::setPipetteClick(bool pipetteClick)
 bool ScopyBio_Controller::getPipetteClick()
 {
     return m_dessinModel->getListenPipetteClick();
+}
+
+bool ScopyBio_Controller::getZoomReady()
+{
+    return m_dessinModel->getZoomReady();
 }
 
 //=======================

@@ -71,9 +71,8 @@ void Zoom_View::readyForClick() { m_scopybioController->setPipetteClick(true); }
 
 void Zoom_View::mousePressEvent( QMouseEvent* ev )
 {
-    std::cout << "Coucou zoom" << std::endl;
     QPoint origPoint = ev->pos();
-    if (m_scopybioController->getPipetteClick())
+    if (m_scopybioController->getPipetteClick() && m_scopybioController->getZoomReady())
     {
         m_scopybioController->setPipetteClick(false);
         origPoint.setX(origPoint.x() - m_image->x());
