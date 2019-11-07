@@ -104,8 +104,7 @@ void MainWindow::createView()
     m_imageView->setEnabled(false);
     m_zoomView->setEnabled(false);
     m_dataView->setEnabled(false);
-    m_layerView->setEnabled(false);
-    m_pileView->setEnabled(false);
+    m_layer->setEnabled(false);
     m_openLoop->setEnabled(false);
     m_openCompare->setEnabled(false);
 }
@@ -174,8 +173,7 @@ void MainWindow::open()
         m_imageView->setEnabled(true);
         m_zoomView->setEnabled(true);
         m_dataView->setEnabled(true);
-        m_layerView->setEnabled(true);
-        m_pileView->setEnabled(true);
+        m_layer->setEnabled(true);
         m_openLoop->setEnabled(true);
         m_openCompare->setEnabled(true);
     }
@@ -313,8 +311,7 @@ void MainWindow::setCursorPipetteActive()
 
     m_options->setEnabled(false);
     m_dataView->setEnabled(false);
-    m_layerView->setEnabled(false);
-    m_pileView->setEnabled(false);
+    m_layer->setEnabled(false);
     m_openLoop->setEnabled(false);
     m_openCompare->setEnabled(false);
 }
@@ -327,8 +324,7 @@ void MainWindow::setCursorPipetteDisabled()
 
     m_options->setEnabled(true);
     m_dataView->setEnabled(true);
-    m_layerView->setEnabled(true);
-    m_pileView->setEnabled(true);
+    m_layer->setEnabled(true);
     m_openLoop->setEnabled(true);
     m_openCompare->setEnabled(true);
 }
