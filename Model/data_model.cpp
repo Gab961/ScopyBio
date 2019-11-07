@@ -7,7 +7,7 @@ data_model::data_model() : isDataReady(false)
 
 std::string data_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
 
-std::vector<int> data_model::getResults() const { return results; }
+std::vector<float> data_model::getResults() const { return results; }
 
 
 void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight)
@@ -22,19 +22,16 @@ void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos
     for(CImg<float> image : allPictures)
     {
         CImg<float> zoom = image.get_crop(x1+1,y1+1,0,x2-1,y2-1,0);
-        int nombrePixels = 0;
-        int totalNuance = 0;
+        float nombrePixels = zoom.width() * zoom.height();
+        float totalNuance = 0;
         int niveauDeBlancMaximal = 0;
         int niveauDeNoirMaximal = 255;
 
         //Pour chaque pixel de l'image
         cimg_forXY(zoom,x,y) {
             //Niveau de gris du pixel en cours
-            int niveauNuance = (int)zoom(x,y,0,0);
+            int niveauNuance = (float)zoom(x,y,0,0);
 
-
-            //TODO Déterminer les actions à faire
-            nombrePixels++;
             totalNuance += niveauNuance;
 
             if (niveauDeBlancMaximal < niveauNuance)
@@ -44,7 +41,8 @@ void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos
                 niveauDeNoirMaximal = niveauNuance;
         }
 
-        //TODO là on renvoie que la moyenne pour le moment
+        std::cout << "TotalNuance " << totalNuance << std::endl;
+        std::cout << "NombrePixels " << nombrePixels << std::endl;
         results.push_back(totalNuance/nombrePixels);
     }
 
@@ -88,16 +86,18 @@ void data_model::processResults(CImgList<float> allPictures)
 
 void data_model::createResultsDisplay(int whiteValue)
 {
-    std::cout << "Valeur de blanc en cours: " << whiteValue << std::endl;
-
     int black[] = { 0,0,0 };
     int red[] = { 255,0,0 };
+    float valeurMediane = whiteValue * 100 / 255;
+    float valMaxGraph = 100-valeurMediane;
+    float valMinGraph = (100-valMaxGraph) * -1;
+    std::cout << "Med = " << valeurMediane << ", Max = " << valMaxGraph << ", Min = " << valMinGraph << std::endl;
 
     CImg<float> image;
     image.assign(300,200,1,3);
     image.fill(255);
 
-    image.draw_axes(0,results.size(),50,-50,black);
+    image.draw_axes(0,results.size(),valMaxGraph,valMinGraph,black);
 
     //Calculs pour placer les points correctement
     int decalageX = image.width()/results.size();
@@ -109,14 +109,14 @@ void data_model::createResultsDisplay(int whiteValue)
     {
         if (firstIteration)
         {
-            oldY = calculPlacementY(image.height(),y, whiteValue);
+            oldY = calculPlacementY(image.height(),y, valeurMediane);
             image.draw_point(oldX,oldY,red,1);
             firstIteration = false;
         }
         else
         {
             int newX = oldX+decalageX;
-            int newY = calculPlacementY(image.height(),y, whiteValue);
+            int newY = calculPlacementY(image.height(),y, valeurMediane);
 
             image.draw_line(oldX,oldY,newX,newY,red);
             oldX = newX;
@@ -128,15 +128,17 @@ void data_model::createResultsDisplay(int whiteValue)
     isDataReady = true;
 }
 
-int data_model::calculPlacementY(int imageHeight, int y, int whiteValue)
+int data_model::calculPlacementY(int imageHeight, int y, int valeurMediane)
 {
+    int hauteurAbscisse = imageHeight - imageHeight * valeurMediane/100;
+    std::cout << "Valeur à placer = " << y << std::endl;
+    int percentageY = y*100/255;
+    std::cout << "Valeur à placer en poucentage = " << percentageY << std::endl;
     //TODO faire le super calcul
-    int valeurDepuisWhite = y-whiteValue;
-    std::cout << "Valeur = " << valeurDepuisWhite << std::endl;
-    int percentageValue = valeurDepuisWhite*50/255;
-    std::cout << "Pourcentage = " << valeurDepuisWhite << std::endl;
+    int valeurDepuisMedian = percentageY-valeurMediane;
+    std::cout << "Valeur depuis médiane = " << valeurDepuisMedian << std::endl;
 
-    return imageHeight/2 - percentageValue*imageHeight/100;
+    return hauteurAbscisse - valeurDepuisMedian*imageHeight/100;
 }
 
 
