@@ -13,7 +13,7 @@ class calque
 {
 private:
     CImg<float> _calque;
-    dessin_model dessine;
+    dessin_model dessine; //Pour dessiner sur les calques. Pourquoi s'embeter à écrire les fonctions de dessin si Bastien l'a déjà fait ¯\_(ツ)_/¯
     int intervalMin;
     int intervalMax;
     int id;
