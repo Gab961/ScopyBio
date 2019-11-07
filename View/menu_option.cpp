@@ -13,6 +13,8 @@ menu_option::menu_option(QWidget *parent, ScopyBio_Controller *scopybioControlle
 
 void menu_option::createView()
 {
+
+    setCursor(Qt::ArrowCursor);
     setTitle("Options");
 
     m_gridOptions = new QGridLayout();

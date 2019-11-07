@@ -51,6 +51,8 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
         std::cout << "Coucou image" << std::endl;
         m_scopybioController->setPipetteClick(false);
         m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
+
+        emit pipetteClicked();
     }
 }
 
@@ -94,6 +96,8 @@ void Image_View::readyForPipetteClick() { m_scopybioController->setPipetteClick(
 
 void Image_View::setNewPicture()
 {
+    setCursor(Qt::CrossCursor);
+
     // Largeur du widget <= hauteur
     // Sert à créer une image qui va prendre un maximum de place possible
     // sans empiéter sur les autres widgets

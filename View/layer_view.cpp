@@ -10,4 +10,5 @@ LayerView::LayerView(QWidget *parent, ScopyBio_Controller *scopybioController) :
 void LayerView::loadLayers(std::string path)
 {
     //TODO
+    setCursor(Qt::PointingHandCursor);
 }

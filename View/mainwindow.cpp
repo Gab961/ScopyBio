@@ -85,8 +85,11 @@ void MainWindow::createView()
     m_pileLayerLayout->addWidget(m_pileView, 0, 0);
     m_pileLayerLayout->addWidget(m_layerView, 0, 1);
 
+    m_layer = new QGroupBox("Layers", this);
+    m_layer->setLayout(m_pileLayerLayout);
+
     m_rightLayout->addWidget(m_dataView, 0, 0);
-    m_rightLayout->addLayout(m_pileLayerLayout, 1, 0);
+    m_rightLayout->addWidget(m_layer, 1, 0);
 
     m_mainLayout->addLayout(m_leftLayout, 0, 0);
     m_mainLayout->addLayout(m_centerLayout, 0, 1);
@@ -95,6 +98,15 @@ void MainWindow::createView()
     m_window = new QWidget();
     m_window->setLayout(m_mainLayout);
     setCentralWidget(m_window);
+
+    m_options->setEnabled(false);
+    m_tools->setEnabled(false);
+    m_imageView->setEnabled(false);
+    m_zoomView->setEnabled(false);
+    m_dataView->setEnabled(false);
+    m_layer->setEnabled(false);
+    m_openLoop->setEnabled(false);
+    m_openCompare->setEnabled(false);
 }
 
 void MainWindow::connections()
@@ -106,28 +118,40 @@ void MainWindow::connections()
     QObject::connect(m_pileView, &Pile_View::pileInitDone, this, &MainWindow::showFirstInPile);
 
     //Demande d'affichage dans la fenêtre principale
-    QObject::connect(this,&MainWindow::changeMainPicture,m_imageView,&Image_View::setNewPicture);
+    QObject::connect(this, &MainWindow::changeMainPicture, m_imageView, &Image_View::setNewPicture);
 
     //Demande d'affichage dans la fenêtre de zoom
-    QObject::connect(m_imageView,&Image_View::changeZoomedPicture,m_zoomView,&Zoom_View::setNewPicture);
+    QObject::connect(m_imageView, &Image_View::changeZoomedPicture, m_zoomView, &Zoom_View::setNewPicture);
 
     //Gestion du changement dans la liste
-    QObject::connect(m_pileView,&Pile_View::currentRowChanged,this,&MainWindow::changeActualItem);
+    QObject::connect(m_pileView, &Pile_View::currentRowChanged, this, &MainWindow::changeActualItem);
 
     //Demande d'affichage dans la fenêtre de data
-    QObject::connect(m_imageView,&Image_View::processResults,m_dataView,&Data_View::processingResults);
+    QObject::connect(m_imageView, &Image_View::processResults, m_dataView, &Data_View::processingResults);
 
     //Demande d'affichage de l'image principale depuis menuOption
-    QObject::connect(m_options,&menu_option::refreshMainDisplay,m_imageView,&Image_View::setNewPicture);
+    QObject::connect(m_options, &menu_option::refreshMainDisplay, m_imageView, &Image_View::setNewPicture);
 
     //Demande de modification dans la liste depuis le graphique
-    QObject::connect(m_dataView,&Data_View::graphClic,m_pileView,&Pile_View::changeToElement);
+    QObject::connect(m_dataView, &Data_View::graphClic, m_pileView, &Pile_View::changeToElement);
 
     //Prise en compte du prochain clic dans le zoom
-    QObject::connect(m_tools,&Menu_Draw_Button::waitingForZoomClick,m_zoomView,&Zoom_View::readyForClick);
+    QObject::connect(m_tools, &Menu_Draw_Button::waitingForZoomClick, m_zoomView, &Zoom_View::readyForClick);
 
     //Prise en compte du prochain clic dans l'image view
-    QObject::connect(m_tools,&Menu_Draw_Button::waitingForZoomClick,m_imageView,&Image_View::readyForPipetteClick);
+    QObject::connect(m_tools, &Menu_Draw_Button::waitingForZoomClick, m_imageView, &Image_View::readyForPipetteClick);
+
+    //Changement curseur quand bouton pipette actif
+    QObject::connect(m_tools, &Menu_Draw_Button::waitingForZoomClick, this, &MainWindow::setCursorPipetteActive);
+
+    //Pipette annulée
+    QObject::connect(m_tools, &Menu_Draw_Button::pipetteCanceled, this, &MainWindow::setCursorPipetteDisabled);
+
+    //Changement curseur quand clic pipette
+    QObject::connect(m_imageView, &Image_View::pipetteClicked, this, &MainWindow::setCursorPipetteDisabled);
+
+    //Changement curseur quand clic pipette
+    QObject::connect(m_zoomView, &Zoom_View::pipetteClicked, this, &MainWindow::setCursorPipetteDisabled);
 
     //Open Loop window
     QObject::connect(m_openLoop, &QPushButton::clicked, this, &MainWindow::createLoopView);
@@ -135,12 +159,24 @@ void MainWindow::connections()
 
 void MainWindow::open()
 {
+    std::string path = "";
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                     "../../Data",
                                                     tr("Images (*.tiff *.tif)"));
-    std::string path = fileName.toLocal8Bit().constData();
+    path = fileName.toLocal8Bit().constData();
 
-    emit sendPath(path);
+    if(path != "") {
+        emit sendPath(path);
+
+        m_options->setEnabled(true);
+        m_tools->setEnabled(true);
+        m_imageView->setEnabled(true);
+        m_zoomView->setEnabled(true);
+        m_dataView->setEnabled(true);
+        m_layer->setEnabled(true);
+        m_openLoop->setEnabled(true);
+        m_openCompare->setEnabled(true);
+    }
 }
 
 void MainWindow::saveAs()
@@ -268,3 +304,27 @@ void MainWindow::createLoopView()
     }
 }
 
+void MainWindow::setCursorPipetteActive()
+{
+    m_zoomView->setCursor(Qt::UpArrowCursor);
+    m_imageView->setCursor(Qt::UpArrowCursor);
+
+    m_options->setEnabled(false);
+    m_dataView->setEnabled(false);
+    m_layer->setEnabled(false);
+    m_openLoop->setEnabled(false);
+    m_openCompare->setEnabled(false);
+}
+
+void MainWindow::setCursorPipetteDisabled()
+{
+    m_tools->setActive(false);
+    m_zoomView->setCursor(Qt::ArrowCursor);
+    m_imageView->setCursor(Qt::CrossCursor);
+
+    m_options->setEnabled(true);
+    m_dataView->setEnabled(true);
+    m_layer->setEnabled(true);
+    m_openLoop->setEnabled(true);
+    m_openCompare->setEnabled(true);
+}

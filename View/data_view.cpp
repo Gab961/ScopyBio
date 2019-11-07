@@ -28,6 +28,7 @@ void Data_View::createView()
 
 void Data_View::drawResults()
 {
+    setCursor(Qt::PointingHandCursor);
     QPixmap pm(m_scopybioController->getResultDisplayPath().c_str());
     m_image->setPixmap(pm);
     m_image->setScaledContents(true);

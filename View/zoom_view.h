@@ -19,6 +19,9 @@ public:
 public slots:
     void setNewPicture(int zoneWidth, int zoneHeight);
 
+signals:
+    void pipetteClicked();
+
 private:
     QGridLayout *m_layout;
     QLabel *m_image;
