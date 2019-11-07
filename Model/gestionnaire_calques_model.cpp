@@ -181,6 +181,8 @@ void gestionnaire_calque_model::updateCalqueVert(int min, int max, int taille){
 
     }else{// Ne pas afficher le filtre
         //On pourra plus tard appeler une fonction qui fait la suppression.
+
+        //TODO: Ne fonctionne pas vraiment ! à voir pourquoi
         int searchGreen = getCalque(min,max);
         int id = listOfCalque[searchGreen].getId();
 
