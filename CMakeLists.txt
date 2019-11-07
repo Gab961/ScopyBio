@@ -29,7 +29,7 @@ endif()
 # To use PKG_CHECK_MODULES to find some optional packages
 find_package(PkgConfig)
 
-#    Tell CMake where to leave executables
+#    Tell CMake whlere to leave executables
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/Build/bin)
 
 #Path of CImg.h file relative to this file path

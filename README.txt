@@ -1,6 +1,6 @@
-***********************************************
-*					ScopyBio				  *
-***********************************************
+**********************************************************************************************
+*                                   ScopyBio                                                 *
+**********************************************************************************************
 For build this project we need some tools 
 
 	* cmake (https://cmake.org/)
@@ -15,4 +15,10 @@ after you are succefuly install all previous tools, you need to execute some com
 	* $ conan install .. --build gtest --build protobuf --build jasper --build openexr --build opencv --build OpenSSL --build libcurl --build libssh2 --build libgit2
 	get ready for a long time of wait
 
-you have 
+*********************************** On Windows ***********************************************
+
+	* $ cmake ..
+	* $ cmake --build .
+
+
+Now you have a ScopyBio.exe in bin/ 

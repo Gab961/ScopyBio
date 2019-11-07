@@ -11,9 +11,7 @@
  cmake
 
  [options]
- opencv:shared=False
- libtiff:shared=False
- jsoncpp:shared=False # false
+ *:shared=False
  Qt:qtmultimedia=True
  Qt:qtsvg=True
  Qt:qttools=True
