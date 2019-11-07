@@ -58,23 +58,26 @@ void ScopyBio_Controller::saveCurrent(int indiceEnCours)
 //=======================
 // Dessin_Modele
 //=======================
+
+void dessinerAnnotation(int min, int max,QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
+
+}
+
 void ScopyBio_Controller::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
-    //TODO :
+    int min = -2, max = -2;
     int taille = m_pileModel->getImages().size();
 
     //Verifier s'il existe dans le dico
-    if(!gestion_calque.existeCalque(-2,-2)){
+    if(!gestion_calque.existeCalque(min,max)){
         //Si n'existe pas Creer le calque et mettre à jour le dico
-        gestion_calque.creerCalque(-2,-2,taille);
-        gestion_calque.dessineFaisceau(-2,-2,pos1,pos2,labelWidth,labelHeight);
-        m_dessinModel->saveZoomFromPicture(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
-    }else{
-        //Sinon prendre le calque existant
-        gestion_calque.dessineFaisceau(-2,-2,pos1,pos2,labelWidth,labelHeight);
-        gestion_calque.saveTmpforDisplay(-2,-2);
-        m_dessinModel->saveZoomFromPicture(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
+        gestion_calque.creerCalque(min,max,taille);
     }
+
+    gestion_calque.dessineFaisceau(min,max,pos1,pos2,labelWidth,labelHeight);
+
+
+    m_dessinModel->saveZoomFromPicture(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
 
 }
 
@@ -97,7 +100,15 @@ void ScopyBio_Controller::saveAsMainDisplay(int i)
 
 void ScopyBio_Controller::applyGreenFilter()
 {
-    m_dessinModel->applyGreenFilter(m_pileModel->getCurrentImage());
+    int min = -3, max = -3;
+    int taille = m_pileModel->getImages().size();
+    if(!gestion_calque.existeCalque(min,max)){
+        //Si n'existe pas Creer le calque et mettre à jour le dico
+        gestion_calque.creerCalque(min,max,taille);
+    }
+
+        gestion_calque.updateCalqueVert(min,max,taille);
+        gestion_calque.afficheDic();
 }
 
 void ScopyBio_Controller::removeGreenFilter()
