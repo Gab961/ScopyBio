@@ -8,6 +8,7 @@
 #include <QMenuBar>
 #include <QMessageBox>
 
+#include "loop_view.h"
 #include "layer_view.h"
 #include "data_view.h"
 #include "pile_view.h"
@@ -55,8 +56,6 @@ void MainWindow::createView()
     m_leftLayout->addWidget(m_tools, 1, 0);
     m_leftLayout->addWidget(m_options, 2, 0);
 
-
-    //Affichage principal des images
     m_imageView = new Image_View(this, m_scopybioController);
     m_imageView->setFixedSize(screenWidth*0.50, screenHeight*0.95);
 
@@ -72,7 +71,6 @@ void MainWindow::createView()
     m_centerLayout->addWidget(m_imageView, 0, 0);
     m_centerLayout->addLayout(m_buttonLayout, 1, 0);
 
-    // Datas graph
     m_dataView = new Data_View(this, m_scopybioController);
     m_dataView->setFixedSize(screenWidth*0.25, screenHeight*0.45);
 
@@ -122,6 +120,9 @@ void MainWindow::connections()
 
     //Demande de modification dans la liste depuis le graphique
     QObject::connect(m_dataView,&Data_View::graphClic,m_pileView,&Pile_View::changeToElement);
+
+    //Open Loop window
+    QObject::connect(m_openLoop, &QPushButton::clicked, this, &MainWindow::createLoopView);
 }
 
 void MainWindow::open()
@@ -248,4 +249,13 @@ void MainWindow::resizeEvent(QResizeEvent* event)
     }
 
     update();
+}
+
+void MainWindow::createLoopView()
+{
+    if(m_scopybioController->fileReady())
+    {
+        m_loopWindow = new LoopView(this, m_scopybioController);
+        m_loopWindow->show();
+    }
 }
