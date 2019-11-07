@@ -45,6 +45,13 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
 
     origPoint.setX(origPoint.x()-m_image->x());
     origPoint.setY(origPoint.y()-m_image->y());
+
+    if (m_scopybioController->getPipetteClick())
+    {
+        std::cout << "Coucou image" << std::endl;
+        m_scopybioController->setPipetteClick(false);
+        m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height());
+    }
 }
 
 /**
@@ -62,7 +69,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
         //Si c'est un clic court
         if (temps < TEMPS_CLIC_LONG)
         {
-            emit drawCircleOnMouse(origPoint);
+            //?
         }
         else
         {
@@ -76,6 +83,9 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
         }
     }
 }
+
+
+void Image_View::readyForPipetteClick() { m_scopybioController->setPipetteClick(true); }
 
 /**
  * @brief Image_View::setNewPicture Modifie l'image affichée dans le label par l'image située au chemin donné

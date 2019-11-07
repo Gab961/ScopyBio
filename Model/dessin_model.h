@@ -25,6 +25,8 @@ public:
     void manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight);
     int getWhiteValue() const;
     void setWhiteValue(int color);
+    bool getListenPipetteClick() const;
+    void setListenPipetteClick(bool pipetteClick);
 
 
 private:
@@ -32,4 +34,5 @@ private:
     std::string pathOfZoomedDisplay = "tmp/zoomedDisplay.bmp";
 
     int whiteColor;
+    bool listenPipetteClick;
 };

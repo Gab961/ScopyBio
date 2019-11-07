@@ -30,6 +30,8 @@ public:
     void removeHistogramFilter();
     void manageNewWhite(QPoint pos, int labelWidth, int labelHeight);
     int getWhiteColor();
+    void setPipetteClick(bool pipetteClick);
+    bool getPipetteClick();
 
 
     /** Partie data_model **/

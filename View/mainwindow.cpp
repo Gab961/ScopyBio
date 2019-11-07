@@ -129,6 +129,9 @@ void MainWindow::connections()
     //Prise en compte du prochain clic dans le zoom
     QObject::connect(m_tools,&Menu_Draw_Button::waitingForZoomClick,m_zoomView,&Zoom_View::readyForClick);
 
+    //Prise en compte du prochain clic dans l'image view
+    QObject::connect(m_tools,&Menu_Draw_Button::waitingForZoomClick,m_imageView,&Image_View::readyForPipetteClick);
+
     //Open Loop window
     QObject::connect(m_openLoop, &QPushButton::clicked, this, &MainWindow::createLoopView);
 }

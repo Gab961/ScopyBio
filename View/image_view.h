@@ -31,12 +31,15 @@ class Image_View : public QGroupBox
         void processResults(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
     public slots:
-        void setNewPicture();
+        void setNewPicture();        
+        void readyForPipetteClick();
 
     private:
         QPoint origPoint;
         quint64 TEMPS_CLIC_LONG;
         quint64 temps_pression_orig;
+
+        bool listenPipetteClick;
 
         ScopyBio_Controller *m_scopybioController;
         QGridLayout *m_layout;
