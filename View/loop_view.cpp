@@ -10,8 +10,6 @@ LoopView::LoopView(QWidget *parent, ScopyBio_Controller *scopybioController) : m
     createView();
 
     connections();
-
-    launchTimer();
 }
 
 void LoopView::createView()
@@ -39,6 +37,7 @@ void LoopView::connections()
 
 void LoopView::launchTimer()
 {
+    value = -1;
     timer->start();
 }
 
@@ -57,4 +56,11 @@ void LoopView::loop()
     m_loop->setScaledContents(true);
 
     update();
+}
+
+
+void LoopView::closeEvent(QCloseEvent *ev)
+{
+    timer->stop();
+    ev->accept();
 }

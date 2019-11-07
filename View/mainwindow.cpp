@@ -59,6 +59,8 @@ void MainWindow::createView()
     m_imageView = new Image_View(this, m_scopybioController);
     m_imageView->setFixedSize(screenWidth*0.50, screenHeight*0.95);
 
+
+    m_loopWindow = new LoopView(this, m_scopybioController);
     m_openLoop = new QPushButton("Open loop", this);
     m_openLoop->setMaximumWidth(screenWidth*0.15);
 
@@ -255,7 +257,8 @@ void MainWindow::createLoopView()
 {
     if(m_scopybioController->fileReady())
     {
-        m_loopWindow = new LoopView(this, m_scopybioController);
         m_loopWindow->show();
+        m_loopWindow->launchTimer();
     }
 }
+
