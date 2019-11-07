@@ -11,10 +11,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-add_compile_options(-Wall -Wpedantic)
+add_compile_options(-Wall -Wpedantic -std=c++14)
 endif()
-
-add_definitions("-std=c++11")
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 
@@ -118,6 +116,7 @@ SET(CIMG_FFTW3_CCFLAGS  -Dcimg_use_fftw3)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CIMG_CFLAGS}")
 
 find_package(Qt5Widgets CONFIG REQUIRED)
+find_package(jsoncpp REQUIRED)
 
 aux_source_directory(. SRC_LIST)
 add_subdirectory(Controler)
@@ -125,4 +124,4 @@ add_subdirectory(View)
 add_subdirectory(Model)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS} Qt5::Widgets Controler View Model)
+target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS} Qt5::Widgets Controler View Model jsoncpp)

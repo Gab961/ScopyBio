@@ -40,10 +40,10 @@ faisceau_model::faisceau_model()
 
 }
 
-faisceau_model::faisceau_model(pile_model pile , coordonnee tl, coordonnee br){
+faisceau_model::faisceau_model(pile_model *pile , coordonnee tl, coordonnee br){
     topLeft = tl;
     botRight = br;
 
-    p_Piles = &pile;
+    p_Piles = pile;
 }
 
