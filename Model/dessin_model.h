@@ -22,7 +22,7 @@ public:
     void applyHistogramFilter(CImg<float> picture);
     void removeHistogramFilter(CImg<float> picture);
 
-    void manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight);
+    void manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView);
     int getWhiteValue() const;
     void setWhiteValue(int color);
     bool getListenPipetteClick() const;

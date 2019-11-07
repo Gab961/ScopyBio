@@ -101,16 +101,19 @@ void dessin_model::removeHistogramFilter(CImg<float> picture)
     picture.save_bmp(pathOfMainDisplay.c_str());
 }
 
-void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight)
+void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView)
 {
-    CImg<float> zoomPicture;
-    zoomPicture.load_bmp(pathOfZoomedDisplay.c_str());
-    int realX = pos.x() * zoomPicture.width() / labelWidth;
-    int realY = pos.y() * zoomPicture.height() / labelHeight;
+    CImg<float> picture;
+    if (zoomView)
+        picture.load_bmp(pathOfZoomedDisplay.c_str());
+    else
+        picture.load_bmp(pathOfMainDisplay.c_str());
+    int realX = pos.x() * picture.width() / labelWidth;
+    int realY = pos.y() * picture.height() / labelHeight;
 
-    std::cout << "Position réelle = " << realX << "," << realY << std::endl;
+    std::cout << "Position finale = " << realX << "," << realY << std::endl;
 
-    whiteColor = (int)zoomPicture(realX, realY, 0, 0);
+    whiteColor = (int)picture(realX, realY, 0, 0);
     std::cout << "Nouvelle = " << whiteColor << std::endl;
 }
 

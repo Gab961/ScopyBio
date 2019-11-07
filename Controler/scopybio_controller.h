@@ -28,7 +28,7 @@ public:
     void removeGreenFilter();
     void applyHistogramFilter();
     void removeHistogramFilter();
-    void manageNewWhite(QPoint pos, int labelWidth, int labelHeight);
+    void manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView);
     int getWhiteColor();
     void setPipetteClick(bool pipetteClick);
     bool getPipetteClick();

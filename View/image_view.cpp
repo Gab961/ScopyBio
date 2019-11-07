@@ -50,7 +50,7 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
     {
         std::cout << "Coucou image" << std::endl;
         m_scopybioController->setPipetteClick(false);
-        m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height());
+        m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
     }
 }
 
