@@ -31,7 +31,10 @@ public:
     void updateCalqueVert(int min, int max, int taille);
     calque getCalqueForDisplay(int min, int max);
 
-
+    /*
+     * Permet d'afficher le dictionnaire
+     *
+     * */
     void afficheDic(){
         for(auto i : dictionnaireImgMap){
             std::cout << i.first << " : ";
@@ -43,9 +46,10 @@ public:
     }
 
 protected:
+// Le memento ne fonctionne pas encore. on fait sans.
 
-      std::map<numImg,std::vector<int>> dictionnaireImgMap;
-      std::vector<calque> listOfCalque;
-      int id;
-      bool isGreen;
+      std::map<numImg,std::vector<int>> dictionnaireImgMap;// Associe une image à une liste de calque.
+      std::vector<calque> listOfCalque;//Sauvegarde tous les calques dont on en a besoin
+      int id;//Permet de créer des calques avec un identifiant unique.
+      bool isGreen; // Pour savoir s'il faut afficher le calque vert ou non
 };

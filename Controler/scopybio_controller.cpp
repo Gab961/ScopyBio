@@ -63,6 +63,13 @@ void dessinerAnnotation(int min, int max,QPoint pos1, QPoint pos2, int labelWidt
 
 }
 
+/**
+ * @brief ScopyBio_Controller::dessinerFaisceau dessine un rectangle dans un calque et le créer si besoin.
+ * @param pos1 position en haut à gauche
+ * @param pos2 position en haut à droite
+ * @param labelWidth largeur de la fenetre
+ * @param labelHeight longueur de la fenetre
+ */
 void ScopyBio_Controller::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
     int min = -2, max = -2;
@@ -74,9 +81,10 @@ void ScopyBio_Controller::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWi
         gestion_calque.creerCalque(min,max,taille);
     }
 
+    //On est sur que le calque existe, on dessine le rectangle.
     gestion_calque.dessineFaisceau(min,max,pos1,pos2,labelWidth,labelHeight);
 
-
+    //Necessaire pour afficher le zoom.
     m_dessinModel->saveZoomFromPicture(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
 
 }
@@ -97,9 +105,14 @@ void ScopyBio_Controller::saveAsMainDisplay(int i)
     m_dessinModel->saveImageAsMainDisplay(m_pileModel->getImageAtIndex(i));
 }
 
-
+/**
+ * @brief ScopyBio_Controller::applyGreenFilter active le filtre vert
+ */
 void ScopyBio_Controller::applyGreenFilter()
 {
+    // -3 = filtre vert
+    // Normalement le calque vert est déjà créé, cette fonction met juste à jour le dictionnaire de calque. il doit y avoir une fonction qui met à jour la view.
+    // /!\ Bug parce que le remove est fait dans une autre fonction
     int min = -3, max = -3;
     int taille = m_pileModel->getImages().size();
     if(!gestion_calque.existeCalque(min,max)){
@@ -110,6 +123,13 @@ void ScopyBio_Controller::applyGreenFilter()
         gestion_calque.updateCalqueVert(min,max,taille);
         gestion_calque.afficheDic();
 }
+
+/* fonction de mise à jour de la vue
+ *
+ * La fonction reçoit le numéro de l'image.
+ * appelle une fonction dans le gestionnaire qui retourne la liste de calque s'appliquant à l'image genre vector : { 0,2,6 } c'est à dire que les images calques calque0, calque2 et calque6 doivent etre affichés
+ *
+ * */
 
 void ScopyBio_Controller::removeGreenFilter()
 {
