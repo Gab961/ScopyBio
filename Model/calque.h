@@ -1,14 +1,19 @@
 #pragma once
 
 #include <../CImg.h>
+#include "dessin_model.h"
 
 using namespace cimg_library;
 class annotation_user_memento;
+class dessin_model;
+
+class QPoint;
 
 class calque
 {
 private:
     CImg<float> _calque;
+    dessin_model dessine;
     int intervalMin;
     int intervalMax;
     int name;
@@ -27,5 +32,9 @@ public:
     int getName() const;
     int getIntervalMin() const;
     int getIntervalMax() const;
+
+    //          ACTIONS !
+
+    void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 };
 

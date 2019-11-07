@@ -19,7 +19,7 @@ class gestionnaire_calque_model
 public:
     gestionnaire_calque_model();
 
-    void save(std::string pathToSave);
+    void saveTmpforDisplay(int min, int max);
 
     bool existeCalque(int min, int max);
 
