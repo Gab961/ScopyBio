@@ -44,5 +44,37 @@ void Menu_Draw_Button::connections()
 
 void Menu_Draw_Button::activatePipetteWaiting()
 {
-    emit waitingForZoomClick();
+    // Si le bouton est pressé une première fois
+    if (!isActive) {
+        setActive(true);
+
+        emit waitingForZoomClick();
+    }
+    // Si le bouton a déjà été pressé et on reclic dessus
+    else {
+        setActive(false);
+
+        emit pipetteCanceled();
+    }
+}
+
+void Menu_Draw_Button::setActive(bool state)
+{
+    isActive = state;
+
+    if (!isActive) {
+        m_scopybioController->setPipetteClick(false);
+
+        m_selectSquare->setEnabled(true);
+        m_selectCircle->setEnabled(true);
+        m_selectDraw->setEnabled(true);
+        m_pen->setEnabled(true);
+        m_eraser->setEnabled(true);
+    } else {
+        m_selectSquare->setEnabled(false);
+        m_selectCircle->setEnabled(false);
+        m_selectDraw->setEnabled(false);
+        m_pen->setEnabled(false);
+        m_eraser->setEnabled(false);
+    }
 }

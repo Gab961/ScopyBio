@@ -49,6 +49,8 @@ class MainWindow: public QMainWindow
         void updateSave();
         void nouveauClicCreerRectangle(QPoint pos1, QPoint pos2);
         void resizeEvent(QResizeEvent* event);
+        void setCursorPipetteActive();
+        void setCursorPipetteDisabled();
 
         QGridLayout *m_leftLayout;
         Zoom_View *m_zoomView;

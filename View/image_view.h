@@ -29,6 +29,7 @@ class Image_View : public QGroupBox
         void drawRectOnMouse(const QPoint&, const QPoint&, int labelWidth, int labelHeight);
         void changeZoomedPicture(int zoneWidth, int zoneHeight);
         void processResults(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+        void pipetteClicked();
 
     public slots:
         void setNewPicture();        
