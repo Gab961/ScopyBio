@@ -11,6 +11,13 @@ using namespace cimg_library;
 
 Image_View::Image_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController)
 {
+    createView();
+
+    connections();
+}
+
+void Image_View::createView()
+{
     setTitle("Main view");
 
     m_layout = new QGridLayout(this);
@@ -22,12 +29,14 @@ Image_View::Image_View( QWidget * parent, ScopyBio_Controller *scopybioControlle
 
     TEMPS_CLIC_LONG=100;
 
-    //Affichage du rectangle
-    QObject::connect(this, &Image_View::drawRectOnMouse, this, &Image_View::nouveauClicCreerRectangle);
-
     setLayout(m_layout);
 }
 
+void Image_View::connections()
+{
+    //Affichage du rectangle
+    QObject::connect(this, &Image_View::drawRectOnMouse, this, &Image_View::nouveauClicCreerRectangle);
+}
 
 void Image_View::mousePressEvent( QMouseEvent* ev )
 {
@@ -36,6 +45,13 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
 
     origPoint.setX(origPoint.x()-m_image->x());
     origPoint.setY(origPoint.y()-m_image->y());
+
+    if (m_scopybioController->getPipetteClick())
+    {
+        std::cout << "Coucou image" << std::endl;
+        m_scopybioController->setPipetteClick(false);
+        m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
+    }
 }
 
 /**
@@ -53,7 +69,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
         //Si c'est un clic court
         if (temps < TEMPS_CLIC_LONG)
         {
-            emit drawCircleOnMouse(origPoint);
+            //?
         }
         else
         {
@@ -68,10 +84,14 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
     }
 }
 
+
+void Image_View::readyForPipetteClick() { m_scopybioController->setPipetteClick(true); }
+
 /**
  * @brief Image_View::setNewPicture Modifie l'image affichée dans le label par l'image située au chemin donné
  * @param path
  */
+
 void Image_View::setNewPicture()
 {
     // Largeur du widget <= hauteur
@@ -108,7 +128,7 @@ void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWi
     emit changeZoomedPicture(largeurZone, hauteurZone);
 
     //Demande de calculer les résultats pour la zone
-    emit processResults(pos1,pos2,m_image->width(),m_image->height());
+    emit processResults(pos1,pos2, m_image->width(),m_image->height());
 
     update();
 }

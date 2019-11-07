@@ -104,6 +104,37 @@ void ScopyBio_Controller::removeGreenFilter()
     m_dessinModel->removeGreenFilter(m_pileModel->getCurrentImage());
 }
 
+
+void ScopyBio_Controller::applyHistogramFilter()
+{
+    m_dessinModel->applyHistogramFilter(m_pileModel->getCurrentImage());
+}
+
+void ScopyBio_Controller::removeHistogramFilter()
+{
+    m_dessinModel->removeHistogramFilter(m_pileModel->getCurrentImage());
+}
+
+void ScopyBio_Controller::manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView)
+{
+    m_dessinModel->manageNewWhiteColor(pos, labelWidth, labelHeight, isZoomView);
+}
+
+int ScopyBio_Controller::getWhiteColor()
+{
+    return m_dessinModel->getWhiteValue();
+}
+
+void ScopyBio_Controller::setPipetteClick(bool pipetteClick)
+{
+    m_dessinModel->setListenPipetteClick(pipetteClick);
+}
+
+bool ScopyBio_Controller::getPipetteClick()
+{
+    return m_dessinModel->getListenPipetteClick();
+}
+
 //=======================
 // Data_Modele
 //=======================
@@ -115,7 +146,7 @@ std::string ScopyBio_Controller::getResultDisplayPath()
 
 void ScopyBio_Controller::processResultsWithCrop(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
-    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), pos1, pos2, labelWidth, labelHeight);
+    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), pos1, pos2, m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
 }
 
 void ScopyBio_Controller::processResultsOnEverything()

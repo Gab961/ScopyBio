@@ -20,7 +20,6 @@ public:
     bool fileReady();
     void saveCurrent(int indiceEnCours);
 
-
     /** Partie dessin_model **/
     void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     std::string getMainDisplayPath();
@@ -28,6 +27,12 @@ public:
     void saveAsMainDisplay(int i);
     void applyGreenFilter();
     void removeGreenFilter();
+    void applyHistogramFilter();
+    void removeHistogramFilter();
+    void manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView);
+    int getWhiteColor();
+    void setPipetteClick(bool pipetteClick);
+    bool getPipetteClick();
 
 
     /** Partie data_model **/

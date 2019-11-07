@@ -8,6 +8,8 @@
 #include <QMenuBar>
 #include <QMessageBox>
 
+#include "loop_view.h"
+#include "layer_view.h"
 #include "data_view.h"
 #include "pile_view.h"
 #include "menu_option.h"
@@ -20,47 +22,71 @@ MainWindow::MainWindow(QWidget *parent)
 {
     m_scopybioController = new ScopyBio_Controller();
 
+    createView();
+
+    createActions();
+
+    connections();
+}
+
+void MainWindow::createView()
+{
     QDesktopWidget dw;
     int screenWidth = dw.width()*0.7;
     int screenHeight = dw.height()*0.7;
     setMinimumSize(screenWidth, screenHeight);
 
-    createActions();
-
     m_mainLayout = new QGridLayout();
     m_leftLayout = new QGridLayout();
     m_centerLayout = new QGridLayout();
     m_rightLayout = new QGridLayout();
+    m_pileLayerLayout = new QGridLayout();
+    m_buttonLayout = new QGridLayout();
 
-    m_pileView = new Pile_View(this, m_scopybioController);
-    m_pileView->setFixedSize(screenWidth*0.20, screenHeight*0.50);
+    m_zoomView = new Zoom_View(this, m_scopybioController);
+    m_zoomView->setFixedSize(screenWidth*0.20, screenHeight*0.45);
 
-    m_options = new menu_option(this, m_scopybioController);
-    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.25);
-
-    m_tools = new Menu_Draw_Button(this);
+    m_tools = new Menu_Draw_Button(this, m_scopybioController);
     m_tools->setFixedSize(screenWidth*0.20, screenHeight*0.17);
 
-    m_leftLayout->addWidget(m_tools, 0, 0);
-    m_leftLayout->addWidget(m_options, 1, 0);
-    m_leftLayout->addWidget(m_pileView, 2, 0);
+    m_options = new menu_option(this, m_scopybioController);
+    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.30);
 
-    //Affichage principal des images
+    m_leftLayout->addWidget(m_zoomView, 0, 0);
+    m_leftLayout->addWidget(m_tools, 1, 0);
+    m_leftLayout->addWidget(m_options, 2, 0);
+
     m_imageView = new Image_View(this, m_scopybioController);
     m_imageView->setFixedSize(screenWidth*0.50, screenHeight*0.95);
 
-    m_centerLayout->addWidget(m_imageView, 0, 0);
 
-    // Datas graph
+    m_loopWindow = new LoopView(this, m_scopybioController);
+    m_openLoop = new QPushButton("Open loop", this);
+    m_openLoop->setMaximumWidth(screenWidth*0.15);
+
+    m_openCompare = new QPushButton("Compare", this);
+    m_openCompare->setMaximumWidth(screenWidth*0.15);
+
+    m_buttonLayout->addWidget(m_openLoop, 0, 0);
+    m_buttonLayout->addWidget(m_openCompare, 0, 1);
+
+    m_centerLayout->addWidget(m_imageView, 0, 0);
+    m_centerLayout->addLayout(m_buttonLayout, 1, 0);
+
     m_dataView = new Data_View(this, m_scopybioController);
     m_dataView->setFixedSize(screenWidth*0.25, screenHeight*0.45);
 
-    //Affichage de la partie sélectionnée zoomée
-    m_zoomView = new Zoom_View(this, m_scopybioController);
-    m_zoomView->setFixedSize(screenWidth*0.25, screenHeight*0.45);
+    m_pileView = new Pile_View(this, m_scopybioController);
+    m_pileView->setFixedSize(screenWidth*0.15, screenHeight*0.45);
+
+    m_layerView = new LayerView(this, m_scopybioController);
+    m_layerView->setFixedSize(screenWidth*0.1, screenHeight*0.45);
+
+    m_pileLayerLayout->addWidget(m_pileView, 0, 0);
+    m_pileLayerLayout->addWidget(m_layerView, 0, 1);
 
     m_rightLayout->addWidget(m_dataView, 0, 0);
-    m_rightLayout->addWidget(m_zoomView, 1, 0);
+    m_rightLayout->addLayout(m_pileLayerLayout, 1, 0);
 
     m_mainLayout->addLayout(m_leftLayout, 0, 0);
     m_mainLayout->addLayout(m_centerLayout, 0, 1);
@@ -69,7 +95,10 @@ MainWindow::MainWindow(QWidget *parent)
     m_window = new QWidget();
     m_window->setLayout(m_mainLayout);
     setCentralWidget(m_window);
+}
 
+void MainWindow::connections()
+{
     //Envoi du chemin d'une image tif pour charger la pile
     QObject::connect(this, &MainWindow::sendPath, m_pileView, &Pile_View::openFile);
 
@@ -93,8 +122,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Demande de modification dans la liste depuis le graphique
     QObject::connect(m_dataView,&Data_View::graphClic,m_pileView,&Pile_View::changeToElement);
-}
 
+    //Prise en compte du prochain clic dans le zoom
+    QObject::connect(m_tools,&Menu_Draw_Button::waitingForZoomClick,m_zoomView,&Zoom_View::readyForClick);
+
+    //Prise en compte du prochain clic dans l'image view
+    QObject::connect(m_tools,&Menu_Draw_Button::waitingForZoomClick,m_imageView,&Image_View::readyForPipetteClick);
+
+    //Open Loop window
+    QObject::connect(m_openLoop, &QPushButton::clicked, this, &MainWindow::createLoopView);
+}
 
 void MainWindow::open()
 {
@@ -177,7 +214,6 @@ void MainWindow::updateSave()
 
 void MainWindow::showFirstInPile()
 {
-    std::cout << "showInFirstPile" << std::endl;
     m_scopybioController->saveAsMainDisplay(0);
     emit changeMainPicture();
 
@@ -186,7 +222,6 @@ void MainWindow::showFirstInPile()
 
 void MainWindow::changeActualItem()
 {
-    std::cout << "Changer actuel" << std::endl;
     int indiceEnCours = m_pileView->currentRow();
     m_scopybioController->saveCurrent(indiceEnCours);
     m_scopybioController->saveAsMainDisplay(indiceEnCours);
@@ -200,17 +235,20 @@ void MainWindow::resizeEvent(QResizeEvent* event)
     int screenWidth = size().width();
     int screenHeight = size().height();
 
-    m_pileView->setFixedSize(screenWidth*0.20, screenHeight*0.50);
-
-    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.25);
+    m_zoomView->setFixedSize(screenWidth*0.20, screenHeight*0.45);
 
     m_tools->setFixedSize(screenWidth*0.20, screenHeight*0.17);
+
+    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.30);
 
     m_imageView->setFixedSize(screenWidth*0.50, screenHeight*0.95);
 
     m_dataView->setFixedSize(screenWidth*0.25, screenHeight*0.45);
 
-    m_zoomView->setFixedSize(screenWidth*0.25, screenHeight*0.45);
+    m_layerView->setFixedSize(screenWidth*0.1, screenHeight*0.45);
+
+    m_pileView->setFixedSize(screenWidth*0.15, screenHeight*0.45);
+
 
     if (m_scopybioController->fileReady())
     {
@@ -220,3 +258,13 @@ void MainWindow::resizeEvent(QResizeEvent* event)
 
     update();
 }
+
+void MainWindow::createLoopView()
+{
+    if(m_scopybioController->fileReady())
+    {
+        m_loopWindow->show();
+        m_loopWindow->launchTimer();
+    }
+}
+

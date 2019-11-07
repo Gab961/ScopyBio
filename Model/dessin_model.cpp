@@ -2,7 +2,7 @@
 #include <iostream>
 #include "dessin_model.h"
 
-dessin_model::dessin_model()
+dessin_model::dessin_model() : whiteColor(200)
 {}
 
 CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
@@ -63,9 +63,71 @@ void dessin_model::applyGreenFilter(CImg<float> picture)
 
 void dessin_model::removeGreenFilter(CImg<float> picture)
 {
+    //TODO VIRER LE CALQUE
     picture.save_bmp(pathOfMainDisplay.c_str());
+}
+
+/**
+ * Source du code: https://github.com/HYPJUDY/histogram-equalization-on-grayscale-and-color-image/edit/master/histogram_equalization.cpp
+ * @brief dessin_model::applyHistogramFilter
+ * @param picture
+ */
+void dessin_model::applyHistogramFilter(CImg<float> picture)
+{
+    CImg<unsigned int> input_img;
+    input_img = picture;
+    int L = 256; // number of grey levels used
+    int w = input_img.width();
+    int h = input_img.height();
+    int number_of_pixels = w * h;
+
+    double cdf[256] = { 0 };
+    unsigned int equalized[256] = { 0 };
+
+    CImg<unsigned int> histogram(256, 1, 1, 1, 0);
+    cimg_forXY(input_img, x, y)
+            ++histogram[input_img(x, y)];
+
+    int count = 0;
+    cimg_forX(histogram, pos) { // calculate cdf and equalized transform
+        count += histogram[pos];
+        cdf[pos] = 1.0 * count / number_of_pixels;
+        equalized[pos] = round(cdf[pos] * (L - 1));
+    }
+
+    CImg<unsigned int> output_img(w, h, 1, 1, 0);
+    cimg_forXY(output_img, x, y)
+        output_img(x, y, 0) = equalized[input_img(x, y)];
+
+    output_img.save_bmp(pathOfMainDisplay.c_str());
+}
+
+void dessin_model::removeHistogramFilter(CImg<float> picture)
+{
+    //TODO VIRER LE CALQUE
+    picture.save_bmp(pathOfMainDisplay.c_str());
+}
+
+void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView)
+{
+    CImg<float> picture;
+    if (zoomView)
+        picture.load_bmp(pathOfZoomedDisplay.c_str());
+    else
+        picture.load_bmp(pathOfMainDisplay.c_str());
+    int realX = pos.x() * picture.width() / labelWidth;
+    int realY = pos.y() * picture.height() / labelHeight;
+
+    std::cout << "Position finale = " << realX << "," << realY << std::endl;
+
+    whiteColor = (int)picture(realX, realY, 0, 0);
+    std::cout << "Nouvelle = " << whiteColor << std::endl;
 }
 
 void dessin_model::saveImageAsMainDisplay(CImg<float> pictureToShow) { pictureToShow.save_bmp(pathOfMainDisplay.c_str()); }
 std::string dessin_model::getMainDisplayPath() const { return pathOfMainDisplay; }
 std::string dessin_model::getZoomDisplayPath() const { return pathOfZoomedDisplay; }
+int dessin_model::getWhiteValue() const { return whiteColor; }
+void dessin_model::setWhiteValue(int color) { whiteColor = color; }
+bool dessin_model::getListenPipetteClick() const { return listenPipetteClick; }
+void dessin_model::setListenPipetteClick(bool pipetteClick) { listenPipetteClick = pipetteClick; }
