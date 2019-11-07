@@ -46,7 +46,7 @@ void MainWindow::createView()
     m_zoomView = new Zoom_View(this, m_scopybioController);
     m_zoomView->setFixedSize(screenWidth*0.20, screenHeight*0.45);
 
-    m_tools = new Menu_Draw_Button(this);
+    m_tools = new Menu_Draw_Button(this, m_scopybioController);
     m_tools->setFixedSize(screenWidth*0.20, screenHeight*0.17);
 
     m_options = new menu_option(this, m_scopybioController);
