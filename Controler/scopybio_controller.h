@@ -10,6 +10,7 @@ class ScopyBio_Controller
 public:
     ScopyBio_Controller();
 
+
     /** Partie pile_model **/
     void loadNewTiffFile(std::string filename);
     CImgList<float> getLoadedTiffList();

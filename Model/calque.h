@@ -1,6 +1,6 @@
 #pragma once
 
-#include <../CImg.h>
+#include "CImg.h"
 #include "dessin_model.h"
 
 using namespace cimg_library;
@@ -16,12 +16,12 @@ private:
     dessin_model dessine;
     int intervalMin;
     int intervalMax;
-    int name;
+    int id;
 
 
 
 public:
-    calque(int min, int max, int nom);
+    calque(int min, int max, int _id);
 
     annotation_user_memento *createMemento();
     void reinstateMemento(annotation_user_memento *mem);
@@ -29,12 +29,12 @@ public:
     CImg<float> getCalque() const;
     void setCalque(const CImg<float> &calque);
 
-    int getName() const;
+    int getId() const;
     int getIntervalMin() const;
     int getIntervalMax() const;
 
     //          ACTIONS !
-
+    void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 };
 

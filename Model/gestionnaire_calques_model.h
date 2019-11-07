@@ -24,7 +24,7 @@ public:
     bool existeCalque(int min, int max);
 
     void creerCalque(int min, int max, int taille);
-    calque &getCalque(int min, int max);
+    int getCalque(int min, int max);
     void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
 protected:
