@@ -73,9 +73,9 @@ if( WIN32)
 endif()
 
 
-########
-
-
+#### Create folder ### 
+file(MAKE_DIRECTORY ${directory}/tmp)
+file(MAKE_DIRECTORY 
 
 # ### CIMG related stuff
 # Flags to enable fast image display, using the XSHM library.
@@ -116,7 +116,11 @@ SET(CIMG_FFTW3_CCFLAGS  -Dcimg_use_fftw3)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CIMG_CFLAGS}")
 
 find_package(Qt5Widgets CONFIG REQUIRED)
+message(CONFIG)
+
+### JsonCPP ###
 find_package(jsoncpp REQUIRED)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDLL$<$<CONFIG:Debug>:Debug>")
 
 aux_source_directory(. SRC_LIST)
 add_subdirectory(Controler)

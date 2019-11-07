@@ -12,6 +12,7 @@
 
  [options]
  *:shared=False
+ jsoncpp:shared=False
  Qt:qtmultimedia=True
  Qt:qtsvg=True
  Qt:qttools=True
