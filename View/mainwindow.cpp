@@ -46,7 +46,7 @@ void MainWindow::createView()
     m_zoomView = new Zoom_View(this, m_scopybioController);
     m_zoomView->setFixedSize(screenWidth*0.20, screenHeight*0.45);
 
-    m_tools = new Menu_Draw_Button(this);
+    m_tools = new Menu_Draw_Button(this, m_scopybioController);
     m_tools->setFixedSize(screenWidth*0.20, screenHeight*0.17);
 
     m_options = new menu_option(this, m_scopybioController);
@@ -122,6 +122,9 @@ void MainWindow::connections()
 
     //Demande de modification dans la liste depuis le graphique
     QObject::connect(m_dataView,&Data_View::graphClic,m_pileView,&Pile_View::changeToElement);
+
+    //Prise en compte du prochain clic dans le zoom
+    QObject::connect(m_tools,&Menu_Draw_Button::waitingForZoomClick,m_zoomView,&Zoom_View::readyForClick);
 
     //Open Loop window
     QObject::connect(m_openLoop, &QPushButton::clicked, this, &MainWindow::createLoopView);

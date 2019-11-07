@@ -2,7 +2,7 @@
 #include <iostream>
 #include "dessin_model.h"
 
-dessin_model::dessin_model()
+dessin_model::dessin_model() : whiteColor(200)
 {}
 
 void dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> currentPicture)
@@ -89,7 +89,7 @@ void dessin_model::applyHistogramFilter(CImg<float> picture)
     }
 
     CImg<unsigned int> output_img(w, h, 1, 1, 0);
-    cimg_forXY(output_img, x, y) // calculate histogram equalization result
+    cimg_forXY(output_img, x, y)
         output_img(x, y, 0) = equalized[input_img(x, y)];
 
     output_img.save_bmp(pathOfMainDisplay.c_str());
@@ -101,6 +101,18 @@ void dessin_model::removeHistogramFilter(CImg<float> picture)
     picture.save_bmp(pathOfMainDisplay.c_str());
 }
 
+void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight)
+{
+    CImg<float> zoomPicture;
+    zoomPicture.load_bmp(pathOfZoomedDisplay.c_str());
+    int realX = pos.x() * zoomPicture.width() / labelWidth;
+    int realY = pos.y() * zoomPicture.height() / labelHeight;
+
+    whiteColor = (int)zoomPicture(realX, realY, 0, 0);
+}
+
 void dessin_model::saveImageAsMainDisplay(CImg<float> pictureToShow) { pictureToShow.save_bmp(pathOfMainDisplay.c_str()); }
 std::string dessin_model::getMainDisplayPath() const { return pathOfMainDisplay; }
 std::string dessin_model::getZoomDisplayPath() const { return pathOfZoomedDisplay; }
+int dessin_model::getWhiteValue() const { return whiteColor; }
+void dessin_model::setWhiteValue(int color) { whiteColor = color; }

@@ -1,6 +1,7 @@
 #include "menu_draw_button.h"
+#include "scopybio_controller.h"
 
-Menu_Draw_Button::Menu_Draw_Button(QWidget *parent)
+Menu_Draw_Button::Menu_Draw_Button(QWidget *parent, ScopyBio_Controller *scopybioController) : m_scopybioController(scopybioController)
 {
     createView();
 }
@@ -30,4 +31,13 @@ void Menu_Draw_Button::createView()
     m_gridTools->addWidget(m_pipette, 2, 1);
 
     setLayout(m_gridTools);
+
+    //Demande d'affichage dans la fenêtre de data
+    QObject::connect(m_pipette,&QPushButton::clicked,this,&Menu_Draw_Button::activatePipetteWaiting);
+}
+
+
+void Menu_Draw_Button::activatePipetteWaiting()
+{
+    emit waitingForZoomClick();
 }

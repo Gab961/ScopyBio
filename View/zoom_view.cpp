@@ -1,8 +1,9 @@
+#include <QMouseEvent>
 #include "zoom_view.h"
 #include <iostream>
 #include "scopybio_controller.h"
 
-Zoom_View::Zoom_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController)
+Zoom_View::Zoom_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController), listenClick(false)
 {
     createView();
 }
@@ -66,3 +67,16 @@ void Zoom_View::setNewPicture(int zoneWidth, int zoneHeight)
     update();
 }
 
+void Zoom_View::readyForClick() { listenClick = true; }
+
+void Zoom_View::mousePressEvent( QMouseEvent* ev )
+{
+    QPoint origPoint = ev->pos();
+    if (listenClick)
+    {
+        listenClick = false;
+        origPoint.setX(origPoint.x() - m_image->x());
+        origPoint.setY(origPoint.y() - m_image->y());
+        m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height());
+    }
+}
