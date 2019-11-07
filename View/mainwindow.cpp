@@ -85,8 +85,11 @@ void MainWindow::createView()
     m_pileLayerLayout->addWidget(m_pileView, 0, 0);
     m_pileLayerLayout->addWidget(m_layerView, 0, 1);
 
+    m_layer = new QGroupBox("Layers", this);
+    m_layer->setLayout(m_pileLayerLayout);
+
     m_rightLayout->addWidget(m_dataView, 0, 0);
-    m_rightLayout->addLayout(m_pileLayerLayout, 1, 0);
+    m_rightLayout->addWidget(m_layer, 1, 0);
 
     m_mainLayout->addLayout(m_leftLayout, 0, 0);
     m_mainLayout->addLayout(m_centerLayout, 0, 1);

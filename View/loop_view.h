@@ -30,7 +30,5 @@ class LoopView: public QWidget
         QTimer *timer;
         int value = -1;
 
-        int test = 0;
-
         ScopyBio_Controller *m_scopybioController;
 };

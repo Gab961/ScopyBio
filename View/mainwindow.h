@@ -7,6 +7,7 @@
 #include <QGridLayout>
 #include <QListWidgetItem>
 #include <QPushButton>
+#include <QGroupBox>
 
 class LayerView;
 class Pile_View;
@@ -63,6 +64,7 @@ class MainWindow: public QMainWindow
 
         QGridLayout *m_rightLayout;
         QGridLayout *m_pileLayerLayout;
+        QGroupBox *m_layer;
         Data_View *m_dataView;
         Pile_View *m_pileView;
         LayerView *m_layerView;

@@ -13,6 +13,7 @@ class Menu_Draw_Button: public QGroupBox
     public:
         Menu_Draw_Button(QWidget *parent, ScopyBio_Controller *scopybioController);
         void createView();
+        void connections();
 
     public slots:
         void activatePipetteWaiting();
