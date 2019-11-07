@@ -41,8 +41,6 @@ void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos
                 niveauDeNoirMaximal = niveauNuance;
         }
 
-        std::cout << "TotalNuance " << totalNuance << std::endl;
-        std::cout << "NombrePixels " << nombrePixels << std::endl;
         results.push_back(totalNuance/nombrePixels);
     }
 
@@ -91,7 +89,6 @@ void data_model::createResultsDisplay(int whiteValue)
     float valeurMediane = whiteValue * 100 / 255;
     float valMaxGraph = 100-valeurMediane;
     float valMinGraph = (100-valMaxGraph) * -1;
-    std::cout << "Med = " << valeurMediane << ", Max = " << valMaxGraph << ", Min = " << valMinGraph << std::endl;
 
     CImg<float> image;
     image.assign(300,200,1,3);
@@ -131,12 +128,9 @@ void data_model::createResultsDisplay(int whiteValue)
 int data_model::calculPlacementY(int imageHeight, int y, int valeurMediane)
 {
     int hauteurAbscisse = imageHeight - imageHeight * valeurMediane/100;
-    std::cout << "Valeur à placer = " << y << std::endl;
     int percentageY = y*100/255;
-    std::cout << "Valeur à placer en poucentage = " << percentageY << std::endl;
     //TODO faire le super calcul
     int valeurDepuisMedian = percentageY-valeurMediane;
-    std::cout << "Valeur depuis médiane = " << valeurDepuisMedian << std::endl;
 
     return hauteurAbscisse - valeurDepuisMedian*imageHeight/100;
 }
