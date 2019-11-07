@@ -1,18 +1,24 @@
 #pragma once
 #include <QLabel>
 #include <QGridLayout>
+#include <QGroupBox>
 
-class Zoom_View : public QLabel
+class ScopyBio_Controller;
+
+class Zoom_View : public QGroupBox
 {
     Q_OBJECT
 
-    public slots:
-        void setNewPicture(std::string path);
-
     public:
-        Zoom_View(QWidget* parent = 0);
+        Zoom_View(QWidget* parent, ScopyBio_Controller *scopybioController);
+        void createView();
+        ScopyBio_Controller *m_scopybioController;
+
+    public slots:
+        void setNewPicture(int zoneWidth, int zoneHeight);
 
     private:
         QGridLayout *m_layout;
         QLabel *m_image;
+
 };

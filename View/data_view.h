@@ -1,21 +1,32 @@
 #pragma once
 #include <QLabel>
+#include <QGroupBox>
+#include <QGridLayout>
+#include <QPoint>
+#include <QMouseEvent>
 #include <vector>
 
-class Data_View : public QLabel
+class ScopyBio_Controller;
+
+class Data_View : public QGroupBox
 {
     Q_OBJECT
 
-public slots:
-    void setData(std::vector<int> vec);
+    public:
+        Data_View(QWidget* parent, ScopyBio_Controller *scopybioController);
+        void createView();
+        void mousePressEvent( QMouseEvent* ev );
 
-public:
-    Data_View(QWidget* parent = 0);
+    signals:
+        void graphClic(int itemIndex);
 
-private:
-    int calculPlacementY(int imageHeight, int y);
-    void drawResults();
+    public slots:
+        void processingResults(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
-    std::string pathToResult = "tmp/result.bmp";
-    std::vector<int> data;
+    private:
+        void drawResults();
+
+        ScopyBio_Controller *m_scopybioController;
+        QGridLayout *m_layout;
+        QLabel *m_image;
 };

@@ -3,31 +3,24 @@
 #include <iostream>
 #include <QListWidgetItem>
 #include <QIcon>
+#include "Controler/scopybio_controller.h"
 
-Pile_View::Pile_View(QWidget *parent)
-{}
+Pile_View::Pile_View(QWidget *parent, ScopyBio_Controller *scopybioController) : m_scopybioController(scopybioController)
+{
+    this->setIconSize(QSize(125, 125));
+}
 
 void Pile_View::openFile(std::string path)
 {
-    std::cout << "C'est arrivé ici : " << path << std::endl;
-    m_imgList.load_tiff(path.c_str());
-    std::cout << m_imgList.size() << std::endl;
 
-    this->setIconSize(QSize(200,200));
+    clear();
+    m_scopybioController->loadNewTiffFile(path);
+    std::vector<std::string> iconsfilenames = m_scopybioController->getIconFilenames();
 
-    //Enregistrement dans un fichier temporaire
-    for (unsigned int i=0; i<m_imgList.size(); i++)
+    for (unsigned int i=0; i<iconsfilenames.size();i++)
     {
-        CImg<float> img = m_imgList[i];
-
-        //TODO
-        //TBD où on l'enregistre à terme
-        //Enregistrement dans un fichier temporaire en tmp
-        std::string chemin = "tmp/" + std::to_string(i) + ".bpm";
-        img.save_bmp(chemin.c_str());
-
         //Obtention d'un QIcon depuis le fichier temporaire
-        QPixmap imagepx(chemin.c_str());
+        QPixmap imagepx(iconsfilenames[i].c_str());
         QIcon imageIc(imagepx);
 
         //Création du WidgetItem depuis l'icon et ajout dans la liste
@@ -43,5 +36,15 @@ void Pile_View::openFile(std::string path)
 
 CImg<float> Pile_View::getImage(int i)
 {
-    return m_imgList[i];
+    return m_scopybioController->getImageAtIndex(i);
+}
+
+
+void Pile_View::changeToElement(int i)
+{
+    if (m_scopybioController->fileReady())
+    {
+        setCurrentRow(i);
+        getImage(i);
+    }
 }

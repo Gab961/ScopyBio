@@ -124,5 +124,5 @@ add_subdirectory(Controler)
 add_subdirectory(View)
 add_subdirectory(Model)
 
-add_executable(${PROJECT_NAME} ${CONAN_LIST})
+add_executable(${PROJECT_NAME} ${SRC_LIST})
 target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS} Qt5::Widgets Controler View Model)

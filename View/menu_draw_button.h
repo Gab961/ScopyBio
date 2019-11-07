@@ -10,12 +10,13 @@ class Menu_Draw_Button: public QGroupBox
 
     public:
         Menu_Draw_Button(QWidget *parent);
+        void createView();
 
     private:
         QGridLayout *m_gridTools;
 
         QPushButton *m_eraser;
-        QPushButton *m_removeSelectedZone;
+        QPushButton *m_pipette;
         QPushButton *m_pen;
         QPushButton *m_selectSquare;
         QPushButton *m_selectCircle;

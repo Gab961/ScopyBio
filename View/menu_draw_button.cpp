@@ -2,6 +2,11 @@
 
 Menu_Draw_Button::Menu_Draw_Button(QWidget *parent)
 {
+    createView();
+}
+
+void Menu_Draw_Button::createView()
+{
     setTitle("Tools");
 
     m_gridTools = new QGridLayout();
@@ -21,9 +26,8 @@ Menu_Draw_Button::Menu_Draw_Button(QWidget *parent)
     m_eraser = new QPushButton("Eraser", this);
     m_gridTools->addWidget(m_eraser, 1, 1);
 
-    m_removeSelectedZone = new QPushButton("Remove selected zone", this);
-    m_gridTools->addWidget(m_removeSelectedZone, 2, 1);
+    m_pipette = new QPushButton("Pipette", this);
+    m_gridTools->addWidget(m_pipette, 2, 1);
 
     setLayout(m_gridTools);
 }
-

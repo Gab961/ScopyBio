@@ -1,12 +1,10 @@
 #include <cstdio>
 #include <iostream>
 #include <QApplication>
-#include "mainwindow.h"
 #include <QWidget>
 #include <cstdlib>
 
-
-#include <scopybio_controller.h>
+#include "mainwindow.h"
 
 using namespace std;
 
@@ -19,3 +17,4 @@ int main(int argc, char* argv[])
 
     return scopyBio.exec();
 }
+
