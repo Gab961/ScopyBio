@@ -23,5 +23,4 @@ private:
     QGridLayout *m_layout;
     QLabel *m_image;
     ScopyBio_Controller *m_scopybioController;
-    bool listenClick;
 };

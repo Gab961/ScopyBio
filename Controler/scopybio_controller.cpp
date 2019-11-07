@@ -115,6 +115,16 @@ int ScopyBio_Controller::getWhiteColor()
     return m_dessinModel->getWhiteValue();
 }
 
+void ScopyBio_Controller::setPipetteClick(bool pipetteClick)
+{
+    m_dessinModel->setListenPipetteClick(pipetteClick);
+}
+
+bool ScopyBio_Controller::getPipetteClick()
+{
+    return m_dessinModel->getListenPipetteClick();
+}
+
 //=======================
 // Data_Modele
 //=======================

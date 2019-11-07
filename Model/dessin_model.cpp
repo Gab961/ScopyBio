@@ -108,7 +108,10 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
     int realX = pos.x() * zoomPicture.width() / labelWidth;
     int realY = pos.y() * zoomPicture.height() / labelHeight;
 
+    std::cout << "Position réelle = " << realX << "," << realY << std::endl;
+
     whiteColor = (int)zoomPicture(realX, realY, 0, 0);
+    std::cout << "Nouvelle = " << whiteColor << std::endl;
 }
 
 void dessin_model::saveImageAsMainDisplay(CImg<float> pictureToShow) { pictureToShow.save_bmp(pathOfMainDisplay.c_str()); }
@@ -116,3 +119,5 @@ std::string dessin_model::getMainDisplayPath() const { return pathOfMainDisplay;
 std::string dessin_model::getZoomDisplayPath() const { return pathOfZoomedDisplay; }
 int dessin_model::getWhiteValue() const { return whiteColor; }
 void dessin_model::setWhiteValue(int color) { whiteColor = color; }
+bool dessin_model::getListenPipetteClick() const { return listenPipetteClick; }
+void dessin_model::setListenPipetteClick(bool pipetteClick) { listenPipetteClick = pipetteClick; }
