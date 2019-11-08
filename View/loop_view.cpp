@@ -64,3 +64,12 @@ void LoopView::closeEvent(QCloseEvent *ev)
     timer->stop();
     ev->accept();
 }
+
+void LoopView::createLoopView()
+{
+    if(m_scopybioController->fileReady())
+    {
+        show();
+        launchTimer();
+    }
+}
