@@ -16,6 +16,7 @@ class Zoom_View;
 class Menu_Draw_Button;
 class Data_View;
 class ScopyBio_Controller;
+class LoopView;
 
 class MainWindow: public QMainWindow
 {
@@ -38,7 +39,8 @@ class MainWindow: public QMainWindow
         void aboutUs();
         void howToUse();
         void showFirstInPile();
-        void changeActualItem();
+        void changeActualItem();     
+        void createLoopView();
 
     private:
         void createActions();
@@ -56,6 +58,7 @@ class MainWindow: public QMainWindow
         QGridLayout *m_buttonLayout;
         Image_View *m_imageView;
         QPushButton *m_openLoop;
+        LoopView *m_loopWindow;
         QPushButton *m_openCompare;
 
         QGridLayout *m_rightLayout;

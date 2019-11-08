@@ -7,10 +7,10 @@ data_model::data_model() : isDataReady(false)
 
 std::string data_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
 
-std::vector<int> data_model::getResults() const { return results; }
+std::vector<float> data_model::getResults() const { return results; }
 
 
-void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
+void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight)
 {
     results.clear();
 
@@ -22,19 +22,16 @@ void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos
     for(CImg<float> image : allPictures)
     {
         CImg<float> zoom = image.get_crop(x1+1,y1+1,0,x2-1,y2-1,0);
-        int nombrePixels = 0;
-        int totalNuance = 0;
+        float nombrePixels = zoom.width() * zoom.height();
+        float totalNuance = 0;
         int niveauDeBlancMaximal = 0;
         int niveauDeNoirMaximal = 255;
 
         //Pour chaque pixel de l'image
         cimg_forXY(zoom,x,y) {
             //Niveau de gris du pixel en cours
-            int niveauNuance = (int)zoom(x,y,0,0);
+            int niveauNuance = (float)zoom(x,y,0,0);
 
-
-            //TODO Déterminer les actions à faire
-            nombrePixels++;
             totalNuance += niveauNuance;
 
             if (niveauDeBlancMaximal < niveauNuance)
@@ -44,11 +41,10 @@ void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos
                 niveauDeNoirMaximal = niveauNuance;
         }
 
-        //TODO là on renvoie que la moyenne pour le moment
         results.push_back(totalNuance/nombrePixels);
     }
 
-    createResultsDisplay();
+    createResultsDisplay(whiteValue);
 }
 
 void data_model::processResults(CImgList<float> allPictures)
@@ -82,20 +78,23 @@ void data_model::processResults(CImgList<float> allPictures)
         results.push_back(totalNuance/nombrePixels);
     }
 
-    createResultsDisplay();
+    createResultsDisplay(200);
 }
 
 
-void data_model::createResultsDisplay()
+void data_model::createResultsDisplay(int whiteValue)
 {
     int black[] = { 0,0,0 };
     int red[] = { 255,0,0 };
+    float valeurMediane = whiteValue * 100 / 255;
+    float valMaxGraph = 100-valeurMediane;
+    float valMinGraph = (100-valMaxGraph) * -1;
 
     CImg<float> image;
     image.assign(300,200,1,3);
     image.fill(255);
 
-    image.draw_axes(0,results.size(),100,0.0f,black);
+    image.draw_axes(0,results.size(),valMaxGraph,valMinGraph,black);
 
     //Calculs pour placer les points correctement
     int decalageX = image.width()/results.size();
@@ -107,14 +106,14 @@ void data_model::createResultsDisplay()
     {
         if (firstIteration)
         {
-            oldY = calculPlacementY(image.height(),y);
+            oldY = calculPlacementY(image.height(),y, valeurMediane);
             image.draw_point(oldX,oldY,red,1);
             firstIteration = false;
         }
         else
         {
             int newX = oldX+decalageX;
-            int newY = calculPlacementY(image.height(),y);
+            int newY = calculPlacementY(image.height(),y, valeurMediane);
 
             image.draw_line(oldX,oldY,newX,newY,red);
             oldX = newX;
@@ -126,10 +125,14 @@ void data_model::createResultsDisplay()
     isDataReady = true;
 }
 
-int data_model::calculPlacementY(int imageHeight, int y)
+int data_model::calculPlacementY(int imageHeight, int y, int valeurMediane)
 {
-    int percentageValue = y*100/255;
-    return imageHeight - percentageValue*imageHeight/100;
+    int hauteurAbscisse = imageHeight - imageHeight * valeurMediane/100;
+    int percentageY = y*100/255;
+    //TODO faire le super calcul
+    int valeurDepuisMedian = percentageY-valeurMediane;
+
+    return hauteurAbscisse - valeurDepuisMedian*imageHeight/100;
 }
 
 

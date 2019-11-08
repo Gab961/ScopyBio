@@ -1,14 +1,13 @@
-#include "image_model.h"
-#include "annotation_user.h"
+#include "command_memento.h"
+#include "calque.h"
 #include "annotation_user_memento.h"
 
-image_model::image_model(int numImg, annotation_user *_receiver, Action _action):
-    numImage(numImg),
+command_memento::command_memento(calque *_receiver, Action _action):
     receiver(_receiver),
     action(_action){}
 
 
-void image_model::execute()
+void command_memento::execute()
 {
         mementoList[numCommands] = receiver->createMemento();
         commandList[numCommands] = this;
@@ -18,7 +17,7 @@ void image_model::execute()
         (receiver->*action)();
 }
 
-void image_model::undo()
+void command_memento::undo()
 {
     if (numCommands == 0)
     {
@@ -29,7 +28,7 @@ void image_model::undo()
     numCommands--;
 }
 
-void image_model::redo()
+void command_memento::redo()
 {
     if (numCommands > highWater)
     {
@@ -37,12 +36,4 @@ void image_model::redo()
     }
     (commandList[numCommands]->receiver->*(commandList[numCommands]->action))();
     numCommands++;
-}
-
-void image_model::save(std::string pathToSave){
-    CImg<float> toSave = mementoList[numCommands]->getCalque();
-    std::string pathTmp = pathToSave + "/Calques/calque" + std::to_string(numImage) + ".png";
-    char * path = NULL;
-    std::strcpy(path, pathTmp.c_str());
-    toSave.save_png(path,0);
 }

@@ -2,10 +2,10 @@
 #include <iostream>
 #include "dessin_model.h"
 
-dessin_model::dessin_model()
+dessin_model::dessin_model() : whiteColor(200), zoomReady(false)
 {}
 
-void dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> currentPicture)
+CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
     const unsigned char color[] = { 255,174,0 };
 
@@ -37,14 +37,55 @@ void dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, i
     if (y2 > currentPicture.height())
         y2 = currentPicture.height();
 
-    //Dessin du rectangle et affichage sur l'image principale
     currentPicture.draw_rectangle(x1,y1,x2,y2,color,1,~0U);
-    currentPicture.save_bmp(pathOfMainDisplay.c_str());
+
+    return currentPicture;
+}
+
+
+void dessin_model::saveZoomFromPicture(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> currentPicture)
+{
+    int x1 = pos1.x() * currentPicture.width() / labelWidth;
+    int y1 = pos1.y() * currentPicture.height() / labelHeight;
+    int x2 = pos2.x() * currentPicture.width() / labelWidth;
+    int y2 = pos2.y() * currentPicture.height() / labelHeight;
+
+    //Gestion des positions
+    if (x1 > x2)
+    {
+        int tmp = x2;
+        x2 = x1;
+        x1 = tmp;
+    }
+    if (y1 > y2)
+    {
+        int tmp = y2;
+        y2 = y1;
+        y1 = tmp;
+    }
+
+    if (x1<0)
+        x1 = -1;
+    if (y1 < 0)
+        y1 = -1;
+    if (x2 > currentPicture.width())
+        x2 = currentPicture.width();
+    if (y2 > currentPicture.height())
+        y2 = currentPicture.height();
 
     //Création de l'image zoomée et demande d'affichage dans la partie zoomée
     CImg<float> zoom = currentPicture.get_crop(x1+1,y1+1,0,x2-1,y2-1,0);
     zoom.resize(476,514);
     zoom.save_bmp(pathOfZoomedDisplay.c_str());
+
+    zoomReady = true;
+}
+
+void dessin_model::savePics(int x1, int y1, int x2, int y2, unsigned char color, CImg<float> currentPicture){
+
+    //Dessin du rectangle et affichage sur l'image principale
+    //currentPicture.draw_rectangle(x1,y1,x2,y2,color,1,~0U);
+    currentPicture.save_bmp(pathOfMainDisplay.c_str());
 }
 
 void dessin_model::applyGreenFilter(CImg<float> picture)
@@ -89,7 +130,7 @@ void dessin_model::applyHistogramFilter(CImg<float> picture)
     }
 
     CImg<unsigned int> output_img(w, h, 1, 1, 0);
-    cimg_forXY(output_img, x, y) // calculate histogram equalization result
+    cimg_forXY(output_img, x, y)
         output_img(x, y, 0) = equalized[input_img(x, y)];
 
     output_img.save_bmp(pathOfMainDisplay.c_str());
@@ -101,6 +142,27 @@ void dessin_model::removeHistogramFilter(CImg<float> picture)
     picture.save_bmp(pathOfMainDisplay.c_str());
 }
 
+void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView)
+{
+    CImg<float> picture;
+    if (zoomView)
+        picture.load_bmp(pathOfZoomedDisplay.c_str());
+    else
+        picture.load_bmp(pathOfMainDisplay.c_str());
+    int realX = pos.x() * picture.width() / labelWidth;
+    int realY = pos.y() * picture.height() / labelHeight;
+
+    std::cout << "Position finale = " << realX << "," << realY << std::endl;
+
+    whiteColor = (int)picture(realX, realY, 0, 0);
+    std::cout << "Nouvelle = " << whiteColor << std::endl;
+}
+
 void dessin_model::saveImageAsMainDisplay(CImg<float> pictureToShow) { pictureToShow.save_bmp(pathOfMainDisplay.c_str()); }
 std::string dessin_model::getMainDisplayPath() const { return pathOfMainDisplay; }
 std::string dessin_model::getZoomDisplayPath() const { return pathOfZoomedDisplay; }
+int dessin_model::getWhiteValue() const { return whiteColor; }
+void dessin_model::setWhiteValue(int color) { whiteColor = color; }
+bool dessin_model::getListenPipetteClick() const { return listenPipetteClick; }
+void dessin_model::setListenPipetteClick(bool pipetteClick) { listenPipetteClick = pipetteClick; }
+bool dessin_model::getZoomReady() const { return zoomReady; }

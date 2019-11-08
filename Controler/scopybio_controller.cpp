@@ -58,13 +58,24 @@ void ScopyBio_Controller::saveCurrent(int indiceEnCours)
 //=======================
 // Dessin_Modele
 //=======================
-void ScopyBio_Controller::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
+void ScopyBio_Controller::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
-    //    calque = leNouveauClaque;
-    //    m_gestionCalques->ajouterNouveauCalque(leNouveauClaque);
-    //    m_dessinModel->dessinerRectangle(pos1, pos2, labelWidth, labelHeight, leNouveauClaque);
+    //TODO :
+    int taille = m_pileModel->getImages().size();
 
-    m_dessinModel->dessinerRectangle(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
+    //Verifier s'il existe dans le dico
+    if(!gestion_calque.existeCalque(-2,-2)){
+        //Si n'existe pas Creer le calque et mettre à jour le dico
+        gestion_calque.creerCalque(-2,-2,taille);
+        gestion_calque.dessineFaisceau(-2,-2,pos1,pos2,labelWidth,labelHeight);
+        m_dessinModel->saveZoomFromPicture(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
+    }else{
+        //Sinon prendre le calque existant
+        gestion_calque.dessineFaisceau(-2,-2,pos1,pos2,labelWidth,labelHeight);
+        gestion_calque.saveTmpforDisplay(-2,-2);
+        m_dessinModel->saveZoomFromPicture(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
+    }
+
 }
 
 std::string ScopyBio_Controller::getMainDisplayPath()
@@ -105,6 +116,31 @@ void ScopyBio_Controller::removeHistogramFilter()
     m_dessinModel->removeHistogramFilter(m_pileModel->getCurrentImage());
 }
 
+void ScopyBio_Controller::manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView)
+{
+    m_dessinModel->manageNewWhiteColor(pos, labelWidth, labelHeight, isZoomView);
+}
+
+int ScopyBio_Controller::getWhiteColor()
+{
+    return m_dessinModel->getWhiteValue();
+}
+
+void ScopyBio_Controller::setPipetteClick(bool pipetteClick)
+{
+    m_dessinModel->setListenPipetteClick(pipetteClick);
+}
+
+bool ScopyBio_Controller::getPipetteClick()
+{
+    return m_dessinModel->getListenPipetteClick();
+}
+
+bool ScopyBio_Controller::getZoomReady()
+{
+    return m_dessinModel->getZoomReady();
+}
+
 //=======================
 // Data_Modele
 //=======================
@@ -116,7 +152,7 @@ std::string ScopyBio_Controller::getResultDisplayPath()
 
 void ScopyBio_Controller::processResultsWithCrop(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
-    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), pos1, pos2, labelWidth, labelHeight);
+    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), pos1, pos2, m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
 }
 
 void ScopyBio_Controller::processResultsOnEverything()
