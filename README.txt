@@ -13,11 +13,11 @@ after you are succefuly install all previous tools, you need to execute some com
 	* $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
 	* go on build repesitory in /ScopyBio
 	* execute conan
-		-Linux : $ conan install .. --build=missing
-		-Windows : $ conan install .. -s build_type=Debug -s compiler='VisualStudio" -s compiler.runtime=MDd --build=missing
+		-Linux : $ conan install .. -s build_type=Release --build=missing
+		-Windows : $ conan install .. -s build_type=Release -s compiler='VisualStudio" -s compiler.runtime=MDd --build=missing
 
 	* $ cmake ..
 	* $ cmake --build .
 
 
-Now you have a ScopyBio.exe in bin/ 
+Now you have a ScopyBio.exe in Build/bin/ 

@@ -11,7 +11,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-add_compile_options(-Wall -Wpedantic -std=c++14)
+add_compile_options(-Wall -Wpedantic -std=c++14 )
 endif()
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
@@ -73,11 +73,22 @@ if( WIN32)
 endif()
 
 
-#### Create folder ### 
-file(MAKE_DIRECTORY ${directory}/tmp)
-file(MAKE_DIRECTORY 
+### Create folder
+file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}/tmp)
+if(UNIX)
+  #  set(FONTS ${CONAN_LIB_DIRS_QT}/fonts/dejavu-fonts-ttf-2.37.zip )
+  # file(DOWNLOAD http://en.wikipedia.org/wiki/ZIP_(file_format) ${path} )
+endif()
 
-# ### CIMG related stuff
+add_custom_target( unZip ALL)
+add_custom_command(TARGET unZip PRE_BUILD
+ # COMMAND ${CMAKE_COMMAND} -E tar xzf ${CONAN_LIB_DIRS_QT}/fonts/dejavu-fonts-ttf-2.37.zip
+WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+DEPENDS ${CONAN_LIB_DIRS_QT}/fonts/dejavu-fonts-ttf-2.37.zip
+COMMENT "Unpacking abc.zip"
+VERBATIM)
+
+### CIMG related stuff
 # Flags to enable fast image display, using the XSHM library.
 SET(CIMG_XSHM_CCFLAGS  -Dcimg_use_xshm)
 
@@ -116,7 +127,7 @@ SET(CIMG_FFTW3_CCFLAGS  -Dcimg_use_fftw3)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CIMG_CFLAGS}")
 
 find_package(Qt5Widgets CONFIG REQUIRED)
-message(CONFIG)
+message("${}")
 
 ### JsonCPP ###
 find_package(jsoncpp REQUIRED)
