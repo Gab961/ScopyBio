@@ -54,7 +54,7 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
         emit pipetteClicked();
 
         //Si une zone a déjà été sélectionnée
-        if (m_scopybioController->getBaseColorGiven())
+        if (m_scopybioController->getBaseColorGiven() && m_scopybioController->getZoomReady())
             emit processResults(m_image->width(),m_image->height());
     }
 }
