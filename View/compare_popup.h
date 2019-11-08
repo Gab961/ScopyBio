@@ -6,6 +6,7 @@
 #include <QPushButton>
 
 class ScopyBio_Controller;
+class CompareView;
 
 class ComparePopup: public QWidget
 {
@@ -19,6 +20,7 @@ class ComparePopup: public QWidget
 
     public slots:
         void createComparePopup();
+        void openCompareView();
 
 
     private:
@@ -31,6 +33,8 @@ class ComparePopup: public QWidget
         QGridLayout *m_layoutButtons;
         QPushButton *m_accept;
         QPushButton *m_cancel;
+
+        CompareView *m_compareWindow;
 
         ScopyBio_Controller *m_scopybioController;
 };

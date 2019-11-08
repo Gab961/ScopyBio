@@ -18,6 +18,12 @@ void CompareView::createView()
 
     m_mainLayout = new QGridLayout();
 
+    m_firstImage = new QLabel();
+    m_mainLayout->addWidget(m_firstImage, 0, 0);
+
+    m_secondImage = new QLabel();
+    m_mainLayout->addWidget(m_secondImage, 0, 0);
+
     setLayout(m_mainLayout);
 }
 
