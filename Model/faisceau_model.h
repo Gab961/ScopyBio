@@ -1,6 +1,5 @@
 #pragma once
 #include <QPoint>
-#include <coordonnee.h>
 #include <data_model.h>
 #include <pile_model.h>
 #include <vector>

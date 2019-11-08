@@ -194,11 +194,6 @@ void ScopyBio_Controller::processResultsOnEverything()
     m_dataModel->processResults(m_pileModel->getImages());
 }
 
-void ScopyBio_Controller::getResults()
-{
-    m_dataModel->getResults();
-}
-
 int ScopyBio_Controller::getItemAtPoint(int posX, int labelWidth)
 {
     return m_dataModel->getItemAtPoint(posX, labelWidth);
