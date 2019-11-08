@@ -8,6 +8,7 @@
 #include <QMenuBar>
 #include <QMessageBox>
 
+#include "compare_popup.h"
 #include "loop_view.h"
 #include "layer_view.h"
 #include "data_view.h"
@@ -64,6 +65,7 @@ void MainWindow::createView()
     m_openLoop = new QPushButton("Open loop", this);
     m_openLoop->setMaximumWidth(screenWidth*0.15);
 
+    m_comparePopup = new ComparePopup(this, m_scopybioController);
     m_openCompare = new QPushButton("Compare", this);
     m_openCompare->setMaximumWidth(screenWidth*0.15);
 
@@ -158,6 +160,9 @@ void MainWindow::connections()
 
     //Open Loop window
     QObject::connect(m_openLoop, &QPushButton::clicked, this, &MainWindow::createLoopView);
+
+    //Open Compare popup
+    QObject::connect(m_openCompare, &QPushButton::clicked, m_comparePopup, &ComparePopup::createComparePopup);
 }
 
 void MainWindow::open()
@@ -306,6 +311,8 @@ void MainWindow::createLoopView()
         m_loopWindow->launchTimer();
     }
 }
+
+
 
 void MainWindow::setCursorPipetteActive()
 {
