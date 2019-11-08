@@ -18,7 +18,7 @@ public:
     void saveImageAsMainDisplay(CImg<float> pictureToShow);
 
     //Filtres
-    void applyGreenFilter(CImg<float> picture);
+    CImg<float> applyGreenFilter(CImg<float> picture);
     void removeGreenFilter(CImg<float> picture);    
     void applyHistogramFilter(CImg<float> picture);
     void removeHistogramFilter(CImg<float> picture);
