@@ -1,7 +1,5 @@
-#ifndef FAISCEAU_MODEL_H
-#define FAISCEAU_MODEL_H
-
-#include <coordonnee.h>
+#pragma once
+#include <QPoint>
 #include <data_model.h>
 #include <pile_model.h>
 #include <vector>
@@ -9,21 +7,23 @@
 class faisceau_model
 {
 private:
-    coordonnee topLeft;
-    coordonnee botRight;
+    QPoint topLeft;
+    QPoint botRight;
 
     data_model Data;
     pile_model *p_Piles;
 
 public:
     faisceau_model();
-    faisceau_model(pile_model *pile,coordonnee tl,coordonnee br);
+    faisceau_model(pile_model *pile, QPoint tl, QPoint br);
 
-    coordonnee getTopLeft() const;
-    void setTopLeft(const coordonnee &value);
+    void setFaisceau(QPoint pos1, QPoint pos2);
 
-    coordonnee getBotRight() const;
-    void setBotRight(const coordonnee &value);
+    QPoint getTopLeft() const;
+    void setTopLeft(QPoint value);
+
+    QPoint getBotRight() const;
+    void setBotRight(QPoint value);
 
     data_model getData() const;
     void setData(const data_model &value);
@@ -34,4 +34,3 @@ public:
     void fillData();
 };
 
-#endif // FAISCEAU_MODEL_H

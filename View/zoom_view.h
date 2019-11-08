@@ -20,6 +20,7 @@ public slots:
     void setNewPicture(int zoneWidth, int zoneHeight);
 
 signals:
+    void processResultsFromZoom();
     void pipetteClicked();
 
 private:

@@ -7,12 +7,12 @@
  libgit2/0.26.3@arsen-studio/stable
  OpenSSL/1.0.2n@conan/stable
 
+
  [generators]
  cmake
 
  [options]
  *:shared=False
- jsoncpp:shared=False
  Qt:qtmultimedia=True
  Qt:qtsvg=True
  Qt:qttools=True

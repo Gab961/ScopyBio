@@ -8,6 +8,7 @@
 #include <QMenuBar>
 #include <QMessageBox>
 
+#include "compare_popup.h"
 #include "loop_view.h"
 #include "layer_view.h"
 #include "data_view.h"
@@ -64,6 +65,7 @@ void MainWindow::createView()
     m_openLoop = new QPushButton("Open loop", this);
     m_openLoop->setMaximumWidth(screenWidth*0.15);
 
+    m_comparePopup = new ComparePopup(this, m_scopybioController);
     m_openCompare = new QPushButton("Compare", this);
     m_openCompare->setMaximumWidth(screenWidth*0.15);
 
@@ -129,6 +131,9 @@ void MainWindow::connections()
     //Demande d'affichage dans la fenêtre de data
     QObject::connect(m_imageView, &Image_View::processResults, m_dataView, &Data_View::processingResults);
 
+    //Demande d'affichage dans la fenêtre de data
+    QObject::connect(m_zoomView, &Zoom_View::processResultsFromZoom, m_imageView, &Image_View::askProcessFromZoom);
+
     //Demande d'affichage de l'image principale depuis menuOption
     QObject::connect(m_options, &menu_option::refreshMainDisplay, m_imageView, &Image_View::setNewPicture);
 
@@ -154,7 +159,10 @@ void MainWindow::connections()
     QObject::connect(m_zoomView, &Zoom_View::pipetteClicked, this, &MainWindow::setCursorPipetteDisabled);
 
     //Open Loop window
-    QObject::connect(m_openLoop, &QPushButton::clicked, this, &MainWindow::createLoopView);
+    QObject::connect(m_openLoop, &QPushButton::clicked, m_loopWindow, &LoopView::createLoopView);
+
+    //Open Compare popup
+    QObject::connect(m_openCompare, &QPushButton::clicked, m_comparePopup, &ComparePopup::createComparePopup);
 }
 
 void MainWindow::open()
@@ -293,15 +301,6 @@ void MainWindow::resizeEvent(QResizeEvent* event)
     }
 
     update();
-}
-
-void MainWindow::createLoopView()
-{
-    if(m_scopybioController->fileReady())
-    {
-        m_loopWindow->show();
-        m_loopWindow->launchTimer();
-    }
 }
 
 void MainWindow::setCursorPipetteActive()
