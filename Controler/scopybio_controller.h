@@ -10,6 +10,7 @@ class ScopyBio_Controller
 public:
     ScopyBio_Controller();
 
+
     /** Partie pile_model **/
     void loadNewTiffFile(std::string filename);
     CImgList<float> getLoadedTiffList();
@@ -20,7 +21,7 @@ public:
     void saveCurrent(int indiceEnCours);
 
     /** Partie dessin_model **/
-    void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     std::string getMainDisplayPath();
     std::string getZoomDisplayPath();
     void saveAsMainDisplay(int i);
@@ -28,10 +29,11 @@ public:
     void removeGreenFilter();
     void applyHistogramFilter();
     void removeHistogramFilter();
-    void manageNewWhite(QPoint pos, int labelWidth, int labelHeight);
+    void manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView);
     int getWhiteColor();
     void setPipetteClick(bool pipetteClick);
     bool getPipetteClick();
+    bool getZoomReady();
 
 
     /** Partie data_model **/
@@ -46,4 +48,5 @@ private:
     pile_model *m_pileModel;
     dessin_model *m_dessinModel;
     data_model *m_dataModel;
+    gestionnaire_calque_model gestion_calque;
 };

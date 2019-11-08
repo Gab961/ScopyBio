@@ -50,7 +50,7 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
     {
         std::cout << "Coucou image" << std::endl;
         m_scopybioController->setPipetteClick(false);
-        m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height());
+        m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
 
         emit pipetteClicked();
     }
@@ -121,7 +121,7 @@ void Image_View::setNewPicture()
 void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
     //Dessine le rectangle sur l'image et créer l'image zoomée
-    m_scopybioController->dessinerRectangle(pos1, pos2, labelWidth, labelHeight);
+    m_scopybioController->dessinerFaisceau(pos1, pos2, labelWidth, labelHeight);
     setNewPicture();
 
     //Demande de rafraichir le zoom

@@ -6,23 +6,17 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 set(CMAKE_CXX_EXTENSIONS off)
 
-find_package(Qt5Widgets CONFIG REQUIRED)
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-add_compile_options(-Wall -Wpedantic)
+add_compile_options(-Wall -Wpedantic -std=c++14)
 endif()
 
-add_definitions("-std=c++11")
-
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
 
-#############
-FIND_PACKAGE("libtiff")
-FIND_PACKAGE("eigen")
-FIND_PACKAGE("jsoncpp")
+conan_basic_setup()
 
 # Prevent compilation in-source
 if( ${CMAKE_BINARY_DIR} STREQUAL ${PROJECT_SOURCE_DIR} )
@@ -35,7 +29,7 @@ endif()
 # To use PKG_CHECK_MODULES to find some optional packages
 find_package(PkgConfig)
 
-#    Tell CMake where to leave executables
+#    Tell CMake whlere to leave executables
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/Build/bin)
 
 #Path of CImg.h file relative to this file path
@@ -76,7 +70,6 @@ endif()
 
 if( WIN32)
   SET( CONAN_LIBS  ${CONAN_LIBS}  gdi32 )
-  SET (CMAKE_PREFIX_PATH "C:\\Qt\\Qt5.0.1\\5.0.1\\msvc2010\\")
 endif()
 
 
@@ -122,9 +115,13 @@ SET(CIMG_FFTW3_CCFLAGS  -Dcimg_use_fftw3)
 # Add CIMG Flags to Compilation Flags
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CIMG_CFLAGS}")
 
+find_package(Qt5Widgets CONFIG REQUIRED)
+find_package(jsoncpp REQUIRED)
+
 aux_source_directory(. SRC_LIST)
 add_subdirectory(Controler)
 add_subdirectory(View)
 add_subdirectory(Model)
+
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS}  Qt5::Widgets Controler View Model)
+target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS} Qt5::Widgets Controler View Model jsoncpp)

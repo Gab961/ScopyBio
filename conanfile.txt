@@ -3,6 +3,7 @@
  libtiff/4.0.9@bincrafters/stable
  jsoncpp/1.9.0@theirix/stable
  gtest/1.8.1@bincrafters/stable
+ Qt/5.9.6@bincrafters/stable
  libgit2/0.26.3@arsen-studio/stable
  OpenSSL/1.0.2n@conan/stable
 
@@ -10,9 +11,7 @@
  cmake
 
  [options]
- opencv:shared=False
- libtiff:shared=False
- jsoncpp:shared=False # false
+ *:shared=False
  Qt:qtmultimedia=True
  Qt:qtsvg=True
  Qt:qttools=True
@@ -23,5 +22,3 @@
  lib, *.dylib* -> ./bin # Copies all dylib files from packages lib folder to my "bin" folder
 
 
-
- 

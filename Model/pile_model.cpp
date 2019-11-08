@@ -1,6 +1,6 @@
 #include "pile_model.h"
 #include <json/json.h>
-#include "image_model.h"
+#include "gestionnaire_calques_model.h"
 #include <iostream>
 
 #define PATH "../../Config/config.json"
@@ -94,7 +94,7 @@ void pile_model::load(string path)
 
         //TODO TBD où on l'enregistre
         std::string chemin = "tmp/" + std::to_string(i) + ".bpm";
-        img.save_bmp(chemin.c_str());
+        img.save_bmp(chemin.c_str());         // problem here
         images_icons_filename.push_back(chemin);
     }
 
@@ -106,8 +106,6 @@ void pile_model::load(string path)
 
 void pile_model::save(string path)
 {
-    for(auto img : images_modified){
-        img.save(path);
-    }
+
 }
 

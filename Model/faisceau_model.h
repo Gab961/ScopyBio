@@ -17,7 +17,7 @@ private:
 
 public:
     faisceau_model();
-    faisceau_model(pile_model pile,coordonnee tl,coordonnee br);
+    faisceau_model(pile_model *pile,coordonnee tl,coordonnee br);
 
     coordonnee getTopLeft() const;
     void setTopLeft(const coordonnee &value);

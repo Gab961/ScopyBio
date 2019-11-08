@@ -7,18 +7,20 @@
 #define cimg_use_tiff
 #include "CImg.h"
 
-class image_model;
+#include "gestionnaire_calques_model.h"
+
+class gestionnaire_calque_model;
 using namespace cimg_library;
 using namespace std;
 
 
 class pile_model
 {
-    private:
-        CImgList<float> images;
-        CImg<float> currentImage;
-        std::vector<image_model> images_modified;
-        std::vector<std::string> images_icons_filename; //Le nom des fichiers utilisés pour affichage dans la pile
+private:
+    CImgList<float> images;
+    CImg<float> currentImage;
+    gestionnaire_calque_model gestionnaire_calque;
+    std::vector<std::string> images_icons_filename; //Le nom des fichiers utilisés pour affichage dans la pile
 
         std::string fileName;
         float percentageOfBlack;        //Put the limit of percentage of black for treatment.
@@ -27,8 +29,8 @@ class pile_model
         bool isDisplayingContour;       //To display or hide Contour on the image
         bool fileIsLoaded;
 
-    public:
-        pile_model();
+public:
+    pile_model();
 
         void loadNewFilename(std::string filename);
         void load(string path);
