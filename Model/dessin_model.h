@@ -30,6 +30,8 @@ public:
     void setListenPipetteClick(bool pipetteClick);
     void saveZoomFromPicture(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> currentPicture);
     bool getZoomReady() const;
+    bool getBaseColorGiven() const;
+    bool setBaseColorGiven();
 
 private:
     std::string pathOfMainDisplay = "tmp/mainDisplay.bmp";
@@ -38,4 +40,5 @@ private:
 
     int whiteColor;
     bool listenPipetteClick;
+    bool baseColorGiven;
 };

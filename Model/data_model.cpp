@@ -106,7 +106,8 @@ void data_model::createResultsDisplay(int whiteValue)
         abscisseText = val.substr(0,2) + "%";
     abscisseText.append("%");
 
-    image.draw_text(20,0,"Nuance %",black,white,1);
+    std::string ordonnee = " Variation % Nuance";
+    image.draw_text(20,0,ordonnee.c_str(),black,white,1);
     image.draw_axes(0,results.size()-1,valMaxGraph,valMinGraph,black,1,-60,-60,1);
 
     //Calculs pour placer les points correctement
@@ -142,11 +143,11 @@ void data_model::createResultsDisplay(int whiteValue)
 
 int data_model::calculPlacementY(int imageHeight, int y, int valeurMediane, int hauteurAbscisse)
 {
-    int percentageY = y*100/255;
+    float percentageY = (float)y*100/255;
     //TODO faire le super calcul
-    int valeurDepuisMedian = percentageY-valeurMediane;
-
-    return hauteurAbscisse - valeurDepuisMedian*imageHeight/100;
+    float valeurDepuisMedian = percentageY-(float)valeurMediane;
+    float res = hauteurAbscisse - valeurDepuisMedian*imageHeight/100;
+    return (int)res;
 }
 
 

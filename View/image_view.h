@@ -34,6 +34,7 @@ class Image_View : public QGroupBox
     public slots:
         void setNewPicture();        
         void readyForPipetteClick();
+        void askProcessFromZoom();
 
     private:
         QPoint origPoint;

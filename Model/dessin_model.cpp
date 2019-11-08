@@ -2,7 +2,7 @@
 #include <iostream>
 #include "dessin_model.h"
 
-dessin_model::dessin_model() : zoomReady(false),whiteColor(200)
+dessin_model::dessin_model() : zoomReady(false),whiteColor(0), baseColorGiven(false), listenPipetteClick(false)
 {}
 
 CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
@@ -142,6 +142,7 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
 
 
     whiteColor = (int)picture(realX, realY, 0, 0);
+    baseColorGiven = true;
 }
 
 void dessin_model::saveImageAsMainDisplay(CImg<float> pictureToShow) { pictureToShow.save_bmp(pathOfMainDisplay.c_str()); }
@@ -152,3 +153,5 @@ void dessin_model::setWhiteValue(int color) { whiteColor = color; }
 bool dessin_model::getListenPipetteClick() const { return listenPipetteClick; }
 void dessin_model::setListenPipetteClick(bool pipetteClick) { listenPipetteClick = pipetteClick; }
 bool dessin_model::getZoomReady() const { return zoomReady; }
+bool dessin_model::getBaseColorGiven() const { return baseColorGiven; }
+bool dessin_model::setBaseColorGiven() { baseColorGiven = true; }

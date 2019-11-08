@@ -35,6 +35,7 @@ public:
     void setPipetteClick(bool pipetteClick);
     bool getPipetteClick();
     bool getZoomReady();
+    bool getBaseColorGiven();
 
 
     /** Partie data_model **/

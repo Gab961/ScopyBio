@@ -48,10 +48,16 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
 
     if (m_scopybioController->getPipetteClick())
     {
+        std::cout << "La" << std::endl;
+
         m_scopybioController->setPipetteClick(false);
         m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
 
         emit pipetteClicked();
+
+        //Si une zone a déjà été sélectionnée
+        if (m_scopybioController->getBaseColorGiven())
+            emit processResults(m_image->width(),m_image->height());
     }
 }
 
@@ -131,8 +137,17 @@ void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWi
     if (hauteurZone < 0) hauteurZone = hauteurZone * -1;
     emit changeZoomedPicture(largeurZone, hauteurZone);
 
-    //Demande de calculer les résultats pour la zone
-    emit processResults(m_image->width(),m_image->height());
+    //Demande de calculer les résultats pour la zone si une couleur de base a été donnée
+    if (m_scopybioController->getBaseColorGiven())
+        emit processResults(m_image->width(),m_image->height());
 
     update();
+}
+
+void Image_View::askProcessFromZoom()
+{
+    //Demande de calculer les résultats pour la zone si une couleur de base a été donnée
+    if (m_scopybioController->getBaseColorGiven())
+        emit processResults(m_image->width(),m_image->height());
+
 }

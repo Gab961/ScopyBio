@@ -2,7 +2,7 @@
 #include "scopybio_controller.h"
 #include <iostream>
 
-ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new data_model())
+ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new data_model()), m_faisceauModel(new faisceau_model)
 {}
 
 //=======================
@@ -168,6 +168,11 @@ bool ScopyBio_Controller::getPipetteClick()
 bool ScopyBio_Controller::getZoomReady()
 {
     return m_dessinModel->getZoomReady();
+}
+
+bool ScopyBio_Controller::getBaseColorGiven()
+{
+    return m_dessinModel->getBaseColorGiven();
 }
 
 //=======================

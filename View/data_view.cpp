@@ -21,6 +21,7 @@ void Data_View::createView()
     m_layout->addWidget(m_image);
     m_layout->setMargin(0);
     m_image->setAlignment(Qt::AlignCenter);
+    m_image->setText("No base color selected.");
 
     setLayout(m_layout);
 }
