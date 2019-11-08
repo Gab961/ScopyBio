@@ -8,14 +8,13 @@
 using namespace cimg_library;
 
 Data_View::Data_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController)
-{
+{    
+    this->setAttribute(Qt::WA_Hover, true);
     createView();
 }
 
 void Data_View::createView()
 {
-    setTitle("Datas view");
-
     m_layout = new QGridLayout(this);
     m_image = new QLabel(this);
 
@@ -49,4 +48,56 @@ void Data_View::mousePressEvent( QMouseEvent* ev )
         int item = m_scopybioController->getItemAtPoint(origPoint.x(),m_image->width());
         emit graphClic(item);
     }
+}
+
+void Data_View::hoverEnter(QHoverEvent * event) { }
+void Data_View::hoverLeave(QHoverEvent * event) { }
+void Data_View::hoverMove(QHoverEvent * event) {
+    if (m_scopybioController->dataReady())
+    {
+        QPoint origPoint = event->pos();
+
+        if (mouseInLabel(origPoint))
+        {
+            int item = m_scopybioController->getItemAtPoint(origPoint.x()-m_image->x(), m_image->width());
+            QString str = "Image : " + QString::number(item);
+
+            QPoint realPosition = QCursor::pos();
+            QToolTip::showText(realPosition,str, nullptr, QRect());
+        }
+    }
+}
+
+bool Data_View::event(QEvent * e)
+{
+    switch(e->type())
+    {
+    case QEvent::HoverEnter:
+        hoverEnter(static_cast<QHoverEvent*>(e));
+        return true;
+        break;
+    case QEvent::HoverLeave:
+        hoverLeave(static_cast<QHoverEvent*>(e));
+        return true;
+        break;
+    case QEvent::HoverMove:
+        hoverMove(static_cast<QHoverEvent*>(e));
+        return true;
+        break;
+    default:
+        break;
+    }
+    return QWidget::event(e);
+}
+
+bool Data_View::mouseInLabel(QPoint pos)
+{
+    if (pos.x() >= m_image->x() && pos.x() <= m_image->x()+m_image->width())
+    {
+        if (pos.y() >= m_image->y() && pos.y() <= m_image->y()+m_image->height())
+        {
+            return true;
+        }
+    }
+    return false;
 }

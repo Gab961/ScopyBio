@@ -85,6 +85,8 @@ void data_model::processResults(CImgList<float> allPictures)
 void data_model::createResultsDisplay(int whiteValue)
 {
     int black[] = { 0,0,0 };
+    int white[] = { 255,255,255 };
+    int blue[] = { 0,0,255 };
     int red[] = { 255,0,0 };
     float valeurMediane = whiteValue * 100 / 255;
     float valMaxGraph = 100-valeurMediane;
@@ -92,9 +94,20 @@ void data_model::createResultsDisplay(int whiteValue)
 
     CImg<float> image;
     image.assign(300,200,1,3);
-    image.fill(255);
+    image.fill(255);    
 
-    image.draw_axes(0,results.size(),valMaxGraph,valMinGraph,black);
+
+    int hauteurAbscisse = image.height() - image.height() * valeurMediane/100;
+    std::string val = std::to_string(valeurMediane);
+    std::string abscisseText;
+    if (valeurMediane < 10)
+        abscisseText = val.substr(0,1);
+    else
+        abscisseText = val.substr(0,2) + "%";
+    abscisseText.append("%");
+
+    image.draw_text(20,0,"Nuance %",black,white,1);
+    image.draw_axes(0,results.size()-1,valMaxGraph,valMinGraph,black,1,-60,-60,1);
 
     //Calculs pour placer les points correctement
     int decalageX = image.width()/results.size();
@@ -106,14 +119,14 @@ void data_model::createResultsDisplay(int whiteValue)
     {
         if (firstIteration)
         {
-            oldY = calculPlacementY(image.height(),y, valeurMediane);
+            oldY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
             image.draw_point(oldX,oldY,red,1);
             firstIteration = false;
         }
         else
         {
             int newX = oldX+decalageX;
-            int newY = calculPlacementY(image.height(),y, valeurMediane);
+            int newY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
 
             image.draw_line(oldX,oldY,newX,newY,red);
             oldX = newX;
@@ -121,13 +134,14 @@ void data_model::createResultsDisplay(int whiteValue)
         }
     }
 
+    image.draw_text(10,hauteurAbscisse-15,abscisseText.c_str(),blue,white,1);
+
     image.save_bmp(pathOfResultsDisplay.c_str());
     isDataReady = true;
 }
 
-int data_model::calculPlacementY(int imageHeight, int y, int valeurMediane)
+int data_model::calculPlacementY(int imageHeight, int y, int valeurMediane, int hauteurAbscisse)
 {
-    int hauteurAbscisse = imageHeight - imageHeight * valeurMediane/100;
     int percentageY = y*100/255;
     //TODO faire le super calcul
     int valeurDepuisMedian = percentageY-valeurMediane;
@@ -140,8 +154,9 @@ int data_model::getItemAtPoint(int posX, int labelWidth)
 {
     int resultsAmount = results.size();
     //Pixels entre chaque élément du vecteur
-    int xSpace = labelWidth / resultsAmount;
-    return posX/xSpace;
+    float xSpaceFloat = (float)labelWidth / (float)resultsAmount;
+    float res = (float)posX/xSpaceFloat;
+    return (int)res;
 }
 
 

@@ -154,10 +154,8 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
     int realX = pos.x() * picture.width() / labelWidth;
     int realY = pos.y() * picture.height() / labelHeight;
 
-    std::cout << "Position finale = " << realX << "," << realY << std::endl;
 
     whiteColor = (int)picture(realX, realY, 0, 0);
-    std::cout << "Nouvelle = " << whiteColor << std::endl;
 }
 
 void dessin_model::saveImageAsMainDisplay(CImg<float> pictureToShow) { pictureToShow.save_bmp(pathOfMainDisplay.c_str()); }
