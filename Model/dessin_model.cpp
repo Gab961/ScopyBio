@@ -2,7 +2,7 @@
 #include <iostream>
 #include "dessin_model.h"
 
-dessin_model::dessin_model() : whiteColor(200), zoomReady(false)
+dessin_model::dessin_model() : zoomReady(false),whiteColor(200)
 {}
 
 CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
@@ -88,11 +88,13 @@ void dessin_model::savePics(int x1, int y1, int x2, int y2, unsigned char color,
     currentPicture.save_bmp(pathOfMainDisplay.c_str());
 }
 
-void dessin_model::applyGreenFilter(CImg<float> picture)
+CImg<float> dessin_model::applyGreenFilter(CImg<float> picture)
 {
     const unsigned char green[] = { 0,150,0 };
     picture.draw_rectangle(0,0,picture.width(),picture.height(),green,0.5);
     picture.save_bmp(pathOfMainDisplay.c_str());
+
+    return picture;
 }
 
 void dessin_model::removeGreenFilter(CImg<float> picture)
