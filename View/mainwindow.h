@@ -18,6 +18,7 @@ class Menu_Draw_Button;
 class Data_View;
 class ScopyBio_Controller;
 class LoopView;
+class ComparePopup;
 
 class MainWindow: public QMainWindow
 {
@@ -63,6 +64,7 @@ class MainWindow: public QMainWindow
         QPushButton *m_openLoop;
         LoopView *m_loopWindow;
         QPushButton *m_openCompare;
+        ComparePopup *m_comparePopup;
 
         QGridLayout *m_rightLayout;
         QGridLayout *m_pileLayerLayout;

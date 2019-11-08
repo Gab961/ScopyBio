@@ -19,8 +19,6 @@ class LoopView: public QWidget
         void launchTimer();
         void loop();
 
-
-
     private:
         void closeEvent(QCloseEvent *ev);
 
