@@ -159,7 +159,7 @@ void MainWindow::connections()
     QObject::connect(m_zoomView, &Zoom_View::pipetteClicked, this, &MainWindow::setCursorPipetteDisabled);
 
     //Open Loop window
-    QObject::connect(m_openLoop, &QPushButton::clicked, this, &MainWindow::createLoopView);
+    QObject::connect(m_openLoop, &QPushButton::clicked, m_loopWindow, &LoopView::createLoopView);
 
     //Open Compare popup
     QObject::connect(m_openCompare, &QPushButton::clicked, m_comparePopup, &ComparePopup::createComparePopup);
@@ -302,17 +302,6 @@ void MainWindow::resizeEvent(QResizeEvent* event)
 
     update();
 }
-
-void MainWindow::createLoopView()
-{
-    if(m_scopybioController->fileReady())
-    {
-        m_loopWindow->show();
-        m_loopWindow->launchTimer();
-    }
-}
-
-
 
 void MainWindow::setCursorPipetteActive()
 {

@@ -16,7 +16,6 @@ class CompareView: public QWidget
         void createView();
         void connections();
 
-
     private:
         QGridLayout *m_mainLayout;
         QLabel *m_firstImage;

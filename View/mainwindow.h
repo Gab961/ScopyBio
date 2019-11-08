@@ -41,8 +41,7 @@ class MainWindow: public QMainWindow
         void aboutUs();
         void howToUse();
         void showFirstInPile();
-        void changeActualItem();     
-        void createLoopView();
+        void changeActualItem();
 
     private:
         void createActions();

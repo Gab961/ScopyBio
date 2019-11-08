@@ -1,5 +1,6 @@
 #include "compare_popup.h"
 #include "Controler/scopybio_controller.h"
+#include "compare_view.h"
 
 #include <QDesktopWidget>
 
@@ -12,6 +13,8 @@ ComparePopup::ComparePopup(QWidget *parent, ScopyBio_Controller *scopybioControl
 void ComparePopup::createView()
 {
     setFixedSize(400, 100);
+
+    m_compareWindow = new CompareView(this, m_scopybioController);
 
     m_mainLayout = new QGridLayout();
     m_layoutComboBox = new QGridLayout();
@@ -41,7 +44,9 @@ void ComparePopup::createView()
 
 void ComparePopup::connections()
 {
+    QObject::connect(m_cancel, &QPushButton::clicked, this, &ComparePopup::close);
 
+    QObject::connect(m_accept, &QPushButton::clicked, this, &ComparePopup::openCompareView);
 }
 
 void ComparePopup::fillComboBoxes()
@@ -65,4 +70,12 @@ void ComparePopup::createComparePopup()
         fillComboBoxes();
         show();
     }
+}
+
+void ComparePopup::openCompareView()
+{
+    if (m_firstImage->currentText() != m_secondImage->currentText())
+        m_compareWindow->show();
+    else
+        std::cout << "Groump" << std::endl;
 }
