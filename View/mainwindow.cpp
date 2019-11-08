@@ -131,6 +131,9 @@ void MainWindow::connections()
     //Demande d'affichage dans la fenêtre de data
     QObject::connect(m_imageView, &Image_View::processResults, m_dataView, &Data_View::processingResults);
 
+    //Demande d'affichage dans la fenêtre de data
+    QObject::connect(m_zoomView, &Zoom_View::processResultsFromZoom, m_imageView, &Image_View::askProcessFromZoom);
+
     //Demande d'affichage de l'image principale depuis menuOption
     QObject::connect(m_options, &menu_option::refreshMainDisplay, m_imageView, &Image_View::setNewPicture);
 

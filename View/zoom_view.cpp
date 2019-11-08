@@ -80,5 +80,9 @@ void Zoom_View::mousePressEvent( QMouseEvent* ev )
         m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), true);
 
         emit pipetteClicked();
+
+        //Si une zone a déjà été sélectionnée
+        if(m_scopybioController->getZoomReady())
+            emit processResultsFromZoom();
     }
 }

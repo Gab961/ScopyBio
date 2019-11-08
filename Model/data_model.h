@@ -17,7 +17,7 @@ public:
     void processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight);
     void processResults(CImgList<float> allPictures);
     void createResultsDisplay(int whiteValue);
-    int calculPlacementY(int imageHeight, int y, int valeurMediane);
+    int calculPlacementY(int imageHeight, int y, int valeurMediane, int hauteurAbscisse);
     int getItemAtPoint(int posX, int labelWidth);
     bool dataReady();
 
