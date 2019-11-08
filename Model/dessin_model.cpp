@@ -14,20 +14,6 @@ CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelW
     int x2 = pos2.x() * currentPicture.width() / labelWidth;
     int y2 = pos2.y() * currentPicture.height() / labelHeight;
 
-    //Gestion des positions
-    if (x1 > x2)
-    {
-        int tmp = x2;
-        x2 = x1;
-        x1 = tmp;
-    }
-    if (y1 > y2)
-    {
-        int tmp = y2;
-        y2 = y1;
-        y1 = tmp;
-    }
-
     if (x1<0)
         x1 = -1;
     if (y1 < 0)

@@ -65,12 +65,10 @@ void dessinerAnnotation(int min, int max,QPoint pos1, QPoint pos2, int labelWidt
 
 /**
  * @brief ScopyBio_Controller::dessinerFaisceau dessine un rectangle dans un calque et le créer si besoin.
- * @param pos1 position en haut à gauche
- * @param pos2 position en haut à droite
  * @param labelWidth largeur de la fenetre
  * @param labelHeight longueur de la fenetre
  */
-void ScopyBio_Controller::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
+void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
 {
     int min = -2, max = -2;
     int taille = m_pileModel->getImages().size();
@@ -82,10 +80,10 @@ void ScopyBio_Controller::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWi
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
-    gestion_calque.dessineFaisceau(min,max,pos1,pos2,labelWidth,labelHeight);
+    gestion_calque.dessineFaisceau(min,max,m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(),labelWidth,labelHeight);
 
     //Necessaire pour afficher le zoom.
-    m_dessinModel->saveZoomFromPicture(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
+    m_dessinModel->saveZoomFromPicture(m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), labelWidth, labelHeight, m_pileModel->getCurrentImage());
 
 }
 
@@ -181,9 +179,9 @@ std::string ScopyBio_Controller::getResultDisplayPath()
     return m_dataModel->getResultDisplayPath();
 }
 
-void ScopyBio_Controller::processResultsWithCrop(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
+void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight)
 {
-    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), pos1, pos2, m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
+    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
 }
 
 void ScopyBio_Controller::processResultsOnEverything()
@@ -204,4 +202,14 @@ int ScopyBio_Controller::getItemAtPoint(int posX, int labelWidth)
 bool ScopyBio_Controller::dataReady()
 {
     return m_dataModel->dataReady();
+}
+
+
+//=======================
+// Faisceau_Modele
+//=======================
+
+void ScopyBio_Controller::setFaisceau(QPoint pos1, QPoint pos2)
+{
+    m_faisceauModel->setFaisceau(pos1, pos2);
 }

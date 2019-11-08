@@ -29,7 +29,7 @@ signals:
     void graphClic(int itemIndex);
 
 public slots:
-    void processingResults(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void processingResults(int labelWidth, int labelHeight);
 
 private:
     void drawResults();

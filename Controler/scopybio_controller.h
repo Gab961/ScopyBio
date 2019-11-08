@@ -2,6 +2,7 @@
 #include "Model/pile_model.h"
 #include "Model/dessin_model.h"
 #include "Model/data_model.h"
+#include "Model/faisceau_model.h"
 
 class ScopyBio_Controller
 {
@@ -21,7 +22,7 @@ public:
     void saveCurrent(int indiceEnCours);
 
     /** Partie dessin_model **/
-    void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void dessinerFaisceau(int labelWidth, int labelHeight);
     std::string getMainDisplayPath();
     std::string getZoomDisplayPath();
     void saveAsMainDisplay(int i);
@@ -38,15 +39,21 @@ public:
 
     /** Partie data_model **/
     std::string getResultDisplayPath();
-    void processResultsWithCrop(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void processResultsWithCrop(int labelWidth, int labelHeight);
     void processResultsOnEverything();
     void getResults();
     int getItemAtPoint(int posX, int labelWidth);
     bool dataReady();
 
+
+    /** Partie faisceau_model **/
+    void setFaisceau(QPoint pos1, QPoint pos2);
+
+
 private:
     pile_model *m_pileModel;
     dessin_model *m_dessinModel;
     data_model *m_dataModel;
+    faisceau_model *m_faisceauModel;
     gestionnaire_calque_model gestion_calque;
 };

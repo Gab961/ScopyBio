@@ -120,7 +120,8 @@ void Image_View::setNewPicture()
 void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
     //Dessine le rectangle sur l'image et créer l'image zoomée
-    m_scopybioController->dessinerFaisceau(pos1, pos2, labelWidth, labelHeight);
+    m_scopybioController->setFaisceau(pos1, pos2);
+    m_scopybioController->dessinerFaisceau(labelWidth, labelHeight);
     setNewPicture();
 
     //Demande de rafraichir le zoom
@@ -131,7 +132,7 @@ void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWi
     emit changeZoomedPicture(largeurZone, hauteurZone);
 
     //Demande de calculer les résultats pour la zone
-    emit processResults(pos1,pos2, m_image->width(),m_image->height());
+    emit processResults(m_image->width(),m_image->height());
 
     update();
 }

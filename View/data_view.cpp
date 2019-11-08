@@ -34,9 +34,9 @@ void Data_View::drawResults()
     update();
 }
 
-void Data_View::processingResults(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
+void Data_View::processingResults(int labelWidth, int labelHeight)
 {
-    m_scopybioController->processResultsWithCrop(pos1, pos2, labelWidth, labelHeight);
+    m_scopybioController->processResultsWithCrop( labelWidth, labelHeight);
     drawResults();
 }
 
