@@ -140,7 +140,7 @@ void gestionnaire_calque_model::updateCalqueVert(int min, int max, int taille){
     }
 }
 
-void gestionnaire_calque_model::mergeCalques(std::vector<int> ids){
+void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay){
     std::cout << "fonction mergeCalques" << std::endl;
     if(ids.size() == 0){
         std::cout << "0 image à merge" << std::endl;
@@ -151,7 +151,9 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids){
     if(ids.size() == 1){
         std::cout << "1 image à merge" << std::endl;
         calque tmp = getCalqueForDisplay(ids[0]);
-        tmp.getCalque().save_png("./tmp/result.png");
+
+        currentDisplayedImage.draw_image(0,0,0,0,tmp.getCalque(),tmp.getCalque().get_channel(3),1,255);
+        currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
     }else{//Sinon on merge et on affiche
         for(auto i : ids){
             std::cout << i << " ";
@@ -164,7 +166,8 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids){
             merge2Images(_calqueResultat,overlay);
         }
 
-        _calqueResultat.getCalque().save_png("./tmp/result.png");
+        currentDisplayedImage.draw_image(0,0,0,0,_calqueResultat.getCalque(),_calqueResultat.getCalque().get_channel(3),1,255);
+        currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
     }
 }
 

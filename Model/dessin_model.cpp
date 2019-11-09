@@ -7,7 +7,7 @@ dessin_model::dessin_model() : zoomReady(false),whiteColor(200)
 
 CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
-    const unsigned char color[] = { 255,174,0 };
+    const unsigned char color[] = { 255,174,0,255 };
 
     int x1 = pos1.x() * currentPicture.width() / labelWidth;
     int y1 = pos1.y() * currentPicture.height() / labelHeight;
@@ -76,6 +76,7 @@ void dessin_model::saveZoomFromPicture(QPoint pos1, QPoint pos2, int labelWidth,
     //Création de l'image zoomée et demande d'affichage dans la partie zoomée
     CImg<float> zoom = currentPicture.get_crop(x1+1,y1+1,0,x2-1,y2-1,0);
     zoom.resize(476,514);
+
     zoom.save_bmp(pathOfZoomedDisplay.c_str());
 
     zoomReady = true;
@@ -90,7 +91,7 @@ void dessin_model::savePics(int x1, int y1, int x2, int y2, unsigned char color,
 
 CImg<float> dessin_model::applyGreenFilter(CImg<float> picture)
 {
-    const unsigned char green[] = { 0,150,0 };
+    const unsigned char green[] = { 0,150,0, 255 };
     picture.draw_rectangle(0,0,picture.width(),picture.height(),green,0.5);
     picture.save_bmp(pathOfMainDisplay.c_str());
 

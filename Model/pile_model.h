@@ -45,8 +45,6 @@ public:
         CImg<float> getCurrentImage() const;
         std::vector<string> getIconFilenames();
         CImg<float> getImageAtIndex(int i) const;
-        std::string getMainDisplayPath() const;
-        std::string getZoomDisplayPath() const;
         std::string getResultDisplayPath() const;
         bool fileReady();
 
