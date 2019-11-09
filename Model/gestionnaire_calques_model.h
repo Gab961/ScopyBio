@@ -31,6 +31,11 @@ public:
     void updateCalqueVert(int min, int max, int taille);
     calque getCalqueForDisplay(int min, int max);
 
+
+    //          Fonction pour le dictionnaire
+    void addInDict(int min, int max, int taille, int id);
+    void removeFromDict(int min, int max, int id);
+
     /*
      * Permet d'afficher le dictionnaire
      *
