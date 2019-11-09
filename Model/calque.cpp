@@ -6,6 +6,10 @@
 
 calque::calque(int min, int max, int _id): _calque(514,476,1,4,0), intervalMin(min), intervalMax(max), id(_id)
 {
+    CImg<float> imageTest(514,476,1,4,0);
+    int color[] = { 0, 255, 0 };
+    imageTest.draw_circle(30,30,10,color,1);
+    imageTest.save_png("tmp/imageTestTransp.png");
 }
 
 int calque::getId() const
