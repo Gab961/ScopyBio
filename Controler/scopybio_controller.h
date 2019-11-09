@@ -69,6 +69,13 @@ public:
     void dessinerFaisceau(int labelWidth, int labelHeight);
 
     /**
+     * @brief saveZoom Enregistre l'image zoomée depuis la sélection
+     * @param labelWidth
+     * @param labelHeight
+     */
+    void saveZoom(int labelWidth, int labelHeight);
+
+    /**
      * @brief getMainDisplayPath Renvoie le chemin de l'image du display principal
      * @return
      */

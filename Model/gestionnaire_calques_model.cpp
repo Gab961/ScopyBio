@@ -145,7 +145,8 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     if(ids.size() == 0){
         std::cout << "0 image à merge" << std::endl;
         calque _calqueResultat(-4,-4,-1);// pour afficher le résultat on crée un calque vide transparent
-        _calqueResultat.getCalque().save_png("./tmp/result.png");
+        currentDisplayedImage.draw_image(0,0,0,0,_calqueResultat.getCalque(),_calqueResultat.getCalque().get_channel(3),1,255);
+        currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
     }
     //S'il il y a qu'un seul calque à afficher, on affiche que lui
     if(ids.size() == 1){

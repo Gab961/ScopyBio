@@ -90,10 +90,16 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
     //On est sur que le calque existe, on dessine le rectangle.
     m_gestion_calque->dessineFaisceau(min,max,m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(),labelWidth,labelHeight);
 
-    //Necessaire pour afficher le zoom.
-    m_dessinModel->saveZoomFromPicture(m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), labelWidth, labelHeight, m_pileModel->getCurrentImage());
+    saveZoom(labelWidth, labelHeight);
 
     DisplayResultImage(0);
+
+}
+
+void ScopyBio_Controller::saveZoom(int labelWidth, int labelHeight)
+{
+    //Necessaire pour afficher le zoom.
+    m_dessinModel->saveZoomFromPicture(m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), labelWidth, labelHeight, m_pileModel->getCurrentImage());
 
 }
 
