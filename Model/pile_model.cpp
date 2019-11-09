@@ -94,7 +94,7 @@ void pile_model::load(string path)
 
         //TODO TBD où on l'enregistre
         std::string chemin = "tmp/" + std::to_string(i) + ".bpm";
-        img.save_bmp(chemin.c_str());
+        img.save_bmp(chemin.c_str());         // problem here
         images_icons_filename.push_back(chemin);
     }
 

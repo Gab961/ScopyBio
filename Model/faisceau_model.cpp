@@ -1,21 +1,21 @@
 #include "faisceau_model.h"
 
-coordonnee faisceau_model::getTopLeft() const
+QPoint faisceau_model::getTopLeft() const
 {
     return topLeft;
 }
 
-void faisceau_model::setTopLeft(const coordonnee &value)
+void faisceau_model::setTopLeft(QPoint value)
 {
     topLeft = value;
 }
 
-coordonnee faisceau_model::getBotRight() const
+QPoint faisceau_model::getBotRight() const
 {
     return botRight;
 }
 
-void faisceau_model::setBotRight(const coordonnee &value)
+void faisceau_model::setBotRight(QPoint value)
 {
     botRight = value;
 }
@@ -40,10 +40,24 @@ faisceau_model::faisceau_model()
 
 }
 
-faisceau_model::faisceau_model(pile_model pile , coordonnee tl, coordonnee br){
+void faisceau_model::setFaisceau(QPoint pos1, QPoint pos2)
+{
+    if (pos1.x() > pos2.x())
+    {
+        setTopLeft(pos2);
+        setBotRight(pos1);
+    }
+    else
+    {
+        setTopLeft(pos1);
+        setBotRight(pos2);
+    }
+}
+
+faisceau_model::faisceau_model(pile_model *pile , QPoint tl, QPoint br){
     topLeft = tl;
     botRight = br;
 
-    p_Piles = &pile;
+    p_Piles = pile;
 }
 

@@ -2,7 +2,7 @@
 #include <iostream>
 #include "dessin_model.h"
 
-dessin_model::dessin_model() : zoomReady(false),whiteColor(200)
+dessin_model::dessin_model() : zoomReady(false), baseColorGiven(false), listenPipetteClick(false), whiteColor(0)
 {}
 
 CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
@@ -13,20 +13,6 @@ CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelW
     int y1 = pos1.y() * currentPicture.height() / labelHeight;
     int x2 = pos2.x() * currentPicture.width() / labelWidth;
     int y2 = pos2.y() * currentPicture.height() / labelHeight;
-
-    //Gestion des positions
-    if (x1 > x2)
-    {
-        int tmp = x2;
-        x2 = x1;
-        x1 = tmp;
-    }
-    if (y1 > y2)
-    {
-        int tmp = y2;
-        y2 = y1;
-        y1 = tmp;
-    }
 
     if (x1<0)
         x1 = -1;
@@ -155,10 +141,9 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
     int realX = pos.x() * picture.width() / labelWidth;
     int realY = pos.y() * picture.height() / labelHeight;
 
-    std::cout << "Position finale = " << realX << "," << realY << std::endl;
 
     whiteColor = (int)picture(realX, realY, 0, 0);
-    std::cout << "Nouvelle = " << whiteColor << std::endl;
+    baseColorGiven = true;
 }
 
 void dessin_model::saveImageAsMainDisplay(CImg<float> pictureToShow) { pictureToShow.save_bmp(pathOfMainDisplay.c_str()); }
@@ -169,3 +154,5 @@ void dessin_model::setWhiteValue(int color) { whiteColor = color; }
 bool dessin_model::getListenPipetteClick() const { return listenPipetteClick; }
 void dessin_model::setListenPipetteClick(bool pipetteClick) { listenPipetteClick = pipetteClick; }
 bool dessin_model::getZoomReady() const { return zoomReady; }
+bool dessin_model::getBaseColorGiven() const { return baseColorGiven; }
+void dessin_model::setBaseColorGiven() { baseColorGiven = true; }

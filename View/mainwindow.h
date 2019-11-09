@@ -7,6 +7,7 @@
 #include <QGridLayout>
 #include <QListWidgetItem>
 #include <QPushButton>
+#include <QGroupBox>
 
 class LayerView;
 class Pile_View;
@@ -17,6 +18,7 @@ class Menu_Draw_Button;
 class Data_View;
 class ScopyBio_Controller;
 class LoopView;
+class ComparePopup;
 
 class MainWindow: public QMainWindow
 {
@@ -39,8 +41,7 @@ class MainWindow: public QMainWindow
         void aboutUs();
         void howToUse();
         void showFirstInPile();
-        void changeActualItem();     
-        void createLoopView();
+        void changeActualItem();
 
     private:
         void createActions();
@@ -48,6 +49,8 @@ class MainWindow: public QMainWindow
         void updateSave();
         void nouveauClicCreerRectangle(QPoint pos1, QPoint pos2);
         void resizeEvent(QResizeEvent* event);
+        void setCursorPipetteActive();
+        void setCursorPipetteDisabled();
 
         QGridLayout *m_leftLayout;
         Zoom_View *m_zoomView;
@@ -60,9 +63,11 @@ class MainWindow: public QMainWindow
         QPushButton *m_openLoop;
         LoopView *m_loopWindow;
         QPushButton *m_openCompare;
+        ComparePopup *m_comparePopup;
 
         QGridLayout *m_rightLayout;
         QGridLayout *m_pileLayerLayout;
+        QGroupBox *m_layer;
         Data_View *m_dataView;
         Pile_View *m_pileView;
         LayerView *m_layerView;
