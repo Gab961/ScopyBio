@@ -141,14 +141,25 @@ void gestionnaire_calque_model::updateCalqueVert(int min, int max, int taille){
 }
 
 void gestionnaire_calque_model::mergeCalques(std::vector<int> ids){
+    std::cout << "fonction mergeCalques" << std::endl;
+    if(ids.size() == 0){
+        std::cout << "0 image à merge" << std::endl;
+        calque _calqueResultat(-4,-4,-1);// pour afficher le résultat on crée un calque vide transparent
+        _calqueResultat.getCalque().save_png("./tmp/result.png");
+    }
     //S'il il y a qu'un seul calque à afficher, on affiche que lui
     if(ids.size() == 1){
+        std::cout << "1 image à merge" << std::endl;
         calque tmp = getCalqueForDisplay(ids[0]);
         tmp.getCalque().save_png("./tmp/result.png");
     }else{//Sinon on merge et on affiche
-
+        for(auto i : ids){
+            std::cout << i << " ";
+        }
         calque _calqueResultat(-4,-4,-1);// pour afficher le résultat on crée un calque vide transparent
         for(auto i : ids){
+
+            std::cout << "plusieurs images à merge" << std::endl;
             calque overlay = getCalqueForDisplay(i);
             merge2Images(_calqueResultat,overlay);
         }

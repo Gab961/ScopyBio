@@ -55,8 +55,8 @@ void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int lab
  * @param labelHeight
  */
 void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
-    _calque(514,476,1,4,0);
-    _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,_calque);
+    CImg<float> tmp(514,476,1,4,0);
+    _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,tmp);
 }
 
 /**

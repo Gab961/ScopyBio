@@ -131,7 +131,7 @@ void ScopyBio_Controller::applyGreenFilter()
     }
 
         gestion_calque.updateCalqueVert(min,max,taille);
-        gestion_calque.afficheDic();
+  //      gestion_calque.afficheDic();
 
     DisplayResultImage(0);
 }
