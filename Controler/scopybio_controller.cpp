@@ -2,7 +2,7 @@
 #include "scopybio_controller.h"
 #include <iostream>
 
-ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new data_model()), m_gestion_calque(new gestionnaire_calque_model)
+ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new data_model()), m_gestion_calque(new gestionnaire_calque_model), m_faisceauModel(new faisceau_model)
 {}
 //=======================
 // AFFICHAGE
@@ -88,8 +88,7 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
-    m_gestion_calque->dessineFaisceau(min,max,pos1,pos2,labelWidth,labelHeight);
-    gestion_calque.dessineFaisceau(min,max,m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(),labelWidth,labelHeight);
+    m_gestion_calque->dessineFaisceau(min,max,m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(),labelWidth,labelHeight);
 
     //Necessaire pour afficher le zoom.
     m_dessinModel->saveZoomFromPicture(m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), labelWidth, labelHeight, m_pileModel->getCurrentImage());
