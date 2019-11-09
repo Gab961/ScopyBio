@@ -79,6 +79,11 @@ calque gestionnaire_calque_model::getCalqueForDisplay(int min, int max){
     return *res;
 }
 
+calque gestionnaire_calque_model::getCalqueForDisplay(int id){
+    auto res = std::find_if(listOfCalque.begin(), listOfCalque.end(), [&id](calque &a)->bool { return a.getId() == id ; } );
+    return *res;
+}
+
 /**
  * @brief gestionnaire_calque_model::creerCalque creer un calque et met à jour le dictionnaire puisqu'on sait quelle image va l'utiliser. Si l'image n'existe pas dans le dictionnaire, cette fonction la crée
  * @param min connaitre à partir de quelle image s'applique le calque
@@ -134,9 +139,33 @@ void gestionnaire_calque_model::updateCalqueVert(int min, int max, int taille){
         removeFromDict(min,max,id);
     }
 }
-/*
-     *  Fonction pour ajouter dans le dictionnaire.
-     **/
+
+void gestionnaire_calque_model::mergeCalques(std::vector<int> ids){
+    //S'il il y a qu'un seul calque à afficher, on affiche que lui
+    if(ids.size() == 1){
+        calque tmp = getCalqueForDisplay(ids[0]);
+        tmp.getCalque().save_png("./tmp/result.png");
+    }else{//Sinon on merge et on affiche
+
+        calque _calqueResultat(-4,-4,-1);// pour afficher le résultat on crée un calque vide transparent
+        for(auto i : ids){
+            calque overlay = getCalqueForDisplay(i);
+            merge2Images(_calqueResultat,overlay);
+        }
+
+        _calqueResultat.getCalque().save_png("./tmp/result.png");
+    }
+}
+
+calque gestionnaire_calque_model::merge2Images(calque a, calque b){
+    calque tmp = getCalqueForDisplay(a.getId());
+    tmp.getCalque().draw_image(0,0,b.getCalque());
+    return tmp;
+}
+
+
+//              Fonction pour le dictionnaire.
+
 void gestionnaire_calque_model::addInDict(int min, int max, int taille, int id){
     int minimum = min, maximum = max;
     if(min < 0){
@@ -191,5 +220,11 @@ void gestionnaire_calque_model::removeFromDict(int min, int max, int id){
         }
 
     }
+}
+
+std::vector<int> gestionnaire_calque_model::getListOfCalqueFromImage(int idImage){
+    auto res = dictionnaireImgMap.find(idImage);
+
+    return res->second;
 
 }

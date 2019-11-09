@@ -4,6 +4,14 @@
 
 ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new data_model())
 {}
+//=======================
+// AFFICHAGE
+//=======================
+
+void ScopyBio_Controller::DisplayResultImage(int idImage){
+    gestion_calque.mergeCalques(gestion_calque.getListOfCalqueFromImage(idImage));
+}
+
 
 //=======================
 // Pile_Modele
@@ -87,6 +95,8 @@ void ScopyBio_Controller::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWi
     //Necessaire pour afficher le zoom.
     m_dessinModel->saveZoomFromPicture(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage());
 
+    DisplayResultImage(0);
+
 }
 
 std::string ScopyBio_Controller::getMainDisplayPath()
@@ -122,6 +132,8 @@ void ScopyBio_Controller::applyGreenFilter()
 
         gestion_calque.updateCalqueVert(min,max,taille);
         gestion_calque.afficheDic();
+
+    DisplayResultImage(0);
 }
 
 /* fonction de mise à jour de la vue

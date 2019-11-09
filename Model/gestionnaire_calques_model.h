@@ -30,11 +30,17 @@ public:
     void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void updateCalqueVert(int min, int max, int taille);
     calque getCalqueForDisplay(int min, int max);
+    calque getCalqueForDisplay(int id);
+
+
+    void mergeCalques(std::vector<int> ids);
+    calque merge2Images(calque a, calque b);
 
 
     //          Fonction pour le dictionnaire
     void addInDict(int min, int max, int taille, int id);
     void removeFromDict(int min, int max, int id);
+    std::vector<int> getListOfCalqueFromImage(int idImage);
 
     /*
      * Permet d'afficher le dictionnaire

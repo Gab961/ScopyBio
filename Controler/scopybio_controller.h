@@ -10,6 +10,8 @@ class ScopyBio_Controller
 public:
     ScopyBio_Controller();
 
+    /** Partie affichage **/
+    void DisplayResultImage(int idImage);
 
     /** Partie pile_model **/
     void loadNewTiffFile(std::string filename);
