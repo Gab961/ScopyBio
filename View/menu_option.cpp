@@ -74,9 +74,4 @@ void menu_option::onHistoToggled(bool checked)
         m_scopybioController->applyHistogramFilter();
         emit refreshMainDisplay();
     }
-    else
-    {
-        m_scopybioController->removeHistogramFilter();
-        emit refreshMainDisplay();
-    }
 }

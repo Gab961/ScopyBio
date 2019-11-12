@@ -66,8 +66,7 @@ public:
         //Filtre vert
     CImg<float> applyGreenFilter(CImg<float> picture);
         //Filtre contraste
-    void applyHistogramFilter(CImg<float> picture);
-    void removeHistogramFilter(CImg<float> picture);
+    CImg<float> applyHistogramFilter(CImg<float> picture);
 
     /**
      * @brief manageNewWhiteColor Calcul la position du clic et extrait la couleur du pixel

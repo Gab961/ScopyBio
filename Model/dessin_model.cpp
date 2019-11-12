@@ -88,7 +88,7 @@ CImg<float> dessin_model::applyGreenFilter(CImg<float> picture)
  * @brief dessin_model::applyHistogramFilter
  * @param picture
  */
-void dessin_model::applyHistogramFilter(CImg<float> picture)
+CImg<float> dessin_model::applyHistogramFilter(CImg<float> picture)
 {
     CImg<unsigned int> input_img;
     input_img = picture;
@@ -115,13 +115,7 @@ void dessin_model::applyHistogramFilter(CImg<float> picture)
     cimg_forXY(output_img, x, y)
         output_img(x, y, 0) = equalized[input_img(x, y)];
 
-    output_img.save_bmp(pathOfMainDisplay.c_str());
-}
-
-void dessin_model::removeHistogramFilter(CImg<float> picture)
-{
-    //TODO VIRER LE CALQUE
-    picture.save_bmp(pathOfMainDisplay.c_str());
+    return output_img;
 }
 
 void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView)

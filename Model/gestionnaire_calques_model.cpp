@@ -7,12 +7,15 @@
 /**
  * @brief gestionnaire_calque_model::gestionnaire_calque_model construit un modèle et dès le départ crée un calque vert qui pourra être utilisé.
  */
-gestionnaire_calque_model::gestionnaire_calque_model():id(0),isGreen(false){
-    calque _calque(-3,-3,id);
+gestionnaire_calque_model::gestionnaire_calque_model():id(0),isGreen(false),isHistogram(false){
+    calque _calqueHisto(-4,-4,id);
     id++;
-    _calque.filtreVert();
+    listOfCalque.push_back(_calqueHisto);
 
-    listOfCalque.push_back(_calque);
+    calque _calqueVert(-3,-3,id);
+    id++;
+    _calqueVert.filtreVert();
+    listOfCalque.push_back(_calqueVert);
 }
 
 /**
@@ -139,14 +142,34 @@ void gestionnaire_calque_model::updateCalqueVert(int min, int max, int taille){
     }
 }
 
+/**
+ * @brief gestionnaire_calque_model::updateHistogram
+ * @param min
+ * @param max
+ * @param taille
+ */
+void gestionnaire_calque_model::updateHistogram(int min, int max, int taille){
+    isHistogram = !isHistogram;
+
+    int search = getCalque(min,max);
+
+    int id = listOfCalque[search].getId();
+
+    if(isHistogram){// Afficher le filtre
+        addInDict(min,max,taille,id);
+
+
+    }else{// Ne pas afficher le filtre
+
+        removeFromDict(min,max,id);
+    }
+}
+
 void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay){
     std::cout << "fonction mergeCalques" << std::endl;
     if(ids.size() == 0){
         std::cout << "0 image à merge" << std::endl;
-        calque _calqueResultat(-4,-4,-1);// pour afficher le résultat on crée un calque vide transparent
-        currentDisplayedImage.draw_image(0,0,0,0,_calqueResultat.getCalque(),_calqueResultat.getCalque().get_channel(3),1,255);
         currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
-
     }
     else
     {//Sinon on merge et on affiche
@@ -161,26 +184,28 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
         //ON FAIT DEGUEU POUR LE MOMENT A MODIFIER A TERME
         //TODO
         //Contraste en premier
-//        for(auto i : ids){
-//            if (i == IDENTIFIANTDECONTRAST)
-//            {
-//                calque overlay = getCalqueForDisplay(i);
-//                currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
-//            }
-//        }
+        for(auto i : ids){
+            if (i == 0)
+            {
+                calque overlay = getCalqueForDisplay(i);
+                overlay.filtreHistogram();
+                overlay.getCalque().save_png("tmp/boulou.png");
+                currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
+            }
+        }
 
-//        ids.erase(std::remove(ids.begin(), ids.end(), IDENTIFIANTDECONTRASTE), ids.end());
+        ids.erase(std::remove(ids.begin(), ids.end(), 0), ids.end());
 
         //Filtre vert en deuxieme
         for(auto i : ids){
-            if (i == 0)
+            if (i == 1)
             {
                 calque overlay = getCalqueForDisplay(i);
                 currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
             }
         }
 
-        ids.erase(std::remove(ids.begin(), ids.end(), 0), ids.end());
+        ids.erase(std::remove(ids.begin(), ids.end(), 1), ids.end());
 
         //Et tous les autres ensuite
         for(auto i : ids){

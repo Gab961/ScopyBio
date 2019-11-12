@@ -29,6 +29,7 @@ public:
     int getCalque(int min, int max);
     void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void updateCalqueVert(int min, int max, int taille);
+    void updateHistogram(int min, int max, int taille);
     calque getCalqueForDisplay(int min, int max);
     calque getCalqueForDisplay(int id);
 
@@ -63,4 +64,5 @@ protected:
       std::vector<calque> listOfCalque;//Sauvegarde tous les calques dont on en a besoin
       int id;//Permet de créer des calques avec un identifiant unique.
       bool isGreen; // Pour savoir s'il faut afficher le calque vert ou non
+      bool isHistogram; //Pour savoir s'il faut afficher le calque contraste ou non
 };

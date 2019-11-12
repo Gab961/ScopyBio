@@ -64,3 +64,11 @@ void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labe
 void calque::filtreVert(){
     _calque = dessine.applyGreenFilter(_calque);
 }
+
+/**
+ * @brief calque::filtreVert pour créer le calque vert, sert juste au début du programme.
+ */
+void calque::filtreHistogram(){
+    std::cout << "Filtre histogram" << std::endl;
+    _calque = dessine.applyHistogramFilter(_calque);
+}
