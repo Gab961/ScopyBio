@@ -188,12 +188,14 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
             if (i == 0)
             {
                 calque overlay = getCalqueForDisplay(i);
+                overlay.setCalque(currentDisplayedImage);
                 overlay.filtreHistogram();
-                overlay.getCalque().save_png("tmp/boulou.png");
+                overlay.getCalque().save_png("tmp/superTest.png");
                 currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
             }
         }
 
+        currentDisplayedImage.save_png("tmp/testSecondaire.png");
         ids.erase(std::remove(ids.begin(), ids.end(), 0), ids.end());
 
         //Filtre vert en deuxieme

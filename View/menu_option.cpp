@@ -70,8 +70,6 @@ void menu_option::onFilterToggled(bool checked)
 
 void menu_option::onHistoToggled(bool checked)
 {
-    if(checked){
         m_scopybioController->applyHistogramFilter();
         emit refreshMainDisplay();
-    }
 }
