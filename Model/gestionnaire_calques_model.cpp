@@ -214,11 +214,24 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
 
         ids.erase(std::remove(ids.begin(), ids.end(), 1), ids.end());
 
+        //if (annotationEnabled)
         //Et tous les autres ensuite
         for(auto i : ids){
             calque overlay = getCalqueForDisplay(i);
             currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
         }
+        //endif
+
+        //Selection en dernier
+//        for(auto i : INDICESELECTION){
+//            if (i == 1)
+//            {
+//                calque overlay = getCalqueForDisplay(i);
+//                currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
+//            }
+//        }
+
+//        ids.erase(std::remove(ids.begin(), ids.end(), INDICESELECTION), ids.end());
 
         //On sauvegarde l'ensemble
         currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
