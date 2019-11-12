@@ -84,12 +84,6 @@ CImg<float> dessin_model::applyGreenFilter(CImg<float> picture)
     return picture;
 }
 
-void dessin_model::removeGreenFilter(CImg<float> picture)
-{
-    //TODO VIRER LE CALQUE
-    picture.save_bmp(pathOfMainDisplay.c_str());
-}
-
 /**
  * Source du code: https://github.com/HYPJUDY/histogram-equalization-on-grayscale-and-color-image/edit/master/histogram_equalization.cpp
  * @brief dessin_model::applyHistogramFilter

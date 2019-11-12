@@ -147,12 +147,6 @@ void ScopyBio_Controller::applyGreenFilter()
  *
  * */
 
-void ScopyBio_Controller::removeGreenFilter()
-{
-    m_dessinModel->removeGreenFilter(m_pileModel->getCurrentImage());
-}
-
-
 void ScopyBio_Controller::applyHistogramFilter()
 {
     m_dessinModel->applyHistogramFilter(m_pileModel->getCurrentImage());

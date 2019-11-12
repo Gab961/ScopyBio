@@ -99,11 +99,6 @@ public:
     void applyGreenFilter();
 
     /**
-     * @brief removeGreenFilter Supprime le filtre vert de l'ensemble des images
-     */
-    void removeGreenFilter();
-
-    /**
      * @brief applyHistogramFilter Applique le contraste à l'ensemble des images
      */
     void applyHistogramFilter();
