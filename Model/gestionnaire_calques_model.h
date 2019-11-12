@@ -65,4 +65,5 @@ protected:
       int id;//Permet de créer des calques avec un identifiant unique.
       bool isGreen; // Pour savoir s'il faut afficher le calque vert ou non
       bool isHistogram; //Pour savoir s'il faut afficher le calque contraste ou non
+      std::string pathOfHistogramSave = "tmp/histogram.bmp";
 };

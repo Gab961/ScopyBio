@@ -100,7 +100,7 @@ CImg<float> dessin_model::applyHistogramFilter(CImg<float> picture)
     double cdf[256] = { 0 };
     unsigned int equalized[256] = { 0 };
 
-    CImg<unsigned int> histogram(256, 1, 1, 1, 0);
+    CImg<unsigned int> histogram(256, 1, 1, 1, 1);
     cimg_forXY(input_img, x, y)
             ++histogram[input_img(x, y)];
 

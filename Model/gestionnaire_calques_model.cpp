@@ -9,6 +9,8 @@
  */
 gestionnaire_calque_model::gestionnaire_calque_model():id(0),isGreen(false),isHistogram(false){
     calque _calqueHisto(-4,-4,id);
+    CImg<float> test(514,476,1,3);
+    _calqueHisto.setCalque(test);
     id++;
     listOfCalque.push_back(_calqueHisto);
 
@@ -190,12 +192,15 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
                 calque overlay = getCalqueForDisplay(i);
                 overlay.setCalque(currentDisplayedImage);
                 overlay.filtreHistogram();
-                overlay.getCalque().save_png("tmp/superTest.png");
-                currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
+                //On enregistre au format bmp le calque qui a perdu ses
+                //parties vert et bleu (le bmp implique obligatoirement RVB
+                overlay.getCalque().save_bmp(pathOfHistogramSave.c_str());
+                //Et on le récupère en tant qu'image courante sur laquelle on va
+                //appliquer nos calques
+                currentDisplayedImage.load_bmp(pathOfHistogramSave.c_str());
             }
         }
 
-        currentDisplayedImage.save_png("tmp/testSecondaire.png");
         ids.erase(std::remove(ids.begin(), ids.end(), 0), ids.end());
 
         //Filtre vert en deuxieme
@@ -214,6 +219,8 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
             calque overlay = getCalqueForDisplay(i);
             currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
         }
+
+        //On sauvegarde l'ensemble
         currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
     }
 }
