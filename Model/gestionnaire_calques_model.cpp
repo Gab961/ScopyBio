@@ -156,8 +156,10 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
         currentDisplayedImage.draw_image(0,0,0,0,tmp.getCalque(),tmp.getCalque().get_channel(3),1,255);
         currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
     }else{//Sinon on merge et on affiche
+
+
         for(auto i : ids){
-            std::cout << i << " ";
+            std::cout << i << " | ";
         }
         calque _calqueResultat(-4,-4,-1);// pour afficher le résultat on crée un calque vide transparent
         for(auto i : ids){
@@ -238,8 +240,12 @@ void gestionnaire_calque_model::removeFromDict(int min, int max, int id){
 }
 
 std::vector<int> gestionnaire_calque_model::getListOfCalqueFromImage(int idImage){
-    auto res = dictionnaireImgMap.find(idImage);
+    if(dictionnaireImgMap.empty()){
+        std::vector<int> tmp;
+        return tmp;
+    }
 
+    auto res = dictionnaireImgMap.find(idImage);
     return res->second;
 
 }
