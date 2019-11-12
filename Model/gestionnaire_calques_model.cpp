@@ -79,6 +79,11 @@ calque gestionnaire_calque_model::getCalqueForDisplay(int min, int max){
     return *res;
 }
 
+calque gestionnaire_calque_model::getCalqueForDisplay(int id){
+    auto res = std::find_if(listOfCalque.begin(), listOfCalque.end(), [&id](calque &a)->bool { return a.getId() == id ; } );
+    return *res;
+}
+
 /**
  * @brief gestionnaire_calque_model::creerCalque creer un calque et met à jour le dictionnaire puisqu'on sait quelle image va l'utiliser. Si l'image n'existe pas dans le dictionnaire, cette fonction la crée
  * @param min connaitre à partir de quelle image s'applique le calque
@@ -90,35 +95,7 @@ void gestionnaire_calque_model::creerCalque(int min, int max, int taille){
 
     listOfCalque.push_back(_calque);
 
-    //On pourra appeler plus tard une fonction qui ajoute dans le dictionnaire
-
-    int minimum = min, maximum = max;
-    if(min < 0){
-        minimum = 0;
-    }
-
-    if(max < 0){
-        maximum = taille;
-    }else{
-        maximum = max+1;
-    }
-
-    for(int i = minimum; i < maximum; i++){
-
-        //Recherche dans le dictionnaire
-        auto search = dictionnaireImgMap.find(i);
-        //Si il trouve il ajoute le calque
-        if (search != dictionnaireImgMap.end()) {
-            search->second.push_back(id);
-
-        }else{//Sinon on crée
-            std::map<int,std::vector<int>>::iterator it = dictionnaireImgMap.begin();
-            std::vector<int> vec;
-            vec.push_back(id);
-            dictionnaireImgMap.insert (it, std::pair<int,std::vector<int>>(i,vec));
-        }
-
-    }
+    addInDict(min,max,taille,id);
 
     id++;
 }
@@ -148,7 +125,63 @@ void gestionnaire_calque_model::dessineFaisceau(int min, int max, QPoint pos1, Q
  */
 void gestionnaire_calque_model::updateCalqueVert(int min, int max, int taille){
     isGreen = !isGreen;
-    //On pourra appeler plus tard une fonction qui ajoute dans le dictionnaire
+
+    int search = getCalque(min,max);
+
+    int id = listOfCalque[search].getId();
+
+    if(isGreen){// Afficher le filtre
+        addInDict(min,max,taille,id);
+
+
+    }else{// Ne pas afficher le filtre
+
+        removeFromDict(min,max,id);
+    }
+}
+
+void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay){
+    std::cout << "fonction mergeCalques" << std::endl;
+    if(ids.size() == 0){
+        std::cout << "0 image à merge" << std::endl;
+        calque _calqueResultat(-4,-4,-1);// pour afficher le résultat on crée un calque vide transparent
+        currentDisplayedImage.draw_image(0,0,0,0,_calqueResultat.getCalque(),_calqueResultat.getCalque().get_channel(3),1,255);
+        currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
+    }
+    //S'il il y a qu'un seul calque à afficher, on affiche que lui
+    if(ids.size() == 1){
+        std::cout << "1 image à merge" << std::endl;
+        calque tmp = getCalqueForDisplay(ids[0]);
+
+        currentDisplayedImage.draw_image(0,0,0,0,tmp.getCalque(),tmp.getCalque().get_channel(3),1,255);
+        currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
+    }else{//Sinon on merge et on affiche
+        for(auto i : ids){
+            std::cout << i << " ";
+        }
+        calque _calqueResultat(-4,-4,-1);// pour afficher le résultat on crée un calque vide transparent
+        for(auto i : ids){
+
+            std::cout << "plusieurs images à merge" << std::endl;
+            calque overlay = getCalqueForDisplay(i);
+            merge2Images(_calqueResultat,overlay);
+        }
+
+        currentDisplayedImage.draw_image(0,0,0,0,_calqueResultat.getCalque(),_calqueResultat.getCalque().get_channel(3),1,255);
+        currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
+    }
+}
+
+calque gestionnaire_calque_model::merge2Images(calque a, calque b){
+    calque tmp = getCalqueForDisplay(a.getId());
+    tmp.getCalque().draw_image(0,0,b.getCalque());
+    return tmp;
+}
+
+
+//              Fonction pour le dictionnaire.
+
+void gestionnaire_calque_model::addInDict(int min, int max, int taille, int id){
     int minimum = min, maximum = max;
     if(min < 0){
         minimum = 0;
@@ -160,102 +193,53 @@ void gestionnaire_calque_model::updateCalqueVert(int min, int max, int taille){
         maximum = max+1;
     }
 
-    if(isGreen){// Afficher le filtre
-        for(int i = minimum; i < maximum; i++){
+    for(int i = minimum; i < maximum; i++){
 
-            //Recherche dans le dictionnaire
-            auto search = dictionnaireImgMap.find(i);
-            //Si il trouve il ajoute le calque
-            if (search != dictionnaireImgMap.end()) {
-                search->second.push_back(id);
+        //Recherche dans le dictionnaire
+        auto search = dictionnaireImgMap.find(i);
+        //Si il trouve il ajoute le calque
+        if (search != dictionnaireImgMap.end()) {
+            search->second.push_back(id);
 
-            }else{//Sinon on crée
-                std::map<int,std::vector<int>>::iterator it = dictionnaireImgMap.begin();
-                std::vector<int> vec;
-                vec.push_back(id);
-                dictionnaireImgMap.insert (it, std::pair<int,std::vector<int>>(i,vec));
-            }
-
+        }else{//Sinon on crée
+            std::map<int,std::vector<int>>::iterator it = dictionnaireImgMap.begin();
+            std::vector<int> vec;
+            vec.push_back(id);
+            dictionnaireImgMap.insert (it, std::pair<int,std::vector<int>>(i,vec));
         }
 
+    }
+}
 
-    }else{// Ne pas afficher le filtre
-        //On pourra plus tard appeler une fonction qui fait la suppression.
 
-        //TODO: Ne fonctionne pas vraiment ! à voir pourquoi
-        int searchGreen = getCalque(min,max);
-        int id = listOfCalque[searchGreen].getId();
+void gestionnaire_calque_model::removeFromDict(int min, int max, int id){
 
-        for(int i = minimum; i < maximum; i++){
-
-            //Recherche dans le dictionnaire
-            auto search = dictionnaireImgMap.find(i);
-            //Si il trouve il ajoute le calque
-            if (search != dictionnaireImgMap.end()) {
-                search->second.erase(std::remove(search->second.begin(), search->second.end(), id), search->second.end());
-            }
-
-        }
+    int minimum = min, maximum = max;
+    if(min < 0){
+        minimum = 0;
     }
 
+    if(max < 0){
+        maximum = dictionnaireImgMap.size();
+    }else{
+        maximum = max+1;
+    }
 
-    /*
-     * Fonction pour supprimer un calque d'un dico l'idée serait :
-     * supprimerCalque(int min, int max){
-     *
-     * rechercher le calque correspondant
-     *
-     * récupérer son id
-     *
-     * int searchId = getCalque(min,max);
-            int id = listOfCalque[searchGreen].getId();
+    for(int i = minimum; i < maximum; i++){
 
-            for(int i = minimum; i < maximum; i++){
-
-                //Recherche dans le dictionnaire
-                auto search = dictionnaireImgMap.find(i);
-                //Si il trouve il ajoute le calque
-                if (search != dictionnaireImgMap.end()) {
-                    search->second.erase(std::remove(search->second.begin(), search->second.end(), id), search->second.end());
-                }
-
-            }
-     *
-     * }
-     * */
-
-    /*
-     *  Fonction pour ajouter dans le dictionnaire.
-     *
-     * int minimum = min, maximum = max;
-        if(min < 0){
-            minimum = 0;
+        //Recherche dans le dictionnaire
+        auto search = dictionnaireImgMap.find(i);
+        //Si il trouve il ajoute le calque
+        if (search != dictionnaireImgMap.end()) {
+            search->second.erase(std::remove(search->second.begin(), search->second.end(), id), search->second.end());
         }
 
-        if(max < 0){
-            maximum = taille;
-        }else{
-            maximum = max+1;
-        }
+    }
+}
 
-        for(int i = minimum; i < maximum; i++){
+std::vector<int> gestionnaire_calque_model::getListOfCalqueFromImage(int idImage){
+    auto res = dictionnaireImgMap.find(idImage);
 
-            //Recherche dans le dictionnaire
-            auto search = dictionnaireImgMap.find(i);
-            //Si il trouve il ajoute le calque
-            if (search != dictionnaireImgMap.end()) {
-                search->second.push_back(id);
-
-            }else{//Sinon on crée
-                std::map<int,std::vector<int>>::iterator it = dictionnaireImgMap.begin();
-                std::vector<int> vec;
-                vec.push_back(id);
-                dictionnaireImgMap.insert (it, std::pair<int,std::vector<int>>(i,vec));
-            }
-
-        }
-     *
-     *
-     * */
+    return res->second;
 
 }

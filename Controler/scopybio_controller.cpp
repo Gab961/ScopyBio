@@ -2,8 +2,16 @@
 #include "scopybio_controller.h"
 #include <iostream>
 
-ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new data_model()), m_faisceauModel(new faisceau_model)
+ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new data_model()), m_gestion_calque(new gestionnaire_calque_model), m_faisceauModel(new faisceau_model)
 {}
+//=======================
+// AFFICHAGE
+//=======================
+
+void ScopyBio_Controller::DisplayResultImage(int idImage){
+    m_gestion_calque->mergeCalques(m_gestion_calque->getListOfCalqueFromImage(idImage), m_pileModel->getCurrentImage(), m_dessinModel->getMainDisplayPath());
+}
+
 
 //=======================
 // Pile_Modele
@@ -74,14 +82,22 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
     int taille = m_pileModel->getImages().size();
 
     //Verifier s'il existe dans le dico
-    if(!gestion_calque.existeCalque(min,max)){
+    if(!m_gestion_calque->existeCalque(min,max)){
         //Si n'existe pas Creer le calque et mettre à jour le dico
-        gestion_calque.creerCalque(min,max,taille);
+        m_gestion_calque->creerCalque(min,max,taille);
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
-    gestion_calque.dessineFaisceau(min,max,m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(),labelWidth,labelHeight);
+    m_gestion_calque->dessineFaisceau(min,max,m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(),labelWidth,labelHeight);
 
+    saveZoom(labelWidth, labelHeight);
+
+    DisplayResultImage(0);
+
+}
+
+void ScopyBio_Controller::saveZoom(int labelWidth, int labelHeight)
+{
     //Necessaire pour afficher le zoom.
     m_dessinModel->saveZoomFromPicture(m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), labelWidth, labelHeight, m_pileModel->getCurrentImage());
 
@@ -113,13 +129,15 @@ void ScopyBio_Controller::applyGreenFilter()
     // /!\ Bug parce que le remove est fait dans une autre fonction
     int min = -3, max = -3;
     int taille = m_pileModel->getImages().size();
-    if(!gestion_calque.existeCalque(min,max)){
+    if(!m_gestion_calque->existeCalque(min,max)){
         //Si n'existe pas Creer le calque et mettre à jour le dico
-        gestion_calque.creerCalque(min,max,taille);
+        m_gestion_calque->creerCalque(min,max,taille);
     }
 
-        gestion_calque.updateCalqueVert(min,max,taille);
-        gestion_calque.afficheDic();
+        m_gestion_calque->updateCalqueVert(min,max,taille);
+  //      gestion_calque.afficheDic();
+
+    DisplayResultImage(0);
 }
 
 /* fonction de mise à jour de la vue
@@ -192,11 +210,6 @@ void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight
 void ScopyBio_Controller::processResultsOnEverything()
 {
     m_dataModel->processResults(m_pileModel->getImages());
-}
-
-void ScopyBio_Controller::getResults()
-{
-    m_dataModel->getResults();
 }
 
 int ScopyBio_Controller::getItemAtPoint(int posX, int labelWidth)

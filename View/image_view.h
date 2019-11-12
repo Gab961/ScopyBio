@@ -19,10 +19,13 @@ class Image_View : public QGroupBox
         Image_View( QWidget* parent, ScopyBio_Controller *scopybioController);
         void createView();
         void connections();
+
         void nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+        void updateZoomOnly();
 
         void mousePressEvent( QMouseEvent* ev );
         void mouseReleaseEvent( QMouseEvent* ev);
+
 
     signals:
         void drawCircleOnMouse( const QPoint& );
@@ -38,6 +41,7 @@ class Image_View : public QGroupBox
 
     private:
         QPoint origPoint;
+        QPoint secondPoint;
         quint64 TEMPS_CLIC_LONG;
         quint64 temps_pression_orig;
 
@@ -46,4 +50,7 @@ class Image_View : public QGroupBox
         ScopyBio_Controller *m_scopybioController;
         QGridLayout *m_layout;
         QLabel *m_image;
+
+        int m_zoneWidth;
+        int m_zoneHeight;
 };

@@ -6,6 +6,8 @@
 
 calque::calque(int min, int max, int _id): _calque(514,476,1,4,0), intervalMin(min), intervalMax(max), id(_id)
 {
+    //Pour appliquer un claque X à une image IMG
+    //IMG.draw_image(0,0,0,0,X,X.get_channel(3),1,255);
 }
 
 int calque::getId() const
@@ -55,8 +57,8 @@ void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int lab
  * @param labelHeight
  */
 void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
-    _calque(514,476,1,4,0);
-    _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,_calque);
+    CImg<float> tmp(514,476,1,4,0);
+    _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,tmp);
 }
 
 /**

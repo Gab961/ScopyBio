@@ -3,6 +3,8 @@
 #include "CImg.h"
 #include "dessin_model.h"
 
+#define cimg_use_png
+
 using namespace cimg_library;
 class annotation_user_memento;
 class dessin_model;

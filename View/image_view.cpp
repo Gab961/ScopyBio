@@ -78,7 +78,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
         }
         else
         {
-            QPoint secondPoint = ev->pos();
+            secondPoint = ev->pos();
             int widthOfLabel = m_image->width();
             int heightOfLabel = m_image->height();
 
@@ -129,17 +129,23 @@ void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWi
     setNewPicture();
 
     //Demande de rafraichir le zoom
-    int largeurZone = pos1.x() - pos2.x();
-    if (largeurZone < 0) largeurZone = largeurZone * -1;
-    int hauteurZone = pos1.y() - pos2.y();
-    if (hauteurZone < 0) hauteurZone = hauteurZone * -1;
-    emit changeZoomedPicture(largeurZone, hauteurZone);
+    m_zoneWidth = pos1.x() - pos2.x();
+    if (m_zoneWidth < 0) m_zoneWidth = m_zoneWidth * -1;
+    m_zoneHeight = pos1.y() - pos2.y();
+    if (m_zoneHeight < 0) m_zoneHeight = m_zoneHeight * -1;
+    emit changeZoomedPicture(m_zoneWidth, m_zoneHeight);
 
     //Demande de calculer les résultats pour la zone si une couleur de base a été donnée
     if (m_scopybioController->getBaseColorGiven())
         emit processResults(m_image->width(),m_image->height());
 
     update();
+}
+
+void Image_View::updateZoomOnly()
+{
+    //TODO ICI
+    emit changeZoomedPicture(m_zoneWidth, m_zoneHeight);
 }
 
 void Image_View::askProcessFromZoom()

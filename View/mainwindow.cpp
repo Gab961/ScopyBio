@@ -268,7 +268,9 @@ void MainWindow::changeActualItem()
 {
     int indiceEnCours = m_pileView->currentRow();
     m_scopybioController->saveCurrent(indiceEnCours);
-    m_scopybioController->saveAsMainDisplay(indiceEnCours);
+    m_imageView->updateZoomOnly();
+    m_scopybioController->DisplayResultImage(indiceEnCours);
+    emit changeZoomedPicture();
     emit changeMainPicture();
 }
 
