@@ -147,9 +147,8 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
         calque _calqueResultat(-4,-4,-1);// pour afficher le résultat on crée un calque vide transparent
         currentDisplayedImage.draw_image(0,0,0,0,_calqueResultat.getCalque(),_calqueResultat.getCalque().get_channel(3),1,255);
         currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
-    }
-    //S'il il y a qu'un seul calque à afficher, on affiche que lui
-    if(ids.size() == 1){
+
+    }else if(ids.size() == 1){ //S'il il y a qu'un seul calque à afficher, on affiche que lui
         std::cout << "1 image à merge" << std::endl;
         calque tmp = getCalqueForDisplay(ids[0]);
 
@@ -162,11 +161,13 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
             std::cout << i << " | ";
         }
         calque _calqueResultat(-4,-4,-1);// pour afficher le résultat on crée un calque vide transparent
-        for(auto i : ids){
+        std::cout << "plusieurs images à merge" << std::endl;
 
-            std::cout << "plusieurs images à merge" << std::endl;
+        for(auto i : ids){
             calque overlay = getCalqueForDisplay(i);
-            merge2Images(_calqueResultat,overlay);
+            std::cout << overlay.getId() << " : " <<std::endl;
+            _calqueResultat.getCalque().draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
+
         }
 
         currentDisplayedImage.draw_image(0,0,0,0,_calqueResultat.getCalque(),_calqueResultat.getCalque().get_channel(3),1,255);
@@ -174,10 +175,8 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     }
 }
 
-calque gestionnaire_calque_model::merge2Images(calque a, calque b){
-    calque tmp = getCalqueForDisplay(a.getId());
-    tmp.getCalque().draw_image(0,0,b.getCalque());
-    return tmp;
+void gestionnaire_calque_model::merge2Images(calque &a, calque b){
+    a.getCalque().draw_image(0,0,0,0,b.getCalque(),b.getCalque().get_channel(3),1,255);
 }
 
 
@@ -240,12 +239,15 @@ void gestionnaire_calque_model::removeFromDict(int min, int max, int id){
 }
 
 std::vector<int> gestionnaire_calque_model::getListOfCalqueFromImage(int idImage){
-    if(dictionnaireImgMap.empty()){
+    auto res = dictionnaireImgMap.find(idImage);
+    if(res == dictionnaireImgMap.end()){
+        std::vector<int> tmp;
+        return tmp;
+    }else if(res->second.empty()){
         std::vector<int> tmp;
         return tmp;
     }
 
-    auto res = dictionnaireImgMap.find(idImage);
     return res->second;
 
 }

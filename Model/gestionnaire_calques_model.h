@@ -34,7 +34,7 @@ public:
 
 
     void mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay);
-    calque merge2Images(calque a, calque b);
+    void merge2Images(calque &a, calque b);
 
 
     //          Fonction pour le dictionnaire
