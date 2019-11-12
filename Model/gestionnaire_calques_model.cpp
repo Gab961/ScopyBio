@@ -13,7 +13,6 @@ gestionnaire_calque_model::gestionnaire_calque_model():id(0),isGreen(false){
     _calque.filtreVert();
 
     listOfCalque.push_back(_calque);
-
 }
 
 /**
@@ -148,36 +147,53 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
         currentDisplayedImage.draw_image(0,0,0,0,_calqueResultat.getCalque(),_calqueResultat.getCalque().get_channel(3),1,255);
         currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
 
-    }else if(ids.size() == 1){ //S'il il y a qu'un seul calque à afficher, on affiche que lui
-        std::cout << "1 image à merge" << std::endl;
-        calque tmp = getCalqueForDisplay(ids[0]);
-
-        currentDisplayedImage.draw_image(0,0,0,0,tmp.getCalque(),tmp.getCalque().get_channel(3),1,255);
-        currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
-    }else{//Sinon on merge et on affiche
+    }
+    else
+    {//Sinon on merge et on affiche
 
 
         for(auto i : ids){
             std::cout << i << " | ";
         }
-        calque _calqueResultat(-4,-4,-1);// pour afficher le résultat on crée un calque vide transparent
+
         std::cout << "plusieurs images à merge" << std::endl;
 
-        for(auto i : ids){
-            calque overlay = getCalqueForDisplay(i);
-            std::cout << overlay.getId() << " : " <<std::endl;
-            _calqueResultat.getCalque().draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
+        //ON FAIT DEGUEU POUR LE MOMENT A MODIFIER A TERME
+        //TODO
+        //Contraste en premier
+//        for(auto i : ids){
+//            if (i == IDENTIFIANTDECONTRAST)
+//            {
+//                calque overlay = getCalqueForDisplay(i);
+//                currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
+//            }
+//        }
 
+//        ids.erase(std::remove(ids.begin(), ids.end(), IDENTIFIANTDECONTRASTE), ids.end());
+
+        //Filtre vert en deuxieme
+        for(auto i : ids){
+            if (i == 0)
+            {
+                calque overlay = getCalqueForDisplay(i);
+                currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
+            }
         }
 
-        currentDisplayedImage.draw_image(0,0,0,0,_calqueResultat.getCalque(),_calqueResultat.getCalque().get_channel(3),1,255);
+        ids.erase(std::remove(ids.begin(), ids.end(), 0), ids.end());
+
+        //Et tous les autres ensuite
+        for(auto i : ids){
+            calque overlay = getCalqueForDisplay(i);
+            currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
+        }
         currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
     }
 }
 
-void gestionnaire_calque_model::merge2Images(calque &a, calque b){
-    a.getCalque().draw_image(0,0,0,0,b.getCalque(),b.getCalque().get_channel(3),1,255);
-}
+//void gestionnaire_calque_model::merge2Images(calque &a, calque b){
+//    a.getCalque().draw_image(0,0,0,0,b.getCalque(),b.getCalque().get_channel(3),1,255);
+//}
 
 
 //              Fonction pour le dictionnaire.

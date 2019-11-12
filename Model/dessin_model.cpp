@@ -77,9 +77,8 @@ void dessin_model::savePics(int x1, int y1, int x2, int y2, unsigned char color,
 
 CImg<float> dessin_model::applyGreenFilter(CImg<float> picture)
 {
-    const unsigned char green[] = { 0,150,0, 255 };
-    picture.draw_rectangle(0,0,picture.width(),picture.height(),green,0.5);
-    picture.save_bmp(pathOfMainDisplay.c_str());
+    const unsigned char green[] = { 0,150,0,150 };
+    picture.draw_rectangle(0,0,picture.width(),picture.height(),green);
 
     return picture;
 }

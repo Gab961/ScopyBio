@@ -5,10 +5,7 @@
 #include "annotation_user_memento.h"
 
 calque::calque(int min, int max, int _id): _calque(514,476,1,4,0), intervalMin(min), intervalMax(max), id(_id)
-{
-    //Pour appliquer un claque X à une image IMG
-    //IMG.draw_image(0,0,0,0,X,X.get_channel(3),1,255);
-}
+{}
 
 int calque::getId() const
 {
