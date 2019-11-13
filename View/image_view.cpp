@@ -28,7 +28,7 @@ void Image_View::createView()
     m_image->setAlignment(Qt::AlignCenter);
 
     TEMPS_CLIC_LONG=100;
-    TEMPS_CLIC_DESSIN=10;
+    TEMPS_CLIC_DESSIN=1;
 
     setLayout(m_layout);
 }

@@ -35,7 +35,7 @@ CImg<float> dessin_model::dessinerRond(QPoint pos1, int labelWidth, int labelHei
     int x1 = pos1.x() * currentPicture.width() / labelWidth;
     int y1 = pos1.y() * currentPicture.height() / labelHeight;
 
-    currentPicture.draw_circle(x1,y1,10,color,1);
+    currentPicture.draw_circle(x1,y1,3,color,1);
 
     return currentPicture;
 }
@@ -147,10 +147,10 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
 
 void dessin_model::switchSaveLocation()
 {
-    std::string newPath = "tmp/mainDisplay" + std::to_string(pathOfMainDisplayIndex) + ".bmp";
+    std::string newPath = "tmp/mainDisplay/mainDisplay" + std::to_string(pathOfMainDisplayIndex) + ".bmp";
     pathOfMainDisplayIndex++;
 
-    if (pathOfMainDisplayIndex == 10)
+    if (pathOfMainDisplayIndex == 30)
         pathOfMainDisplayIndex = 0;
 
     pathOfMainDisplay = newPath;

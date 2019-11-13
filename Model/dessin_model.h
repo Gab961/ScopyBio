@@ -111,7 +111,7 @@ public:
 
 private:
     int pathOfMainDisplayIndex = 0;
-    std::string pathOfMainDisplay = "tmp/mainDisplay.bmp";
+    std::string pathOfMainDisplay = "tmp/mainDisplay/0.bmp";
     std::string pathOfZoomedDisplay = "tmp/zoomedDisplay.bmp";
 
     bool zoomReady;
