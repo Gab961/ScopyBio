@@ -171,7 +171,7 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     std::cout << "fonction mergeCalques" << std::endl;
     if(ids.size() == 0){
         std::cout << "0 image à merge" << std::endl;
-        currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
+        currentDisplayedImage.save_bmp(pathOfMainDisplay.c_str());
     }
     else
     {//Sinon on merge et on affiche
@@ -234,7 +234,7 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
 //        ids.erase(std::remove(ids.begin(), ids.end(), INDICESELECTION), ids.end());
 
         //On sauvegarde l'ensemble
-        currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
+        currentDisplayedImage.save_bmp(pathOfMainDisplay.c_str());
     }
 }
 
