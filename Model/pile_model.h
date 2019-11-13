@@ -51,6 +51,7 @@ public:
     std::string getZoomDisplayPath() const;
     std::string getResultDisplayPath() const;
     bool fileReady();
+    std::string getFileName() const;
 
 
     //===================
