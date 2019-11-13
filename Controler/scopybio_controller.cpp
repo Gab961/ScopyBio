@@ -9,6 +9,7 @@ ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_de
 //=======================
 
 void ScopyBio_Controller::DisplayResultImage(int idImage){
+    //Pour permettre un chargement plus efficace des affichages
     m_dessinModel->switchSaveLocation();
     m_gestion_calque->mergeCalques(m_gestion_calque->getListOfCalqueFromImage(idImage), m_pileModel->getCurrentImage(), m_dessinModel->getMainDisplayPath());
 
