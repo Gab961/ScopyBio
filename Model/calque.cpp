@@ -5,10 +5,7 @@
 #include "annotation_user_memento.h"
 
 calque::calque(int min, int max, int _id): _calque(514,476,1,4,0), intervalMin(min), intervalMax(max), id(_id)
-{
-    //Pour appliquer un claque X à une image IMG
-    //IMG.draw_image(0,0,0,0,X,X.get_channel(3),1,255);
-}
+{}
 
 int calque::getId() const
 {
@@ -66,4 +63,11 @@ void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labe
  */
 void calque::filtreVert(){
     _calque = dessine.applyGreenFilter(_calque);
+}
+
+/**
+ * @brief calque::filtreVert pour créer le calque vert, sert juste au début du programme.
+ */
+void calque::filtreHistogram(){
+    _calque = dessine.applyHistogramFilter(_calque);
 }

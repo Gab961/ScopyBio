@@ -92,7 +92,7 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
 
     saveZoom(labelWidth, labelHeight);
 
-    DisplayResultImage(0);
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
 
 }
 
@@ -137,7 +137,7 @@ void ScopyBio_Controller::applyGreenFilter()
         m_gestion_calque->updateCalqueVert(min,max,taille);
   //      gestion_calque.afficheDic();
 
-    DisplayResultImage(0);
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
 /* fonction de mise à jour de la vue
@@ -147,20 +147,10 @@ void ScopyBio_Controller::applyGreenFilter()
  *
  * */
 
-void ScopyBio_Controller::removeGreenFilter()
-{
-    m_dessinModel->removeGreenFilter(m_pileModel->getCurrentImage());
-}
-
-
 void ScopyBio_Controller::applyHistogramFilter()
 {
-    m_dessinModel->applyHistogramFilter(m_pileModel->getCurrentImage());
-}
-
-void ScopyBio_Controller::removeHistogramFilter()
-{
-    m_dessinModel->removeHistogramFilter(m_pileModel->getCurrentImage());
+    m_gestion_calque->updateHistogram(-4,-4,m_pileModel->getImages().size());
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
 void ScopyBio_Controller::manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView)

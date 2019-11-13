@@ -39,5 +39,6 @@ public:
     void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void filtreVert();
+    void filtreHistogram();
 };
 

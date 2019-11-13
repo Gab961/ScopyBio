@@ -19,6 +19,7 @@ class pile_model
 private:
     CImgList<float> images;
     CImg<float> currentImage;
+    int currentImageIndex;
     gestionnaire_calque_model gestionnaire_calque;
     std::vector<std::string> images_icons_filename; //Le nom des fichiers utilisés pour affichage dans la pile
 
@@ -43,8 +44,9 @@ public:
 
     CImgList<float> getImages() const;
     CImg<float> getCurrentImage() const;
+    int getCurrentImageIndex();
     std::vector<string> getIconFilenames();
-    CImg<float> getImageAtIndex(int i) const;
+    CImg<float> getImageAtIndex(int i);
     std::string getMainDisplayPath() const;
     std::string getZoomDisplayPath() const;
     std::string getResultDisplayPath() const;

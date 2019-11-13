@@ -77,17 +77,10 @@ void dessin_model::savePics(int x1, int y1, int x2, int y2, unsigned char color,
 
 CImg<float> dessin_model::applyGreenFilter(CImg<float> picture)
 {
-    const unsigned char green[] = { 0,150,0, 255 };
-    picture.draw_rectangle(0,0,picture.width(),picture.height(),green,0.5);
-    picture.save_bmp(pathOfMainDisplay.c_str());
+    const unsigned char green[] = { 0,150,0,150 };
+    picture.draw_rectangle(0,0,picture.width(),picture.height(),green);
 
     return picture;
-}
-
-void dessin_model::removeGreenFilter(CImg<float> picture)
-{
-    //TODO VIRER LE CALQUE
-    picture.save_bmp(pathOfMainDisplay.c_str());
 }
 
 /**
@@ -95,7 +88,7 @@ void dessin_model::removeGreenFilter(CImg<float> picture)
  * @brief dessin_model::applyHistogramFilter
  * @param picture
  */
-void dessin_model::applyHistogramFilter(CImg<float> picture)
+CImg<float> dessin_model::applyHistogramFilter(CImg<float> picture)
 {
     CImg<unsigned int> input_img;
     input_img = picture;
@@ -107,7 +100,7 @@ void dessin_model::applyHistogramFilter(CImg<float> picture)
     double cdf[256] = { 0 };
     unsigned int equalized[256] = { 0 };
 
-    CImg<unsigned int> histogram(256, 1, 1, 1, 0);
+    CImg<unsigned int> histogram(256, 1, 1, 1, 1);
     cimg_forXY(input_img, x, y)
             ++histogram[input_img(x, y)];
 
@@ -122,13 +115,7 @@ void dessin_model::applyHistogramFilter(CImg<float> picture)
     cimg_forXY(output_img, x, y)
         output_img(x, y, 0) = equalized[input_img(x, y)];
 
-    output_img.save_bmp(pathOfMainDisplay.c_str());
-}
-
-void dessin_model::removeHistogramFilter(CImg<float> picture)
-{
-    //TODO VIRER LE CALQUE
-    picture.save_bmp(pathOfMainDisplay.c_str());
+    return output_img;
 }
 
 void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView)
