@@ -125,7 +125,7 @@ CImg<float> dessin_model::applyHistogramFilter(CImg<float> picture)
 
     CImg<unsigned int> output_img(w, h, 1, 1, 0);
     cimg_forXY(output_img, x, y)
-        output_img(x, y, 0) = equalized[input_img(x, y)];
+            output_img(x, y, 0) = equalized[input_img(x, y)];
 
     return output_img;
 }
@@ -143,6 +143,17 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
 
     whiteColor = (int)picture(realX, realY, 0, 0);
     baseColorGiven = true;
+}
+
+void dessin_model::switchSaveLocation()
+{
+    std::string newPath = "tmp/mainDisplay" + std::to_string(pathOfMainDisplayIndex) + ".bmp";
+    pathOfMainDisplayIndex++;
+
+    if (pathOfMainDisplayIndex == 10)
+        pathOfMainDisplayIndex = 0;
+
+    pathOfMainDisplay = newPath;
 }
 
 void dessin_model::saveImageAsMainDisplay(CImg<float> pictureToShow) { pictureToShow.save_bmp(pathOfMainDisplay.c_str()); }

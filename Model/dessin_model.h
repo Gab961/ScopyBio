@@ -107,9 +107,13 @@ public:
     bool getBaseColorGiven() const;
     void setBaseColorGiven();
 
+    void switchSaveLocation();
+
 private:
+    int pathOfMainDisplayIndex = 0;
     std::string pathOfMainDisplay = "tmp/mainDisplay.bmp";
     std::string pathOfZoomedDisplay = "tmp/zoomedDisplay.bmp";
+
     bool zoomReady;
 
     bool baseColorGiven;
