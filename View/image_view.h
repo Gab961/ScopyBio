@@ -15,42 +15,46 @@ class Image_View : public QGroupBox
 {
     Q_OBJECT
 
-    public:
-        Image_View( QWidget* parent, ScopyBio_Controller *scopybioController);
-        void createView();
-        void connections();
+public:
+    Image_View( QWidget* parent, ScopyBio_Controller *scopybioController);
+    void createView();
+    void connections();
 
-        void nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
-        void updateZoomOnly();
+    void nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void updateZoomOnly();
 
-        void mousePressEvent( QMouseEvent* ev );
-        void mouseReleaseEvent( QMouseEvent* ev);
+    void mousePressEvent( QMouseEvent* ev );
+    void mouseReleaseEvent( QMouseEvent* ev);
+    void mouseMoveEvent(QMouseEvent* ev);
 
+signals:
+    void drawCircleOnMouse( const QPoint& );
+    void drawRectOnMouse(const QPoint&, const QPoint&, int labelWidth, int labelHeight);
+    void changeZoomedPicture(int zoneWidth, int zoneHeight);
+    void processResults(int labelWidth, int labelHeight);
+    void pipetteClicked();
 
-    signals:
-        void drawCircleOnMouse( const QPoint& );
-        void drawRectOnMouse(const QPoint&, const QPoint&, int labelWidth, int labelHeight);
-        void changeZoomedPicture(int zoneWidth, int zoneHeight);
-        void processResults(int labelWidth, int labelHeight);
-        void pipetteClicked();
+public slots:
+    void setNewPicture();
+    void readyForPipetteClick();
+    void readyForPenDraw();
+    void cancelPenDraw();
+    void askProcessFromZoom();
 
-    public slots:
-        void setNewPicture();        
-        void readyForPipetteClick();
-        void askProcessFromZoom();
+private:
+    QPoint origPoint;
+    QPoint secondPoint;
+    quint64 TEMPS_CLIC_LONG;
+    quint64 TEMPS_CLIC_DESSIN;
+    quint64 temps_pression_orig;
 
-    private:
-        QPoint origPoint;
-        QPoint secondPoint;
-        quint64 TEMPS_CLIC_LONG;
-        quint64 temps_pression_orig;
+    bool listenPipetteClick;
+    bool listenPenClick = false;
 
-        bool listenPipetteClick;
+    ScopyBio_Controller *m_scopybioController;
+    QGridLayout *m_layout;
+    QLabel *m_image;
 
-        ScopyBio_Controller *m_scopybioController;
-        QGridLayout *m_layout;
-        QLabel *m_image;
-
-        int m_zoneWidth;
-        int m_zoneHeight;
+    int m_zoneWidth;
+    int m_zoneHeight;
 };

@@ -28,6 +28,7 @@ void Image_View::createView()
     m_image->setAlignment(Qt::AlignCenter);
 
     TEMPS_CLIC_LONG=100;
+    TEMPS_CLIC_DESSIN=10;
 
     setLayout(m_layout);
 }
@@ -69,27 +70,43 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 {
     if (m_scopybioController->fileReady())
     {
-        quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
-
-        //Si c'est un clic court
-        if (temps < TEMPS_CLIC_LONG)
+        //Si on est pas en train de dessiner
+        if (!listenPenClick)
         {
-            //?
-        }
-        else
-        {
-            secondPoint = ev->pos();
-            int widthOfLabel = m_image->width();
-            int heightOfLabel = m_image->height();
+            quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
 
-            secondPoint.setX(secondPoint.x()-m_image->x());
-            secondPoint.setY(secondPoint.y()-m_image->y());
-            emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
+            //Si c'est un clic long
+            if (temps > TEMPS_CLIC_LONG)
+            {
+                secondPoint = ev->pos();
+                int widthOfLabel = m_image->width();
+                int heightOfLabel = m_image->height();
+
+                secondPoint.setX(secondPoint.x()-m_image->x());
+                secondPoint.setY(secondPoint.y()-m_image->y());
+                emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
+            }
         }
     }
 }
 
+void Image_View::mouseMoveEvent(QMouseEvent* ev) {
+    if (listenPenClick)
+    {
+        quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
 
+        //Pour ne pas prendre absolument tous les clics
+        if (temps > TEMPS_CLIC_DESSIN)
+        {
+            QPoint pos = ev->pos();
+            m_scopybioController->dessinerPointPerso(m_scopybioController->getCurrentImageIndex(),pos,m_image->width(),m_image->height());
+            setNewPicture();
+        }
+    }
+}
+
+void Image_View::readyForPenDraw() { listenPenClick = true; }
+void Image_View::cancelPenDraw() { listenPenClick = false; }
 void Image_View::readyForPipetteClick() { m_scopybioController->setPipetteClick(true); }
 
 /**

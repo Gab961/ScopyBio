@@ -28,6 +28,7 @@ public:
     void creerCalque(int min, int max, int taille);
     int getCalque(int min, int max);
     void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void dessinPoint(int min, int max, QPoint pos1, int labelWidth, int labelHeight);
     void updateCalqueVert(int min, int max, int taille);
     void updateHistogram(int min, int max, int taille);
     calque getCalqueForDisplay(int min, int max);

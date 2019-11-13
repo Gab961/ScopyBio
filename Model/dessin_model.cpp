@@ -28,6 +28,18 @@ CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelW
     return currentPicture;
 }
 
+CImg<float> dessin_model::dessinerRond(QPoint pos1, int labelWidth, int labelHeight, CImg<float> & currentPicture)
+{
+    const unsigned char color[] = { 255,174,0,255 };
+
+    int x1 = pos1.x() * currentPicture.width() / labelWidth;
+    int y1 = pos1.y() * currentPicture.height() / labelHeight;
+
+    currentPicture.draw_circle(x1,y1,10,color,1);
+
+    return currentPicture;
+}
+
 
 void dessin_model::saveZoomFromPicture(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> currentPicture)
 {
