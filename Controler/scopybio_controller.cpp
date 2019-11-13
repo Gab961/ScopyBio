@@ -9,7 +9,10 @@ ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_de
 //=======================
 
 void ScopyBio_Controller::DisplayResultImage(int idImage){
+    //Pour permettre un chargement plus efficace des affichages
+    m_dessinModel->switchSaveLocation();
     m_gestion_calque->mergeCalques(m_gestion_calque->getListOfCalqueFromImage(idImage), m_pileModel->getCurrentImage(), m_dessinModel->getMainDisplayPath());
+
 }
 
 
@@ -63,6 +66,12 @@ void ScopyBio_Controller::saveCurrent(int indiceEnCours)
     m_pileModel->setCurrentImage(indiceEnCours);
 }
 
+
+int ScopyBio_Controller::getCurrentImageIndex()
+{
+    return m_pileModel->getCurrentImageIndex();
+}
+
 //=======================
 // Dessin_Modele
 //=======================
@@ -91,6 +100,30 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
     m_gestion_calque->dessineFaisceau(min,max,m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(),labelWidth,labelHeight);
 
     saveZoom(labelWidth, labelHeight);
+
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
+
+}
+
+/**
+ * @brief ScopyBio_Controller::dessinerCrayonPerso Dessine un point sur une image spécifique
+ * @param imageIndex
+ * @param labelWidth
+ * @param labelHeight
+ */
+void ScopyBio_Controller::dessinerPointPerso(int imageIndex, QPoint pos, int labelWidth, int labelHeight)
+{
+    int min = imageIndex, max = imageIndex;
+    int taille = m_pileModel->getImages().size();
+
+    //Verifier s'il existe dans le dico
+    if(!m_gestion_calque->existeCalque(min,max)){
+        //Si n'existe pas Creer le calque et mettre à jour le dico
+        m_gestion_calque->creerCalque(min,max,taille);
+    }
+
+    //On est sur que le calque existe, on dessine le rectangle.
+    m_gestion_calque->dessinPoint(min, max, pos, labelWidth, labelHeight);
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 
@@ -134,8 +167,8 @@ void ScopyBio_Controller::applyGreenFilter()
         m_gestion_calque->creerCalque(min,max,taille);
     }
 
-        m_gestion_calque->updateCalqueVert(min,max,taille);
-  //      gestion_calque.afficheDic();
+    m_gestion_calque->updateCalqueVert(min,max,taille);
+    //      gestion_calque.afficheDic();
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }

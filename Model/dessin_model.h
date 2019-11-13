@@ -36,6 +36,16 @@ public:
     CImg<float> dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> &currentPicture);
 
     /**
+     * @brief dessinerRond
+     * @param pos1
+     * @param labelWidth
+     * @param labelHeight
+     * @param currentPicture
+     * @return
+     */
+    CImg<float> dessinerRond(QPoint pos1, int labelWidth, int labelHeight, CImg<float> & currentPicture);
+
+    /**
      * @brief saveZoomFromPicture Enregistre la partie sélectionnée de l'image dans l'image zoomée
      * @param pos1
      * @param pos2
@@ -97,9 +107,13 @@ public:
     bool getBaseColorGiven() const;
     void setBaseColorGiven();
 
+    void switchSaveLocation();
+
 private:
-    std::string pathOfMainDisplay = "tmp/mainDisplay.bmp";
+    int pathOfMainDisplayIndex = 0;
+    std::string pathOfMainDisplay = "tmp/mainDisplay/0.bmp";
     std::string pathOfZoomedDisplay = "tmp/zoomedDisplay.bmp";
+
     bool zoomReady;
 
     bool baseColorGiven;
