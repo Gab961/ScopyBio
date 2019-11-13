@@ -21,7 +21,7 @@ void CompareView::createView()
     m_firstImageFull = new QPixmap("tmp/2.bpm");
     m_secondImageFull = new QPixmap("tmp/15.bpm");
 
-    m_resultImage = new QPixmap(m_secondImageFull->width(),m_secondImageFull->height());
+    m_resultImage = new QPixmap(m_secondImageFull->width(), m_secondImageFull->height());
     m_resultImage->fill(Qt::transparent);
 
     //Display
@@ -30,29 +30,28 @@ void CompareView::createView()
     drawSlider();
 
     //Reste
-    m_tempTextEdit = new QLineEdit();
-    m_boutonTest = new QPushButton();
-    m_boutonTest->setText("Go");
+    m_slider = new QSlider(Qt::Horizontal, this);
+    m_slider->setMinimum(0);
+    m_slider->setMaximum(100);
+    m_slider->setValue(50);
 
     //Layout
     m_mainLayout = new QGridLayout();
     m_mainLayout->addWidget(m_display, 0, 0);
-    m_mainLayout->addWidget(m_tempTextEdit, 1, 0);
-    m_mainLayout->addWidget(m_boutonTest, 1, 1);
+    m_mainLayout->addWidget(m_slider, 1, 0);
 
     setLayout(m_mainLayout);
 }
 
 void CompareView::connections()
 {
-    QObject::connect(m_boutonTest, &QPushButton::clicked, this, &CompareView::blabla);
+    QObject::connect(m_slider, &QSlider::valueChanged, this, &CompareView::blabla);
 }
 
 void CompareView::drawSlider()
 {
     float divisionValue = this->valeurSlide / 100;
     float xCut = (float)m_firstImageFull->width()*divisionValue;
-
 
     QPixmap firstBroke = m_firstImageFull->copy(0,0,(int)xCut,m_firstImageFull->height());
 
@@ -68,9 +67,7 @@ void CompareView::drawSlider()
 
 void CompareView::blabla()
 {
-    QString text = m_tempTextEdit->text();
-    bool ok;
-    int value = text.toInt(&ok,10);
+    int value = m_slider->value();
     valeurSlide = (float)value;
     drawSlider();
 }
