@@ -11,8 +11,14 @@
 
 //=======================================================
 
+std::string pile_model::getFileName() const
+{
+    return fileName;
+}
+
 pile_model::pile_model()
 {
+    currentImageIndex = 0;
     fileIsLoaded = false;
 }
 
@@ -35,12 +41,9 @@ void pile_model::loadNewFilename(std::string filename)
     //    read_json_config();
 }
 
-CImg<float> pile_model::getImageAtIndex(int i) {
-    currentImageIndex = i;
-    return images[i];
-}
-
+CImg<float> pile_model::getImageAtIndex(int i) { return images[i]; }
 int pile_model::getCurrentImageIndex() { return currentImageIndex; }
+void pile_model::setCurrentImageIndex(int index) { currentImageIndex  = index; }
 void pile_model::setPercentageOfBlack(float value) { percentageOfBlack = value; }
 CImgList<float> pile_model::getImages() const { return images; }
 CImg<float> pile_model::getCurrentImage() const { return currentImage; }

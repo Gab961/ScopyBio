@@ -58,6 +58,12 @@ public:
      */
     void saveCurrent(int indiceEnCours);
 
+    /**
+     * @brief getCurrentImageIndex
+     * @return
+     */
+    int getCurrentImageIndex();
+
     /***********************************************************************************/
     /******************************* Partie dessin_model *******************************/
     /***********************************************************************************/
@@ -67,6 +73,15 @@ public:
      * @param labelHeight
      */
     void dessinerFaisceau(int labelWidth, int labelHeight);
+
+    /**
+     * @brief dessinerLignePerso
+     * @param imageIndex
+     * @param pos
+     * @param labelWidth
+     * @param labelHeight
+     */
+    void dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight);
 
     /**
      * @brief saveZoom Enregistre l'image zoomée depuis la sélection

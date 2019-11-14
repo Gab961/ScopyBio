@@ -47,7 +47,7 @@ void Data_View::mousePressEvent( QMouseEvent* ev )
     QPoint origPoint = ev->pos();
     if (m_scopybioController->dataReady())
     {
-        int item = m_scopybioController->getItemAtPoint(origPoint.x(),m_image->width());
+        int item = m_scopybioController->getItemAtPoint(origPoint.x()-m_image->x(),m_image->width());
         emit graphClic(item);
     }
 }

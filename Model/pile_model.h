@@ -51,6 +51,7 @@ public:
     std::string getZoomDisplayPath() const;
     std::string getResultDisplayPath() const;
     bool fileReady();
+    std::string getFileName() const;
 
 
     //===================
@@ -59,6 +60,7 @@ public:
 
     void setPercentageOfBlack(float value);
     void setCurrentImage(int position);
+    void setCurrentImageIndex(int index);
 
     //===================
     //      Methods

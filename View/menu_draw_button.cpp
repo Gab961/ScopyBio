@@ -39,30 +39,48 @@ void Menu_Draw_Button::connections()
 {
     //Demande d'affichage dans la fenêtre de data
     QObject::connect(m_pipette, &QPushButton::clicked, this, &Menu_Draw_Button::activatePipetteWaiting);
+
+    //Debut d'un dessin
+    QObject::connect(m_pen, &QPushButton::clicked, this, &Menu_Draw_Button::activatePenAnnotation);
 }
 
 
 void Menu_Draw_Button::activatePipetteWaiting()
 {
     // Si le bouton est pressé une première fois
-    if (!isActive) {
-        setActive(true);
+    if (!isPipetteButtonActive) {
+        setPipetteActive(true);
 
         emit waitingForZoomClick();
     }
     // Si le bouton a déjà été pressé et on reclic dessus
     else {
-        setActive(false);
+        setPipetteActive(false);
 
         emit pipetteCanceled();
     }
 }
 
-void Menu_Draw_Button::setActive(bool state)
-{
-    isActive = state;
 
-    if (!isActive) {
+void Menu_Draw_Button::activatePenAnnotation()
+{
+    // Si le bouton est pressé une première fois
+    if (!isPenButtonActive) {
+        isPenButtonActive = true;
+        emit readyToDrawPen();
+    }
+    // Si le bouton a déjà été pressé et on reclic dessus
+    else {
+        isPenButtonActive = false;
+        emit penCanceled();
+    }
+}
+
+void Menu_Draw_Button::setPipetteActive(bool state)
+{
+    isPipetteButtonActive = state;
+
+    if (!isPipetteButtonActive) {
         m_scopybioController->setPipetteClick(false);
 
         m_selectSquare->setEnabled(true);

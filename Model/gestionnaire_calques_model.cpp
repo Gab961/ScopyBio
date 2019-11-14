@@ -67,8 +67,6 @@ int gestionnaire_calque_model::getCalque(int min, int max){
             index++;
         }
     }
-
-    std::cout << "Calque not Found" << std::endl;
     return -1;
 }
 
@@ -99,7 +97,9 @@ void gestionnaire_calque_model::creerCalque(int min, int max, int taille){
 
     listOfCalque.push_back(_calque);
 
-    addInDict(min,max,taille,id);
+    if(min != -2){
+        addInDict(min,max,taille,id);
+    }
 
     id++;
 }
@@ -122,6 +122,22 @@ void gestionnaire_calque_model::dessineFaisceau(int min, int max, QPoint pos1, Q
 }
 
 /**
+ * @brief gestionnaire_calque_model::dessinPoint
+ * @param min
+ * @param max
+ * @param pos1
+ * @param labelWidth
+ * @param labelHeight
+ */
+void gestionnaire_calque_model::dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
+
+    int search = getCalque(min,max);
+    if(search != -1){
+        listOfCalque[search].dessinerLigne(pos1, pos2, labelWidth,labelHeight);
+    }
+}
+
+/**
  * @brief gestionnaire_calque_model::updateCalqueVert met juste à jour le dictionnaire, l'ajoute dans le dico s'il est actif, le supprime sinon.
  * @param min
  * @param max
@@ -129,19 +145,6 @@ void gestionnaire_calque_model::dessineFaisceau(int min, int max, QPoint pos1, Q
  */
 void gestionnaire_calque_model::updateCalqueVert(int min, int max, int taille){
     isGreen = !isGreen;
-
-    int search = getCalque(min,max);
-
-    int id = listOfCalque[search].getId();
-
-    if(isGreen){// Afficher le filtre
-        addInDict(min,max,taille,id);
-
-
-    }else{// Ne pas afficher le filtre
-
-        removeFromDict(min,max,id);
-    }
 }
 
 /**
@@ -152,90 +155,64 @@ void gestionnaire_calque_model::updateCalqueVert(int min, int max, int taille){
  */
 void gestionnaire_calque_model::updateHistogram(int min, int max, int taille){
     isHistogram = !isHistogram;
-
-    int search = getCalque(min,max);
-
-    int id = listOfCalque[search].getId();
-
-    if(isHistogram){// Afficher le filtre
-        addInDict(min,max,taille,id);
-
-
-    }else{// Ne pas afficher le filtre
-
-        removeFromDict(min,max,id);
-    }
 }
 
 void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay){
-    std::cout << "fonction mergeCalques" << std::endl;
+    //ON FAIT DEGUEU POUR LE MOMENT A MODIFIER A TERME
+    //TODO
+    //Contraste en premier
+    if (isHistogram)
+    {
+        calque overlay = getCalqueForDisplay(0);
+        overlay.setCalque(currentDisplayedImage);
+        overlay.filtreHistogram();
+        //On enregistre au format bmp le calque qui a perdu ses
+        //parties vert et bleu (le bmp implique obligatoirement RVB
+        overlay.getCalque().save_bmp(pathOfHistogramSave.c_str());
+        //Et on le récupère en tant qu'image courante sur laquelle on va
+        //appliquer nos calques
+        currentDisplayedImage.load_bmp(pathOfHistogramSave.c_str());
+    }
+
+    //Filtre vert en deuxieme
+    if (isGreen)
+    {
+        calque overlay = getCalqueForDisplay(1);
+        currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
+    }
+
     if(ids.size() == 0){
-        std::cout << "0 image à merge" << std::endl;
-        currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
+        //std::cout << "0 image à merge" << std::endl;
+        currentDisplayedImage.save_bmp(pathOfMainDisplay.c_str());
     }
     else
     {//Sinon on merge et on affiche
 
+//        std::cout << "id : ";
+//        for(auto i : ids){
+//            std::cout << i << " | ";
+//        }
 
-        for(auto i : ids){
-            std::cout << i << " | ";
-        }
-
-        std::cout << "plusieurs images à merge" << std::endl;
-
-        //ON FAIT DEGUEU POUR LE MOMENT A MODIFIER A TERME
-        //TODO
-        //Contraste en premier
-        for(auto i : ids){
-            if (i == 0)
-            {
-                calque overlay = getCalqueForDisplay(i);
-                overlay.setCalque(currentDisplayedImage);
-                overlay.filtreHistogram();
-                //On enregistre au format bmp le calque qui a perdu ses
-                //parties vert et bleu (le bmp implique obligatoirement RVB
-                overlay.getCalque().save_bmp(pathOfHistogramSave.c_str());
-                //Et on le récupère en tant qu'image courante sur laquelle on va
-                //appliquer nos calques
-                currentDisplayedImage.load_bmp(pathOfHistogramSave.c_str());
-            }
-        }
-
-        ids.erase(std::remove(ids.begin(), ids.end(), 0), ids.end());
-
-        //Filtre vert en deuxieme
-        for(auto i : ids){
-            if (i == 1)
-            {
-                calque overlay = getCalqueForDisplay(i);
-                currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
-            }
-        }
-
-        ids.erase(std::remove(ids.begin(), ids.end(), 1), ids.end());
-
-        //if (annotationEnabled)
+//        std::cout << "plusieurs images à merge" << std::endl;
         //Et tous les autres ensuite
         for(auto i : ids){
             calque overlay = getCalqueForDisplay(i);
             currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
         }
-        //endif
-
-        //Selection en dernier
-//        for(auto i : INDICESELECTION){
-//            if (i == 1)
-//            {
-//                calque overlay = getCalqueForDisplay(i);
-//                currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
-//            }
-//        }
-
-//        ids.erase(std::remove(ids.begin(), ids.end(), INDICESELECTION), ids.end());
-
-        //On sauvegarde l'ensemble
-        currentDisplayedImage.save_png(pathOfMainDisplay.c_str());
     }
+
+    //Selection en dernier
+
+    auto search = getCalque(-2,-2);
+    if(search != -1){
+        calque overlay = listOfCalque[search];
+        currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
+
+    }
+
+
+    //On sauvegarde l'ensemble
+    currentDisplayedImage.save_bmp(pathOfMainDisplay.c_str());
 }
 
 //void gestionnaire_calque_model::merge2Images(calque &a, calque b){

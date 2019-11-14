@@ -14,21 +14,25 @@ class Menu_Draw_Button: public QGroupBox
         Menu_Draw_Button(QWidget *parent, ScopyBio_Controller *scopybioController);
         void createView();
         void connections();
-        void setActive(bool state);
+        void setPipetteActive(bool state);
 
     public slots:
+        void activatePenAnnotation();
         void activatePipetteWaiting();
 
     signals:
         void waitingForZoomClick();
         void pipetteCanceled();
+        void readyToDrawPen();
+        void penCanceled();
 
     private:
         QGridLayout *m_gridTools;
 
+        bool isPipetteButtonActive = false;
+        bool isPenButtonActive = false;
         QPushButton *m_eraser;
         QPushButton *m_pipette;
-        bool isActive = false;
         QPushButton *m_pen;
         QPushButton *m_selectSquare;
         QPushButton *m_selectCircle;
