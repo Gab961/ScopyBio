@@ -23,7 +23,7 @@ private:
 
 
 public:
-    calque(int min, int max, int _id);
+    calque(int width, int height, int min, int max, int _id);
 
     annotation_user_memento *createMemento();
     void reinstateMemento(annotation_user_memento *mem);

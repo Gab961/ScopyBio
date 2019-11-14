@@ -7,14 +7,22 @@
 /**
  * @brief gestionnaire_calque_model::gestionnaire_calque_model construit un modèle et dès le départ crée un calque vert qui pourra être utilisé.
  */
-gestionnaire_calque_model::gestionnaire_calque_model():id(0),isGreen(false),isHistogram(false){
-    calque _calqueHisto(-4,-4,id);
-    CImg<float> test(514,476,1,3);
-    _calqueHisto.setCalque(test);
+gestionnaire_calque_model::gestionnaire_calque_model(): id(0),isGreen(false),isHistogram(false){
+
+}
+
+/**
+ * @brief gestionnaire_calque_model::initGlobalCalques Initialise les calques histogramme et vert
+ * @param _pileWidth
+ * @param _pileHeight
+ */
+void gestionnaire_calque_model::initGlobalCalques(int pileWidth, int pileHeight)
+{
+    calque _calqueHisto(pileWidth, pileHeight, -4,-4,id);
     id++;
     listOfCalque.push_back(_calqueHisto);
 
-    calque _calqueVert(-3,-3,id);
+    calque _calqueVert(pileWidth, pileHeight, -3,-3,id);
     id++;
     _calqueVert.filtreVert();
     listOfCalque.push_back(_calqueVert);
@@ -92,8 +100,8 @@ calque gestionnaire_calque_model::getCalqueForDisplay(int id){
  * @param max connaitre jusqu'à quelle image s'appliquer le calque
  * @param taille taille de la pile d'image
  */
-void gestionnaire_calque_model::creerCalque(int min, int max, int taille){
-    calque _calque(min,max,id);
+void gestionnaire_calque_model::creerCalque(int width, int height, int min, int max, int taille){
+    calque _calque(width, height, min,max,id);
 
     listOfCalque.push_back(_calque);
 
