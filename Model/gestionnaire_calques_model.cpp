@@ -67,8 +67,6 @@ int gestionnaire_calque_model::getCalque(int min, int max){
             index++;
         }
     }
-
-    std::cout << "Calque not Found" << std::endl;
     return -1;
 }
 
