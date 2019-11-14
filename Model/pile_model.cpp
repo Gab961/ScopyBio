@@ -11,6 +11,11 @@
 
 //=======================================================
 
+std::string pile_model::getFileName() const
+{
+    return fileName;
+}
+
 pile_model::pile_model()
 {
     fileIsLoaded = false;

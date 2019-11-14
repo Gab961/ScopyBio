@@ -184,18 +184,18 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     }
 
     if(ids.size() == 0){
-        std::cout << "0 image à merge" << std::endl;
+        //std::cout << "0 image à merge" << std::endl;
         currentDisplayedImage.save_bmp(pathOfMainDisplay.c_str());
     }
     else
     {//Sinon on merge et on affiche
 
-        std::cout << "id : ";
-        for(auto i : ids){
-            std::cout << i << " | ";
-        }
+//        std::cout << "id : ";
+//        for(auto i : ids){
+//            std::cout << i << " | ";
+//        }
 
-        std::cout << "plusieurs images à merge" << std::endl;
+//        std::cout << "plusieurs images à merge" << std::endl;
         //Et tous les autres ensuite
         for(auto i : ids){
             calque overlay = getCalqueForDisplay(i);

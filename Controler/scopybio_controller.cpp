@@ -125,6 +125,7 @@ void ScopyBio_Controller::dessinerPointPerso(int imageIndex, QPoint pos, int lab
     //On est sur que le calque existe, on dessine le rectangle.
     m_gestion_calque->dessinPoint(min, max, pos, labelWidth, labelHeight);
 
+
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 
 }
