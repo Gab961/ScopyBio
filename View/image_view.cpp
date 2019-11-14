@@ -96,12 +96,14 @@ void Image_View::mouseMoveEvent(QMouseEvent* ev) {
         quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
 
         //Pour ne pas prendre absolument tous les clics
-        if (temps > TEMPS_CLIC_DESSIN)
-        {
+//        if (temps > TEMPS_CLIC_DESSIN)
+//        {
             QPoint pos = ev->pos();
+            pos.setX(pos.x()-m_image->x());
+            pos.setY(pos.y()-m_image->y());
             m_scopybioController->dessinerPointPerso(m_scopybioController->getCurrentImageIndex(),pos,m_image->width(),m_image->height());
             setNewPicture();
-        }
+//        }
     }
 }
 

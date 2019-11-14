@@ -64,6 +64,7 @@ bool ScopyBio_Controller::fileReady()
 void ScopyBio_Controller::saveCurrent(int indiceEnCours)
 {
     m_pileModel->setCurrentImage(indiceEnCours);
+    m_pileModel->setCurrentImageIndex(indiceEnCours);
 }
 
 
