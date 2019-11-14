@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QPixmap>
 #include <QPainter>
+#include <QSlider>
 
 class QPushButton;
 class QLineEdit;
@@ -33,6 +34,8 @@ class CompareView: public QWidget
         QPixmap *m_firstImageFull;
         QPixmap *m_secondImageFull;
         QPixmap *m_resultImage;
+
+        QSlider *m_slider;
 
         QLineEdit *m_tempTextEdit;
         QPushButton *m_boutonTest;

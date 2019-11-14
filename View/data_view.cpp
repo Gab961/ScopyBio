@@ -9,6 +9,7 @@ using namespace cimg_library;
 
 Data_View::Data_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController)
 {    
+    setTitle("Data view");
     this->setAttribute(Qt::WA_Hover, true);
     createView();
 }
