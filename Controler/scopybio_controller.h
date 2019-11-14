@@ -3,6 +3,7 @@
 #include "Model/dessin_model.h"
 #include "Model/data_model.h"
 #include "Model/faisceau_model.h"
+#include "Model/save_model.h"
 
 class ScopyBio_Controller
 {
@@ -12,6 +13,9 @@ public:
 
     /** Partie affichage **/
     void DisplayResultImage(int idImage);
+
+    void save_as(std::string path);
+    bool save();
     /***********************************************************************************/
     /******************************** Partie pile_model ********************************/
     /***********************************************************************************/
@@ -215,4 +219,5 @@ private:
     data_model *m_dataModel;
     gestionnaire_calque_model *m_gestion_calque;
     faisceau_model *m_faisceauModel;
+    save_model *m_saveModel;
 };

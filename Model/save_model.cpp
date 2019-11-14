@@ -1,8 +1,4 @@
-#include <experimental/filesystem>
-#include <iostream>
-#include <regex>
 #include <json/json.h>
-#include <fstream>
 
 #include "save_model.h"
 
@@ -17,8 +13,44 @@ inline char save_model::separator()
 #endif
 }
 
-save_model::save_model(std::string path, std::__cxx11::string filename, std::vector<calque> _calques)
-{
+save_model::save_model():canSave(false){}
+
+
+
+void save_model::saveCalques(){
+    for(auto i : calques){
+        if(i.getIntervalMin() >= -1){
+            std::string calque_name = saveCalquesPath + separator() + "calques" + std::to_string(i.getId());
+            i.getCalque().save_png(calque_name.c_str());
+        }
+    }
+}
+
+void save_model::saveJsonFile(){
+    std::string filename= filename+".scb";
+    //Json::Value value;
+
+    for(auto i : calques){
+        if(i.getIntervalMin() >= -1){
+            Json::Value calqueValue;
+            calqueValue["min"] = i.getIntervalMin();
+            calqueValue["max"] = i.getIntervalMax();
+            calqueValue["id"] = i.getId();
+            std::string pathcalque = saveCalquesPath + separator() + "calque" + std::to_string(i.getId());
+            calqueValue["path"] = pathcalque;
+
+            //value["calque" + std::to_string(i.getId())] = calqueValue;
+        }
+    }
+
+    std::ofstream outfile(filename);
+    outfile.open(filename, std::ofstream::out | std::ofstream::trunc);
+    //outfile << value;
+}
+
+void save_model::save_as(std::string path, std::string filename, std::vector<calque> _calques){
+/*
+    canSave = true;
     for(auto i : _calques){
         calques.push_back(i);
     }
@@ -55,40 +87,13 @@ save_model::save_model(std::string path, std::__cxx11::string filename, std::vec
     saveCalquesPath = savePath + separator() + "Calques";
     std::experimental::filesystem::create_directories(saveCalquesPath);
 
-    save();
+    save();*/
 }
 
-void save_model::saveCalques(){
-    for(auto i : calques){
-        if(i.getIntervalMin() >= -1){
-            std::string calque_name = saveCalquesPath + separator() + "calques" + std::to_string(i.getId());
-            i.getCalque().save_png(calque_name.c_str());
-        }
-    }
+bool save_model::getCanSave() const
+{
+    return canSave;
 }
-
-void save_model::saveJsonFile(){
-    std::string filename= filename+".scb";
-    Json::Value value;
-
-    for(auto i : calques){
-        if(i.getIntervalMin() >= -1){
-            Json::Value calqueValue;
-            calqueValue["min"] = i.getIntervalMin();
-            calqueValue["max"] = i.getIntervalMax();
-            calqueValue["id"] = i.getId();
-            std::string pathcalque = saveCalquesPath + separator() + "calque" + std::to_string(i.getId());
-            calqueValue["path"] = pathcalque;
-
-            value["calque" + std::to_string(i.getId())] = calqueValue;
-        }
-    }
-
-    std::ofstream outfile(filename);
-    outfile.open(filename, std::ofstream::out | std::ofstream::trunc);
-    outfile << value;
-}
-
 
 void save_model::save(){
     saveCalques();
