@@ -74,8 +74,11 @@ void ComparePopup::createComparePopup()
 
 void ComparePopup::openCompareView()
 {
-    if (m_firstImage->currentText() != m_secondImage->currentText())
-        m_compareWindow->show();
+    if (m_firstImage->currentText() != m_secondImage->currentText()) {
+        m_compareWindow->show();       
+        close();
+    }
     else
-        std::cout << "Groump" << std::endl;
+        //TODO retour user que problème (popup info)
+        std::cout << "2 fois même image" << std::endl;
 }

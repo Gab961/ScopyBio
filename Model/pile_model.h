@@ -60,6 +60,7 @@ public:
 
     void setPercentageOfBlack(float value);
     void setCurrentImage(int position);
+    void setCurrentImageIndex(int index);
 
     //===================
     //      Methods

@@ -50,6 +50,7 @@ private:
 
     bool listenPipetteClick;
     bool listenPenClick = false;
+    bool firstPenDraw = true;
 
     ScopyBio_Controller *m_scopybioController;
     QGridLayout *m_layout;

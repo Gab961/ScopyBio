@@ -23,7 +23,7 @@ private:
 
 
 public:
-    calque(int min, int max, int _id);
+    calque(int width, int height, int min, int max, int _id);
 
     annotation_user_memento *createMemento();
     void reinstateMemento(annotation_user_memento *mem);
@@ -38,7 +38,7 @@ public:
     //          ACTIONS !
     void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
-    void dessinerPoint(QPoint pos1, int labelWidth, int labelHeight);
+    void dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void filtreVert();
     void filtreHistogram();
 };

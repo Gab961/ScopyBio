@@ -7,14 +7,22 @@
 /**
  * @brief gestionnaire_calque_model::gestionnaire_calque_model construit un modèle et dès le départ crée un calque vert qui pourra être utilisé.
  */
-gestionnaire_calque_model::gestionnaire_calque_model():id(0),isGreen(false),isHistogram(false){
-    calque _calqueHisto(-4,-4,id);
-    CImg<float> test(514,476,1,3);
-    _calqueHisto.setCalque(test);
+gestionnaire_calque_model::gestionnaire_calque_model(): id(0),isGreen(false),isHistogram(false){
+
+}
+
+/**
+ * @brief gestionnaire_calque_model::initGlobalCalques Initialise les calques histogramme et vert
+ * @param _pileWidth
+ * @param _pileHeight
+ */
+void gestionnaire_calque_model::initGlobalCalques(int pileWidth, int pileHeight)
+{
+    calque _calqueHisto(pileWidth, pileHeight, -4,-4,id);
     id++;
     listOfCalque.push_back(_calqueHisto);
 
-    calque _calqueVert(-3,-3,id);
+    calque _calqueVert(pileWidth, pileHeight, -3,-3,id);
     id++;
     _calqueVert.filtreVert();
     listOfCalque.push_back(_calqueVert);
@@ -67,8 +75,6 @@ int gestionnaire_calque_model::getCalque(int min, int max){
             index++;
         }
     }
-
-    std::cout << "Calque not Found" << std::endl;
     return -1;
 }
 
@@ -94,8 +100,8 @@ calque gestionnaire_calque_model::getCalqueForDisplay(int id){
  * @param max connaitre jusqu'à quelle image s'appliquer le calque
  * @param taille taille de la pile d'image
  */
-void gestionnaire_calque_model::creerCalque(int min, int max, int taille){
-    calque _calque(min,max,id);
+void gestionnaire_calque_model::creerCalque(int width, int height, int min, int max, int taille){
+    calque _calque(width, height, min,max,id);
 
     listOfCalque.push_back(_calque);
 
@@ -131,11 +137,11 @@ void gestionnaire_calque_model::dessineFaisceau(int min, int max, QPoint pos1, Q
  * @param labelWidth
  * @param labelHeight
  */
-void gestionnaire_calque_model::dessinPoint(int min, int max, QPoint pos1, int labelWidth, int labelHeight){
+void gestionnaire_calque_model::dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
 
     int search = getCalque(min,max);
     if(search != -1){
-        listOfCalque[search].dessinerPoint(pos1,labelWidth,labelHeight);
+        listOfCalque[search].dessinerLigne(pos1, pos2, labelWidth,labelHeight);
     }
 }
 
