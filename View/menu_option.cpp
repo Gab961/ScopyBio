@@ -64,26 +64,12 @@ void menu_option::connections()
 
 void menu_option::onFilterToggled(bool checked)
 {
-    if(checked){
         m_scopybioController->applyGreenFilter();
         emit refreshMainDisplay();
-    }
-    else
-    {
-        m_scopybioController->removeGreenFilter();
-        emit refreshMainDisplay();
-    }
 }
 
 void menu_option::onHistoToggled(bool checked)
 {
-    if(checked){
         m_scopybioController->applyHistogramFilter();
         emit refreshMainDisplay();
-    }
-    else
-    {
-        m_scopybioController->removeHistogramFilter();
-        emit refreshMainDisplay();
-    }
 }

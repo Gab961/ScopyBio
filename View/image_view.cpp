@@ -28,6 +28,7 @@ void Image_View::createView()
     m_image->setAlignment(Qt::AlignCenter);
 
     TEMPS_CLIC_LONG=100;
+    TEMPS_CLIC_DESSIN=1;
 
     setLayout(m_layout);
 }
@@ -40,6 +41,7 @@ void Image_View::connections()
 
 void Image_View::mousePressEvent( QMouseEvent* ev )
 {
+
     temps_pression_orig = QDateTime::currentMSecsSinceEpoch();
     origPoint = ev->pos();
 
@@ -52,11 +54,13 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
         m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
 
         emit pipetteClicked();
-
         //Si une zone a déjà été sélectionnée
         if (m_scopybioController->getBaseColorGiven() && m_scopybioController->getZoomReady())
             emit processResults(m_image->width(),m_image->height());
     }
+
+    if (listenPenClick)
+        firstPenDraw = true;
 }
 
 /**
@@ -69,27 +73,54 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 {
     if (m_scopybioController->fileReady())
     {
-        quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
-
-        //Si c'est un clic court
-        if (temps < TEMPS_CLIC_LONG)
+        //Si on est pas en train de dessiner
+        if (!listenPenClick)
         {
-            //?
-        }
-        else
-        {
-            QPoint secondPoint = ev->pos();
-            int widthOfLabel = m_image->width();
-            int heightOfLabel = m_image->height();
+            quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
 
-            secondPoint.setX(secondPoint.x()-m_image->x());
-            secondPoint.setY(secondPoint.y()-m_image->y());
-            emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
+            //Si c'est un clic long
+            if (temps > TEMPS_CLIC_LONG)
+            {
+                secondPoint = ev->pos();
+                int widthOfLabel = m_image->width();
+                int heightOfLabel = m_image->height();
+
+                secondPoint.setX(secondPoint.x()-m_image->x());
+                secondPoint.setY(secondPoint.y()-m_image->y());
+                emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
+
+            }
         }
     }
 }
 
+void Image_View::mouseMoveEvent(QMouseEvent* ev) {
+    if (listenPenClick)
+    {
 
+        quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
+
+        if (firstPenDraw)
+        {
+            firstPenDraw = false;
+            QPoint pos = ev->pos();
+            origPoint.setX(pos.x()-m_image->x());
+            origPoint.setY(pos.y()-m_image->y());
+        }
+        else
+        {
+            QPoint pos = ev->pos();
+            pos.setX(pos.x()-m_image->x());
+            pos.setY(pos.y()-m_image->y());
+            m_scopybioController->dessinerLignePerso(m_scopybioController->getCurrentImageIndex(),origPoint,pos,m_image->width(),m_image->height());
+            setNewPicture();
+            origPoint = pos;
+        }
+    }
+}
+
+void Image_View::readyForPenDraw() { listenPenClick = true; }
+void Image_View::cancelPenDraw() { listenPenClick = false; }
 void Image_View::readyForPipetteClick() { m_scopybioController->setPipetteClick(true); }
 
 /**
@@ -129,17 +160,23 @@ void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWi
     setNewPicture();
 
     //Demande de rafraichir le zoom
-    int largeurZone = pos1.x() - pos2.x();
-    if (largeurZone < 0) largeurZone = largeurZone * -1;
-    int hauteurZone = pos1.y() - pos2.y();
-    if (hauteurZone < 0) hauteurZone = hauteurZone * -1;
-    emit changeZoomedPicture(largeurZone, hauteurZone);
+    m_zoneWidth = pos1.x() - pos2.x();
+    if (m_zoneWidth < 0) m_zoneWidth = m_zoneWidth * -1;
+    m_zoneHeight = pos1.y() - pos2.y();
+    if (m_zoneHeight < 0) m_zoneHeight = m_zoneHeight * -1;
+    emit changeZoomedPicture(m_zoneWidth, m_zoneHeight);
 
     //Demande de calculer les résultats pour la zone si une couleur de base a été donnée
     if (m_scopybioController->getBaseColorGiven())
         emit processResults(m_image->width(),m_image->height());
 
     update();
+}
+
+void Image_View::updateZoomOnly()
+{
+    //TODO ICI
+    emit changeZoomedPicture(m_zoneWidth, m_zoneHeight);
 }
 
 void Image_View::askProcessFromZoom()

@@ -10,6 +10,8 @@ class ScopyBio_Controller
 public:
     ScopyBio_Controller();
 
+    /** Partie affichage **/
+    void DisplayResultImage(int idImage);
     /***********************************************************************************/
     /******************************** Partie pile_model ********************************/
     /***********************************************************************************/
@@ -56,6 +58,12 @@ public:
      */
     void saveCurrent(int indiceEnCours);
 
+    /**
+     * @brief getCurrentImageIndex
+     * @return
+     */
+    int getCurrentImageIndex();
+
     /***********************************************************************************/
     /******************************* Partie dessin_model *******************************/
     /***********************************************************************************/
@@ -65,6 +73,22 @@ public:
      * @param labelHeight
      */
     void dessinerFaisceau(int labelWidth, int labelHeight);
+
+    /**
+     * @brief dessinerLignePerso
+     * @param imageIndex
+     * @param pos
+     * @param labelWidth
+     * @param labelHeight
+     */
+    void dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight);
+
+    /**
+     * @brief saveZoom Enregistre l'image zoomée depuis la sélection
+     * @param labelWidth
+     * @param labelHeight
+     */
+    void saveZoom(int labelWidth, int labelHeight);
 
     /**
      * @brief getMainDisplayPath Renvoie le chemin de l'image du display principal
@@ -88,11 +112,6 @@ public:
      * @brief applyGreenFilter Applique le filtre vert sur l'ensemble des images
      */
     void applyGreenFilter();
-
-    /**
-     * @brief removeGreenFilter Supprime le filtre vert de l'ensemble des images
-     */
-    void removeGreenFilter();
 
     /**
      * @brief applyHistogramFilter Applique le contraste à l'ensemble des images
@@ -194,6 +213,6 @@ private:
     pile_model *m_pileModel;
     dessin_model *m_dessinModel;
     data_model *m_dataModel;
+    gestionnaire_calque_model *m_gestion_calque;
     faisceau_model *m_faisceauModel;
-    gestionnaire_calque_model gestion_calque;
 };
