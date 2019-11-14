@@ -46,6 +46,17 @@ public:
     CImg<float> dessinerRond(QPoint pos1, int labelWidth, int labelHeight, CImg<float> & currentPicture);
 
     /**
+     * @brief dessinerLigne
+     * @param pos1
+     * @param pos2
+     * @param labelWidth
+     * @param labelHeight
+     * @param currentPicture
+     * @return
+     */
+    CImg<float> dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture);
+
+    /**
      * @brief saveZoomFromPicture Enregistre la partie sélectionnée de l'image dans l'image zoomée
      * @param pos1
      * @param pos2

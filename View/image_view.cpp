@@ -41,6 +41,7 @@ void Image_View::connections()
 
 void Image_View::mousePressEvent( QMouseEvent* ev )
 {
+
     temps_pression_orig = QDateTime::currentMSecsSinceEpoch();
     origPoint = ev->pos();
 
@@ -53,11 +54,13 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
         m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
 
         emit pipetteClicked();
-
         //Si une zone a déjà été sélectionnée
         if (m_scopybioController->getBaseColorGiven() && m_scopybioController->getZoomReady())
             emit processResults(m_image->width(),m_image->height());
     }
+
+    if (listenPenClick)
+        firstPenDraw = true;
 }
 
 /**
@@ -85,6 +88,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
                 secondPoint.setX(secondPoint.x()-m_image->x());
                 secondPoint.setY(secondPoint.y()-m_image->y());
                 emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
+
             }
         }
     }
@@ -93,17 +97,25 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 void Image_View::mouseMoveEvent(QMouseEvent* ev) {
     if (listenPenClick)
     {
+
         quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
 
-        //Pour ne pas prendre absolument tous les clics
-//        if (temps > TEMPS_CLIC_DESSIN)
-//        {
+        if (firstPenDraw)
+        {
+            firstPenDraw = false;
+            QPoint pos = ev->pos();
+            origPoint.setX(pos.x()-m_image->x());
+            origPoint.setY(pos.y()-m_image->y());
+        }
+        else
+        {
             QPoint pos = ev->pos();
             pos.setX(pos.x()-m_image->x());
             pos.setY(pos.y()-m_image->y());
-            m_scopybioController->dessinerPointPerso(m_scopybioController->getCurrentImageIndex(),pos,m_image->width(),m_image->height());
+            m_scopybioController->dessinerLignePerso(m_scopybioController->getCurrentImageIndex(),origPoint,pos,m_image->width(),m_image->height());
             setNewPicture();
-//        }
+            origPoint = pos;
+        }
     }
 }
 

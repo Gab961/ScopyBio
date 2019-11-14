@@ -59,14 +59,14 @@ void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labe
 }
 
 /**
- * @brief calque::dessinerPoint
+ * @brief calque::dessinerLigne
  * @param pos1
  * @param pos2
  * @param labelWidth
  * @param labelHeight
  */
-void calque::dessinerPoint(QPoint pos1, int labelWidth, int labelHeight){
-    _calque = dessine.dessinerRond(pos1,labelWidth,labelHeight,_calque);
+void calque::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
+    _calque = dessine.dessinerLigne(pos1,pos2,labelWidth,labelHeight,_calque);
 }
 
 /**

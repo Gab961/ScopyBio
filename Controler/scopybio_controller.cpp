@@ -107,12 +107,14 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
 }
 
 /**
- * @brief ScopyBio_Controller::dessinerCrayonPerso Dessine un point sur une image spécifique
+ * @brief ScopyBio_Controller::dessinerLignePerso
  * @param imageIndex
+ * @param origPoint
+ * @param pos
  * @param labelWidth
  * @param labelHeight
  */
-void ScopyBio_Controller::dessinerPointPerso(int imageIndex, QPoint pos, int labelWidth, int labelHeight)
+void ScopyBio_Controller::dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight)
 {
     int min = imageIndex, max = imageIndex;
     int taille = m_pileModel->getImages().size();
@@ -124,11 +126,10 @@ void ScopyBio_Controller::dessinerPointPerso(int imageIndex, QPoint pos, int lab
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
-    m_gestion_calque->dessinPoint(min, max, pos, labelWidth, labelHeight);
+    m_gestion_calque->dessinLigne(min, max, origPoint, pos, labelWidth, labelHeight);
 
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
-
 }
 
 void ScopyBio_Controller::saveZoom(int labelWidth, int labelHeight)

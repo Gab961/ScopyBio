@@ -75,13 +75,13 @@ public:
     void dessinerFaisceau(int labelWidth, int labelHeight);
 
     /**
-     * @brief dessinerPointPerso
+     * @brief dessinerLignePerso
      * @param imageIndex
      * @param pos
      * @param labelWidth
      * @param labelHeight
      */
-    void dessinerPointPerso(int imageIndex, QPoint pos, int labelWidth, int labelHeight);
+    void dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight);
 
     /**
      * @brief saveZoom Enregistre l'image zoomée depuis la sélection
