@@ -8,10 +8,15 @@
 #include <QWidget>
 #include <QDesktopWidget>
 
+#include "boost/filesystem.hpp"
+
+using namespace boost::filesystem;
 using namespace std;
 
 int main(int argc, char* argv[])
 {
+    create_directory("tmp/mainDisplay");
+
     QApplication scopyBio(argc, argv);
 
     MainWindow mainWindow;

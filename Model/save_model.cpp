@@ -16,7 +16,7 @@ inline char save_model::separator()
 #endif
 }
 
-save_model::save_model(std::string path, std::__cxx11::string filename, std::vector<calque> _calques)
+save_model::save_model(std::string path, std::string filename, std::vector<calque> _calques)
 {
     for(auto i : _calques){
         calques.push_back(i);

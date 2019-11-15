@@ -11,7 +11,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-add_compile_options(-Wall -Wpedantic -std=c++14 )
+add_compile_options(-Wall -Wpedantic -std=c++11 )
 endif()
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
@@ -28,6 +28,7 @@ endif()
 
 # To use PKG_CHECK_MODULES to find some optional packages
 find_package(PkgConfig)
+#find_package(boost_filesystem CONFIG REQUIRED)
 
 #    Tell CMake whlere to leave executables
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/Build/bin)
@@ -82,7 +83,7 @@ endif()
 
 add_custom_target( unZip ALL)
 add_custom_command(TARGET unZip PRE_BUILD
- # COMMAND ${CMAKE_COMMAND} -E tar xzf ${CONAN_LIB_DIRS_QT}/fonts/dejavu-fonts-ttf-2.37.zip
+#COMMAND ${CMAKE_COMMAND} -E tar xzf ${CONAN_LIB_DIRS_QT}/fonts/dejavu-fonts-ttf-2.37.zip
 WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 DEPENDS ${CONAN_LIB_DIRS_QT}/fonts/dejavu-fonts-ttf-2.37.zip
 COMMENT "Unpacking abc.zip"
@@ -139,4 +140,4 @@ add_subdirectory(View)
 add_subdirectory(Model)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS} Qt5::Widgets Controler View Model jsoncpp)
+target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS} Qt5::Widgets Controler View Model jsoncpp boost_filesystem)
