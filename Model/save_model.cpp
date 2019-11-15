@@ -2,6 +2,7 @@
 #include <iostream>
 #include <regex>
 #include <json/json.h>
+#include <fstream>
 
 #include "save_model.h"
 
@@ -22,13 +23,20 @@ save_model::save_model(std::string path, std::string filename, std::vector<calqu
         calques.push_back(i);
     }
 
+    std::string pathCalque = path +separator()+"Calques";
     if(!std::experimental::filesystem::is_empty(path)){
         int i = 0;
-        for (const auto & entry : std::experimental::filesystem::directory_iterator(path)){
+        for(const auto & entry : std::experimental::filesystem::directory_iterator(path)){
             std::cout << entry.path() << std::endl;
             std::string tmp = entry.path();
             if (tmp.find(filename) != std::string::npos) {
                 i++;
+            }else if(tmp.find(".scb") != std::string::npos) {
+                //Supprime le dossier calques
+                std::error_code errorCode;
+                if (!std::experimental::filesystem::remove(pathCalque.c_str(), errorCode)) {
+                    std::cout << errorCode.message() << std::endl;
+                }
             }
         }
 
@@ -71,9 +79,14 @@ void save_model::saveJsonFile(){
             calqueValue["id"] = i.getId();
             std::string pathcalque = saveCalquesPath + separator() + "calque" + std::to_string(i.getId());
             calqueValue["path"] = pathcalque;
+
+            value["calque" + std::to_string(i.getId())] = calqueValue;
         }
     }
 
+    std::ofstream outfile(filename);
+    outfile.open(filename, std::ofstream::out | std::ofstream::trunc);
+    outfile << value;
 }
 
 

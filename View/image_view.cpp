@@ -98,8 +98,6 @@ void Image_View::mouseMoveEvent(QMouseEvent* ev) {
     if (listenPenClick)
     {
 
-        quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
-
         if (firstPenDraw)
         {
             firstPenDraw = false;
@@ -132,17 +130,19 @@ void Image_View::setNewPicture()
 {
     setCursor(Qt::CrossCursor);
 
+    m_scopybioController->getCurrentTiff().width();
+
     // Largeur du widget <= hauteur
     // Sert à créer une image qui va prendre un maximum de place possible
     // sans empiéter sur les autres widgets
     if (size().width() <= size().height()) {
-        float ratio = size().width() / 514.0;
+        float ratio = size().width() / (float)m_scopybioController->getCurrentTiff().width();
         m_image->setFixedWidth(size().width());
-        m_image->setFixedHeight(static_cast<int>(476*ratio));
+        m_image->setFixedHeight(static_cast<int>(m_scopybioController->getCurrentTiff().height()*ratio));
     } else {
-        float ratio = size().height() / 476.0;
+        float ratio = size().height() / (float)m_scopybioController->getCurrentTiff().height();
         m_image->setFixedHeight(size().height());
-        m_image->setFixedWidth(static_cast<int>(514*ratio));
+        m_image->setFixedWidth(static_cast<int>(m_scopybioController->getCurrentTiff().width()*ratio));
     }
 
     QPixmap pm(m_scopybioController->getMainDisplayPath().c_str());

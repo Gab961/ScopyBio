@@ -335,3 +335,34 @@ void MainWindow::setCursorPipetteDisabled()
     m_openLoop->setEnabled(true);
     m_openCompare->setEnabled(true);
 }
+
+void MainWindow::wheelEvent(QWheelEvent *ev)
+{
+    if(m_scopybioController->fileReady())
+    {
+        //Cas initial. Permet la comparaison avec un unsigned int
+        if (m_pileView->currentRow() == -1)
+            m_pileView->setCurrentRow(0);
+
+        //Si la molette monte
+        if (ev->delta() > 0)
+        {
+            if (m_pileView->currentRow() > 0)
+            {
+                m_pileView->setCurrentRow(m_pileView->currentRow()-1);
+                changeActualItem();
+            }
+        }
+        else
+        {
+            if (m_pileView->currentRow() < (int)m_scopybioController->getLoadedTiffList().size()-1)
+            {
+                m_pileView->setCurrentRow(m_pileView->currentRow()+1);
+                changeActualItem();
+            }
+        }
+    }
+
+
+    ev->accept();
+}

@@ -42,7 +42,7 @@ CImg<float> dessin_model::dessinerRond(QPoint pos1, int labelWidth, int labelHei
 
 CImg<float> dessin_model::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
-    const unsigned char color[] = { 255,174,0,255 };
+    const unsigned char color[] = { 255,0,0,255 };
 
     int x1 = pos1.x() * currentPicture.width() / labelWidth;
     int y1 = pos1.y() * currentPicture.height() / labelHeight;
@@ -95,7 +95,7 @@ void dessin_model::saveZoomFromPicture(QPoint pos1, QPoint pos2, int labelWidth,
 
     //Création de l'image zoomée et demande d'affichage dans la partie zoomée
     CImg<float> zoom = currentPicture.get_crop(x1+1,y1+1,0,x2-1,y2-1,0);
-    zoom.resize(476,514);
+    zoom.resize(500,500);
 
     zoom.save_bmp(pathOfZoomedDisplay.c_str());
 
