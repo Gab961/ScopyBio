@@ -28,7 +28,7 @@ void save_model::saveCalques(){
 
 void save_model::saveJsonFile(){
     std::string filename= filename+".scb";
-    //Json::Value value;
+    Json::Value value;
 
     for(auto i : calques){
         if(i.getIntervalMin() >= -1){
@@ -37,15 +37,16 @@ void save_model::saveJsonFile(){
             calqueValue["max"] = i.getIntervalMax();
             calqueValue["id"] = i.getId();
             std::string pathcalque = saveCalquesPath + separator() + "calque" + std::to_string(i.getId());
-            calqueValue["path"] = pathcalque;
+            calqueValue["path"] = pathcalque.c_str();
 
-            //value["calque" + std::to_string(i.getId())] = calqueValue;
+            std::string nom = "calque" + std::to_string(i.getId());
+            value[nom.c_str()] = calqueValue;
         }
     }
 
     std::ofstream outfile(filename);
     outfile.open(filename, std::ofstream::out | std::ofstream::trunc);
-    //outfile << value;
+    outfile << value;
 }
 
 void save_model::save_as(std::string path, std::string filename, std::vector<calque> _calques){
