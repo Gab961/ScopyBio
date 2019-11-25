@@ -47,18 +47,20 @@ void Menu_Draw_Button::connections()
 
 void Menu_Draw_Button::activatePipetteWaiting()
 {
-    // Si le bouton est pressé une première fois
-    if (!isPipetteButtonActive) {
-        setPipetteActive(true);
+    m_scopybioController->save_as("test");
+    //MODIFICATION
+//    // Si le bouton est pressé une première fois
+//    if (!isPipetteButtonActive) {
+//        setPipetteActive(true);
 
-        emit waitingForZoomClick();
-    }
-    // Si le bouton a déjà été pressé et on reclic dessus
-    else {
-        setPipetteActive(false);
+//        emit waitingForZoomClick();
+//    }
+//    // Si le bouton a déjà été pressé et on reclic dessus
+//    else {
+//        setPipetteActive(false);
 
-        emit pipetteCanceled();
-    }
+//        emit pipetteCanceled();
+//    }
 }
 
 

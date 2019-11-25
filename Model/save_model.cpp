@@ -13,6 +13,19 @@ inline char save_model::separator()
 #endif
 }
 
+std::string save_model::getFileName(std::string filePath, bool withExtension, char seperator){
+    // Get last dot position
+    std::size_t dotPos = filePath.rfind('.');
+    std::size_t sepPos = filePath.rfind(seperator);
+
+    if(sepPos != std::string::npos)
+    {
+        return filePath.substr(sepPos + 1, filePath.size() - (withExtension || dotPos != std::string::npos ? 1 : dotPos) );
+    }
+    return "";
+}
+
+//Constructor
 save_model::save_model():canSave(false){}
 
 
@@ -27,7 +40,7 @@ void save_model::saveCalques(){
 }
 
 void save_model::saveJsonFile(){
-    std::string filename= filename+".scb";
+    std::string _filename= savePath + separator() + filename+".scb";
     Json::Value value;
 
     for(auto i : calques){
@@ -44,22 +57,22 @@ void save_model::saveJsonFile(){
         }
     }
 
-    std::ofstream outfile(filename);
-    outfile.open(filename, std::ofstream::out | std::ofstream::trunc);
+
+    std::ofstream outfile(_filename);
+//    outfile.open(_filename, std::ofstream::out | std::ofstream::trunc);
     outfile << value;
+
+    outfile.close();
 }
 
-void save_model::save_as(std::string path, std::string filename, std::vector<calque> _calques){
-/*
-    canSave = true;
-    for(auto i : _calques){
-        calques.push_back(i);
-    }
+void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques){
 
+    canSave = true;
+/*
     std::string pathCalque = path +separator()+"Calques";
-    if(!std::experimental::filesystem::is_empty(path)){
+    if(!std::boost::filesystem::is_empty(path)){
         int i = 0;
-        for(const auto & entry : std::experimental::filesystem::directory_iterator(path)){
+        for(const auto & entry : std::boost::filesystem::directory_iterator(path.c_str())){
             std::cout << entry.path() << std::endl;
             std::string tmp = entry.path();
             if (tmp.find(filename) != std::string::npos) {
@@ -67,7 +80,7 @@ void save_model::save_as(std::string path, std::string filename, std::vector<cal
             }else if(tmp.find(".scb") != std::string::npos) {
                 //Supprime le dossier calques
                 std::error_code errorCode;
-                if (!std::experimental::filesystem::remove(pathCalque.c_str(), errorCode)) {
+                if (!std::boost::filesystem::remove(pathCalque.c_str(), errorCode)) {
                     std::cout << errorCode.message() << std::endl;
                 }
             }
@@ -75,10 +88,10 @@ void save_model::save_as(std::string path, std::string filename, std::vector<cal
 
         if(i == 0){
             savePath = path + separator() + filename;
-            std::experimental::filesystem::create_directories(savePath);
+            std::boost::filesystem::create_directories(savePath.c_str());
         }else{
             savePath = path + separator() + filename + std::to_string(i);
-            std::experimental::filesystem::create_directories(savePath);
+            std::boost::filesystem::create_directories(savePath.c_str());
         }
     }else{
         savePath = path;
@@ -86,9 +99,21 @@ void save_model::save_as(std::string path, std::string filename, std::vector<cal
 
 
     saveCalquesPath = savePath + separator() + "Calques";
-    std::experimental::filesystem::create_directories(saveCalquesPath);
+    std::boost::filesystem::create_directories(saveCalquesPath.c_str());
+*/
+    //Pour des tests
+    auto first = fileName.find(".");
+    std::string f = fileName.substr(0, first);
+    filename = getFileName(f,true,separator());
+    savePath = path;
+    saveCalquesPath = savePath + separator() + "Calques";
 
-    save();*/
+
+    save(_calques);
+}
+
+void saveTiff(){
+
 }
 
 bool save_model::getCanSave() const
@@ -96,7 +121,12 @@ bool save_model::getCanSave() const
     return canSave;
 }
 
-void save_model::save(){
+void save_model::save(std::vector<calque> _calques){
+    std::cout << "save" << std::endl;
+    calques.clear();
+    for(auto i : _calques){
+        calques.push_back(i);
+    }
     saveCalques();
     saveJsonFile();
 }
