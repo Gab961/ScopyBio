@@ -76,32 +76,7 @@ void save_model::save_as(std::string path, std::string fileName, std::vector<cal
 
 
     std::string pathCalque = path +separator()+"Calques";
-    if(!boost::filesystem::is_empty(path)){
-        int i = 0;
-/*        for(const auto & entry : boost::filesystem::directory_iterator(path.c_str())){
-            std::cout << entry.path() << std::endl;
-            std::string tmp = entry.path();
-            if (tmp.find(filename) != std::string::npos) {
-                i++;
-            }else if(tmp.find(".scb") != std::string::npos) {
-                //Supprime le dossier calques
-                std::error_code errorCode;
-                if (!boost::filesystem::remove(pathCalque.c_str(), errorCode)) {
-                    std::cout << errorCode.message() << std::endl;
-                }
-            }
-        }
-*/
-        if(i == 0){
-            savePath = path + separator() + filename;
-            boost::filesystem::create_directories(savePath.c_str());
-        }else{
-            savePath = path + separator() + filename + std::to_string(i);
-            boost::filesystem::create_directories(savePath.c_str());
-        }
-    }else{
-        savePath = path;
-    }
+    savePath = path;
 
 
     saveCalquesPath = savePath + separator() + "Calques";
