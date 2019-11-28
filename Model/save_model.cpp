@@ -26,14 +26,21 @@ save_model::save_model()
 void save_model::saveCalques(){
     for(auto i : calques){
         if(i.getIntervalMin() >= -1){
-            std::string calque_name = saveCalquesPath + separator + "calques" + std::to_string(i.getId());
+            std::string calque_name = saveCalquesPath;
+            calque_name += separator;
+            calque_name += std::string("calque");
+            calque_name += std::string(std::to_string(i.getId()));
             i.getCalque().save_png(calque_name.c_str());
         }
     }
 }
 
 void save_model::saveJsonFile(){
-    std::string _filename= savePath + separator + filename+".scb";
+    std::string _filename = savePath;
+    _filename += separator;
+    _filename += std::string(filename);
+    _filename += std::string(".scb");
+
     Json::Value value;
 
     for(auto i : calques){
@@ -59,23 +66,29 @@ void save_model::saveJsonFile(){
 }
 
 void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques){
+    std::cout << "function save_as " << std::endl;
 
     auto first = fileName.find(".");
     std::string f = fileName.substr(0, first);
     filename = getFileName(f,true,separator);
 
 
-    std::string pathCalque = path +separator+"Calques";
     savePath = path;
 
+    saveCalquesPath = savePath;
+    saveCalquesPath += separator;
+    saveCalquesPath += std::string("Calques");
 
-    saveCalquesPath = savePath + separator + "Calques";
     if(boost::filesystem::exists(saveCalquesPath.c_str())){
-        boost::filesystem::remove_all(saveCalquesPath.c_str());
+        std::cout << saveCalquesPath << " Found" << std::endl;
+        //boost::filesystem::remove(saveCalquesPath.c_str());
+        std::cout << saveCalquesPath << " Removed" << std::endl;
     }
+    std::cout << saveCalquesPath << std::endl;
 
     boost::filesystem::create_directories(saveCalquesPath.c_str());
 
+    std::cout << "cc" << std::endl;
     save(_calques);
 }
 
@@ -85,15 +98,19 @@ void saveTiff(){
 
 
 bool save_model::save(std::vector<calque> _calques){
-    if(!boost::filesystem::exists(savePath.c_str())){
+    if(savePath.empty()){
         return false;
     }else{
-        calques.clear();
-        for(auto i : _calques){
-            calques.push_back(i);
+        if(!boost::filesystem::exists(savePath.c_str())){
+            return false;
+        }else{
+            calques.clear();
+            for(auto i : _calques){
+                calques.push_back(i);
+            }
+            saveCalques();
+            saveJsonFile();
+            return true;
         }
-        saveCalques();
-        saveJsonFile();
-        return true;
     }
 }

@@ -198,12 +198,13 @@ void MainWindow::open()
 void MainWindow::saveAs()
 {
     //TODO
+    m_scopybioController->save_as("test");
 }
 
 void MainWindow::save()
 {    
     //TODO
-    m_scopybioController->save_as("test");
+    m_scopybioController->save();
 }
 
 void MainWindow::aboutUs()
