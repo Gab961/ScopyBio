@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 
-#include <cstdio>
+#include <iostream>
 #include <iostream>
 #include <cstdlib>
 
@@ -8,12 +8,19 @@
 #include <QWidget>
 #include <QDesktopWidget>
 
-#define _ITERATOR_DEBUG_LEVEL 1
+#include "boost/filesystem.hpp"
+#include "Model/save_model.h"
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
+    std::string tmp = "tmp";
+    boost::filesystem::create_directory(tmp);
+    tmp += separator;
+    tmp += std::string("mainDisplay");
+    boost::filesystem::create_directory(tmp.c_str());
+
     QApplication scopyBio(argc, argv);
 
     MainWindow mainWindow;

@@ -7,6 +7,13 @@
 
 #include <string>
 
+const char separator =
+#ifdef _WIN32
+                            '\\';
+#else
+                            '/';
+#endif
+
 class calque;
 
 class save_model
@@ -14,8 +21,6 @@ class save_model
 public:
     save_model();
 
-
-    inline char separator();
 
     void saveTiff();
     void saveCalques();

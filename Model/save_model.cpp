@@ -4,14 +4,6 @@
 
 #include "calque.h"
 
-inline char save_model::separator()
-{
-#ifdef _WIN32
-    return '\\';
-#else
-    return '/';
-#endif
-}
 
 std::string save_model::getFileName(std::string filePath, bool withExtension, char seperator){
     // Get last dot position
@@ -33,14 +25,14 @@ save_model::save_model():canSave(false){}
 void save_model::saveCalques(){
     for(auto i : calques){
         if(i.getIntervalMin() >= -1){
-            std::string calque_name = saveCalquesPath + separator() + "calques" + std::to_string(i.getId());
+            std::string calque_name = saveCalquesPath + separator + "calques" + std::to_string(i.getId());
             i.getCalque().save_png(calque_name.c_str());
         }
     }
 }
 
 void save_model::saveJsonFile(){
-    std::string _filename= savePath + separator() + filename+".scb";
+    std::string _filename= savePath + separator + filename+".scb";
     Json::Value value;
 
     for(auto i : calques){
@@ -49,7 +41,7 @@ void save_model::saveJsonFile(){
             calqueValue["min"] = i.getIntervalMin();
             calqueValue["max"] = i.getIntervalMax();
             calqueValue["id"] = i.getId();
-            std::string pathcalque = saveCalquesPath + separator() + "calque" + std::to_string(i.getId());
+            std::string pathcalque = saveCalquesPath + separator + "calque" + std::to_string(i.getId());
             calqueValue["path"] = pathcalque.c_str();
 
             std::string nom = "calque" + std::to_string(i.getId());
@@ -72,14 +64,18 @@ void save_model::save_as(std::string path, std::string fileName, std::vector<cal
 
     auto first = fileName.find(".");
     std::string f = fileName.substr(0, first);
-    filename = getFileName(f,true,separator());
+    filename = getFileName(f,true,separator);
 
 
-    std::string pathCalque = path +separator()+"Calques";
+    std::string pathCalque = path +separator+"Calques";
     savePath = path;
 
 
-    saveCalquesPath = savePath + separator() + "Calques";
+    saveCalquesPath = savePath + separator + "Calques";
+    if(boost::filesystem::exists(saveCalquesPath.c_str())){
+        boost::filesystem::remove_all(saveCalquesPath.c_str());
+    }
+
     boost::filesystem::create_directories(saveCalquesPath.c_str());
 
     save(_calques);

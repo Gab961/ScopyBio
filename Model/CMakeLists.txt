@@ -7,6 +7,7 @@ add_library(Model ${SRC})
 
 
 FIND_PACKAGE("jsoncpp")
+FIND_PACKAGE("boost_filesystem")
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()

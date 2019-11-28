@@ -1,10 +1,14 @@
 #include <QPoint>
 #include <iostream>
+#include <string>
 
 #include "scopybio_controller.h"
 
+
 ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new data_model()), m_gestion_calque(new gestionnaire_calque_model), m_faisceauModel(new faisceau_model), m_saveModel(new save_model)
 {}
+
+
 //=======================
 // AFFICHAGE
 //=======================
