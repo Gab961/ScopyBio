@@ -17,7 +17,7 @@ void ScopyBio_Controller::DisplayResultImage(int idImage){
 }
 
 void ScopyBio_Controller::save_as(std::string path){
-    path = "tmp/save";
+    path = "/home/etudiant/Bureau/cc";
     std::cout << path << std::endl;
     m_saveModel->save_as(path,m_pileModel->getFileName(),m_gestion_calque->getAllCalques());
 }
