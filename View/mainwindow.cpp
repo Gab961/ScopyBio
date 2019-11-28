@@ -190,6 +190,8 @@ void MainWindow::open()
         m_layer->setEnabled(true);
         m_openLoop->setEnabled(true);
         m_openCompare->setEnabled(true);
+        m_saveFile->setEnabled(true);
+        m_saveAs->setEnabled(true);
     }
 }
 
@@ -199,8 +201,9 @@ void MainWindow::saveAs()
 }
 
 void MainWindow::save()
-{
-
+{    
+    //TODO
+    m_scopybioController->save_as("test");
 }
 
 void MainWindow::aboutUs()
