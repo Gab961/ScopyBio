@@ -18,7 +18,8 @@ std::string save_model::getFileName(std::string filePath, bool withExtension, ch
 }
 
 //Constructor
-save_model::save_model():canSave(false){}
+save_model::save_model()
+{}
 
 
 
@@ -59,9 +60,6 @@ void save_model::saveJsonFile(){
 
 void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques){
 
-    canSave = true;
-
-
     auto first = fileName.find(".");
     std::string f = fileName.substr(0, first);
     filename = getFileName(f,true,separator);
@@ -85,17 +83,17 @@ void saveTiff(){
 
 }
 
-bool save_model::getCanSave() const
-{
-    return canSave;
-}
 
-void save_model::save(std::vector<calque> _calques){
-    std::cout << "save" << std::endl;
-    calques.clear();
-    for(auto i : _calques){
-        calques.push_back(i);
+bool save_model::save(std::vector<calque> _calques){
+    if(!boost::filesystem::exists(savePath.c_str())){
+        return false;
+    }else{
+        calques.clear();
+        for(auto i : _calques){
+            calques.push_back(i);
+        }
+        saveCalques();
+        saveJsonFile();
+        return true;
     }
-    saveCalques();
-    saveJsonFile();
 }

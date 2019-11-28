@@ -27,12 +27,7 @@ void ScopyBio_Controller::save_as(std::string path){
 }
 
 bool ScopyBio_Controller::save(){
-    if(m_saveModel->getCanSave()){
-        m_saveModel->save(m_gestion_calque->getAllCalques());
-        return true;
-    }else{
-        return false;
-    }
+       return m_saveModel->save(m_gestion_calque->getAllCalques());
 }
 
 //=======================
