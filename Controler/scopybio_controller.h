@@ -15,8 +15,6 @@ public:
     /** Partie affichage **/
     void DisplayResultImage(int idImage);
 
-    void save_as(std::string path);
-    bool save();
     /***********************************************************************************/
     /******************************** Partie pile_model ********************************/
     /***********************************************************************************/
@@ -213,6 +211,26 @@ public:
      */
     void setFaisceau(QPoint pos1, QPoint pos2);
 
+    /***********************************************************************************/
+    /******************************** Partie save_model ********************************/
+    /***********************************************************************************/
+    /**
+     * @brief save_as
+     * @param path
+     */
+    void save_as(std::string path);
+
+    /**
+     * @brief save
+     * @return
+     */
+    bool save();
+
+    /**
+     * @brief changeSavePath
+     * @param newSavePath
+     */
+    void changeSavePath(std::string newSavePath);
 
 private:
     pile_model *m_pileModel;

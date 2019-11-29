@@ -22,6 +22,11 @@ save_model::save_model()
 {}
 
 
+void save_model::changeSavePath(std::string newSavePath)
+{
+    savePath = newSavePath;
+}
+
 
 void save_model::saveCalques(){
     for(auto i : calques){
