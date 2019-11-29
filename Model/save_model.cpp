@@ -81,7 +81,7 @@ void save_model::save_as(std::string path, std::string fileName, std::vector<cal
 
     if(boost::filesystem::exists(saveCalquesPath.c_str())){
         std::cout << saveCalquesPath << " Found" << std::endl;
-        //boost::filesystem::remove(saveCalquesPath.c_str());
+        boost::filesystem::remove_all(saveCalquesPath.c_str());
         std::cout << saveCalquesPath << " Removed" << std::endl;
     }
     std::cout << saveCalquesPath << std::endl;
