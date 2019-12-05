@@ -1,66 +1,51 @@
-#include <experimental/filesystem>
-#include <iostream>
-#include <regex>
 #include <json/json.h>
 
 #include "save_model.h"
 
 #include "calque.h"
 
-inline char save_model::separator()
-{
-#ifdef _WIN32
-    return '\\';
-#else
-    return '/';
-#endif
+
+std::string save_model::getFileName(std::string filePath, bool withExtension, char seperator){
+    // Get last dot position
+    std::size_t dotPos = filePath.rfind('.');
+    std::size_t sepPos = filePath.rfind(seperator);
+
+    if(sepPos != std::string::npos)
+    {
+        return filePath.substr(sepPos + 1, filePath.size() - (withExtension || dotPos != std::string::npos ? 1 : dotPos) );
+    }
+    return "";
 }
 
-save_model::save_model(std::string path, std::__cxx11::string filename, std::vector<calque> _calques)
+//Constructor
+save_model::save_model()
+{}
+
+
+void save_model::changeSavePath(std::string newSavePath)
 {
-    for(auto i : _calques){
-        calques.push_back(i);
-    }
-
-    if(!std::experimental::filesystem::is_empty(path)){
-        int i = 0;
-        for (const auto & entry : std::experimental::filesystem::directory_iterator(path)){
-            std::cout << entry.path() << std::endl;
-            std::string tmp = entry.path();
-            if (tmp.find(filename) != std::string::npos) {
-                i++;
-            }
-        }
-
-        if(i == 0){
-            savePath = path + separator() + filename;
-            std::experimental::filesystem::create_directories(savePath);
-        }else{
-            savePath = path + separator() + filename + std::to_string(i);
-            std::experimental::filesystem::create_directories(savePath);
-        }
-    }else{
-        savePath = path;
-    }
-
-
-    saveCalquesPath = savePath + separator() + "Calques";
-    std::experimental::filesystem::create_directories(saveCalquesPath);
-
-    save();
+    savePath = newSavePath;
 }
+
 
 void save_model::saveCalques(){
     for(auto i : calques){
         if(i.getIntervalMin() >= -1){
-            std::string calque_name = saveCalquesPath + separator() + "calques" + std::to_string(i.getId());
+            std::string calque_name = saveCalquesPath;
+            calque_name += separator;
+            calque_name += std::string("calque");
+            calque_name += std::string(std::to_string(i.getId()));
             i.getCalque().save_png(calque_name.c_str());
         }
     }
 }
 
 void save_model::saveJsonFile(){
-    std::string filename= filename+".scb";
+    std::string _filename = savePath;
+    _filename += separator;
+    _filename += std::string(filename);
+    _filename += std::string(".scb");
+
     Json::Value value;
 
     for(auto i : calques){
@@ -69,15 +54,68 @@ void save_model::saveJsonFile(){
             calqueValue["min"] = i.getIntervalMin();
             calqueValue["max"] = i.getIntervalMax();
             calqueValue["id"] = i.getId();
-            std::string pathcalque = saveCalquesPath + separator() + "calque" + std::to_string(i.getId());
-            calqueValue["path"] = pathcalque;
+            std::string pathcalque = saveCalquesPath + separator + "calque" + std::to_string(i.getId());
+            calqueValue["path"] = pathcalque.c_str();
+
+            std::string nom = "calque" + std::to_string(i.getId());
+            value[nom.c_str()] = calqueValue;
         }
     }
+
+
+    std::ofstream outfile(_filename);
+//    outfile.open(_filename, std::ofstream::out | std::ofstream::trunc);
+    outfile << value;
+
+    outfile.close();
+}
+
+void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques){
+    std::cout << "function save_as " << std::endl;
+
+    auto first = fileName.find(".");
+    std::string f = fileName.substr(0, first);
+    filename = getFileName(f,true,separator);
+
+
+    savePath = path;
+
+    saveCalquesPath = savePath;
+    saveCalquesPath += separator;
+    saveCalquesPath += std::string("Calques");
+
+    if(boost::filesystem::exists(saveCalquesPath.c_str())){
+        std::cout << saveCalquesPath << " Found" << std::endl;
+        boost::filesystem::remove_all(saveCalquesPath.c_str());
+        std::cout << saveCalquesPath << " Removed" << std::endl;
+    }
+    std::cout << saveCalquesPath << std::endl;
+
+    boost::filesystem::create_directories(saveCalquesPath.c_str());
+
+    std::cout << "cc" << std::endl;
+    save(_calques);
+}
+
+void saveTiff(){
 
 }
 
 
-void save_model::save(){
-    saveCalques();
-    saveJsonFile();
+bool save_model::save(std::vector<calque> _calques){
+    if(savePath.empty()){
+        return false;
+    }else{
+        if(!boost::filesystem::exists(savePath.c_str())){
+            return false;
+        }else{
+            calques.clear();
+            for(auto i : _calques){
+                calques.push_back(i);
+            }
+            saveCalques();
+            saveJsonFile();
+            return true;
+        }
+    }
 }

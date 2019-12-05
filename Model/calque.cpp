@@ -4,7 +4,7 @@
 #include "calque.h"
 #include "annotation_user_memento.h"
 
-calque::calque(int min, int max, int _id): _calque(514,476,1,4,0), intervalMin(min), intervalMax(max), id(_id)
+calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id)
 {}
 
 int calque::getId() const
@@ -54,7 +54,7 @@ void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int lab
  * @param labelHeight
  */
 void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
-    CImg<float> tmp(514,476,1,4,0);
+    CImg<float> tmp(_calque.width(),_calque.height(),1,4,0);
     _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,tmp);
 }
 

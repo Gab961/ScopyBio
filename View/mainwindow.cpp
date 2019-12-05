@@ -176,11 +176,24 @@ void MainWindow::open()
     std::string path = "";
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                     "../../Data",
-                                                    tr("Images (*.tiff *.tif)"));
+                                                    tr("Images (*.tiff *.tif *.scp)"));
     path = fileName.toLocal8Bit().constData();
 
     if(path != "") {
-        emit sendPath(path);
+        //Ouverture d'un fichier projet
+        if (path.substr(path.size()-3, path.size()) == "scp")
+        {
+            //TODO Adapter pour séparateur
+            std::string directoryPath = path.substr(0,path.find_last_of('/'));
+
+            m_scopybioController->changeSavePath(directoryPath);
+            m_saveFile->setEnabled(true);
+
+            //TODO Gerer séparator multi os
+            emit sendPath(directoryPath + "/pile.tif");
+        }
+        else
+            emit sendPath(path);
 
         m_options->setEnabled(true);
         m_tools->setEnabled(true);
@@ -190,17 +203,29 @@ void MainWindow::open()
         m_layer->setEnabled(true);
         m_openLoop->setEnabled(true);
         m_openCompare->setEnabled(true);
+        m_saveAs->setEnabled(true);
     }
 }
 
 void MainWindow::saveAs()
 {
-    //TODO
+    std::string path = "";
+    QString directoryName = QFileDialog::getExistingDirectory(this, tr("Save Directory"),
+                                                              "../../Data",
+                                                              QFileDialog::ShowDirsOnly
+                                                              | QFileDialog::DontResolveSymlinks);
+    if (directoryName != "")
+    {
+        path = directoryName.toLocal8Bit().constData();
+
+        std::cout << path << std::endl;
+        m_scopybioController->save_as(path);
+    }
 }
 
 void MainWindow::save()
 {
-
+    m_scopybioController->save();
 }
 
 void MainWindow::aboutUs()

@@ -28,6 +28,7 @@ endif()
 
 # To use PKG_CHECK_MODULES to find some optional packages
 find_package(PkgConfig)
+#find_package(boost_filesystem CONFIG REQUIRED)
 
 #    Tell CMake whlere to leave executables
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/Build/bin)
@@ -73,11 +74,22 @@ if( WIN32)
 endif()
 
 
-########
+### Create folder
+file(MAKE_DIRECTORY ${EXECUTABLE_OUTPUT_PATH}/tmp)
+if(UNIX)
+  #  set(FONTS ${CONAN_LIB_DIRS_QT}/fonts/dejavu-fonts-ttf-2.37.zip )
+  # file(DOWNLOAD http://en.wikipedia.org/wiki/ZIP_(file_format) ${path} )
+endif()
 
+add_custom_target( unZip ALL)
+add_custom_command(TARGET unZip PRE_BUILD
+#COMMAND ${CMAKE_COMMAND} -E tar xzf ${CONAN_LIB_DIRS_QT}/fonts/dejavu-fonts-ttf-2.37.zip
+WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+DEPENDS ${CONAN_LIB_DIRS_QT}/fonts/dejavu-fonts-ttf-2.37.zip
+COMMENT "Unpacking abc.zip"
+VERBATIM)
 
-
-# ### CIMG related stuff
+### CIMG related stuff
 # Flags to enable fast image display, using the XSHM library.
 SET(CIMG_XSHM_CCFLAGS  -Dcimg_use_xshm)
 
@@ -116,7 +128,11 @@ SET(CIMG_FFTW3_CCFLAGS  -Dcimg_use_fftw3)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CIMG_CFLAGS}")
 
 find_package(Qt5Widgets CONFIG REQUIRED)
+message("${}")
+
+### JsonCPP ###
 find_package(jsoncpp REQUIRED)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDLL$<$<CONFIG:Debug>:Debug>")
 
 aux_source_directory(. SRC_LIST)
 add_subdirectory(Controler)
@@ -124,4 +140,4 @@ add_subdirectory(View)
 add_subdirectory(Model)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS} Qt5::Widgets Controler View Model jsoncpp)
+target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS} Qt5::Widgets Controler View Model jsoncpp boost_filesystem)

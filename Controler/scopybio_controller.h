@@ -3,6 +3,8 @@
 #include "Model/dessin_model.h"
 #include "Model/data_model.h"
 #include "Model/faisceau_model.h"
+#include "Model/save_model.h"
+
 
 class ScopyBio_Controller
 {
@@ -12,6 +14,7 @@ public:
 
     /** Partie affichage **/
     void DisplayResultImage(int idImage);
+
     /***********************************************************************************/
     /******************************** Partie pile_model ********************************/
     /***********************************************************************************/
@@ -208,6 +211,26 @@ public:
      */
     void setFaisceau(QPoint pos1, QPoint pos2);
 
+    /***********************************************************************************/
+    /******************************** Partie save_model ********************************/
+    /***********************************************************************************/
+    /**
+     * @brief save_as
+     * @param path
+     */
+    void save_as(std::string path);
+
+    /**
+     * @brief save
+     * @return
+     */
+    bool save();
+
+    /**
+     * @brief changeSavePath
+     * @param newSavePath
+     */
+    void changeSavePath(std::string newSavePath);
 
 private:
     pile_model *m_pileModel;
@@ -215,4 +238,5 @@ private:
     data_model *m_dataModel;
     gestionnaire_calque_model *m_gestion_calque;
     faisceau_model *m_faisceauModel;
+    save_model *m_saveModel;
 };
