@@ -8,10 +8,10 @@
 class QPoint;
 using namespace cimg_library;
 
-class data_model
+class analyse_model
 {
 public:
-    data_model();
+    analyse_model();
 
     /**
      * @brief getResultDisplayPath Renvoie le chemin de l'image contenant les résultats

@@ -5,7 +5,7 @@
 #include "scopybio_controller.h"
 
 
-ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new data_model()), m_gestion_calque(new gestionnaire_calque_model), m_faisceauModel(new faisceau_model), m_saveModel(new save_model)
+ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new analyse_model()), m_gestion_calque(new gestionnaire_calque_model), m_faisceauModel(new faisceau_model), m_saveModel(new save_model)
 {}
 
 
@@ -243,7 +243,7 @@ bool ScopyBio_Controller::getBaseColorGiven()
 }
 
 //=======================
-// Data_Modele
+// Aalyse_Modele
 //=======================
 
 std::string ScopyBio_Controller::getResultDisplayPath()
