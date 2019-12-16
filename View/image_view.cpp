@@ -128,21 +128,33 @@ void Image_View::readyForPipetteClick() { m_scopybioController->setPipetteClick(
 
 void Image_View::setNewPicture()
 {
+    float ratio = 0.0;
+
     setCursor(Qt::CrossCursor);
 
-    m_scopybioController->getCurrentTiff().width();
-
-    // Largeur du widget <= hauteur
     // Sert à créer une image qui va prendre un maximum de place possible
     // sans empiéter sur les autres widgets
-    if (size().width() <= size().height()) {
-        float ratio = size().width() / (float)m_scopybioController->getCurrentTiff().width();
-        m_image->setFixedWidth(size().width());
-        m_image->setFixedHeight(static_cast<int>(m_scopybioController->getCurrentTiff().height()*ratio));
-    } else {
-        float ratio = size().height() / (float)m_scopybioController->getCurrentTiff().height();
-        m_image->setFixedHeight(size().height());
-        m_image->setFixedWidth(static_cast<int>(m_scopybioController->getCurrentTiff().width()*ratio));
+    if (m_scopybioController->getCurrentTiff().width() >= m_scopybioController->getCurrentTiff().height()) {
+        if (m_scopybioController->getCurrentTiff().width() >= size().width()) {
+            float ratio = (float)m_scopybioController->getCurrentTiff().width() / (float)size().width();
+            m_image->setFixedWidth(size().width());
+            m_image->setFixedHeight(static_cast<int>(m_scopybioController->getCurrentTiff().height()/ratio));
+        } else {
+            float ratio = (float)size().width() / (float)m_scopybioController->getCurrentTiff().height();
+            m_image->setFixedWidth(size().width());
+            m_image->setFixedHeight(static_cast<int>(m_scopybioController->getCurrentTiff().height()*ratio));
+        }
+    }
+    else {
+        if (m_scopybioController->getCurrentTiff().height() >= size().height()) {
+            float ratio = (float)m_scopybioController->getCurrentTiff().height() / (float)size().height();
+            m_image->setFixedWidth(static_cast<int>(m_scopybioController->getCurrentTiff().width()/ratio));
+            m_image->setFixedHeight(size().height());
+        } else {
+            float ratio = (float)size().width() / (float)m_scopybioController->getCurrentTiff().height();
+            m_image->setFixedWidth(static_cast<int>(m_scopybioController->getCurrentTiff().width()*ratio));
+            m_image->setFixedHeight(size().height());
+        }
     }
 
     QPixmap pm(m_scopybioController->getMainDisplayPath().c_str());
