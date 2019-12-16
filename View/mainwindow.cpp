@@ -146,6 +146,12 @@ void MainWindow::connections()
     //Prise en compte du prochain clic dans l'image view
     QObject::connect(m_tools, &Menu_Draw_Button::waitingForZoomClick, m_imageView, &Image_View::readyForPipetteClick);
 
+    //Prise en compte des clics dans l'imageView pour le dessin au crayon
+    QObject::connect(m_tools, &Menu_Draw_Button::readyToDrawPen, m_imageView, &Image_View::readyForPenDraw);
+
+    //Prise en compte des clics dans l'imageView pour le dessin au crayon
+    QObject::connect(m_tools, &Menu_Draw_Button::penCanceled, m_imageView, &Image_View::cancelPenDraw);
+
     //Changement curseur quand bouton pipette actif
     QObject::connect(m_tools, &Menu_Draw_Button::waitingForZoomClick, this, &MainWindow::setCursorPipetteActive);
 
@@ -268,7 +274,9 @@ void MainWindow::changeActualItem()
 {
     int indiceEnCours = m_pileView->currentRow();
     m_scopybioController->saveCurrent(indiceEnCours);
-    m_scopybioController->saveAsMainDisplay(indiceEnCours);
+    m_imageView->updateZoomOnly();
+    m_scopybioController->DisplayResultImage(indiceEnCours);
+    emit changeZoomedPicture();
     emit changeMainPicture();
 }
 
@@ -317,7 +325,7 @@ void MainWindow::setCursorPipetteActive()
 
 void MainWindow::setCursorPipetteDisabled()
 {
-    m_tools->setActive(false);
+    m_tools->setPipetteActive(false);
     m_zoomView->setCursor(Qt::ArrowCursor);
     m_imageView->setCursor(Qt::CrossCursor);
 
@@ -326,4 +334,35 @@ void MainWindow::setCursorPipetteDisabled()
     m_layer->setEnabled(true);
     m_openLoop->setEnabled(true);
     m_openCompare->setEnabled(true);
+}
+
+void MainWindow::wheelEvent(QWheelEvent *ev)
+{
+    if(m_scopybioController->fileReady())
+    {
+        //Cas initial. Permet la comparaison avec un unsigned int
+        if (m_pileView->currentRow() == -1)
+            m_pileView->setCurrentRow(0);
+
+        //Si la molette monte
+        if (ev->delta() > 0)
+        {
+            if (m_pileView->currentRow() > 0)
+            {
+                m_pileView->setCurrentRow(m_pileView->currentRow()-1);
+                changeActualItem();
+            }
+        }
+        else
+        {
+            if (m_pileView->currentRow() < (int)m_scopybioController->getLoadedTiffList().size()-1)
+            {
+                m_pileView->setCurrentRow(m_pileView->currentRow()+1);
+                changeActualItem();
+            }
+        }
+    }
+
+
+    ev->accept();
 }

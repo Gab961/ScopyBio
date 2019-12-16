@@ -3,6 +3,8 @@
 #include "CImg.h"
 #include "dessin_model.h"
 
+#define cimg_use_png
+
 using namespace cimg_library;
 class annotation_user_memento;
 class dessin_model;
@@ -21,7 +23,7 @@ private:
 
 
 public:
-    calque(int min, int max, int _id);
+    calque(int width, int height, int min, int max, int _id);
 
     annotation_user_memento *createMemento();
     void reinstateMemento(annotation_user_memento *mem);
@@ -36,6 +38,8 @@ public:
     //          ACTIONS !
     void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void filtreVert();
+    void filtreHistogram();
 };
 

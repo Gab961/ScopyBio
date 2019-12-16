@@ -7,12 +7,25 @@
 #include <QApplication>
 #include <QWidget>
 #include <QDesktopWidget>
+#include <QFontDatabase>
 
+#include "boost/filesystem.hpp"
+
+using namespace boost::filesystem;
 using namespace std;
 
 int main(int argc, char* argv[])
 {
+    create_directory("tmp/mainDisplay");
+
     QApplication scopyBio(argc, argv);
+
+    QFontDatabase database;
+
+    database.addApplicationFont("fonts/dejavu-fonts-ttf-2.37/ttf/DejaVuSerif.ttf");
+
+    QFont f = database.font("DejaVuSerif", "normal", 12);
+    scopyBio.setFont(f);
 
     MainWindow mainWindow;
 

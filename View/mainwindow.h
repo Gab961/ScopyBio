@@ -28,6 +28,7 @@ class MainWindow: public QMainWindow
         MainWindow(QWidget *parent = nullptr);
         void createView();
         void connections();
+        void wheelEvent(QWheelEvent *ev);
 
     signals:
         void sendPath(std::string path);

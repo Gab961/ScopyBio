@@ -4,9 +4,8 @@
 #include "calque.h"
 #include "annotation_user_memento.h"
 
-calque::calque(int min, int max, int _id): _calque(514,476,1,4,0), intervalMin(min), intervalMax(max), id(_id)
-{
-}
+calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id)
+{}
 
 int calque::getId() const
 {
@@ -55,8 +54,19 @@ void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int lab
  * @param labelHeight
  */
 void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
-    _calque(514,476,1,4,0);
-    _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,_calque);
+    CImg<float> tmp(_calque.width(),_calque.height(),1,4,0);
+    _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,tmp);
+}
+
+/**
+ * @brief calque::dessinerLigne
+ * @param pos1
+ * @param pos2
+ * @param labelWidth
+ * @param labelHeight
+ */
+void calque::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
+    _calque = dessine.dessinerLigne(pos1,pos2,labelWidth,labelHeight,_calque);
 }
 
 /**
@@ -64,4 +74,11 @@ void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labe
  */
 void calque::filtreVert(){
     _calque = dessine.applyGreenFilter(_calque);
+}
+
+/**
+ * @brief calque::filtreVert pour créer le calque vert, sert juste au début du programme.
+ */
+void calque::filtreHistogram(){
+    _calque = dessine.applyHistogramFilter(_calque);
 }

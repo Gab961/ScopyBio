@@ -9,6 +9,7 @@ using namespace cimg_library;
 
 Data_View::Data_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController)
 {    
+    setTitle("Data view");
     this->setAttribute(Qt::WA_Hover, true);
     createView();
 }
@@ -46,7 +47,7 @@ void Data_View::mousePressEvent( QMouseEvent* ev )
     QPoint origPoint = ev->pos();
     if (m_scopybioController->dataReady())
     {
-        int item = m_scopybioController->getItemAtPoint(origPoint.x(),m_image->width());
+        int item = m_scopybioController->getItemAtPoint(origPoint.x()-m_image->x(),m_image->width());
         emit graphClic(item);
     }
 }
