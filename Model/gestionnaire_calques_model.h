@@ -34,6 +34,7 @@ public:
     void updateHistogram(int min, int max, int taille);
     calque getCalqueForDisplay(int min, int max);
     calque getCalqueForDisplay(int id);
+    std::vector<calque> getAllCalques() const;
 
 
     void mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay);
@@ -58,6 +59,7 @@ public:
             std::cout << std::endl;
         }
     }
+
 
 protected:
     // Le memento ne fonctionne pas encore. on fait sans.

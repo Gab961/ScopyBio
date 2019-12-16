@@ -1,9 +1,14 @@
 #include <QPoint>
-#include "scopybio_controller.h"
 #include <iostream>
+#include <string>
 
-ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new data_model()), m_gestion_calque(new gestionnaire_calque_model), m_faisceauModel(new faisceau_model)
+#include "scopybio_controller.h"
+
+
+ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new data_model()), m_gestion_calque(new gestionnaire_calque_model), m_faisceauModel(new faisceau_model), m_saveModel(new save_model)
 {}
+
+
 //=======================
 // AFFICHAGE
 //=======================
@@ -15,6 +20,23 @@ void ScopyBio_Controller::DisplayResultImage(int idImage){
 
 }
 
+//=======================
+// Save_Model
+//=======================
+
+void ScopyBio_Controller::save_as(std::string path){
+    m_saveModel->save_as(path,m_pileModel->getFileName(),m_gestion_calque->getAllCalques());
+}
+
+bool ScopyBio_Controller::save(){
+       return m_saveModel->save(m_gestion_calque->getAllCalques());
+}
+
+
+void ScopyBio_Controller::changeSavePath(std::string newSavePath)
+{
+    m_saveModel->changeSavePath(newSavePath);
+}
 
 //=======================
 // Pile_Modele

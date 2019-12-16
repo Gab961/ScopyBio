@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 
-#include <cstdio>
+#include <iostream>
 #include <iostream>
 #include <cstdlib>
 
@@ -9,7 +9,7 @@
 #include <QDesktopWidget>
 #include <QFontDatabase>
 
-#include "boost/filesystem.hpp"
+#define _ITERATOR_DEBUG_LEVEL 1
 
 using namespace boost::filesystem;
 using namespace std;
@@ -17,6 +17,13 @@ using namespace std;
 int main(int argc, char* argv[])
 {
     create_directory("tmp/mainDisplay");
+
+    //test
+    std::string tmp = "tmp";
+    boost::filesystem::create_directory(tmp);
+    tmp += separator;
+    tmp += std::string("mainDisplay");
+    boost::filesystem::create_directory(tmp.c_str());
 
     QApplication scopyBio(argc, argv);
 

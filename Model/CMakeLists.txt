@@ -6,6 +6,10 @@ file(GLOB SRC
 add_library(Model ${SRC})
 
 FIND_PACKAGE("jsoncpp")
+FIND_PACKAGE("boost_filesystem")
 
 target_include_directories (Model PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries (Model Controler ${CONAN_LIBS} Qt5::Widgets)
+
+target_include_directories (Model PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} )
+target_link_libraries (Model jsoncpp boost_filesystem ${CONAN_LIBS} Qt5::Widgets)

@@ -94,6 +94,13 @@ calque gestionnaire_calque_model::getCalqueForDisplay(int id){
     return *res;
 }
 
+
+std::vector<calque> gestionnaire_calque_model::getAllCalques() const
+{
+    return listOfCalque;
+}
+
+
 /**
  * @brief gestionnaire_calque_model::creerCalque creer un calque et met à jour le dictionnaire puisqu'on sait quelle image va l'utiliser. Si l'image n'existe pas dans le dictionnaire, cette fonction la crée
  * @param min connaitre à partir de quelle image s'applique le calque
