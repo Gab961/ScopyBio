@@ -2,7 +2,7 @@ project(ScopyBio)
 
 cmake_minimum_required(VERSION 3.1.0)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 set(CMAKE_CXX_EXTENSIONS off)
 
@@ -11,7 +11,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-add_compile_options(-Wall -Wpedantic -std=c++11 )
+add_compile_options(-Wall -Wpedantic -std=c++17 )
 endif()
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
@@ -125,10 +125,9 @@ SET(CIMG_MAGICK_CCFLAGS -Dcimg_use_magick)
 SET(CIMG_FFTW3_CCFLAGS  -Dcimg_use_fftw3)
 
 # Add CIMG Flags to Compilation Flags
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CIMG_CFLAGS}")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CIMG_CFLAGS} -pthread")
 
 find_package(Qt5Widgets CONFIG REQUIRED)
-message("${}")
 
 ### JsonCPP ###
 find_package(jsoncpp REQUIRED)
