@@ -13,21 +13,19 @@ CompareView::CompareView(QWidget *parent, ScopyBio_Controller *scopybioControlle
 
 void CompareView::createView()
 {
+    std::cout << "HERE" << std::endl;
     QDesktopWidget dw;
     int screenHeight = dw.height()*0.7;
     setFixedSize(screenHeight, screenHeight);
 
     //Images
-    m_firstImageFull = new QPixmap("tmp/2.bpm");
-    m_secondImageFull = new QPixmap("tmp/15.bpm");
+    m_firstImageFull = new QPixmap();
+    m_secondImageFull = new QPixmap();
 
-    m_resultImage = new QPixmap(m_secondImageFull->width(), m_secondImageFull->height());
-    m_resultImage->fill(Qt::transparent);
+    m_resultImage = new QPixmap();
 
     //Display
     m_display = new QLabel(this);
-
-    drawSlider();
 
     //Reste
     m_slider = new QSlider(Qt::Horizontal, this);
@@ -45,7 +43,7 @@ void CompareView::createView()
 
 void CompareView::connections()
 {
-    QObject::connect(m_slider, &QSlider::valueChanged, this, &CompareView::blabla);
+    QObject::connect(m_slider, &QSlider::valueChanged, this, &CompareView::compare);
 }
 
 void CompareView::drawSlider()
@@ -55,7 +53,7 @@ void CompareView::drawSlider()
 
     QPixmap firstBroke = m_firstImageFull->copy(0,0,(int)xCut,m_firstImageFull->height());
 
-    QPainter *painter=new QPainter(m_resultImage);
+    QPainter *painter = new QPainter(m_resultImage);
     painter->drawPixmap(0, 0, m_secondImageFull->width(), m_secondImageFull->height(), *m_secondImageFull);
     painter->drawPixmap(0, 0, (int)xCut, m_firstImageFull->height(), firstBroke);
     painter->end();
@@ -65,9 +63,21 @@ void CompareView::drawSlider()
     update();
 }
 
-void CompareView::blabla()
+void CompareView::compare()
 {
     int value = m_slider->value();
     valeurSlide = (float)value;
     drawSlider();
+}
+
+void CompareView::setImages(QString image1, QString image2) {
+    m_firstImageFull = new QPixmap(image1);
+    m_secondImageFull = new QPixmap(image2);
+
+    m_resultImage = new QPixmap(m_secondImageFull->width(), m_secondImageFull->height());
+    m_resultImage->fill(Qt::transparent);
+
+    drawSlider();
+
+    update();
 }

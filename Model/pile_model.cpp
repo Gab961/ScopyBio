@@ -1,6 +1,5 @@
 #include "pile_model.h"
 #include <json/json.h>
-#include "gestionnaire_calques_model.h"
 #include <iostream>
 
 #define PATH "../../Config/config.json"
@@ -90,6 +89,7 @@ void pile_model::read_json_config(){
 
 void pile_model::load(string path)
 {
+
     images.clear();
     images_icons_filename.clear();
     images.load_tiff(path.c_str());
@@ -100,19 +100,26 @@ void pile_model::load(string path)
         CImg<float> img = images[i];
 
         //TODO TBD où on l'enregistre
-        std::string chemin = "tmp/" + std::to_string(i) + ".bpm";
+        std::string chemin = "tmp" + separator + std::to_string(i) + ".bpm";
         img.save_bmp(chemin.c_str());         // problem here
         images_icons_filename.push_back(chemin);
     }
 
     currentImage = images[0];
 
-    return;
-
 }
 
-void pile_model::save(string path)
-{
+void pile_model::loadProject(std::string path){
+    Json::Value calques;
 
+    std::ifstream calques_file(path, std::ifstream::binary);
+    calques_file >> calques;
+
+    /*
+    if(config["black"] != Json::Value::null){
+        percentageOfBlack = config["black"].asFloat();
+    }else{
+        percentageOfBlack = 100.0;
+    }
+    */
 }
-

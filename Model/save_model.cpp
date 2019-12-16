@@ -4,6 +4,8 @@
 
 #include "calque.h"
 
+#include <filesystem>
+
 
 std::string save_model::getFileName(std::string filePath, bool withExtension, char seperator){
     // Get last dot position
@@ -27,6 +29,11 @@ void save_model::changeSavePath(std::string newSavePath)
     savePath = newSavePath;
 }
 
+
+void save_model::saveTiff(std::string pathSource){
+    std::string name = savePath + separator + filename + ".tiff";
+    std::filesystem::copy(pathSource, name.c_str());
+}
 
 void save_model::saveCalques(){
     for(auto i : calques){
@@ -64,7 +71,7 @@ void save_model::saveJsonFile(){
 
 
     std::ofstream outfile(_filename);
-//    outfile.open(_filename, std::ofstream::out | std::ofstream::trunc);
+    //    outfile.open(_filename, std::ofstream::out | std::ofstream::trunc);
     outfile << value;
 
     outfile.close();
@@ -84,21 +91,22 @@ void save_model::save_as(std::string path, std::string fileName, std::vector<cal
     saveCalquesPath += separator;
     saveCalquesPath += std::string("Calques");
 
-    if(boost::filesystem::exists(saveCalquesPath.c_str())){
+    if(std::filesystem::exists(saveCalquesPath.c_str())){
         std::cout << saveCalquesPath << " Found" << std::endl;
-        boost::filesystem::remove_all(saveCalquesPath.c_str());
+
+        std::filesystem::remove_all(std::filesystem::path(saveCalquesPath));
+
+
         std::cout << saveCalquesPath << " Removed" << std::endl;
     }
-    std::cout << saveCalquesPath << std::endl;
 
-    boost::filesystem::create_directories(saveCalquesPath.c_str());
 
-    std::cout << "cc" << std::endl;
+    std::filesystem::create_directory(saveCalquesPath.c_str());
+//    fs::remove_all(fs::path(saveCalquesPath));
+
+    saveTiff(fileName);
+
     save(_calques);
-}
-
-void saveTiff(){
-
 }
 
 
@@ -106,7 +114,7 @@ bool save_model::save(std::vector<calque> _calques){
     if(savePath.empty()){
         return false;
     }else{
-        if(!boost::filesystem::exists(savePath.c_str())){
+        if(!std::filesystem::exists(savePath.c_str())){
             return false;
         }else{
             calques.clear();
