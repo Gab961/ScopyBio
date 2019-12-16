@@ -46,6 +46,10 @@ void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int lab
     _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,_calque);
 }
 
+void calque::dessinerRond(QPoint pos, int pertinence){
+    _calque = dessine.dessinerRond(pos, pertinence, _calque);
+}
+
 /**
  * @brief calque::dessinerFaisceau supprimer le calque actuel et redessine le rectangle.
  * @param pos1
@@ -74,6 +78,10 @@ void calque::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHe
  */
 void calque::filtreVert(){
     _calque = dessine.applyGreenFilter(_calque);
+}
+
+void calque::filtreQuadrillage(){
+    _calque = dessine.applyQuadrillageFilter(_calque);
 }
 
 /**

@@ -39,7 +39,9 @@ public:
     void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void dessinerRond(QPoint pos, int pertinence);
     void filtreVert();
     void filtreHistogram();
+    void filtreQuadrillage();
 };
 

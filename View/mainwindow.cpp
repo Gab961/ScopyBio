@@ -195,6 +195,8 @@ void MainWindow::open()
         else
             emit sendPath(path);
 
+        m_scopybioController->processResults();
+
         m_options->setEnabled(true);
         m_tools->setEnabled(true);
         m_imageView->setEnabled(true);

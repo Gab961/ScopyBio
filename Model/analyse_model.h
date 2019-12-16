@@ -6,6 +6,7 @@
 #include "CImg.h"
 
 class QPoint;
+class gestionnaire_calque_model;
 using namespace cimg_library;
 
 class analyse_model
@@ -23,7 +24,7 @@ public:
      * @brief getResults
      * @return
      */
-    std::vector<float> getResults() const;
+    std::vector<std::vector<float>> getResults() const;
 
     /**
      * @brief processResultsWithCrops Calcul les résultats depuis la fenêtre de sélection
@@ -37,17 +38,34 @@ public:
     void processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight);
 
     /**
-     * @brief processResults Calcul les résultats dans toute la fenêtre (non utilisé)
+     * @brief processResults Calcul les résultats dans toute la fenêtre partie par partie
      * @param allPictures
+     * @param labelWidth
+     * @param labelHeight
      */
-    void processResults(CImgList<float> allPictures);
+    void processResults(CImgList<float> allPictures, int whiteValue, gestionnaire_calque_model * gestionnaire);
+
+    /**
+     * @brief processLocalResults
+     * @param allPictures
+     * @param pos1
+     * @param pos2
+     * @param whiteValue
+     * @return
+     */
+    int processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue);
 
     /**
      * @brief createResultsDisplay Créé l'image correspondant aux résultats calculés
      * @param whiteValue
      */
-    void createResultsDisplay(int whiteValue);
+    void createResultsDisplay(int index, int whiteValue);
 
+    /************************************/
+
+    void createResultsDisplayDEBUG(int index, int imagesSize, int whiteValue);
+
+    /***********************************/
     /**
      * @brief calculPlacementY Calcul le placement d'un point précis pour le positionner correctement sur le graph de données
      * @param imageHeight
@@ -75,7 +93,13 @@ public:
 private:
     bool isDataReady;
 
+
+    std::string pathOfResultsDisplayDEBUG = "tmp/DEBUG/resultDisplay";
+
     std::string pathOfResultsDisplay = "tmp/resultDisplay.bmp";
-    std::vector<float> results;
+    std::vector<std::vector<float>> results;
+
+    int columnAmount = 30;
+    int linesAmount = 30;
 };
 
