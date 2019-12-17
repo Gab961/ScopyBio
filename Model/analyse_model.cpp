@@ -4,7 +4,7 @@
 #include "gestionnaire_calques_model.h"
 #include "analyse_model.h"
 
-analyse_model::analyse_model() : isDataReady(false), columnAmount(20), linesAmount(20)
+analyse_model::analyse_model() : isDataReady(false), columnAmount(30), linesAmount(30)
 {}
 
 std::string analyse_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
@@ -13,13 +13,6 @@ std::vector<Resultat> analyse_model::getResults() const { return results; }
 
 void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, gestionnaire_calque_model * gestionnaire)
 {
-    /************** TEST ***************/
-//    whiteValue = 60;
-
-//    columnAmount = 70;
-//    linesAmount = 70;
-    /***********************************/
-
     results.clear();
 
     //Dessin du quadrillage
@@ -250,8 +243,7 @@ int analyse_model::analyseForWhiteValue()
 
     int mediane = (blancMax + noirMax) / 2;
     //Test random pour trouver une valeur bien
-    std::cout << ">>>>>>>>>> WHITE GENERE = " << mediane*2 << std::endl;
-    return mediane*2;
+    return mediane*2 + 30;
 }
 
 void analyse_model::createResultsDisplay(int index, int imagesSize, int whiteValue)
