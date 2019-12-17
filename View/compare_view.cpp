@@ -50,6 +50,9 @@ void CompareView::connections()
 
 void CompareView::drawSlider()
 {
+    QDesktopWidget dw;
+    int max = dw.height()*0.65;
+
     float divisionValue = this->valeurSlide / 100;
     float xCut = (float)m_firstImageFull->width()*divisionValue;
 
@@ -69,27 +72,27 @@ void CompareView::drawSlider()
     //     Sert à créer une image qui va prendre un maximum de place possible
     //     sans empiéter sur les autres widgets
     if (m_display->size().width() >= m_display->size().height()) {
-        if (m_display->size().width() >= size().width()) {
-            ratio = (float)m_display->size().width() / (float)size().width();
-            m_display->setFixedWidth(size().width()*0.9);
+        if (m_display->size().width() >= max) {
+            ratio = (float)m_display->size().width() / (float)max;
+            m_display->setFixedWidth(max);
             m_display->setFixedHeight(static_cast<int>(m_display->size().height()/ratio));
         }
         else {
-            ratio = (float)size().width() / (float)m_display->size().width();
-            m_display->setFixedWidth(size().width()*0.9);
+            ratio = (float)max / (float)m_display->size().width();
+            m_display->setFixedWidth(max);
             m_display->setFixedHeight(static_cast<int>(m_display->size().height()*ratio));
         }
     }
     else {
-        if (m_display->size().height() >= size().height()) {
-            ratio = (float)m_display->size().height() / (float)size().height();
+        if (m_display->size().height() >= max) {
+            ratio = (float)m_display->size().height() / (float)max;
             m_display->setFixedWidth(static_cast<int>(m_display->size().width()/ratio));
-            m_display->setFixedHeight(size().height()*0.9);
+            m_display->setFixedHeight(max);
         }
         else {
-            ratio = (float)size().height() / (float)m_display->size().height();
+            ratio = (float)max / (float)m_display->size().height();
             m_display->setFixedWidth(static_cast<int>(m_display->size().width()*ratio));
-            m_display->setFixedHeight(size().height()*0.9);
+            m_display->setFixedHeight(max);
         }
     }
 

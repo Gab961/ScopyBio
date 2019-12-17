@@ -137,11 +137,11 @@ void Image_View::setNewPicture()
     if (m_scopybioController->getCurrentTiff().width() >= m_scopybioController->getCurrentTiff().height()) {
         if (m_scopybioController->getCurrentTiff().width() >= size().width()) {
             ratio = (float)m_scopybioController->getCurrentTiff().width() / (float)size().width();
-            m_image->setFixedWidth(size().width()*0.95);
+            m_image->setFixedWidth(size().width());
             m_image->setFixedHeight(static_cast<int>(m_scopybioController->getCurrentTiff().height()/ratio));
         } else {
             ratio = (float)size().width() / (float)m_scopybioController->getCurrentTiff().height();
-            m_image->setFixedWidth(size().width()*0.95);
+            m_image->setFixedWidth(size().width());
             m_image->setFixedHeight(static_cast<int>(m_scopybioController->getCurrentTiff().height()*ratio));
         }
     }
@@ -149,11 +149,11 @@ void Image_View::setNewPicture()
         if (m_scopybioController->getCurrentTiff().height() >= size().height()) {
             ratio = (float)m_scopybioController->getCurrentTiff().height() / (float)size().height();
             m_image->setFixedWidth(static_cast<int>(m_scopybioController->getCurrentTiff().width()/ratio));
-            m_image->setFixedHeight(size().height()*0.95);
+            m_image->setFixedHeight(size().height());
         } else {
             ratio = (float)size().width() / (float)m_scopybioController->getCurrentTiff().height();
             m_image->setFixedWidth(static_cast<int>(m_scopybioController->getCurrentTiff().width()*ratio));
-            m_image->setFixedHeight(size().height()*0.95);
+            m_image->setFixedHeight(size().height());
         }
     }
 
