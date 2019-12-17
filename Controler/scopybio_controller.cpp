@@ -162,7 +162,12 @@ void ScopyBio_Controller::saveZoom(int labelWidth, int labelHeight)
 {
     //Necessaire pour afficher le zoom.
     m_dessinModel->saveZoomFromPicture(m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), labelWidth, labelHeight, m_pileModel->getCurrentImage());
+}
 
+void ScopyBio_Controller::saveZoomOfCurrentArea()
+{
+    if (m_analyseModel->dataReady())
+        m_dessinModel->saveZoomFromArea(m_analyseModel->getTopLeftPointOfCurrentArea(),m_analyseModel->getBottomRightPointOfCurrentArea(),m_pileModel->getCurrentImage());
 }
 
 std::string ScopyBio_Controller::getMainDisplayPath()

@@ -184,7 +184,6 @@ void analyse_model::processResultsWithCrops(CImgList<float> allPictures, QPoint 
         localResult.addResult(totalNuance/nombrePixels);
     }
 
-    //TODO Y a plus besoin de le faire
     createCropResultsDisplay(localResult, allPictures.size(), whiteValue);
 }
 
@@ -233,18 +232,17 @@ int analyse_model::analyseForWhiteValue()
     /** Suite moyenne
     float whiteFloat = totalNuance/nombrePixel;
     int white = (int)whiteFloat;
-    std::cout << ">>>>>>>>>> WHITE GENERE = " << white << std::endl;
     return white;
     */
 
     /** Suite blancMax
-    std::cout << ">>>>>>>>>> WHITE GENERE = " << blancMax-40 << std::endl;
     return blancMax-40;
     */
 
+    /** Mediane */
     int mediane = (blancMax + noirMax) / 2;
     //Test random pour trouver une valeur bien
-    return mediane*2 + 30;
+    return mediane + 30;
 }
 
 void analyse_model::createResultsDisplay(int index, int imagesSize, int whiteValue)
@@ -392,28 +390,20 @@ void analyse_model::getDataFromArea(QPoint area, int labelWidth, int labelHeight
     int x = area.x() * imageWidth / labelWidth;
     int y = area.y() * imageHeight / labelHeight;
 
-
-    std::cout << "blork" << std::endl;
-    std::cout << results[0].getTopLeftPoint().x() << std::endl;
-
     for(unsigned int i = 0; i < results.size(); i++) {
-        std::cout << results.size() << std::endl;
         if (results[i].getTopLeftPoint().x() <= x
                 && results[i].getTopLeftPoint().y() <= y
                 && results[i].getBottomRightPoint().x() > x
                 && results[i].getBottomRightPoint().y() > y) {
 
-            std::cout << "TROUVE EN " << i << std::endl;
-
-            dessin->saveZoomFromArea(results[i].getTopLeftPoint(), results[i].getBottomRightPoint(), currentImage);
+            currentArea = i;
+            dessin->saveZoomFromArea(results[currentArea].getTopLeftPoint(), results[currentArea].getBottomRightPoint(), currentImage);
             std::string graphFromArea = pathOfResultsStorage + std::to_string(i) + ".bmp";
             CImg<float> graphImg;
             graphImg.load_bmp(graphFromArea.c_str());
             graphImg.save_bmp(pathOfResultsDisplay.c_str());
         }
     }
-
-    std::cout << "Travail terminé" << std::endl;
 }
 
 

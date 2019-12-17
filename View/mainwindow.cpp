@@ -223,7 +223,6 @@ void MainWindow::saveAs()
     {
         path = directoryName.toLocal8Bit().constData();
 
-        std::cout << path << std::endl;
         m_scopybioController->save_as(path);
     }
 }
@@ -304,9 +303,9 @@ void MainWindow::changeActualItem()
 {
     int indiceEnCours = m_pileView->currentRow();
     m_scopybioController->saveCurrent(indiceEnCours);
+    m_scopybioController->saveZoomOfCurrentArea();
     m_imageView->updateZoomOnly();
     m_scopybioController->DisplayResultImage(indiceEnCours);
-    emit changeZoomedPicture();
     emit changeMainPicture();
 }
 
@@ -364,4 +363,35 @@ void MainWindow::setCursorPipetteDisabled()
     m_layer->setEnabled(true);
     m_openLoop->setEnabled(true);
     m_openCompare->setEnabled(true);
+}
+
+void MainWindow::wheelEvent(QWheelEvent *ev)
+{
+    if(m_scopybioController->fileReady())
+    {
+        //Cas initial. Permet la comparaison avec un unsigned int
+        if (m_pileView->currentRow() == -1)
+            m_pileView->setCurrentRow(0);
+
+        //Si la molette monte
+        if (ev->delta() > 0)
+        {
+            if (m_pileView->currentRow() > 0)
+            {
+                m_pileView->setCurrentRow(m_pileView->currentRow()-1);
+                changeActualItem();
+            }
+        }
+        else
+        {
+            if (m_pileView->currentRow() < (int)m_scopybioController->getLoadedTiffList().size()-1)
+            {
+                m_pileView->setCurrentRow(m_pileView->currentRow()+1);
+                changeActualItem();
+            }
+        }
+    }
+
+
+    ev->accept();
 }

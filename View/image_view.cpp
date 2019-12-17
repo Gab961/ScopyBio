@@ -182,8 +182,7 @@ void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWi
 
 void Image_View::updateZoomOnly()
 {
-    //TODO ICI
-    emit changeZoomedPicture(m_zoneWidth, m_zoneHeight);
+    emit changeZoomPicture();
 }
 
 void Image_View::askProcessFromZoom()

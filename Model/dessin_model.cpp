@@ -242,8 +242,6 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
 
     whiteColor = (int)picture(realX, realY, 0, 0);
     baseColorGiven = true;
-
-    std::cout << "New white = " << whiteColor << std::endl;
 }
 
 
@@ -251,9 +249,6 @@ void dessin_model::manageNewWhiteColor(int newWhite)
 {
     whiteColor = newWhite;
     baseColorGiven = true;
-
-
-    std::cout << "New white = " << whiteColor << std::endl;
 }
 
 void dessin_model::switchSaveLocation()

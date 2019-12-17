@@ -94,6 +94,10 @@ public:
     void saveZoom(int labelWidth, int labelHeight);
 
     /**
+     * @brief saveZoomOfCurrentArea Enregistre le zoom de la zone actuellement sélectionnée
+     */
+    void saveZoomOfCurrentArea();
+    /**
      * @brief getMainDisplayPath Renvoie le chemin de l'image du display principal
      * @return
      */

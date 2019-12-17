@@ -136,10 +136,23 @@ public:
      */
     void getDataFromArea(QPoint area, int labelWidth, int labelHeight, int imageWidth, int imageHeight, CImg<float> currentImage, dessin_model *dessin);
 
+    /**
+     * @brief getTopLeftPointOfCurrentArea
+     * @return
+     */
+    QPoint getTopLeftPointOfCurrentArea() { return results[currentArea].getTopLeftPoint(); }
+
+    /**
+     * @brief getBottomRightPointOfCurrentArea
+     * @return
+     */
+    QPoint getBottomRightPointOfCurrentArea() { return results[currentArea].getBottomRightPoint(); }
+
 private:
     bool isDataReady;
     int columnAmount;
     int linesAmount;
+    int currentArea;
 
     std::string pathOfResultsStorage = "tmp/saveAnalyse/resultDisplay";
     std::string pathOfResultsDisplay = "tmp/resultDisplay.tmp";
