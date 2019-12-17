@@ -1,6 +1,6 @@
 project(ScopyBio)
 
-cmake_minimum_required(VERSION 3.1.0)
+cmake_minimum_required(VERSION 3.8.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
@@ -129,7 +129,7 @@ SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CIMG_CFLAGS} -pthread")
 
 find_package(Qt5Widgets CONFIG REQUIRED)
 
-### JsonCPP ###
+### JsonCPP  ###
 find_package(jsoncpp REQUIRED)
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDLL$<$<CONFIG:Debug>:Debug>")
 
