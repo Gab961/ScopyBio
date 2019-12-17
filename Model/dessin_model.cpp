@@ -51,19 +51,19 @@ CImg<float> dessin_model::dessinerRond(QPoint pos, int pertinence, CImg<float> &
 
     switch (pertinence) {
     case 1:
-        currentPicture.draw_circle(pos.x(),pos.y(),5,color5,1);
+        currentPicture.draw_circle(pos.x(),pos.y(),10,color5,1);
         break;
     case 2:
-        currentPicture.draw_circle(pos.x(),pos.y(),5,color4,1);
+        currentPicture.draw_circle(pos.x(),pos.y(),10,color4,1);
         break;
     case 3:
-        currentPicture.draw_circle(pos.x(),pos.y(),5,color3,1);
+        currentPicture.draw_circle(pos.x(),pos.y(),10,color3,1);
         break;
     case 4:
-        currentPicture.draw_circle(pos.x(),pos.y(),5,color2,1);
+        currentPicture.draw_circle(pos.x(),pos.y(),10,color2,1);
         break;
     case 5:
-        currentPicture.draw_circle(pos.x(),pos.y(),5,color1,1);
+        currentPicture.draw_circle(pos.x(),pos.y(),10,color1,1);
         break;
     default:
         break;
