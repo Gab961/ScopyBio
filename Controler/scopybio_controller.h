@@ -182,9 +182,11 @@ public:
     void processResultsWithCrop(int labelWidth, int labelHeight);
 
     /**
-     * @brief processResultsOnEverything Calcul et produit le résultat pour l'ensemble de l'image (non utilisé)
+     * @brief processResults Calcul et produit tous les résultats de l'image
+     * @param labelWidth
+     * @param lavelHeight
      */
-    void processResultsOnEverything();
+    void processResults();
 
     /**
      * @brief getItemAtPoint Renvoie l'item correspondant à l'axe des abscisses sur le graph de données
@@ -235,7 +237,7 @@ public:
 private:
     pile_model *m_pileModel;
     dessin_model *m_dessinModel;
-    analyse_model *m_dataModel;
+    analyse_model *m_analyseModel;
     gestionnaire_calque_model *m_gestion_calque;
     faisceau_model *m_faisceauModel;
     save_model *m_saveModel;

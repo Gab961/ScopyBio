@@ -40,6 +40,39 @@ CImg<float> dessin_model::dessinerRond(QPoint pos1, int labelWidth, int labelHei
     return currentPicture;
 }
 
+CImg<float> dessin_model::dessinerRond(QPoint pos, int pertinence, CImg<float> & currentPicture)
+{
+    const unsigned char color1[] = { 255,0,0,255 };
+    const unsigned char color2[] = { 255,39,39,255 };
+    const unsigned char color3[] = { 255,71,71,255 };
+    const unsigned char color4[] = { 255,102,102,255 };
+    const unsigned char color5[] = { 255,136,136,255 };
+
+
+    switch (pertinence) {
+    case 1:
+        currentPicture.draw_circle(pos.x(),pos.y(),5,color5,1);
+        break;
+    case 2:
+        currentPicture.draw_circle(pos.x(),pos.y(),5,color4,1);
+        break;
+    case 3:
+        currentPicture.draw_circle(pos.x(),pos.y(),5,color3,1);
+        break;
+    case 4:
+        currentPicture.draw_circle(pos.x(),pos.y(),5,color2,1);
+        break;
+    case 5:
+        currentPicture.draw_circle(pos.x(),pos.y(),5,color1,1);
+        break;
+    default:
+        break;
+    }
+
+    return currentPicture;
+}
+
+
 CImg<float> dessin_model::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
     const unsigned char color[] = { 255,0,0,255 };
@@ -117,6 +150,41 @@ CImg<float> dessin_model::applyGreenFilter(CImg<float> picture)
     return picture;
 }
 
+CImg<float> dessin_model::applyQuadrillageFilter(int columns, int lines, CImg<float> picture)
+{
+    const unsigned char color[] = { 255,0,0,255 };
+
+    int hauteur = picture.height();
+    int largeur = picture.width();
+
+    float xSeparateurFloat = (float)largeur / (float)columns;
+    float ySeparateurFloat = (float)hauteur / (float)lines;
+
+    float xSeparateur = (int)xSeparateurFloat;
+    float ySeparateur = (int)ySeparateurFloat;
+
+    int oldX = 0;
+
+    for (int i=0; i<columns; i++)
+    {
+        if (i == columns)
+            oldX = largeur;
+        picture.draw_line(oldX,0,oldX,hauteur,color,1,~0U);
+        oldX = oldX + xSeparateur;
+    }
+
+    int oldY = 0;
+    for (int j=0; j<lines; j++)
+    {
+        if (j == lines)
+            oldY = hauteur;
+        picture.draw_line(0,oldY,largeur, oldY, color,1,~0U);
+        oldY = oldY + ySeparateur;
+    }
+
+    return picture;
+}
+
 /**
  * Source du code: https://github.com/HYPJUDY/histogram-equalization-on-grayscale-and-color-image/edit/master/histogram_equalization.cpp
  * @brief dessin_model::applyHistogramFilter
@@ -165,6 +233,18 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
 
     whiteColor = (int)picture(realX, realY, 0, 0);
     baseColorGiven = true;
+
+    std::cout << "New white = " << whiteColor << std::endl;
+}
+
+
+void dessin_model::manageNewWhiteColor(int newWhite)
+{
+    whiteColor = newWhite;
+    baseColorGiven = true;
+
+
+    std::cout << "New white = " << whiteColor << std::endl;
 }
 
 void dessin_model::switchSaveLocation()

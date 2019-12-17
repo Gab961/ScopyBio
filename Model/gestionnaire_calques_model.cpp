@@ -26,6 +26,12 @@ void gestionnaire_calque_model::initGlobalCalques(int pileWidth, int pileHeight)
     id++;
     _calqueVert.filtreVert();
     listOfCalque.push_back(_calqueVert);
+
+    calque _calquePertinence(pileWidth, pileHeight, -5,-5,id);
+    addInDict(-5,-5,30,id);
+    idPertinenceCalque = id;
+    listOfCalque.push_back(_calquePertinence);
+    id++;
 }
 
 /**
@@ -94,6 +100,11 @@ calque gestionnaire_calque_model::getCalqueForDisplay(int id){
     return *res;
 }
 
+calque gestionnaire_calque_model::getPertinenceCalque(){
+    int id = -5;
+    auto res = std::find_if(listOfCalque.begin(), listOfCalque.end(), [&id](calque &a)->bool { return a.getId() == id ; } );
+    return *res;
+}
 
 std::vector<calque> gestionnaire_calque_model::getAllCalques() const
 {
@@ -117,6 +128,18 @@ void gestionnaire_calque_model::creerCalque(int width, int height, int min, int 
     }
 
     id++;
+}
+
+/**
+ * @brief gestionnaire_calque_model::manageNewAnalyse
+ * @param results
+ */
+void gestionnaire_calque_model::manageNewAnalyse(int pertinence, QPoint positionMilieu){
+    calque newCalque = getCalqueForDisplay(-5, -5);
+
+    newCalque.dessinerRond(positionMilieu,pertinence);
+
+    listOfCalque[idPertinenceCalque] = newCalque;
 }
 
 /**
@@ -172,6 +195,19 @@ void gestionnaire_calque_model::updateHistogram(int min, int max, int taille){
     isHistogram = !isHistogram;
 }
 
+/**
+ * @brief gestionnaire_calque_model::updateQuadrillage
+ * @param columns
+ * @param lines
+ */
+void gestionnaire_calque_model::updateQuadrillage(int columns, int lines){
+    calque newCalque = getCalqueForDisplay(-5, -5);
+
+    newCalque.filtreQuadrillage(columns, lines);
+
+    listOfCalque[idPertinenceCalque] = newCalque;
+}
+
 void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay){
     //ON FAIT DEGUEU POUR LE MOMENT A MODIFIER A TERME
     //TODO
@@ -203,12 +239,12 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     else
     {//Sinon on merge et on affiche
 
-//        std::cout << "id : ";
-//        for(auto i : ids){
-//            std::cout << i << " | ";
-//        }
+        //        std::cout << "id : ";
+        //        for(auto i : ids){
+        //            std::cout << i << " | ";
+        //        }
 
-//        std::cout << "plusieurs images à merge" << std::endl;
+        //        std::cout << "plusieurs images à merge" << std::endl;
         //Et tous les autres ensuite
         for(auto i : ids){
             calque overlay = getCalqueForDisplay(i);

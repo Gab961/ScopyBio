@@ -5,7 +5,7 @@
 #include "scopybio_controller.h"
 
 
-ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new analyse_model()), m_gestion_calque(new gestionnaire_calque_model), m_faisceauModel(new faisceau_model), m_saveModel(new save_model)
+ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_analyseModel(new analyse_model()), m_gestion_calque(new gestionnaire_calque_model), m_faisceauModel(new faisceau_model), m_saveModel(new save_model)
 {}
 
 
@@ -29,7 +29,7 @@ void ScopyBio_Controller::save_as(std::string path){
 }
 
 bool ScopyBio_Controller::save(){
-       return m_saveModel->save(m_gestion_calque->getAllCalques());
+    return m_saveModel->save(m_gestion_calque->getAllCalques());
 }
 
 
@@ -47,6 +47,9 @@ void ScopyBio_Controller::loadNewTiffFile(std::string filename)
     {
         m_pileModel->loadNewFilename(filename);
         m_gestion_calque->initGlobalCalques(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
+
+        //Initialisation du white automatique
+        m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
     }
 }
 
@@ -248,27 +251,27 @@ bool ScopyBio_Controller::getBaseColorGiven()
 
 std::string ScopyBio_Controller::getResultDisplayPath()
 {
-    return m_dataModel->getResultDisplayPath();
+    return m_analyseModel->getResultDisplayPath();
 }
 
 void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight)
 {
-    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
+    m_analyseModel->processResultsWithCrops(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
 }
 
-void ScopyBio_Controller::processResultsOnEverything()
+void ScopyBio_Controller::processResults()
 {
-    m_dataModel->processResults(m_pileModel->getImages());
+    m_analyseModel->processResults(m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
 }
 
 int ScopyBio_Controller::getItemAtPoint(int posX, int labelWidth)
 {
-    return m_dataModel->getItemAtPoint(posX, labelWidth);
+    return m_analyseModel->getItemAtPoint(m_pileModel->getImages().size(), posX, labelWidth);
 }
 
 bool ScopyBio_Controller::dataReady()
 {
-    return m_dataModel->dataReady();
+    return m_analyseModel->dataReady();
 }
 
 

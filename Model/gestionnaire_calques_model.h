@@ -29,11 +29,14 @@ public:
     void creerCalque(int width, int height, int min, int max, int taille);
     int getCalque(int min, int max);
     void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void manageNewAnalyse(int pertinence, QPoint positionMilieu);
     void dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void updateCalqueVert(int min, int max, int taille);
     void updateHistogram(int min, int max, int taille);
+    void updateQuadrillage(int columns, int lines);
     calque getCalqueForDisplay(int min, int max);
     calque getCalqueForDisplay(int id);
+    calque getPertinenceCalque();
     std::vector<calque> getAllCalques() const;
 
 
@@ -71,4 +74,5 @@ protected:
     bool isGreen; // Pour savoir s'il faut afficher le calque vert ou non
     bool isHistogram; //Pour savoir s'il faut afficher le calque contraste ou non
     std::string pathOfHistogramSave = "tmp/histogram.bmp";
+    int idPertinenceCalque;
 };
