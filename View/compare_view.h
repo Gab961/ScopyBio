@@ -29,6 +29,8 @@ class CompareView: public QWidget
     private:
         float valeurSlide = 50;
 
+        QGridLayout *m_displayLayout;
+        QGridLayout *m_sliderLayout;
         QGridLayout *m_mainLayout;
         QLabel *m_display;
 

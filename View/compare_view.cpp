@@ -13,7 +13,6 @@ CompareView::CompareView(QWidget *parent, ScopyBio_Controller *scopybioControlle
 
 void CompareView::createView()
 {
-    std::cout << "HERE" << std::endl;
     QDesktopWidget dw;
     int screenHeight = dw.height()*0.7;
     setFixedSize(screenHeight, screenHeight);
@@ -34,9 +33,12 @@ void CompareView::createView()
     m_slider->setValue(50);
 
     //Layout
+    m_sliderLayout = new QGridLayout();
+    m_sliderLayout->addWidget(m_slider);
+    m_displayLayout = new QGridLayout();
     m_mainLayout = new QGridLayout();
-    m_mainLayout->addWidget(m_display, 0, 0);
-    m_mainLayout->addWidget(m_slider, 1, 0);
+    m_mainLayout->addLayout(m_displayLayout, 0, 0);
+    m_mainLayout->addLayout(m_sliderLayout, 1, 0);
 
     setLayout(m_mainLayout);
 }
@@ -48,10 +50,13 @@ void CompareView::connections()
 
 void CompareView::drawSlider()
 {
+    QDesktopWidget dw;
+    int max = dw.height()*0.65;
+
     float divisionValue = this->valeurSlide / 100;
     float xCut = (float)m_firstImageFull->width()*divisionValue;
 
-    QPixmap firstBroke = m_firstImageFull->copy(0,0,(int)xCut,m_firstImageFull->height());
+    QPixmap firstBroke = m_firstImageFull->copy(0,0, (int)xCut, m_firstImageFull->height());
 
     QPainter *painter = new QPainter(m_resultImage);
     painter->drawPixmap(0, 0, m_secondImageFull->width(), m_secondImageFull->height(), *m_secondImageFull);
@@ -59,6 +64,43 @@ void CompareView::drawSlider()
     painter->end();
 
     m_display->setPixmap(*m_resultImage);
+    m_display->setFixedHeight(m_resultImage->height());
+    m_display->setFixedWidth(m_resultImage->width());
+
+    float ratio = 0.0;
+
+    //     Sert à créer une image qui va prendre un maximum de place possible
+    //     sans empiéter sur les autres widgets
+    if (m_display->size().width() >= m_display->size().height()) {
+        if (m_display->size().width() >= max) {
+            ratio = (float)m_display->size().width() / (float)max;
+            m_display->setFixedWidth(max);
+            m_display->setFixedHeight(static_cast<int>(m_display->size().height()/ratio));
+        }
+        else {
+            ratio = (float)max / (float)m_display->size().width();
+            m_display->setFixedWidth(max);
+            m_display->setFixedHeight(static_cast<int>(m_display->size().height()*ratio));
+        }
+    }
+    else {
+        if (m_display->size().height() >= max) {
+            ratio = (float)m_display->size().height() / (float)max;
+            m_display->setFixedWidth(static_cast<int>(m_display->size().width()/ratio));
+            m_display->setFixedHeight(max);
+        }
+        else {
+            ratio = (float)max / (float)m_display->size().height();
+            m_display->setFixedWidth(static_cast<int>(m_display->size().width()*ratio));
+            m_display->setFixedHeight(max);
+        }
+    }
+
+    m_displayLayout->addWidget(m_display);
+    //m_mainLayout->setMargin(0);
+    m_display->setAlignment(Qt::AlignCenter);
+
+    m_display->setScaledContents(true);
 
     update();
 }

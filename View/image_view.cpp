@@ -24,7 +24,7 @@ void Image_View::createView()
     m_image = new QLabel(this);
 
     m_layout->addWidget(m_image);
-    m_layout->setMargin(0);
+    //m_layout->setMargin(0);
     m_image->setAlignment(Qt::AlignCenter);
 
     TEMPS_CLIC_LONG=100;
