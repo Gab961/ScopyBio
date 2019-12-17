@@ -1,3 +1,4 @@
+
  [requires]
  opencv/4.1.1@conan/stable
  libtiff/4.0.9@bincrafters/stable
@@ -6,7 +7,6 @@
  Qt/5.9.6@bincrafters/stable
  libgit2/0.26.3@arsen-studio/stable
  OpenSSL/1.0.2n@conan/stable
- boost/1.66.0@conan/stable
 
  [generators]
  cmake

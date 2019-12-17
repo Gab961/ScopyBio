@@ -33,7 +33,9 @@ void save_model::changeSavePath(std::string newSavePath)
 
 void save_model::saveTiff(std::string pathSource){
     std::string name = savePath + separator + filename + ".tiff";
-    std::filesystem::copy(pathSource, name.c_str());
+    if(!std::filesystem::exists(name.c_str())){
+        std::filesystem::copy(pathSource, name.c_str());
+    }
 }
 
 void save_model::saveCalques(){
@@ -56,6 +58,8 @@ void save_model::saveJsonFile(){
 
     Json::Value value;
 
+    Json::Value calquesValue;
+
     for(auto i : calques){
         if(i.getIntervalMin() >= -1){
             Json::Value calqueValue;
@@ -66,9 +70,11 @@ void save_model::saveJsonFile(){
             calqueValue["path"] = pathcalque.c_str();
 
             std::string nom = "calque" + std::to_string(i.getId());
-            value[nom.c_str()] = calqueValue;
+            calquesValue[nom.c_str()] = calqueValue;
         }
     }
+
+    value["calques"] = calquesValue;
 
 
     std::ofstream outfile(_filename);

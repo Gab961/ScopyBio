@@ -1,3 +1,4 @@
+#include "definition.h"
 #include "mainwindow.h"
 
 #include <iostream>
@@ -9,9 +10,10 @@
 #include <QDesktopWidget>
 #include <QFontDatabase>
 
-#define _ITERATOR_DEBUG_LEVEL 1
+#include "Model/save_model.h"
 
-using namespace boost::filesystem;
+#include <filesystem>
+
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -20,10 +22,10 @@ int main(int argc, char* argv[])
 
     //test
     std::string tmp = "tmp";
-    boost::filesystem::create_directory(tmp);
+    filesystem::create_directory(tmp);
     tmp += separator;
     tmp += std::string("mainDisplay");
-    boost::filesystem::create_directory(tmp.c_str());
+    filesystem::create_directory(tmp.c_str());
 
     QApplication scopyBio(argc, argv);
 
@@ -45,4 +47,3 @@ int main(int argc, char* argv[])
 
     return scopyBio.exec();
 }
-

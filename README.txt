@@ -15,6 +15,8 @@ after you are succefuly install all previous tools, you need to execute some com
 	* execute conan
 		-Linux : $ conan install .. -s build_type=Release --build=missing
 		-Windows : $ conan install .. -s build_type=Release -s compiler='VisualStudio" -s compiler.runtime=MDd --build=missing
+Forcing compilation with gcc = 9.2 :
+	* $ conan install .. -s compiler.version=9.2 --build gtest --build jsoncpp --build libjpeg --build libwebp --build protobuf --build zlib --build OpenSSL --build jasper --build libpng --build libtiff --build openexr --build libcurl --build libssh2 --build opencv --build libgit2
 
 	* $ cmake ..
 	* $ cmake --build .
