@@ -84,6 +84,14 @@ public:
     void saveZoomFromPicture(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> currentPicture);
 
     /**
+     * @brief saveZoomFromArea
+     * @param pos1
+     * @param pos2
+     * @param currentPicture
+     */
+    void saveZoomFromArea(QPoint pos1, QPoint pos2, CImg<float> currentPicture);
+
+    /**
      * @brief savePics Je sais pas
      * @param x1
      * @param y1

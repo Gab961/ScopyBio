@@ -169,6 +169,9 @@ void MainWindow::connections()
 
     //Open Compare popup
     QObject::connect(m_openCompare, &QPushButton::clicked, m_comparePopup, &ComparePopup::createComparePopup);
+
+    QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_zoomView, &Zoom_View::setPictureFromFile);
+    QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_dataView, &Data_View::setGraphFromFile);
 }
 
 void MainWindow::open()

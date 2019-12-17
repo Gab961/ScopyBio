@@ -30,6 +30,7 @@ signals:
 
 public slots:
     void processingResults(int labelWidth, int labelHeight);
+    void setGraphFromFile();
 
 private:
     void drawResults();

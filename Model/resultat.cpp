@@ -3,7 +3,10 @@
 
 Resultat::Resultat()
 {
-    coordonees.reserve(3);
+    QPoint init(0,0);
+    coordonees.push_back(init);
+    coordonees.push_back(init);
+    coordonees.push_back(init);
 }
 
 void Resultat::setPertinence(int newPertinence) { pertinence = newPertinence; }

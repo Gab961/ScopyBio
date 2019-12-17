@@ -37,6 +37,9 @@ void Image_View::connections()
 {
     //Affichage du rectangle
     QObject::connect(this, &Image_View::drawRectOnMouse, this, &Image_View::nouveauClicCreerRectangle);
+
+    // récupère la courbe et la zoom view de la zone sélectionnée issue de l'analyse automatique
+    QObject::connect(this, &Image_View::getDataFromArea, this, &Image_View::getData);
 }
 
 void Image_View::mousePressEvent( QMouseEvent* ev )
@@ -77,18 +80,22 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
         if (!listenPenClick)
         {
             quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
+            int widthOfLabel = m_image->width();
+            int heightOfLabel = m_image->height();
 
             //Si c'est un clic long
             if (temps > TEMPS_CLIC_LONG)
             {
                 secondPoint = ev->pos();
-                int widthOfLabel = m_image->width();
-                int heightOfLabel = m_image->height();
 
                 secondPoint.setX(secondPoint.x()-m_image->x());
                 secondPoint.setY(secondPoint.y()-m_image->y());
                 emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
 
+            }
+            else
+            {
+                emit getDataFromArea(origPoint, widthOfLabel, heightOfLabel);
             }
         }
     }
@@ -185,4 +192,13 @@ void Image_View::askProcessFromZoom()
     if (m_scopybioController->getBaseColorGiven())
         emit processResults(m_image->width(),m_image->height());
 
+}
+
+void Image_View::getData(QPoint area, int labelWidth, int labelHeight) {
+    m_scopybioController->getDataFromArea(area, labelWidth, labelHeight);
+
+    emit changeZoomPicture();
+    emit changeGraphPicture();
+
+    update();
 }

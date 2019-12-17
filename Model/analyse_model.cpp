@@ -3,6 +3,7 @@
 #include <iostream>
 #include "gestionnaire_calques_model.h"
 #include "analyse_model.h"
+#include "dessin_model.h"
 
 analyse_model::analyse_model() : isDataReady(false), columnAmount(30), linesAmount(30)
 {}
@@ -378,7 +379,6 @@ int analyse_model::calculPlacementY(int imageHeight, int y, int valeurMediane, i
     return (int)res;
 }
 
-
 int analyse_model::getItemAtPoint(int imagesAmount, int posX, int labelWidth)
 {
     //Pixels entre chaque élément image sur le graph
@@ -387,9 +387,37 @@ int analyse_model::getItemAtPoint(int imagesAmount, int posX, int labelWidth)
     return (int)res;
 }
 
+void analyse_model::getDataFromArea(QPoint area, int labelWidth, int labelHeight, int imageWidth, int imageHeight, CImg<float> currentImage, dessin_model *dessin) {
+
+    int x = area.x() * imageWidth / labelWidth;
+    int y = area.y() * imageHeight / labelHeight;
+
+
+    std::cout << "blork" << std::endl;
+    std::cout << results[0].getTopLeftPoint().x() << std::endl;
+
+    for(unsigned int i = 0; i < results.size(); i++) {
+        std::cout << results.size() << std::endl;
+        if (results[i].getTopLeftPoint().x() <= x
+                && results[i].getTopLeftPoint().y() <= y
+                && results[i].getBottomRightPoint().x() > x
+                && results[i].getBottomRightPoint().y() > y) {
+
+            std::cout << "TROUVE EN " << i << std::endl;
+
+            dessin->saveZoomFromArea(results[i].getTopLeftPoint(), results[i].getBottomRightPoint(), currentImage);
+            std::string graphFromArea = pathOfResultsStorage + std::to_string(i) + ".bmp";
+            CImg<float> graphImg;
+            graphImg.load_bmp(graphFromArea.c_str());
+            graphImg.save_bmp(pathOfResultsDisplay.c_str());
+        }
+    }
+
+    std::cout << "Travail terminé" << std::endl;
+}
+
 
 bool analyse_model::dataReady() { return isDataReady; }
-
 void analyse_model::setColumnAmount(int newColumn) { columnAmount = newColumn; }
 int analyse_model::getColumnAmount() { return columnAmount; }
 void analyse_model::setLinesAmount(int newLine) { linesAmount = newLine; }

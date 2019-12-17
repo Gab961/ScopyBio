@@ -274,6 +274,12 @@ bool ScopyBio_Controller::dataReady()
     return m_analyseModel->dataReady();
 }
 
+void ScopyBio_Controller::getDataFromArea(QPoint area, int labelWidth, int labelHeight) {
+    int imageWidth = m_pileModel->getCurrentImage().width();
+    int imageHeight = m_pileModel->getCurrentImage().height();
+    m_analyseModel->getDataFromArea(area, labelWidth, labelHeight, imageWidth, imageHeight, m_pileModel->getCurrentImage(), m_dessinModel);
+}
+
 
 //=======================
 // Faisceau_Modele

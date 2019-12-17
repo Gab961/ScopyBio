@@ -103,3 +103,49 @@ bool Data_View::mouseInLabel(QPoint pos)
     }
     return false;
 }
+
+void Data_View::setGraphFromFile()
+{
+    float ratio = 0.0;
+
+    QPixmap pm(m_scopybioController->getResultDisplayPath().c_str());
+    m_image->setFixedWidth(pm.width());
+    m_image->setFixedHeight(pm.height());
+
+    //     Largeur du widget <= hauteur
+    //     Sert à créer une image qui va prendre un maximum de place possible
+    //     sans empiéter sur les autres widgets
+    if (m_image->size().width() >= m_image->size().height()) {
+        if (m_image->size().width() >= size().width()) {
+            ratio = (float)m_image->size().width() / (float)size().width();
+            m_image->setFixedWidth(size().width());
+            m_image->setFixedHeight(static_cast<int>(m_image->size().height()/ratio));
+        }
+        else {
+            ratio = (float)size().width() / (float)m_image->size().width();
+            m_image->setFixedWidth(size().width());
+            m_image->setFixedHeight(static_cast<int>(m_image->size().height()*ratio));
+        }
+    }
+    else {
+        if (m_image->size().height() >= size().height()) {
+            ratio = (float)m_image->size().height() / (float)size().height();
+            m_image->setFixedWidth(static_cast<int>(m_image->size().width()/ratio));
+            m_image->setFixedHeight(size().height());
+        }
+        else {
+            ratio = (float)size().height() / (float)m_image->size().height();
+            m_image->setFixedWidth(static_cast<int>(m_image->size().width()*ratio));
+            m_image->setFixedHeight(size().height());
+        }
+    }
+
+    m_layout->addWidget(m_image);
+    m_layout->setMargin(0);
+    m_image->setAlignment(Qt::AlignCenter);
+
+    m_image->setPixmap(pm);
+    m_image->setScaledContents(true);
+
+    update();
+}

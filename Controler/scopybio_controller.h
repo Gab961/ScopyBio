@@ -202,6 +202,14 @@ public:
      */
     bool dataReady();
 
+    /**
+     * @brief getDataFromArea Lors d'un clic sur une zone de l'image, affiche le graphe data et le zoom associés
+     * @param area
+     * @param labelWidth
+     * @param labelHeight
+     */
+    void getDataFromArea(QPoint area, int labelWidth, int labelHeight);
+
 
     /***********************************************************************************/
     /****************************** Partie faisceau_model ******************************/

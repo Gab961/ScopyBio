@@ -128,7 +128,16 @@ void dessin_model::saveZoomFromPicture(QPoint pos1, QPoint pos2, int labelWidth,
 
     //Création de l'image zoomée et demande d'affichage dans la partie zoomée
     CImg<float> zoom = currentPicture.get_crop(x1+1,y1+1,0,x2-1,y2-1,0);
-    zoom.resize(476,514);
+
+    zoom.save_bmp(pathOfZoomedDisplay.c_str());
+
+    zoomReady = true;
+}
+
+void dessin_model::saveZoomFromArea(QPoint posTopLeft, QPoint posBottomRight, CImg<float> currentPicture)
+{
+    //Création de l'image zoomée et demande d'affichage dans la partie zoomée
+    CImg<float> zoom = currentPicture.get_crop(posTopLeft.x(),posTopLeft.y(),0,posBottomRight.x(),posBottomRight.y(),0);
 
     zoom.save_bmp(pathOfZoomedDisplay.c_str());
 

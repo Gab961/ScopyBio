@@ -6,6 +6,7 @@
 #define cimg_use_tiff
 #include "CImg.h"
 
+class dessin_model;
 class QPoint;
 class gestionnaire_calque_model;
 using namespace cimg_library;
@@ -126,6 +127,14 @@ public:
      * @return
      */
     int getLinesAmount();
+
+    /**
+     * @brief getDataFromArea Lors d'un clic sur une zone de l'image, affiche le graphe data et le zoom associés
+     * @param area
+     * @param labelWidth
+     * @param labelHeight
+     */
+    void getDataFromArea(QPoint area, int labelWidth, int labelHeight, int imageWidth, int imageHeight, CImg<float> currentImage, dessin_model *dessin);
 
 private:
     bool isDataReady;
