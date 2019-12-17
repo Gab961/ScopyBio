@@ -1,7 +1,7 @@
 #pragma once
 #include "Model/pile_model.h"
 #include "Model/dessin_model.h"
-#include "Model/data_model.h"
+#include "Model/analyse_model.h"
 #include "Model/faisceau_model.h"
 #include "Model/save_model.h"
 
@@ -166,7 +166,7 @@ public:
     bool getBaseColorGiven();
 
     /***********************************************************************************/
-    /******************************** Partie data_model ********************************/
+    /******************************** Partie analyse_model ********************************/
     /***********************************************************************************/
     /**
      * @brief getResultDisplayPath Récupère le chemin de l'image s'affichant dans le data display
@@ -235,7 +235,7 @@ public:
 private:
     pile_model *m_pileModel;
     dessin_model *m_dessinModel;
-    data_model *m_dataModel;
+    analyse_model *m_dataModel;
     gestionnaire_calque_model *m_gestion_calque;
     faisceau_model *m_faisceauModel;
     save_model *m_saveModel;

@@ -1,16 +1,16 @@
 #include <QPoint>
 #include <iostream>
-#include "data_model.h"
+#include "analyse_model.h"
 
-data_model::data_model() : isDataReady(false)
+analyse_model::analyse_model() : isDataReady(false)
 {}
 
-std::string data_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
+std::string analyse_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
 
-std::vector<float> data_model::getResults() const { return results; }
+std::vector<float> analyse_model::getResults() const { return results; }
 
 
-void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight)
+void analyse_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight)
 {
     results.clear();
 
@@ -47,7 +47,7 @@ void data_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos
     createResultsDisplay(whiteValue);
 }
 
-void data_model::processResults(CImgList<float> allPictures)
+void analyse_model::processResults(CImgList<float> allPictures)
 {
     results.clear();
     for(CImg<float> image : allPictures)
@@ -82,7 +82,7 @@ void data_model::processResults(CImgList<float> allPictures)
 }
 
 
-void data_model::createResultsDisplay(int whiteValue)
+void analyse_model::createResultsDisplay(int whiteValue)
 {
     int black[] = { 0,0,0 };
     int white[] = { 255,255,255 };
@@ -141,7 +141,7 @@ void data_model::createResultsDisplay(int whiteValue)
     isDataReady = true;
 }
 
-int data_model::calculPlacementY(int imageHeight, int y, int valeurMediane, int hauteurAbscisse)
+int analyse_model::calculPlacementY(int imageHeight, int y, int valeurMediane, int hauteurAbscisse)
 {
     float percentageY = (float)y*100/255;
     //TODO faire le super calcul
@@ -151,7 +151,7 @@ int data_model::calculPlacementY(int imageHeight, int y, int valeurMediane, int 
 }
 
 
-int data_model::getItemAtPoint(int posX, int labelWidth)
+int analyse_model::getItemAtPoint(int posX, int labelWidth)
 {
     int resultsAmount = results.size();
     //Pixels entre chaque élément du vecteur
@@ -161,4 +161,4 @@ int data_model::getItemAtPoint(int posX, int labelWidth)
 }
 
 
-bool data_model::dataReady() { return isDataReady; }
+bool analyse_model::dataReady() { return isDataReady; }

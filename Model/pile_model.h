@@ -7,11 +7,15 @@
 #define cimg_use_tiff
 #include "CImg.h"
 
+#include "../definition.h"
+
 #include "gestionnaire_calques_model.h"
 
 class gestionnaire_calque_model;
 using namespace cimg_library;
 using namespace std;
+
+#include <string>
 
 
 class pile_model
@@ -30,11 +34,13 @@ private:
     bool isDisplayingContour;       //To display or hide Contour on the image
     bool fileIsLoaded;
 
+
 public:
     pile_model();
 
     void loadNewFilename(std::string filename);
     void load(string path);
+    void loadProject(std::string path);
     void save(string path);
     void read_json_config();
 

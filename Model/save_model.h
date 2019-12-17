@@ -1,18 +1,10 @@
 #pragma once
-#include "boost/filesystem.hpp"
+#include "../definition.h"
 #include <iostream>
 #include <regex>
 #include <fstream>
 #include <vector>
-
 #include <string>
-
-const char separator =
-#ifdef _WIN32
-                            '\\';
-#else
-                            '/';
-#endif
 
 class calque;
 
@@ -22,7 +14,7 @@ public:
     save_model();
 
 
-    void saveTiff();
+    void saveTiff(std::string pathSource);
     void saveCalques();
     void saveJsonFile();
     bool save(std::vector<calque> _calques);
