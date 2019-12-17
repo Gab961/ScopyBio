@@ -80,8 +80,8 @@ void calque::filtreVert(){
     _calque = dessine.applyGreenFilter(_calque);
 }
 
-void calque::filtreQuadrillage(){
-    _calque = dessine.applyQuadrillageFilter(_calque);
+void calque::filtreQuadrillage(int columns, int lines){
+    _calque = dessine.applyQuadrillageFilter(columns, lines, _calque);
 }
 
 /**

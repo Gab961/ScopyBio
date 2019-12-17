@@ -42,6 +42,6 @@ public:
     void dessinerRond(QPoint pos, int pertinence);
     void filtreVert();
     void filtreHistogram();
-    void filtreQuadrillage();
+    void filtreQuadrillage(int columns, int lines);
 };
 

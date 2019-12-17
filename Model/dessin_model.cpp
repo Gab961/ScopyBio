@@ -51,19 +51,19 @@ CImg<float> dessin_model::dessinerRond(QPoint pos, int pertinence, CImg<float> &
 
     switch (pertinence) {
     case 1:
-        currentPicture.draw_circle(pos.x(),pos.y(),10,color5,1);
+        currentPicture.draw_circle(pos.x(),pos.y(),5,color5,1);
         break;
     case 2:
-        currentPicture.draw_circle(pos.x(),pos.y(),10,color4,1);
+        currentPicture.draw_circle(pos.x(),pos.y(),5,color4,1);
         break;
     case 3:
-        currentPicture.draw_circle(pos.x(),pos.y(),10,color3,1);
+        currentPicture.draw_circle(pos.x(),pos.y(),5,color3,1);
         break;
     case 4:
-        currentPicture.draw_circle(pos.x(),pos.y(),10,color2,1);
+        currentPicture.draw_circle(pos.x(),pos.y(),5,color2,1);
         break;
     case 5:
-        currentPicture.draw_circle(pos.x(),pos.y(),10,color1,1);
+        currentPicture.draw_circle(pos.x(),pos.y(),5,color1,1);
         break;
     default:
         break;
@@ -150,37 +150,33 @@ CImg<float> dessin_model::applyGreenFilter(CImg<float> picture)
     return picture;
 }
 
-CImg<float> dessin_model::applyQuadrillageFilter(CImg<float> picture)
+CImg<float> dessin_model::applyQuadrillageFilter(int columns, int lines, CImg<float> picture)
 {
     const unsigned char color[] = { 255,0,0,255 };
-
-    //TODO
-    int columnAmount = 30;
-    int linesAmount = 30;
 
     int hauteur = picture.height();
     int largeur = picture.width();
 
-    float xSeparateurFloat = (float)largeur / (float)columnAmount;
-    float ySeparateurFloat = (float)hauteur / (float)linesAmount;
+    float xSeparateurFloat = (float)largeur / (float)columns;
+    float ySeparateurFloat = (float)hauteur / (float)lines;
 
     float xSeparateur = (int)xSeparateurFloat;
     float ySeparateur = (int)ySeparateurFloat;
 
     int oldX = 0;
 
-    for (int i=0; i<columnAmount; i++)
+    for (int i=0; i<columns; i++)
     {
-        if (i == columnAmount)
+        if (i == columns)
             oldX = largeur;
         picture.draw_line(oldX,0,oldX,hauteur,color,1,~0U);
         oldX = oldX + xSeparateur;
     }
 
     int oldY = 0;
-    for (int j=0; j<linesAmount; j++)
+    for (int j=0; j<lines; j++)
     {
-        if (j == linesAmount)
+        if (j == lines)
             oldY = hauteur;
         picture.draw_line(0,oldY,largeur, oldY, color,1,~0U);
         oldY = oldY + ySeparateur;
@@ -237,6 +233,18 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
 
     whiteColor = (int)picture(realX, realY, 0, 0);
     baseColorGiven = true;
+
+    std::cout << "New white = " << whiteColor << std::endl;
+}
+
+
+void dessin_model::manageNewWhiteColor(int newWhite)
+{
+    whiteColor = newWhite;
+    baseColorGiven = true;
+
+
+    std::cout << "New white = " << whiteColor << std::endl;
 }
 
 void dessin_model::switchSaveLocation()

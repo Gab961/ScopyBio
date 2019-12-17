@@ -1,21 +1,29 @@
 #include <QPoint>
+#include <cstdlib>
 #include <iostream>
 #include "gestionnaire_calques_model.h"
 #include "analyse_model.h"
 
-analyse_model::analyse_model() : isDataReady(false)
+analyse_model::analyse_model() : isDataReady(false), columnAmount(20), linesAmount(20)
 {}
 
 std::string analyse_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
 
-std::vector<std::vector<float>> analyse_model::getResults() const { return results; }
+std::vector<Resultat> analyse_model::getResults() const { return results; }
 
 void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, gestionnaire_calque_model * gestionnaire)
 {
-    whiteValue = 60;
-    std::cout << "White = " << whiteValue << std::endl;
+    /************** TEST ***************/
+//    whiteValue = 60;
+
+//    columnAmount = 70;
+//    linesAmount = 70;
+    /***********************************/
 
     results.clear();
+
+    //Dessin du quadrillage
+    gestionnaire->updateQuadrillage(columnAmount,linesAmount);
 
     int largeurImage = allPictures[0].width();
     int hauteurImage = allPictures[0].height();
@@ -44,13 +52,15 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
 
             QPoint pos1(oldX,oldY);
             QPoint pos2(nextX,nextY);
-            QPoint milieu(oldX+(oldX-nextX),oldY+(oldY-nextY));
+            int milieuX = oldX+abs(oldX-nextX)/2;
+            int milieuY = oldY+abs(oldY-nextY)/2;
+            QPoint posMid(milieuX,milieuY);
             //            std::cout << "Analyse de " << pos1.x() << "," << pos1.y() << " à " << pos2.x() << "," << pos2.y() << std::endl;
 
-            int pertinence = processLocalResults(allPictures,pos1,pos2,whiteValue);
+            int pertinence = processLocalResults(allPictures,pos1,pos2,posMid,whiteValue);
             //On créer un rond en fonction de l'analyse
             if (pertinence>0)
-                gestionnaire->manageNewAnalyse(pertinence, milieu);
+                gestionnaire->manageNewAnalyse(pertinence, posMid);
 
             oldY = nextY;
         }
@@ -58,13 +68,25 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
         oldY = 0;
         oldX = nextX;
     }
-
-    //On demande au gestionnaire de calque de mettre à jour le calque des résultats (cercles)
 }
 
-int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue)
+int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, QPoint posMid, int whiteValue)
 {
-    std::vector<float> localResult;
+    Resultat localResult;
+
+    //Gestion si les points ne sont pas bien positionnés (ne devrait pas arriver)
+    if (pos1.x() < pos2.x())
+    {
+        localResult.setTopLeftPoint(pos1);
+        localResult.setBottomRightPoint(pos2);
+        localResult.setMiddlePoint(posMid);
+    }
+    else
+    {
+        localResult.setTopLeftPoint(pos2);
+        localResult.setBottomRightPoint(pos1);
+        localResult.setMiddlePoint(posMid);
+    }
 
     for(CImg<float> image : allPictures)
     {
@@ -88,30 +110,30 @@ int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1,
                 niveauDeNoirMaximal = niveauNuance;
         }
 
-        localResult.push_back(totalNuance/nombrePixels);
+        localResult.addResult(totalNuance/nombrePixels);
     }
 
 
     //Calcul de la pertinence de la zone
     int pertinence = 0;
     bool sousLeWhite;
-    for (unsigned int i=0; i<localResult.size(); i++)
+    for (unsigned int i=0; i<localResult.getResults().size(); i++)
     {
         if (i==0)
         {
-            if (localResult[i]<whiteValue)
+            if (localResult.getResultAtIndex(i)<whiteValue)
                 sousLeWhite = true;
             else
                 sousLeWhite = false;
         }
         else
         {
-            if (sousLeWhite == false && localResult[i]<=whiteValue)
+            if (sousLeWhite == false && localResult.getResultAtIndex(i)<=whiteValue)
             {
                 sousLeWhite = true;
                 pertinence++;
             }
-            if (sousLeWhite == true && localResult[i]>=whiteValue)
+            if (sousLeWhite == true && localResult.getResultAtIndex(i)>=whiteValue)
             {
                 sousLeWhite = false;
                 pertinence++;
@@ -119,21 +141,29 @@ int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1,
         }
     }
 
+    localResult.setPertinence(pertinence);
+
     results.push_back(localResult);
+
+    //Génération du graphique associé au résultat
+    createResultsDisplay(results.size()-1,allPictures.size(),whiteValue);
 
     return pertinence;
 }
 
-
-//TODO a voir si on l'utilise encore
 void analyse_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight)
 {
-    std::vector<float> localResult;
+    Resultat localResult;
 
     int x1 = pos1.x() * allPictures[0].width() / labelWidth;
     int y1 = pos1.y() * allPictures[0].height() / labelHeight;
     int x2 = pos2.x() * allPictures[0].width() / labelWidth;
     int y2 = pos2.y() * allPictures[0].height() / labelHeight;
+
+    QPoint picturePos1(x1,y1);
+    QPoint picturePos2(x2,y2);
+    localResult.setTopLeftPoint(picturePos1);
+    localResult.setBottomRightPoint(picturePos2);
 
     for(CImg<float> image : allPictures)
     {
@@ -157,17 +187,74 @@ void analyse_model::processResultsWithCrops(CImgList<float> allPictures, QPoint 
                 niveauDeNoirMaximal = niveauNuance;
         }
 
-        localResult.push_back(totalNuance/nombrePixels);
+        localResult.addResult(totalNuance/nombrePixels);
     }
 
-    results.push_back(localResult);
-
     //TODO Y a plus besoin de le faire
-    //    createResultsDisplay(whiteValue);
+    createCropResultsDisplay(localResult, allPictures.size(), whiteValue);
 }
 
-/***************************************************************************/
-void analyse_model::createResultsDisplayDEBUG(int index, int imagesSize, int whiteValue)
+//TODO DETERMINER LA MEILLEURE APPROCHE POUR LE BLANC
+int analyse_model::analyseForWhiteValue()
+{
+    CImg<float> flattenImage;
+    flattenImage.load_bmp("tmp/flatten.bmp");
+
+    /** MOYENNE
+    float totalNuance = 0;
+    float nombrePixel = flattenImage.width() * flattenImage.height();
+    */
+
+    /** BLANC MAX
+    int blancMax = 0;
+    */
+
+    /** MEDIANE */
+    int blancMax = 0;
+    int noirMax = 255;
+
+    cimg_forXY(flattenImage,x,y) {
+        //Niveau de gris du pixel en cours
+        int niveauNuance = (float)flattenImage(x,y,0,0);
+
+        /** CALCUL DE LA MOYENNE
+        totalNuance += niveauNuance;
+        */
+
+
+        /** CALCUL DU BLANC MAXIMAL*
+        if (blancMax < niveauNuance)
+            blancMax = niveauNuance;
+        */
+
+        /** CALCUL DE LA MEDIANE */
+        if (blancMax < niveauNuance)
+            blancMax = niveauNuance;
+
+
+        if (noirMax > niveauNuance)
+            noirMax = niveauNuance;
+    }
+
+    /** Suite moyenne
+    float whiteFloat = totalNuance/nombrePixel;
+    int white = (int)whiteFloat;
+    std::cout << ">>>>>>>>>> WHITE GENERE = " << white << std::endl;
+    return white;
+    */
+
+    /** Suite blancMax
+    std::cout << ">>>>>>>>>> WHITE GENERE = " << blancMax-40 << std::endl;
+    return blancMax-40;
+    */
+
+    int mediane = (blancMax + noirMax) / 2;
+    //Test random pour trouver une valeur bien
+    std::cout << ">>>>>>>>>> WHITE GENERE = " << mediane*2 << std::endl;
+    return mediane*2;
+}
+
+void analyse_model::createResultsDisplay(int index, int imagesSize, int whiteValue)
 {
     int black[] = { 0,0,0 };
     int white[] = { 255,255,255 };
@@ -201,7 +288,9 @@ void analyse_model::createResultsDisplayDEBUG(int index, int imagesSize, int whi
     int oldX = 0;
     int oldY = 0;
     bool firstIteration = true;
-    for (int y : results[index])
+
+
+    for (int y : results[index].getResults())
     {
         if (firstIteration)
         {
@@ -222,14 +311,13 @@ void analyse_model::createResultsDisplayDEBUG(int index, int imagesSize, int whi
 
     image.draw_text(10,hauteurAbscisse-15,abscisseText.c_str(),blue,white,1);
 
-    std::string chemin = pathOfResultsDisplayDEBUG + std::to_string(index) + ".bmp";
+    std::string chemin = pathOfResultsStorage + std::to_string(index) + ".bmp";
+
     image.save_bmp(chemin.c_str());
+    isDataReady = true;
 }
-/*******************************************************************************/
 
-
-
-void analyse_model::createResultsDisplay(int index, int whiteValue)
+void analyse_model::createCropResultsDisplay(Resultat result, unsigned int imagesSize, int whiteValue)
 {
     int black[] = { 0,0,0 };
     int white[] = { 255,255,255 };
@@ -255,15 +343,17 @@ void analyse_model::createResultsDisplay(int index, int whiteValue)
 
     std::string ordonnee = " Variation % Nuance";
     image.draw_text(20,0,ordonnee.c_str(),black,white,1);
-    image.draw_axes(0,results.size()-1,valMaxGraph,valMinGraph,black,1,-60,-60,1);
+    image.draw_axes(0,imagesSize-1,valMaxGraph,valMinGraph,black,1,-60,-60,1);
 
     //Calculs pour placer les points correctement
-    int decalageX = image.width()/results.size();
+    int decalageX = image.width()/imagesSize;
 
     int oldX = 0;
     int oldY = 0;
     bool firstIteration = true;
-    for (int y : results[index])
+
+
+    for (int y : result.getResults())
     {
         if (firstIteration)
         {
@@ -291,21 +381,24 @@ void analyse_model::createResultsDisplay(int index, int whiteValue)
 int analyse_model::calculPlacementY(int imageHeight, int y, int valeurMediane, int hauteurAbscisse)
 {
     float percentageY = (float)y*100/255;
-    //TODO faire le super calcul
     float valeurDepuisMedian = percentageY-(float)valeurMediane;
     float res = hauteurAbscisse - valeurDepuisMedian*imageHeight/100;
     return (int)res;
 }
 
 
-int analyse_model::getItemAtPoint(int posX, int labelWidth)
+int analyse_model::getItemAtPoint(int imagesAmount, int posX, int labelWidth)
 {
-    int resultsAmount = results.size();
-    //Pixels entre chaque élément du vecteur
-    float xSpaceFloat = (float)labelWidth / (float)resultsAmount;
+    //Pixels entre chaque élément image sur le graph
+    float xSpaceFloat = (float)labelWidth / (float)imagesAmount;
     float res = (float)posX/xSpaceFloat;
     return (int)res;
 }
 
 
 bool analyse_model::dataReady() { return isDataReady; }
+
+void analyse_model::setColumnAmount(int newColumn) { columnAmount = newColumn; }
+int analyse_model::getColumnAmount() { return columnAmount; }
+void analyse_model::setLinesAmount(int newLine) { linesAmount = newLine; }
+int analyse_model::getLinesAmount() { return linesAmount; }

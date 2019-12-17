@@ -47,6 +47,9 @@ void ScopyBio_Controller::loadNewTiffFile(std::string filename)
     {
         m_pileModel->loadNewFilename(filename);
         m_gestion_calque->initGlobalCalques(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
+
+        //Initialisation du white automatique
+        m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
     }
 }
 
@@ -263,7 +266,7 @@ void ScopyBio_Controller::processResults()
 
 int ScopyBio_Controller::getItemAtPoint(int posX, int labelWidth)
 {
-    return m_analyseModel->getItemAtPoint(posX, labelWidth);
+    return m_analyseModel->getItemAtPoint(m_pileModel->getImages().size(), posX, labelWidth);
 }
 
 bool ScopyBio_Controller::dataReady()

@@ -28,8 +28,6 @@ void gestionnaire_calque_model::initGlobalCalques(int pileWidth, int pileHeight)
     listOfCalque.push_back(_calqueVert);
 
     calque _calquePertinence(pileWidth, pileHeight, -5,-5,id);
-    //TODO REMOVE?
-    _calquePertinence.filtreQuadrillage();
     addInDict(-5,-5,30,id);
     idPertinenceCalque = id;
     listOfCalque.push_back(_calquePertinence);
@@ -195,6 +193,19 @@ void gestionnaire_calque_model::updateCalqueVert(int min, int max, int taille){
  */
 void gestionnaire_calque_model::updateHistogram(int min, int max, int taille){
     isHistogram = !isHistogram;
+}
+
+/**
+ * @brief gestionnaire_calque_model::updateQuadrillage
+ * @param columns
+ * @param lines
+ */
+void gestionnaire_calque_model::updateQuadrillage(int columns, int lines){
+    calque newCalque = getCalqueForDisplay(-5, -5);
+
+    newCalque.filtreQuadrillage(columns, lines);
+
+    listOfCalque[idPertinenceCalque] = newCalque;
 }
 
 void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay){

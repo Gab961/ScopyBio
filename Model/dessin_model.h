@@ -71,7 +71,7 @@ public:
      * @param picture
      * @return
      */
-    CImg<float> applyQuadrillageFilter(CImg<float> picture);
+    CImg<float> applyQuadrillageFilter(int columns, int lines, CImg<float> picture);
 
     /**
      * @brief saveZoomFromPicture Enregistre la partie sélectionnée de l'image dans l'image zoomée
@@ -114,6 +114,12 @@ public:
      * @param zoomView
      */
     void manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView);
+
+    /**
+     * @brief manageNewWhiteColor Met une nouvelle couleur de blanc
+     * @param newWhite
+     */
+    void manageNewWhiteColor(int newWhite);
 
     int getWhiteValue() const;
     void setWhiteValue(int color);
