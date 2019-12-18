@@ -204,6 +204,7 @@ void MainWindow::open()
             emit sendPath(path);
 
         m_scopybioController->processResults();
+        emit changeMainPicture();
 
         m_options->setEnabled(true);
         m_tools->setEnabled(true);

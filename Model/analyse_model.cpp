@@ -5,7 +5,7 @@
 #include "analyse_model.h"
 #include "dessin_model.h"
 
-analyse_model::analyse_model() : areaIsSelected(false), userAreaIsSelected(false), isDataReady(false), columnAmount(5), linesAmount(5)
+analyse_model::analyse_model() : areaIsSelected(false), userAreaIsSelected(false), isDataReady(false), columnAmount(30), linesAmount(30)
 {}
 
 std::string analyse_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
@@ -14,6 +14,11 @@ std::vector<Resultat> analyse_model::getResults() const { return results; }
 
 void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, gestionnaire_calque_model * gestionnaire)
 {
+    ///DEBUG TESTS
+    columnAmount = 5;
+    linesAmount = 5;
+    /////////////////
+
     results.clear();
 
     //Dessin du quadrillage

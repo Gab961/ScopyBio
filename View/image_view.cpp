@@ -77,7 +77,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
     if (m_scopybioController->fileReady())
     {
         //On indique qu'un clic a été fait, donc on va pouvoir afficher les zoom et la data
-        firstClickDone();
+        emit firstClickDone();
 
         //Si on est pas en train de dessiner
         if (!listenPenClick)
@@ -178,7 +178,7 @@ void Image_View::setNewPicture()
 void Image_View::nouvelleAnalyseUtiliser(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
     //Dessine le rectangle sur l'image et créer l'image zoomée
-    m_scopybioController->setFaisceau(pos1, pos2,labelWidth, labelHeight);
+    m_scopybioController->setFaisceau(pos1, pos2);
     m_scopybioController->dessinerFaisceau(labelWidth, labelHeight);
     m_scopybioController->setUserAreaIsSelected();
     setNewPicture();

@@ -17,7 +17,6 @@ void ScopyBio_Controller::DisplayResultImage(int idImage){
     //Pour permettre un chargement plus efficace des affichages
     m_dessinModel->switchSaveLocation();
     m_gestion_calque->mergeCalques(m_gestion_calque->getListOfCalqueFromImage(idImage), m_pileModel->getCurrentImage(), m_dessinModel->getMainDisplayPath());
-
 }
 
 //=======================
@@ -124,12 +123,11 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
-    m_gestion_calque->dessineFaisceau(min,max,m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight());
+    m_gestion_calque->dessineFaisceau(min,max,m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(), labelWidth, labelHeight);
 
     saveZoom(labelWidth, labelHeight);
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
-
 }
 
 /**
@@ -180,6 +178,7 @@ void ScopyBio_Controller::saveZoomOfUserArea()
     std::cout << "TOPLEFT = " << m_faisceauModel->getTopLeft().x() << "x" << m_faisceauModel->getTopLeft().y() << std::endl;
     std::cout << "BOTRIGHT = " << m_faisceauModel->getBotRight().x() << "x" << m_faisceauModel->getBotRight().y() << std::endl;
 
+    //TODO Réparer
 //    if (m_analyseModel->dataReady())
 //        m_dessinModel->saveZoomFromArea(m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(),m_pileModel->getCurrentImage());
 }
@@ -303,6 +302,7 @@ void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight
 void ScopyBio_Controller::processResults()
 {
     m_analyseModel->processResults(m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
 int ScopyBio_Controller::getItemAtPoint(int posX, int labelWidth)
@@ -326,7 +326,7 @@ void ScopyBio_Controller::getDataFromArea(QPoint area, int labelWidth, int label
 // Faisceau_Modele
 //=======================
 
-void ScopyBio_Controller::setFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
+void ScopyBio_Controller::setFaisceau(QPoint pos1, QPoint pos2)
 {
-    m_faisceauModel->setFaisceau(pos1, pos2, labelWidth, labelHeight, m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
+    m_faisceauModel->setFaisceau(pos1, pos2);
 }
