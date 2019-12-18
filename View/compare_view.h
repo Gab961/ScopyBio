@@ -21,13 +21,16 @@ class CompareView: public QWidget
         void createView();
         void connections();
         void drawSlider();
+        void setImages(QString image1, QString image2);
 
     public slots:
-        void blabla();
+        void compare();
 
     private:
         float valeurSlide = 50;
 
+        QGridLayout *m_displayLayout;
+        QGridLayout *m_sliderLayout;
         QGridLayout *m_mainLayout;
         QLabel *m_display;
 

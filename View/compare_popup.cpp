@@ -75,7 +75,8 @@ void ComparePopup::createComparePopup()
 void ComparePopup::openCompareView()
 {
     if (m_firstImage->currentText() != m_secondImage->currentText()) {
-        m_compareWindow->show();       
+        m_compareWindow->setImages("tmp/" + m_firstImage->currentText(), "tmp/" + m_secondImage->currentText());
+        m_compareWindow->show();
         close();
     }
     else

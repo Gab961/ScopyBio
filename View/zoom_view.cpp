@@ -30,7 +30,6 @@ void Zoom_View::setNewPicture(int zoneWidth, int zoneHeight)
     m_image->setFixedWidth(zoneWidth);
     m_image->setFixedHeight(zoneHeight);
 
-    //     Largeur du widget <= hauteur
     //     Sert à créer une image qui va prendre un maximum de place possible
     //     sans empiéter sur les autres widgets
     if (m_image->size().width() >= m_image->size().height()) {
@@ -59,7 +58,7 @@ void Zoom_View::setNewPicture(int zoneWidth, int zoneHeight)
     }
 
     m_layout->addWidget(m_image);
-    m_layout->setMargin(0);
+    //m_layout->setMargin(0);
     m_image->setAlignment(Qt::AlignCenter);
 
     QPixmap pm(m_scopybioController->getZoomDisplayPath().c_str());
