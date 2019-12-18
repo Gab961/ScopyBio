@@ -91,7 +91,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
                 secondPoint.setX(secondPoint.x()-m_image->x());
                 secondPoint.setY(secondPoint.y()-m_image->y());
 
-                if (origPoint.x() == secondPoint.x() && origPoint.y() == secondPoint.y())
+                if (!(origPoint.x() == secondPoint.x() && origPoint.y() == secondPoint.y()))
                     emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
 
             }
