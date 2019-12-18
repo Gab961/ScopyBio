@@ -1,0 +1,5 @@
+#ifndef ANALYSIS_POPUP_H
+#define ANALYSIS_POPUP_H
+
+#endif // ANALYSIS_POPUP_H
+
