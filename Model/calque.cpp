@@ -46,9 +46,17 @@ void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int lab
     _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,_calque);
 }
 
+/**
+ * Plus utilisé, remplacé par dessinerRectangle
+ */
 void calque::dessinerRond(QPoint pos, int pertinence){
     _calque = dessine.dessinerRond(pos, pertinence, _calque);
 }
+
+void calque::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence){
+    _calque = dessine.dessinerRectanglePertinence(pos1,pos2,pertinence,_calque);
+}
+
 
 /**
  * @brief calque::dessinerFaisceau supprimer le calque actuel et redessine le rectangle.

@@ -29,7 +29,7 @@ public:
     void creerCalque(int width, int height, int min, int max, int taille);
     int getCalque(int min, int max);
     void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
-    void manageNewAnalyse(int pertinence, QPoint positionMilieu);
+    void manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2);
     void dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void updateCalqueVert(int min, int max, int taille);
     void updateHistogram(int min, int max, int taille);

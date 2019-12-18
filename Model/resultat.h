@@ -23,9 +23,6 @@ public:
     void setBottomRightPoint(QPoint pos);
     QPoint getBottomRightPoint();
 
-    void setMiddlePoint(QPoint pos);
-    QPoint getMiddlePoint();
-
     void addResult(float newResult);
     std::vector<QPoint> coordonees;
     std::vector<float> getResults();

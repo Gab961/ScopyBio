@@ -296,6 +296,7 @@ std::string ScopyBio_Controller::getResultDisplayPath()
 
 void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight)
 {
+
     m_analyseModel->processResultsWithCrops(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
 }
 

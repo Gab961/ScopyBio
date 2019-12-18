@@ -15,8 +15,8 @@ std::vector<Resultat> analyse_model::getResults() const { return results; }
 void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, gestionnaire_calque_model * gestionnaire)
 {
     ///DEBUG TESTS
-    columnAmount = 5;
-    linesAmount = 5;
+//    columnAmount = 5;
+//    linesAmount = 5;
     /////////////////
 
     results.clear();
@@ -56,10 +56,10 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
             QPoint posMid(milieuX,milieuY);
             //            std::cout << "Analyse de " << pos1.x() << "," << pos1.y() << " à " << pos2.x() << "," << pos2.y() << std::endl;
 
-            int pertinence = processLocalResults(allPictures,pos1,pos2,posMid,whiteValue);
+            int pertinence = processLocalResults(allPictures,pos1,pos2,whiteValue);
             //On créer un rond en fonction de l'analyse
             if (pertinence>0)
-                gestionnaire->manageNewAnalyse(pertinence, posMid);
+                gestionnaire->manageNewAnalyse(pertinence, pos1, pos2);
 
             oldY = nextY;
         }
@@ -69,7 +69,7 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
     }
 }
 
-int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, QPoint posMid, int whiteValue)
+int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue)
 {
     Resultat localResult;
 
@@ -78,13 +78,11 @@ int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1,
     {
         localResult.setTopLeftPoint(pos1);
         localResult.setBottomRightPoint(pos2);
-        localResult.setMiddlePoint(posMid);
     }
     else
     {
         localResult.setTopLeftPoint(pos2);
         localResult.setBottomRightPoint(pos1);
-        localResult.setMiddlePoint(posMid);
     }
 
     for(CImg<float> image : allPictures)

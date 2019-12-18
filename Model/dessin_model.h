@@ -46,6 +46,16 @@ public:
     CImg<float> dessinerRond(QPoint pos1, int labelWidth, int labelHeight, CImg<float> & currentPicture);
 
     /**
+     * @brief dessinerRectanglePertinence
+     * @param pos1
+     * @param pos2
+     * @param pertinence
+     * @param currentPicture
+     * @return
+     */
+    CImg<float> dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence, CImg<float> & currentPicture);
+
+    /**
      * @brief dessinerRond
      * @param pos1
      * @param labelWidth

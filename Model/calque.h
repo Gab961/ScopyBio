@@ -38,6 +38,7 @@ public:
     //          ACTIONS !
     void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence);
     void dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinerRond(QPoint pos, int pertinence);
     void filtreVert();

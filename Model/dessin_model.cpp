@@ -28,6 +28,32 @@ CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelW
     return currentPicture;
 }
 
+CImg<float> dessin_model::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence, CImg<float> & currentPicture)
+{
+    //Clair
+    const unsigned char color1[] = { 136,255,136,50 };
+    //Moyen
+    const unsigned char color2[] = { 71,255,71,75 };
+    //Foncé
+    const unsigned char color3[] = { 0,255,0,100 };
+
+    switch (pertinence) {
+    case 1:
+        currentPicture.draw_rectangle(pos1.x(),pos1.y(),pos2.x(),pos2.y(),color1,~0U);
+        break;
+    case 2:
+        currentPicture.draw_rectangle(pos1.x(),pos1.y(),pos2.x(),pos2.y(),color2,~0U);
+        break;
+    case 3:
+        currentPicture.draw_rectangle(pos1.x(),pos1.y(),pos2.x(),pos2.y(),color3,~0U);
+        break;
+    default:
+        break;
+    }
+
+    return currentPicture;
+}
+
 CImg<float> dessin_model::dessinerRond(QPoint pos1, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
     const unsigned char color[] = { 255,174,0,255 };

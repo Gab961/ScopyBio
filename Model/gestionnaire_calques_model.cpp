@@ -134,10 +134,10 @@ void gestionnaire_calque_model::creerCalque(int width, int height, int min, int 
  * @brief gestionnaire_calque_model::manageNewAnalyse
  * @param results
  */
-void gestionnaire_calque_model::manageNewAnalyse(int pertinence, QPoint positionMilieu){
+void gestionnaire_calque_model::manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2){
     calque newCalque = getCalqueForDisplay(-5, -5);
 
-    newCalque.dessinerRond(positionMilieu,pertinence);
+    newCalque.dessinerRectanglePertinence(pos1,pos2,pertinence);
 
     listOfCalque[idPertinenceCalque] = newCalque;
 }

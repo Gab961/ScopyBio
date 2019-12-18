@@ -55,7 +55,7 @@ public:
      * @param whiteValue
      * @return
      */
-    int processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, QPoint posMid, int whiteValue);
+    int processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue);
 
     /**
      * @brief createCropResultsDisplay
