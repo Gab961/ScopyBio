@@ -247,19 +247,7 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
             std::cout << "I = " << i << std::endl;
             calque overlay = getCalqueForDisplay(i);
 
-            overlay.getCalque().save_png("/home/etudiant/Bureau/truc/overlay.png");
-            currentDisplayedImage.save_png("/home/etudiant/Bureau/truc/current.png");
-
-//            const unsigned char color[] = { 0,255,0,255 };
-//            CImg<float> test(500,500);
-//            test.load_bmp("/home/etudiant/QtProject/ScopyBio/Build/bin/tmp/histogram.bmp");
-//            overlay.setCalque(test);
-//            overlay.getCalque().save_bmp("/home/etudiant/Bureau/truc/getcalque.bmp");
-
-//            currentDisplayedImage.draw_circle(50,50,30,color,1);
-//            currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
-            currentDisplayedImage.draw_image(0,0,overlay.getCalque());
-            currentDisplayedImage.save_png("/home/etudiant/Bureau/truc/together.png");
+            currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
         }
     }
 

@@ -27,7 +27,7 @@ std::vector<calque> load_model::loadCalques(std::string path){
     for(Json::Value json : calques_json){
         CImg<float> caltmp;
         std::string nom = json["path"].asCString();
-        caltmp.load_png(nom.c_str());
+        caltmp.load_cimg(nom.c_str());
 
         calque tmp(caltmp.width(),caltmp.height(),json["min"].asInt(),json["max"].asInt(),json["id"].asInt());
         tmp.setCalque(caltmp);

@@ -45,7 +45,7 @@ void save_model::saveCalques(){
             calque_name += separator;
             calque_name += std::string("calque");
             calque_name += std::string(std::to_string(i.getId()));
-            i.getCalque().save_png(calque_name.c_str());
+            i.saveCalque(calque_name);
         }
     }
 }

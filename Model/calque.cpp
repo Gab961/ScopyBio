@@ -32,6 +32,11 @@ CImg<float> calque::getCalque() const
     return _calque;
 }
 
+void calque::saveCalque(std::string path)
+{
+    _calque.save_cimg(path.c_str());
+}
+
 annotation_user_memento *calque::createMemento(){
     return new annotation_user_memento(_calque);
 }
