@@ -5,7 +5,7 @@
 #include "analyse_model.h"
 #include "dessin_model.h"
 
-analyse_model::analyse_model() : isDataReady(false), columnAmount(30), linesAmount(30)
+analyse_model::analyse_model() : isDataReady(false), columnAmount(5), linesAmount(5)
 {}
 
 std::string analyse_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
