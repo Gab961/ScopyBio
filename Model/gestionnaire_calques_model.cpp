@@ -94,12 +94,14 @@ int gestionnaire_calque_model::getCalque(int min, int max){
 
 
 void gestionnaire_calque_model::addCalques(std::vector<calque> calques, int taille){
-    for(calque tmp : calques){
-        listOfCalque.push_back(tmp);
-        addInDict(tmp.getIntervalMin(),tmp.getIntervalMax(),taille,tmp.getId());
-    }
+    if(!calques.empty()){
+        for(calque tmp : calques){
+            listOfCalque.push_back(tmp);
+            addInDict(tmp.getIntervalMin(),tmp.getIntervalMax(),taille,tmp.getId());
+        }
 
-    id = calques.back().getId()+1;
+        id = calques.back().getId()+1;
+    }
 }
 
 /**
@@ -257,8 +259,8 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
         currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
     }
 
-//    afficheCalques();
-//    std::cout << "*********************************************" << std::endl;
+    //    afficheCalques();
+    //    std::cout << "*********************************************" << std::endl;
 
     if(ids.size() == 0){
         //std::cout << "0 image à merge" << std::endl;

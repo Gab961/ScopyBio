@@ -91,7 +91,7 @@ void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Res
         resultValue["resultats"] = arrayV;
 
 
-        value["Results"].append(resultValue);
+        value["results"].append(resultValue);
     }
 
 
