@@ -7,7 +7,7 @@
 
 using namespace cimg_library;
 
-Data_View::Data_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController)
+Data_View::Data_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController), readyToShow(false)
 {    
     setTitle("Data view");
     this->setAttribute(Qt::WA_Hover, true);
@@ -29,17 +29,26 @@ void Data_View::createView()
 
 void Data_View::drawResults()
 {
-    setCursor(Qt::PointingHandCursor);
-    QPixmap pm(m_scopybioController->getResultDisplayPath().c_str());
-    m_image->setPixmap(pm);
-    m_image->setScaledContents(true);
-    update();
+    if (readyToShow)
+    {
+        setCursor(Qt::PointingHandCursor);
+        QPixmap pm(m_scopybioController->getResultDisplayPath().c_str());
+        m_image->setPixmap(pm);
+        m_image->setScaledContents(true);
+        update();
+    }
 }
 
 void Data_View::processingResults(int labelWidth, int labelHeight)
 {
     m_scopybioController->processResultsWithCrop( labelWidth, labelHeight);
     drawResults();
+}
+
+
+void Data_View::enableDisplay()
+{
+    readyToShow = true;
 }
 
 void Data_View::mousePressEvent( QMouseEvent* ev )

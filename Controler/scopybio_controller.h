@@ -97,6 +97,12 @@ public:
      * @brief saveZoomOfCurrentArea Enregistre le zoom de la zone actuellement sélectionnée
      */
     void saveZoomOfCurrentArea();
+
+    /**
+     * @brief saveZoomOfUserArea Enregistre le zoom de la zone sélectionnée par l'utilisateur
+     */
+    void saveZoomOfUserArea();
+
     /**
      * @brief getMainDisplayPath Renvoie le chemin de l'image du display principal
      * @return
@@ -242,11 +248,13 @@ public:
     /****************************** Partie faisceau_model ******************************/
     /***********************************************************************************/
     /**
-     * @brief setFaisceau Enregistre les points cliqués pour le faisceau
+     * @brief setFaisceau
      * @param pos1
      * @param pos2
+     * @param labelWidth
+     * @param labelHeight
      */
-    void setFaisceau(QPoint pos1, QPoint pos2);
+    void setFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
     /***********************************************************************************/
     /******************************** Partie save_model ********************************/

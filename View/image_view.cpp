@@ -36,7 +36,7 @@ void Image_View::createView()
 void Image_View::connections()
 {
     //Affichage du rectangle
-    QObject::connect(this, &Image_View::drawRectOnMouse, this, &Image_View::nouveauClicCreerRectangle);
+    QObject::connect(this, &Image_View::drawRectOnMouse, this, &Image_View::nouvelleAnalyseUtiliser);
 
     // récupère la courbe et la zoom view de la zone sélectionnée issue de l'analyse automatique
     QObject::connect(this, &Image_View::getDataFromArea, this, &Image_View::getData);
@@ -76,6 +76,9 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 {
     if (m_scopybioController->fileReady())
     {
+        //On indique qu'un clic a été fait, donc on va pouvoir afficher les zoom et la data
+        firstClickDone();
+
         //Si on est pas en train de dessiner
         if (!listenPenClick)
         {
@@ -172,11 +175,12 @@ void Image_View::setNewPicture()
     update();
 }
 
-void Image_View::nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
+void Image_View::nouvelleAnalyseUtiliser(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
     //Dessine le rectangle sur l'image et créer l'image zoomée
-    m_scopybioController->setFaisceau(pos1, pos2);
+    m_scopybioController->setFaisceau(pos1, pos2,labelWidth, labelHeight);
     m_scopybioController->dessinerFaisceau(labelWidth, labelHeight);
+    m_scopybioController->setUserAreaIsSelected();
     setNewPicture();
 
     //Demande de rafraichir le zoom
@@ -207,6 +211,7 @@ void Image_View::askProcessFromZoom()
 }
 
 void Image_View::getData(QPoint area, int labelWidth, int labelHeight) {
+    m_scopybioController->setAreaIsSelected();
     m_scopybioController->getDataFromArea(area, labelWidth, labelHeight);
 
     emit changeZoomPicture();

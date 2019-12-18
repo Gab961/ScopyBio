@@ -170,6 +170,11 @@ void MainWindow::connections()
     //Open Compare popup
     QObject::connect(m_openCompare, &QPushButton::clicked, m_comparePopup, &ComparePopup::createComparePopup);
 
+    //Gestion premier clic
+    QObject::connect(m_imageView, &Image_View::firstClickDone, m_dataView, &Data_View::enableDisplay);
+    QObject::connect(m_imageView, &Image_View::firstClickDone, m_zoomView, &Zoom_View::enableDisplay);
+
+    //Refresh du zoom sans sélection par l'utilisateur
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_zoomView, &Zoom_View::setPictureFromFile);
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_dataView, &Data_View::setGraphFromFile);
 }
@@ -305,8 +310,8 @@ void MainWindow::changeActualItem()
     m_scopybioController->saveCurrent(indiceEnCours);
     if (m_scopybioController->areaIsSelected())
         m_scopybioController->saveZoomOfCurrentArea();
-//    if (m_scopybioController->userAreaIsSelected())
-//        //TODO
+    if (m_scopybioController->userAreaIsSelected())
+        m_scopybioController->saveZoomOfUserArea();
     m_imageView->updateZoomOnly();
     m_scopybioController->DisplayResultImage(indiceEnCours);
     emit changeMainPicture();
