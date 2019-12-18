@@ -75,7 +75,7 @@ CImg<float> dessin_model::dessinerRond(QPoint pos, int pertinence, CImg<float> &
 
 CImg<float> dessin_model::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
-    const unsigned char color[] = { 255,174,0,255 };
+    const unsigned char color[] = { 255,0,0,255 };
 
     int x1 = pos1.x() * currentPicture.width() / labelWidth;
     int y1 = pos1.y() * currentPicture.height() / labelHeight;
