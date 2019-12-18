@@ -257,8 +257,8 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
         currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
     }
 
-    afficheCalques();
-    std::cout << "*********************************************" << std::endl;
+//    afficheCalques();
+//    std::cout << "*********************************************" << std::endl;
 
     if(ids.size() == 0){
         //std::cout << "0 image à merge" << std::endl;
@@ -277,7 +277,7 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
 
         //Et tous les autres ensuite
         for(auto i : ids){
-            std::cout << "I = " << i << std::endl;
+            //std::cout << "I = " << i << std::endl;
             calque overlay = getCalqueForDisplay(i);
 
             currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);

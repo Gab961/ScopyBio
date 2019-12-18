@@ -18,11 +18,16 @@ using namespace std;
 int main(int argc, char* argv[])
 {
     //test
-    std::string tmp = "tmp";
+    string tmp = "tmp";
     filesystem::create_directory(tmp);
     tmp += separator;
     tmp += std::string("mainDisplay");
     filesystem::create_directory(tmp.c_str());
+
+    string analysePath = "tmp";
+    analysePath += separator;
+    analysePath += "saveAnalyse";
+    filesystem::create_directories(analysePath);
 
     QApplication scopyBio(argc, argv);
 
