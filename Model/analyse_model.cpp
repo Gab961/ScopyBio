@@ -5,7 +5,7 @@
 #include "analyse_model.h"
 #include "dessin_model.h"
 
-analyse_model::analyse_model() : isDataReady(false), columnAmount(5), linesAmount(5)
+analyse_model::analyse_model() : areaIsSelected(false), userAreaIsSelected(false), isDataReady(false), columnAmount(5), linesAmount(5)
 {}
 
 std::string analyse_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
@@ -397,6 +397,7 @@ void analyse_model::getDataFromArea(QPoint area, int labelWidth, int labelHeight
                 && results[i].getBottomRightPoint().y() > y) {
 
             currentArea = i;
+            areaIsSelected = true;
             dessin->saveZoomFromArea(results[currentArea].getTopLeftPoint(), results[currentArea].getBottomRightPoint(), currentImage);
             std::string graphFromArea = pathOfResultsStorage + std::to_string(i) + ".bmp";
             CImg<float> graphImg;
@@ -412,3 +413,7 @@ void analyse_model::setColumnAmount(int newColumn) { columnAmount = newColumn; }
 int analyse_model::getColumnAmount() { return columnAmount; }
 void analyse_model::setLinesAmount(int newLine) { linesAmount = newLine; }
 int analyse_model::getLinesAmount() { return linesAmount; }
+bool analyse_model::getAreaIsSelected() { return areaIsSelected; }
+void analyse_model::setAreaIsSelected(bool newValue) { areaIsSelected = newValue; }
+bool analyse_model::getUserAreaIsSelected() { return userAreaIsSelected; }
+void analyse_model::setUserAreaIsSelected(bool newValue) { userAreaIsSelected = newValue; }

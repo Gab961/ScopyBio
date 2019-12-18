@@ -254,6 +254,28 @@ bool ScopyBio_Controller::getBaseColorGiven()
 // Aalyse_Modele
 //=======================
 
+bool ScopyBio_Controller::areaIsSelected()
+{
+    return m_analyseModel->getAreaIsSelected();
+}
+
+void ScopyBio_Controller::setAreaIsSelected()
+{
+    m_analyseModel->setAreaIsSelected(true);
+    m_analyseModel->setUserAreaIsSelected(false);
+}
+
+bool ScopyBio_Controller::userAreaIsSelected()
+{
+    return m_analyseModel->getUserAreaIsSelected();
+}
+
+void ScopyBio_Controller::setUserAreaIsSelected()
+{
+    m_analyseModel->setUserAreaIsSelected(true);
+    m_analyseModel->setAreaIsSelected(false);
+}
+
 std::string ScopyBio_Controller::getResultDisplayPath()
 {
     return m_analyseModel->getResultDisplayPath();

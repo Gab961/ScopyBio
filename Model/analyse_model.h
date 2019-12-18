@@ -148,7 +148,33 @@ public:
      */
     QPoint getBottomRightPointOfCurrentArea() { return results[currentArea].getBottomRightPoint(); }
 
+    /**
+     * @brief getAreaIsSelected
+     * @return
+     */
+    bool getAreaIsSelected();
+
+    /**
+     * @brief setAreaIsSelected
+     * @param newValue
+     */
+    void setAreaIsSelected(bool newValue);
+
+    /**
+     * @brief getUserAreaIsSelected
+     * @return
+     */
+    bool getUserAreaIsSelected();
+
+    /**
+     * @brief setUserAreaIsSelected
+     * @param newValue
+     */
+    void setUserAreaIsSelected(bool newValue);
+
 private:
+    bool areaIsSelected;
+    bool userAreaIsSelected;
     bool isDataReady;
     int columnAmount;
     int linesAmount;

@@ -173,6 +173,29 @@ public:
     /******************************** Partie analyse_model ********************************/
     /***********************************************************************************/
     /**
+     * @brief areaIsSelected
+     * @return
+     */
+    bool areaIsSelected();
+
+    /**
+     * @brief setAreaIsSelected
+     */
+    void setAreaIsSelected();
+
+    /**
+     * @brief userAreaIsSelected
+     * @return
+     */
+    bool userAreaIsSelected();
+
+    /**
+     * @brief setUserAreaIsSelected
+     * @return
+     */
+    void setUserAreaIsSelected();
+
+    /**
      * @brief getResultDisplayPath Récupère le chemin de l'image s'affichant dans le data display
      * @return
      */

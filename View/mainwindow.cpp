@@ -303,7 +303,10 @@ void MainWindow::changeActualItem()
 {
     int indiceEnCours = m_pileView->currentRow();
     m_scopybioController->saveCurrent(indiceEnCours);
-    m_scopybioController->saveZoomOfCurrentArea();
+    if (m_scopybioController->areaIsSelected())
+        m_scopybioController->saveZoomOfCurrentArea();
+//    if (m_scopybioController->userAreaIsSelected())
+//        //TODO
     m_imageView->updateZoomOnly();
     m_scopybioController->DisplayResultImage(indiceEnCours);
     emit changeMainPicture();
