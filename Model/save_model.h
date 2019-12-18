@@ -20,7 +20,7 @@ public:
     bool save(std::vector<calque> _calques);
     void save_as(std::string path, std::string fileName, std::vector<calque> _calques);
     std::string getFileName(std::string filePath, bool withExtension, char seperator);
-    void changeSavePath(std::string newSavePath);
+    void changeSavePaths(std::string newSavePath);
 
 
 private:

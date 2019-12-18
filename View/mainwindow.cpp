@@ -116,6 +116,9 @@ void MainWindow::connections()
     //Envoi du chemin d'une image tif pour charger la pile
     QObject::connect(this, &MainWindow::sendPath, m_pileView, &Pile_View::openFile);
 
+    //Envoi du chemin d'une image tif pour charger la pile
+    QObject::connect(this, &MainWindow::sendPathProjet, this, &MainWindow::openProject);
+
     //Fin de chargement de pile donc affichage de la première image
     QObject::connect(m_pileView, &Pile_View::pileInitDone, this, &MainWindow::showFirstInPile);
 
@@ -176,21 +179,25 @@ void MainWindow::open()
     std::string path = "";
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                     "../../Data",
-                                                    tr("Images (*.tiff *.tif *.scp)"));
+                                                    tr("Images (*.tiff *.tif *.scb)"));
     path = fileName.toLocal8Bit().constData();
 
     if(path != "") {
         //Ouverture d'un fichier projet
-        if (path.substr(path.size()-3, path.size()) == "scp")
+        if (path.substr(path.size()-3, path.size()) == "scb")
         {
             //TODO Adapter pour séparateur
-            std::string directoryPath = path.substr(0,path.find_last_of('/'));
+            //std::string directoryPath = path.substr(0,path.find_last_of('/'));
 
-            m_scopybioController->changeSavePath(directoryPath);
+            m_scopybioController->changeSavePaths(path.substr(0,path.find_last_of(separator)));
             m_saveFile->setEnabled(true);
 
+
+            std::string tifPath = path.substr(0, path.size()-3) + "tiff";
+            emit sendPath(tifPath);
+
             //TODO Gerer séparator multi os
-            emit sendPath(directoryPath + "/pile.tif");
+            emit sendPathProjet(path);
         }
         else
             emit sendPath(path);
@@ -285,6 +292,11 @@ void MainWindow::updateSaveAs()
 void MainWindow::updateSave()
 {
     m_saveFile->setEnabled(true);
+}
+
+void MainWindow::openProject(std::string path)
+{
+    m_scopybioController->openProject(path);
 }
 
 void MainWindow::showFirstInPile()

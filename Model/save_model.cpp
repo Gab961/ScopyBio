@@ -24,9 +24,10 @@ save_model::save_model()
 {}
 
 
-void save_model::changeSavePath(std::string newSavePath)
+void save_model::changeSavePaths(std::string newSavePath)
 {
     savePath = newSavePath;
+    saveCalquesPath = newSavePath + separator + "Calques";
 }
 
 

@@ -32,6 +32,7 @@ class MainWindow: public QMainWindow
 
     signals:
         void sendPath(std::string path);
+        void sendPathProjet(std::string path);
         void changeMainPicture();
         void changeZoomedPicture();
 
@@ -43,6 +44,7 @@ class MainWindow: public QMainWindow
         void howToUse();
         void showFirstInPile();
         void changeActualItem();
+        void openProject(std::string path);
 
     private:
         void createActions();

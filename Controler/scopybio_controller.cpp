@@ -1,11 +1,12 @@
 #include <QPoint>
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "scopybio_controller.h"
 
 
-ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new analyse_model()), m_gestion_calque(new gestionnaire_calque_model), m_faisceauModel(new faisceau_model), m_saveModel(new save_model)
+ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new analyse_model()), m_gestion_calque(new gestionnaire_calque_model), m_faisceauModel(new faisceau_model), m_saveModel(new save_model), m_loadModel(new load_model)
 {}
 
 
@@ -17,7 +18,7 @@ void ScopyBio_Controller::DisplayResultImage(int idImage){
     //Pour permettre un chargement plus efficace des affichages
     m_dessinModel->switchSaveLocation();
     m_gestion_calque->mergeCalques(m_gestion_calque->getListOfCalqueFromImage(idImage), m_pileModel->getCurrentImage(), m_dessinModel->getMainDisplayPath());
-
+    //m_gestion_calque->afficheCalques();
 }
 
 //=======================
@@ -33,14 +34,31 @@ bool ScopyBio_Controller::save(){
 }
 
 
-void ScopyBio_Controller::changeSavePath(std::string newSavePath)
+void ScopyBio_Controller::changeSavePaths(std::string newSavePath)
 {
-    m_saveModel->changeSavePath(newSavePath);
+    m_saveModel->changeSavePaths(newSavePath);
 }
 
 //=======================
 // Pile_Modele
 //=======================
+void ScopyBio_Controller::openProject(std::string pathProject){
+
+    m_gestion_calque->init(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
+    std::vector<calque> calques;
+
+    calques = m_loadModel->loadCalques(pathProject);
+    //Recreer les calques avec la fonction creer calque
+
+    m_gestion_calque->addCalques(calques,m_pileModel->getImages().size());
+//    for(calque tmp : calques){
+//        m_gestion_calque->creerCalque(/*tmp*/m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),tmp.getIntervalMin(),tmp.getIntervalMax(),m_pileModel->getImages().size());
+//        m_gestion_calque->setCalque(tmp.getIntervalMin(),tmp.getIntervalMax(),tmp);
+//    }
+
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
+}
+
 void ScopyBio_Controller::loadNewTiffFile(std::string filename)
 {
     if (filename.length()>0)
@@ -151,7 +169,6 @@ void ScopyBio_Controller::dessinerLignePerso(int imageIndex, QPoint origPoint, Q
     //On est sur que le calque existe, on dessine le rectangle.
     m_gestion_calque->dessinLigne(min, max, origPoint, pos, labelWidth, labelHeight);
 
-
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
@@ -183,6 +200,7 @@ void ScopyBio_Controller::saveAsMainDisplay(int i)
  */
 void ScopyBio_Controller::applyGreenFilter()
 {
+    //m_gestion_calque->afficheCalques();
     // -3 = filtre vert
     // Normalement le calque vert est déjà créé, cette fonction met juste à jour le dictionnaire de calque. il doit y avoir une fonction qui met à jour la view.
     // /!\ Bug parce que le remove est fait dans une autre fonction
@@ -190,6 +208,7 @@ void ScopyBio_Controller::applyGreenFilter()
     int taille = m_pileModel->getImages().size();
     if(!m_gestion_calque->existeCalque(min,max)){
         //Si n'existe pas Creer le calque et mettre à jour le dico
+        std::cout << "Calque vert n'existe pas" << std::endl;
         m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
     }
 
