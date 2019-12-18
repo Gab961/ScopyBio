@@ -11,7 +11,7 @@ Pile_View::Pile_View(QWidget *parent, ScopyBio_Controller *scopybioController) :
 }
 
 void Pile_View::openFile(std::string path)
-{   
+{
     setCursor(Qt::PointingHandCursor);
     clear();
     m_scopybioController->loadNewTiffFile(path);

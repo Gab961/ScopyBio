@@ -4,6 +4,7 @@
 #include "Model/analyse_model.h"
 #include "Model/faisceau_model.h"
 #include "Model/save_model.h"
+#include "Model/load_model.h"
 
 
 class ScopyBio_Controller
@@ -18,6 +19,13 @@ public:
     /***********************************************************************************/
     /******************************** Partie pile_model ********************************/
     /***********************************************************************************/
+
+    /**
+     * @brief openProject Charge un projet
+     * @param pathProject Le chemin du projet
+     */
+    void openProject(std::string pathProject);
+
     /**
      * @brief loadNewTiffFile Charge un tif multi-image
      * @param filename
@@ -273,7 +281,7 @@ public:
      * @brief changeSavePath
      * @param newSavePath
      */
-    void changeSavePath(std::string newSavePath);
+    void changeSavePaths(std::string newSavePath);
 
 private:
     pile_model *m_pileModel;
@@ -282,4 +290,5 @@ private:
     gestionnaire_calque_model *m_gestion_calque;
     faisceau_model *m_faisceauModel;
     save_model *m_saveModel;
+    load_model * m_loadModel;
 };

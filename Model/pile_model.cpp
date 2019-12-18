@@ -1,6 +1,5 @@
 #include "pile_model.h"
 #include <json/json.h>
-#include "gestionnaire_calques_model.h"
 #include <iostream>
 
 #define PATH "../../Config/config.json"
@@ -90,6 +89,7 @@ void pile_model::read_json_config(){
 
 void pile_model::load(string path)
 {
+
     images.clear();
     images_icons_filename.clear();
     images.load_tiff(path.c_str());
@@ -110,13 +110,4 @@ void pile_model::load(string path)
     //TODO LE MULTIPLATFORME
     std::string command = "convert " + path + " -flatten tmp/flatten.bmp";
     system(command.c_str());
-
-    return;
-
 }
-
-void pile_model::save(string path)
-{
-
-}
-

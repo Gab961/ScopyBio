@@ -29,6 +29,7 @@ public:
     void reinstateMemento(annotation_user_memento *mem);
 
     CImg<float> getCalque() const;
+    void saveCalque(std::string path);
     void setCalque(const CImg<float> &calque);
 
     int getId() const;
