@@ -4,12 +4,23 @@
 #include "calque.h"
 #include "annotation_user_memento.h"
 
-calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id)
+
+calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id),canShow(true)
 {}
 
 int calque::getId() const
 {
     return id;
+}
+
+bool calque::getCanShow() const
+{
+    return canShow;
+}
+
+void calque::setCanShow(bool value)
+{
+    canShow = value;
 }
 
 int calque::getIntervalMin() const
@@ -52,6 +63,18 @@ void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int lab
 }
 
 /**
+ * Plus utilisé, remplacé par dessinerRectangle
+ */
+void calque::dessinerRond(QPoint pos, int pertinence){
+    _calque = dessine.dessinerRond(pos, pertinence, _calque);
+}
+
+void calque::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence){
+    _calque = dessine.dessinerRectanglePertinence(pos1,pos2,pertinence,_calque);
+}
+
+
+/**
  * @brief calque::dessinerFaisceau supprimer le calque actuel et redessine le rectangle.
  * @param pos1
  * @param pos2
@@ -79,6 +102,10 @@ void calque::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHe
  */
 void calque::filtreVert(){
     _calque = dessine.applyGreenFilter(_calque);
+}
+
+void calque::filtreQuadrillage(int columns, int lines){
+    _calque = dessine.applyQuadrillageFilter(columns, lines, _calque);
 }
 
 /**

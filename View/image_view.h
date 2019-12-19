@@ -20,7 +20,6 @@ public:
     void createView();
     void connections();
 
-    void nouveauClicCreerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void updateZoomOnly();
 
     void mousePressEvent( QMouseEvent* ev );
@@ -33,6 +32,10 @@ signals:
     void changeZoomedPicture(int zoneWidth, int zoneHeight);
     void processResults(int labelWidth, int labelHeight);
     void pipetteClicked();
+    void getDataFromArea(const QPoint&, int labelWidth, int labelHeight);
+    void changeZoomPicture();
+    void changeGraphPicture();
+    void firstClickDone();
 
 public slots:
     void setNewPicture();
@@ -40,6 +43,8 @@ public slots:
     void readyForPenDraw();
     void cancelPenDraw();
     void askProcessFromZoom();
+    void nouvelleAnalyseUtiliser(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void getData(QPoint area, int labelWidth, int labelHeight);
 
 private:
     QPoint origPoint;

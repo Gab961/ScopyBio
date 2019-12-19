@@ -99,7 +99,6 @@ void pile_model::load(string path)
     {
         CImg<float> img = images[i];
 
-        //TODO TBD où on l'enregistre
         std::string chemin = "tmp/" + std::to_string(i) + ".bpm";
         img.save_bmp(chemin.c_str());         // problem here
         images_icons_filename.push_back(chemin);
@@ -107,4 +106,8 @@ void pile_model::load(string path)
 
     currentImage = images[0];
 
+    //Obtention de l'image aplatie
+    //TODO LE MULTIPLATFORME
+    std::string command = "convert " + path + " -flatten tmp/flatten.bmp";
+    system(command.c_str());
 }

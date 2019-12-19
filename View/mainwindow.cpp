@@ -172,6 +172,17 @@ void MainWindow::connections()
 
     //Open Compare popup
     QObject::connect(m_openCompare, &QPushButton::clicked, m_comparePopup, &ComparePopup::createComparePopup);
+
+    //Gestion premier clic
+    QObject::connect(m_imageView, &Image_View::firstClickDone, m_dataView, &Data_View::enableDisplay);
+    QObject::connect(m_imageView, &Image_View::firstClickDone, m_zoomView, &Zoom_View::enableDisplay);
+
+    //Refresh du zoom sans sélection par l'utilisateur
+    QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_zoomView, &Zoom_View::setPictureFromFile);
+    QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_dataView, &Data_View::setGraphFromFile);
+
+    //Refresh du zoom sans sélection par l'utilisateur
+    QObject::connect(m_tools, &Menu_Draw_Button::startFullAnalysis, this, &MainWindow::startFullAnalysis);
 }
 
 void MainWindow::open()
@@ -225,7 +236,6 @@ void MainWindow::saveAs()
     {
         path = directoryName.toLocal8Bit().constData();
 
-        std::cout << path << std::endl;
         m_scopybioController->save_as(path);
     }
 }
@@ -311,9 +321,12 @@ void MainWindow::changeActualItem()
 {
     int indiceEnCours = m_pileView->currentRow();
     m_scopybioController->saveCurrent(indiceEnCours);
+    if (m_scopybioController->areaIsSelected())
+        m_scopybioController->saveZoomOfCurrentArea();
+    if (m_scopybioController->userAreaIsSelected())
+        m_scopybioController->saveZoomOfUserArea();
     m_imageView->updateZoomOnly();
     m_scopybioController->DisplayResultImage(indiceEnCours);
-    emit changeZoomedPicture();
     emit changeMainPicture();
 }
 
@@ -371,6 +384,13 @@ void MainWindow::setCursorPipetteDisabled()
     m_layer->setEnabled(true);
     m_openLoop->setEnabled(true);
     m_openCompare->setEnabled(true);
+}
+
+void MainWindow::startFullAnalysis()
+{
+    std::cout << "Debut d'analyse" << std::endl;
+    m_scopybioController->processResults();
+    emit changeMainPicture();
 }
 
 void MainWindow::wheelEvent(QWheelEvent *ev)

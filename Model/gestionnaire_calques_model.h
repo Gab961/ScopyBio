@@ -34,12 +34,16 @@ public:
     void creerCalque(int width, int height, int min, int max, int taille);
     int getCalque(int min, int max);
     void addCalques(std::vector<calque> calques, int taille);
+    void removeCalques(int min, int max);
     void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2);
     void dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void updateCalqueVert(int min, int max, int taille);
     void updateHistogram(int min, int max, int taille);
+    void updateQuadrillage(int columns, int lines);
     calque getCalqueForDisplay(int min, int max);
     calque getCalqueForDisplay(int id);
+    calque getPertinenceCalque();
     std::vector<calque> getAllCalques() const;
     void setCalque(int min, int max, calque cal);
 
@@ -58,22 +62,8 @@ public:
      * Permet d'afficher le dictionnaire
      *
      * */
-    void afficheDic(){
-        for(auto i : dictionnaireImgMap){
-            std::cout << i.first << " : ";
-            for(auto j : i.second){
-                std::cout << j << " ";
-            }
-            std::cout << std::endl;
-        }
-    }
-
-
-    void afficheCalques(){
-        for(calque i : listOfCalque){
-            std::cout << "id : " << i.getId() << ", min : " << i.getIntervalMin() << ", max : " << i.getIntervalMax() << std::endl;
-        }
-    }
+    void afficheDic();
+    void afficheCalques();
 
 
 protected:
@@ -86,4 +76,5 @@ protected:
     bool isGreen; // Pour savoir s'il faut afficher le calque vert ou non
     bool isHistogram; //Pour savoir s'il faut afficher le calque contraste ou non
     std::string pathOfHistogramSave = "tmp/histogram.bmp";
+    int idPertinenceCalque;
 };

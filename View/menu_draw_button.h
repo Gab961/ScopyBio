@@ -19,12 +19,15 @@ class Menu_Draw_Button: public QGroupBox
     public slots:
         void activatePenAnnotation();
         void activatePipetteWaiting();
+        void askForAnalysis();
 
     signals:
         void waitingForZoomClick();
         void pipetteCanceled();
         void readyToDrawPen();
         void penCanceled();
+        //TODO
+        void startFullAnalysis();
 
     private:
         QGridLayout *m_gridTools;

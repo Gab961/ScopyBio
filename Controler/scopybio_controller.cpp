@@ -6,7 +6,7 @@
 #include "scopybio_controller.h"
 
 
-ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_dataModel(new analyse_model()), m_gestion_calque(new gestionnaire_calque_model), m_faisceauModel(new faisceau_model), m_saveModel(new save_model), m_loadModel(new load_model)
+ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_analyseModel(new analyse_model()), m_gestion_calque(new gestionnaire_calque_model), m_faisceauModel(new faisceau_model), m_saveModel(new save_model), m_loadModel(new load_model)
 {}
 
 
@@ -18,7 +18,6 @@ void ScopyBio_Controller::DisplayResultImage(int idImage){
     //Pour permettre un chargement plus efficace des affichages
     m_dessinModel->switchSaveLocation();
     m_gestion_calque->mergeCalques(m_gestion_calque->getListOfCalqueFromImage(idImage), m_pileModel->getCurrentImage(), m_dessinModel->getMainDisplayPath());
-    //m_gestion_calque->afficheCalques();
 }
 
 //=======================
@@ -26,11 +25,11 @@ void ScopyBio_Controller::DisplayResultImage(int idImage){
 //=======================
 
 void ScopyBio_Controller::save_as(std::string path){
-    m_saveModel->save_as(path,m_pileModel->getFileName(),m_gestion_calque->getAllCalques());
+    m_saveModel->save_as(path,m_pileModel->getFileName(),m_gestion_calque->getAllCalques(), m_analyseModel->getResults());
 }
 
 bool ScopyBio_Controller::save(){
-       return m_saveModel->save(m_gestion_calque->getAllCalques());
+    return m_saveModel->save(m_gestion_calque->getAllCalques(), m_analyseModel->getResults());
 }
 
 
@@ -51,10 +50,10 @@ void ScopyBio_Controller::openProject(std::string pathProject){
     //Recreer les calques avec la fonction creer calque
 
     m_gestion_calque->addCalques(calques,m_pileModel->getImages().size());
-//    for(calque tmp : calques){
-//        m_gestion_calque->creerCalque(/*tmp*/m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),tmp.getIntervalMin(),tmp.getIntervalMax(),m_pileModel->getImages().size());
-//        m_gestion_calque->setCalque(tmp.getIntervalMin(),tmp.getIntervalMax(),tmp);
-//    }
+    //    for(calque tmp : calques){
+    //        m_gestion_calque->creerCalque(/*tmp*/m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),tmp.getIntervalMin(),tmp.getIntervalMax(),m_pileModel->getImages().size());
+    //        m_gestion_calque->setCalque(tmp.getIntervalMin(),tmp.getIntervalMax(),tmp);
+    //    }
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
@@ -139,12 +138,11 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
-    m_gestion_calque->dessineFaisceau(min,max,m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(),labelWidth,labelHeight);
+    m_gestion_calque->dessineFaisceau(min,max,m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(), labelWidth, labelHeight);
 
     saveZoom(labelWidth, labelHeight);
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
-
 }
 
 /**
@@ -176,7 +174,27 @@ void ScopyBio_Controller::saveZoom(int labelWidth, int labelHeight)
 {
     //Necessaire pour afficher le zoom.
     m_dessinModel->saveZoomFromPicture(m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), labelWidth, labelHeight, m_pileModel->getCurrentImage());
+}
 
+void ScopyBio_Controller::saveZoomOfCurrentArea()
+{
+    std::cout << "Auto" << std::endl;
+    std::cout << "TOPLEFT = " << m_analyseModel->getTopLeftPointOfCurrentArea().x() << "x" << m_analyseModel->getTopLeftPointOfCurrentArea().y() << std::endl;
+    std::cout << "BOTRIGHT = " << m_analyseModel->getBottomRightPointOfCurrentArea().x() << "x" << m_analyseModel->getBottomRightPointOfCurrentArea().y() << std::endl;
+
+    if (m_analyseModel->dataReady())
+        m_dessinModel->saveZoomFromArea(m_analyseModel->getTopLeftPointOfCurrentArea(),m_analyseModel->getBottomRightPointOfCurrentArea(),m_pileModel->getCurrentImage());
+}
+
+void ScopyBio_Controller::saveZoomOfUserArea()
+{
+    std::cout << "User" << std::endl;
+    std::cout << "TOPLEFT = " << m_faisceauModel->getTopLeft().x() << "x" << m_faisceauModel->getTopLeft().y() << std::endl;
+    std::cout << "BOTRIGHT = " << m_faisceauModel->getBotRight().x() << "x" << m_faisceauModel->getBotRight().y() << std::endl;
+
+    //TODO Réparer
+    //    if (m_analyseModel->dataReady())
+    //        m_dessinModel->saveZoomFromArea(m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(),m_pileModel->getCurrentImage());
 }
 
 std::string ScopyBio_Controller::getMainDisplayPath()
@@ -265,29 +283,62 @@ bool ScopyBio_Controller::getBaseColorGiven()
 // Aalyse_Modele
 //=======================
 
+bool ScopyBio_Controller::areaIsSelected()
+{
+    return m_analyseModel->getAreaIsSelected();
+}
+
+void ScopyBio_Controller::setAreaIsSelected()
+{
+    m_analyseModel->setAreaIsSelected(true);
+    m_analyseModel->setUserAreaIsSelected(false);
+}
+
+bool ScopyBio_Controller::userAreaIsSelected()
+{
+    return m_analyseModel->getUserAreaIsSelected();
+}
+
+void ScopyBio_Controller::setUserAreaIsSelected()
+{
+    m_analyseModel->setUserAreaIsSelected(true);
+    m_analyseModel->setAreaIsSelected(false);
+}
+
 std::string ScopyBio_Controller::getResultDisplayPath()
 {
-    return m_dataModel->getResultDisplayPath();
+    return m_analyseModel->getResultDisplayPath();
 }
 
 void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight)
 {
-    m_dataModel->processResultsWithCrops(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
+
+    m_analyseModel->processResultsWithCrops(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
 }
 
-void ScopyBio_Controller::processResultsOnEverything()
-{
-    m_dataModel->processResults(m_pileModel->getImages());
+void ScopyBio_Controller::processResults()
+{    
+    //Initialisation du white automatique
+    m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
+
+    m_analyseModel->processResults(m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
 int ScopyBio_Controller::getItemAtPoint(int posX, int labelWidth)
 {
-    return m_dataModel->getItemAtPoint(posX, labelWidth);
+    return m_analyseModel->getItemAtPoint(m_pileModel->getImages().size(), posX, labelWidth);
 }
 
 bool ScopyBio_Controller::dataReady()
 {
-    return m_dataModel->dataReady();
+    return m_analyseModel->dataReady();
+}
+
+void ScopyBio_Controller::getDataFromArea(QPoint area, int labelWidth, int labelHeight) {
+    int imageWidth = m_pileModel->getCurrentImage().width();
+    int imageHeight = m_pileModel->getCurrentImage().height();
+    m_analyseModel->getDataFromArea(area, labelWidth, labelHeight, imageWidth, imageHeight, m_pileModel->getCurrentImage(), m_dessinModel);
 }
 
 

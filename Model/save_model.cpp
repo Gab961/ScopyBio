@@ -1,8 +1,10 @@
+#include <QPoint>
 #include <json/json.h>
 
 #include "save_model.h"
 
 #include "calque.h"
+#include "resultat.h"
 
 #include <filesystem>
 
@@ -38,7 +40,7 @@ void save_model::saveTiff(std::string pathSource){
     }
 }
 
-void save_model::saveCalques(){
+void save_model::saveCalques(std::vector<calque> calques){
     for(auto i : calques){
         if(i.getIntervalMin() >= -1){
             std::string calque_name = saveCalquesPath;
@@ -50,7 +52,7 @@ void save_model::saveCalques(){
     }
 }
 
-void save_model::saveJsonFile(){
+void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Resultat> &resultats){
     std::string _filename = savePath;
     _filename += separator;
     _filename += std::string(filename);
@@ -60,7 +62,7 @@ void save_model::saveJsonFile(){
 
     Json::Value calquesValue;
 
-    for(auto i : calques){
+    for(calque i : calques){
         if(i.getIntervalMin() >= -1){
             Json::Value calqueValue;
             calqueValue["min"] = i.getIntervalMin();
@@ -77,6 +79,23 @@ void save_model::saveJsonFile(){
     value["calques"] = calquesValue;
 
 
+    for(Resultat i : resultats){
+        Json::Value resultValue;
+        resultValue["pertinence"] = i.getPertinence();
+
+        //Array
+        Json::Value arrayV;
+        for (int element: i.getResults()) {
+            arrayV.append(element);
+        }
+        resultValue["resultats"] = arrayV;
+
+
+        value["results"].append(resultValue);
+    }
+
+
+
     std::ofstream outfile(_filename);
     //    outfile.open(_filename, std::ofstream::out | std::ofstream::trunc);
     outfile << value;
@@ -84,7 +103,7 @@ void save_model::saveJsonFile(){
     outfile.close();
 }
 
-void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques){
+void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques,std::vector<Resultat> resultats){
     std::cout << "function save_as " << std::endl;
 
     auto first = fileName.find(".");
@@ -113,23 +132,19 @@ void save_model::save_as(std::string path, std::string fileName, std::vector<cal
 
     saveTiff(fileName);
 
-    save(_calques);
+    save(_calques,resultats);
 }
 
 
-bool save_model::save(std::vector<calque> _calques){
+bool save_model::save(std::vector<calque> _calques, const std::vector<Resultat> &resultats){
     if(savePath.empty()){
         return false;
     }else{
         if(!std::filesystem::exists(savePath.c_str())){
             return false;
         }else{
-            calques.clear();
-            for(auto i : _calques){
-                calques.push_back(i);
-            }
-            saveCalques();
-            saveJsonFile();
+            saveCalques(_calques);
+            saveJsonFile(_calques,resultats);
             return true;
         }
     }
