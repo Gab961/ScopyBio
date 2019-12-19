@@ -5,7 +5,7 @@
 #include "analyse_model.h"
 #include "dessin_model.h"
 
-analyse_model::analyse_model() : areaIsSelected(false), userAreaIsSelected(false), isDataReady(false), columnAmount(30), linesAmount(30)
+analyse_model::analyse_model() : areaIsSelected(false), userAreaIsSelected(false), isDataReady(false), columnAmount(30), linesAmount(30), errorMargin(5)
 {}
 
 std::string analyse_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
@@ -15,14 +15,11 @@ std::vector<Resultat> analyse_model::getResults() const { return results; }
 void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, gestionnaire_calque_model * gestionnaire)
 {
     ///DEBUG TESTS
-    columnAmount = 5;
-    linesAmount = 5;
+    columnAmount = 8;
+    linesAmount = 8;
     /////////////////
 
     results.clear();
-
-    //Dessin du quadrillage
-    gestionnaire->updateQuadrillage(columnAmount,linesAmount);
 
     int largeurImage = allPictures[0].width();
     int hauteurImage = allPictures[0].height();
@@ -51,15 +48,25 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
 
             QPoint pos1(oldX,oldY);
             QPoint pos2(nextX,nextY);
-            int milieuX = oldX+abs(oldX-nextX)/2;
-            int milieuY = oldY+abs(oldY-nextY)/2;
-            QPoint posMid(milieuX,milieuY);
-            //            std::cout << "Analyse de " << pos1.x() << "," << pos1.y() << " à " << pos2.x() << "," << pos2.y() << std::endl;
 
             int pertinence = processLocalResults(allPictures,pos1,pos2,whiteValue);
+
             //On créer un rond en fonction de l'analyse
-            if (pertinence>0)
+            if (pertinence>1)
                 gestionnaire->manageNewAnalyse(pertinence, pos1, pos2);
+
+            //DEBUG
+//            if (pertinence>1)
+//            {
+//                Resultat r = results.back();
+//                std::cout << "%%%%%%% PERTINENCE " << pertinence << "%%%%%%%" << std::endl;
+//                for (unsigned int i=0; i<r.getResults().size(); i++)
+//                {
+//                    std::cout << r.getResults()[i] << " | ";
+//                }
+//                std::cout << std::endl;
+//                std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
+//            }
 
             oldY = nextY;
         }
@@ -67,6 +74,9 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
         oldY = 0;
         oldX = nextX;
     }
+
+    //Dessin du quadrillage à la fin pour recouvrir l'ensemble après qu'on ai fait des carrés verts de pertinence
+    gestionnaire->updateQuadrillage(columnAmount,linesAmount);
 }
 
 int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue)
@@ -106,34 +116,64 @@ int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1,
             if (niveauDeNoirMaximal > niveauNuance)
                 niveauDeNoirMaximal = niveauNuance;
         }
-
         localResult.addResult(totalNuance/nombrePixels);
     }
 
-
     //Calcul de la pertinence de la zone
     int pertinence = 0;
-    bool sousLeWhite;
+    int origineVariation;
+    bool graphMontant = false;
     for (unsigned int i=0; i<localResult.getResults().size(); i++)
     {
+        int currentValue = localResult.getResults()[i];
+
+        //Enregistrement de la valeur initiale du graph
         if (i==0)
         {
-            if (localResult.getResultAtIndex(i)<whiteValue)
-                sousLeWhite = true;
+            //Si la valeur est une valeur que l'on veut analyse on la prend en compte
+            if (currentValue >= whiteValue)
+                origineVariation = currentValue;
+            //Sinon on prend la valeur minimale d'étude, qui servira si on passe au dessus du seuil plus tard
             else
-                sousLeWhite = false;
+                origineVariation = whiteValue;
         }
         else
         {
-            if (sousLeWhite == false && localResult.getResultAtIndex(i)<=whiteValue)
+            // On ne fait des études que si on a une valeur supérieur au seuil
+            if (currentValue >= whiteValue)
             {
-                sousLeWhite = true;
-                pertinence++;
-            }
-            if (sousLeWhite == true && localResult.getResultAtIndex(i)>=whiteValue)
-            {
-                sousLeWhite = false;
-                pertinence++;
+                if (i==1)
+                {
+                    if (origineVariation < currentValue)
+                        graphMontant = true;
+                }
+                else
+                {
+                    int previousValue = localResult.getResults()[i-1];
+                    //Le graph montait et ça change de sens
+                    if (graphMontant && currentValue<previousValue)
+                    {
+                        int diff = abs(origineVariation-currentValue);
+                        if (diff > errorMargin)
+                            pertinence++;
+                        origineVariation = previousValue;
+                        graphMontant = false;
+                    }
+                    if (!graphMontant && currentValue>previousValue)
+                    {
+                        int diff = abs(origineVariation-currentValue);
+                        if (diff > errorMargin)
+                            pertinence++;
+                        origineVariation = previousValue;
+                        graphMontant = true;
+                    }
+                    if (i == localResult.getResults().size()-1 || currentValue == whiteValue)
+                    {
+                        int diff = abs(origineVariation-currentValue);
+                        if (diff > errorMargin)
+                            pertinence++;
+                    }
+                }
             }
         }
     }
