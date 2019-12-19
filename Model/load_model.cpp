@@ -43,24 +43,24 @@ std::vector<calque> load_model::loadCalques(std::string path){
 
 //TODO Finir le vecteur et Qpoint
 std::vector<Resultat> load_model::loadResults(std::string path){
-    std::vector<Resultat> vecteur;
+//    std::vector<Resultat> vecteur;
 
-    Json::Value sauvegarde;
+//    Json::Value sauvegarde;
 
-    std::ifstream sauvegarde_file(path, std::ifstream::binary);
-    sauvegarde_file >> sauvegarde;
+//    std::ifstream sauvegarde_file(path, std::ifstream::binary);
+//    sauvegarde_file >> sauvegarde;
 
 
-    Json::Value result_json;
+//    Json::Value result_json;
 
-    if(sauvegarde["results"] != Json::Value::null){
-        result_json = sauvegarde["results"];
-    }
+//    if(sauvegarde["results"] != Json::Value::null){
+//        result_json = sauvegarde["results"];
+//    }
 
-    if(calques_json != Json::Value::null){
-        for(Json::Value json : calques_json){
-            Resultat tmp;
-            tmp.setPertinence(json["pertinence"].asInt());
-        }
-    }
+//    if(calques_json != Json::Value::null){
+//        for(Json::Value json : calques_json){
+//            Resultat tmp;
+//            tmp.setPertinence(json["pertinence"].asInt());
+//        }
+//    }
 }
