@@ -4,7 +4,17 @@
 #include "calque.h"
 #include "annotation_user_memento.h"
 
-calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id)
+bool calque::getCanShow() const
+{
+    return canShow;
+}
+
+void calque::setCanShow(bool value)
+{
+    canShow = value;
+}
+
+calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id),canShow(true)
 {}
 
 int calque::getId() const

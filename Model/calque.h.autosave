@@ -46,5 +46,7 @@ public:
     void filtreVert();
     void filtreHistogram();
     void filtreQuadrillage(int columns, int lines);
+    bool getCanShow() const;
+    void setCanShow(bool value);
 };
 

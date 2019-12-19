@@ -104,6 +104,13 @@ void gestionnaire_calque_model::addCalques(std::vector<calque> calques, int tail
     }
 }
 
+void gestionnaire_calque_model::removeCalques(int min, int max){
+    int search = getCalque(min,max);
+    if(search != -1){
+         listOfCalque.erase(listOfCalque.begin()+search);
+    }
+}
+
 /**
  * @brief gestionnaire_calque_model::getCalqueForDisplay renvoie la copie du calque pour l'afficher
  * @param min connaitre à partir de quelle image s'applique le calque
@@ -281,8 +288,9 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
         for(auto i : ids){
             //std::cout << "I = " << i << std::endl;
             calque overlay = getCalqueForDisplay(i);
-
-            currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
+            if(overlay.getCanShow()){
+                currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
+            }
         }
     }
 
@@ -379,4 +387,20 @@ std::vector<int> gestionnaire_calque_model::getListOfCalqueFromImage(int idImage
 
     return res->second;
 
+}
+
+void gestionnaire_calque_model::afficheDic(){
+    for(auto i : dictionnaireImgMap){
+        std::cout << i.first << " : ";
+        for(auto j : i.second){
+            std::cout << j << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+void gestionnaire_calque_model::afficheCalques(){
+    for(calque i : listOfCalque){
+        std::cout << "id : " << i.getId() << ", min : " << i.getIntervalMin() << ", max : " << i.getIntervalMax() << std::endl;
+    }
 }
