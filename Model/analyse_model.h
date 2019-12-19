@@ -183,6 +183,7 @@ private:
     int columnAmount;
     int linesAmount;
     int currentArea;
+    int errorMargin;
 
     std::string pathOfResultsStorage = "tmp/saveAnalyse/resultDisplay";
     std::string pathOfResultsDisplay = "tmp/resultDisplay.tmp";

@@ -33,18 +33,18 @@ CImg<float> dessin_model::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, 
     //Clair
     const unsigned char color1[] = { 136,255,136,50 };
     //Moyen
-    const unsigned char color2[] = { 71,255,71,75 };
+    const unsigned char color2[] = { 71,255,71,100 };
     //Foncé
-    const unsigned char color3[] = { 0,255,0,100 };
+    const unsigned char color3[] = { 0,255,0,150 };
 
     switch (pertinence) {
-    case 1:
+    case 2:
         currentPicture.draw_rectangle(pos1.x(),pos1.y(),pos2.x(),pos2.y(),color1,~0U);
         break;
-    case 2:
+    case 3:
         currentPicture.draw_rectangle(pos1.x(),pos1.y(),pos2.x(),pos2.y(),color2,~0U);
         break;
-    case 3:
+    case 4:
         currentPicture.draw_rectangle(pos1.x(),pos1.y(),pos2.x(),pos2.y(),color3,~0U);
         break;
     default:
