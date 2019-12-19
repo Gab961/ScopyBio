@@ -3,7 +3,7 @@
 #include <iostream>
 #include <filesystem>
 
-#define PATH "../../Config/config.json"
+#define PATH "../../Resources/Config/config.json"
 
 //=======================================================
 

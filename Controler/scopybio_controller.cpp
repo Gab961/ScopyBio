@@ -75,6 +75,8 @@ void ScopyBio_Controller::loadNewTiffFile(std::string filename)
     {
         m_pileModel->loadNewFilename(filename);
         m_gestion_calque->init(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
+
+        m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
     }
 }
 
@@ -270,6 +272,10 @@ int ScopyBio_Controller::getWhiteColor()
     return m_dessinModel->getWhiteValue();
 }
 
+void ScopyBio_Controller::setWhiteColor(int value) {
+    m_dessinModel->setWhiteValue(value);
+}
+
 void ScopyBio_Controller::setPipetteClick(bool pipetteClick)
 {
     m_dessinModel->setListenPipetteClick(pipetteClick);
@@ -324,9 +330,6 @@ std::string ScopyBio_Controller::getResultDisplayPath()
 void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight)
 {    
     std::cout << "Etude AVEC crop" << std::endl;
-    //Si l'utilisateur n'a pas fourni de donnée via la pipette on en calcul un automatiquement
-    if (!m_dessinModel->getBaseColorGiven())
-        m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
 
     //VERSION 1
     m_analyseModel->processResultsWithCrops(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
@@ -338,12 +341,8 @@ void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight
 void ScopyBio_Controller::processResults()
 {
     std::cout << "Etude TOTALE" << std::endl;
-    //Si l'utilisateur n'a pas fourni de donnée via la pipette on en calcul un automatiquement
-    if (!m_dessinModel->getBaseColorGiven())
-        m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
 
     m_analyseModel->processResults(m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
-
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
@@ -362,6 +361,22 @@ void ScopyBio_Controller::getDataFromArea(QPoint area, int labelWidth, int label
     int imageWidth = m_pileModel->getCurrentImage().width();
     int imageHeight = m_pileModel->getCurrentImage().height();
     m_analyseModel->getDataFromArea(area, labelWidth, labelHeight, imageWidth, imageHeight, m_pileModel->getCurrentImage(), m_dessinModel);
+}
+
+int ScopyBio_Controller::getLineAmount() {
+    return m_analyseModel->getLinesAmount();
+}
+
+int ScopyBio_Controller::getColumnAmount() {
+    return m_analyseModel->getColumnAmount();
+}
+
+void ScopyBio_Controller::setLineAmount(int value) {
+    m_analyseModel->setLinesAmount(value);
+}
+
+void ScopyBio_Controller::setColumnAmount(int value) {
+    m_analyseModel->setColumnAmount(value);
 }
 
 
