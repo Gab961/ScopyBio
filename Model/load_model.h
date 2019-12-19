@@ -17,4 +17,5 @@ public:
 
     std::vector<calque> loadCalques(std::string path);
     std::vector<Resultat> loadResults(std::string path);
+    std::vector<int> loadColRowAmounts(std::string path);
 };

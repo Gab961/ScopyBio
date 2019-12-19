@@ -1,6 +1,7 @@
 #include "pile_model.h"
 #include <json/json.h>
 #include <iostream>
+#include <filesystem>
 
 #define PATH "../../Config/config.json"
 
@@ -92,6 +93,9 @@ void pile_model::load(string path)
 
     images.clear();
     images_icons_filename.clear();
+    if(!std::filesystem::exists(std::filesystem::path(path))){
+        path += "f";
+    }
     images.load_tiff(path.c_str());
 
     //Enregistrement dans un fichier temporaire

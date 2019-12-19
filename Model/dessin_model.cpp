@@ -54,6 +54,17 @@ CImg<float> dessin_model::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, 
     return currentPicture;
 }
 
+CImg<float> dessin_model::ecrireText(QPoint pos1, int labelWidth, int labelHeight,std::string text_a_ecrire, CImg<float> & currentPicture){
+    const unsigned char color[] = { 255,0,255,255 };
+
+    int x1 = pos1.x() * currentPicture.width() / labelWidth;
+    int y1 = pos1.y() * currentPicture.height() / labelHeight;
+
+    currentPicture.draw_text(x1,y1,text_a_ecrire.c_str(),color);
+
+    return currentPicture;
+}
+
 CImg<float> dessin_model::dessinerRond(QPoint pos1, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
     const unsigned char color[] = { 255,174,0,255 };

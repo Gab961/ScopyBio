@@ -8,6 +8,15 @@
 analyse_model::analyse_model() : areaIsSelected(false), userAreaIsSelected(false), isDataReady(false), columnAmount(30), linesAmount(30), errorMargin(5)
 {}
 
+void analyse_model::init(){
+    areaIsSelected = false;
+    userAreaIsSelected = false;
+    isDataReady = true;
+    currentArea = 0;
+
+    results.clear();
+}
+
 std::string analyse_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
 
 std::vector<Resultat> analyse_model::getResults() const { return results; }
@@ -521,3 +530,8 @@ bool analyse_model::getAreaIsSelected() { return areaIsSelected; }
 void analyse_model::setAreaIsSelected(bool newValue) { areaIsSelected = newValue; }
 bool analyse_model::getUserAreaIsSelected() { return userAreaIsSelected; }
 void analyse_model::setUserAreaIsSelected(bool newValue) { userAreaIsSelected = newValue; }
+
+void analyse_model::setResults(const std::vector<Resultat> &value)
+{
+    results = value;
+}

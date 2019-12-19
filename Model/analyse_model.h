@@ -16,6 +16,8 @@ class analyse_model
 public:
     analyse_model();
 
+    void init();
+
     /**
      * @brief getResultDisplayPath Renvoie le chemin de l'image contenant les résultats
      * @return
@@ -181,6 +183,8 @@ public:
      * @param newValue
      */
     void setUserAreaIsSelected(bool newValue);
+
+    void setResults(const std::vector<Resultat> &value);
 
 private:
     bool areaIsSelected;
