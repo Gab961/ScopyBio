@@ -262,7 +262,7 @@ void ScopyBio_Controller::applyHistogramFilter()
 
 void ScopyBio_Controller::manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView)
 {
-    m_dessinModel->manageNewWhiteColor(pos, labelWidth, labelHeight, isZoomView);
+    m_dessinModel->manageNewWhiteColor(pos, labelWidth, labelHeight, isZoomView, m_pileModel->getCurrentImage());
 }
 
 int ScopyBio_Controller::getWhiteColor()
@@ -343,6 +343,8 @@ void ScopyBio_Controller::processResults()
         m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
 
     m_analyseModel->processResults(m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
+
+
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
