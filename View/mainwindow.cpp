@@ -155,7 +155,6 @@ void MainWindow::connections()
     //Changement curseur quand clic pipette
     QObject::connect(m_zoomView, &Zoom_View::pipetteClicked, this, &MainWindow::setCursorPipetteDisabled);
 
-
     //Refresh du zoom sans sélection par l'utilisateur
     QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_zoomView, &Zoom_View::enableDisplay);
     QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_dataView, &Data_View::enableDisplay);
@@ -169,9 +168,8 @@ void MainWindow::connections()
     //Clear de la vue du Data
     QObject::connect(this, &MainWindow::clearDataView, m_dataView, &Data_View::resetDataView);
 
-    //Refresh du zoom sans sélection par l'utilisateur
-    QObject::connect(m_tools, &Menu_Draw_Button::startFullAnalysis, this, &MainWindow::startFullAnalysis);
-
+    //Démarrage d'une analyse complete
+    QObject::connect(m_options, &menu_option::askFullAnalysis, this, &MainWindow::startFullAnalysis);
 
     // Met à jour la vue des options en fonction de l'outil sélectionné
     QObject::connect(m_tools, &Menu_Draw_Button::penClicked, m_options, &menu_option::pen);

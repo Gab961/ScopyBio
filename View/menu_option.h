@@ -21,6 +21,7 @@ class menu_option: public QGroupBox
 
     signals:
         void refreshMainDisplay();
+        void askFullAnalysis();
 
     public slots:
         void pen();

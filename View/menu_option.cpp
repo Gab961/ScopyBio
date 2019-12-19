@@ -225,8 +225,10 @@ void menu_option::launchAnalysis()
     m_scopybioController->setLineAmount(m_lines->text().toInt());
     m_scopybioController->setColumnAmount(m_columns->text().toInt());
     m_scopybioController->setWhiteColor(m_whiteLevel->text().toInt());
+
+    emit askFullAnalysis();
     // TODO set precision
-    m_scopybioController->processResults();
+//    m_scopybioController->processResults();
 }
 
 void menu_option::onPenSizeValueChanged(int value) {
