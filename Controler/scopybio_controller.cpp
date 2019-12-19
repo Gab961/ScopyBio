@@ -25,11 +25,11 @@ void ScopyBio_Controller::DisplayResultImage(int idImage){
 //=======================
 
 void ScopyBio_Controller::save_as(std::string path){
-    m_saveModel->save_as(path,m_pileModel->getFileName(),m_gestion_calque->getAllCalques(), m_analyseModel->getResults());
+    m_saveModel->save_as(path,m_pileModel->getFileName(),m_gestion_calque->getAllCalques(), m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount());
 }
 
 bool ScopyBio_Controller::save(){
-    return m_saveModel->save(m_gestion_calque->getAllCalques(), m_analyseModel->getResults());
+    return m_saveModel->save(m_gestion_calque->getAllCalques(), m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount());
 }
 
 
@@ -42,18 +42,29 @@ void ScopyBio_Controller::changeSavePaths(std::string newSavePath)
 // Pile_Modele
 //=======================
 void ScopyBio_Controller::openProject(std::string pathProject){
-
+    //Calques !
     m_gestion_calque->init(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
     std::vector<calque> calques;
 
     calques = m_loadModel->loadCalques(pathProject);
-    //Recreer les calques avec la fonction creer calque
 
     m_gestion_calque->addCalques(calques,m_pileModel->getImages().size());
-    //    for(calque tmp : calques){
-    //        m_gestion_calque->creerCalque(/*tmp*/m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),tmp.getIntervalMin(),tmp.getIntervalMax(),m_pileModel->getImages().size());
-    //        m_gestion_calque->setCalque(tmp.getIntervalMin(),tmp.getIntervalMax(),tmp);
-    //    }
+
+    //Resultat
+    m_analyseModel->init();
+    std::vector<Resultat> res;
+    res = m_loadModel->loadResults(pathProject);
+
+    m_analyseModel->setResults(res);
+
+    std::vector<int> rowcol = m_loadModel->loadColRowAmounts(pathProject);
+    if(rowcol.empty()){
+        m_analyseModel->setLinesAmount(0);
+        m_analyseModel->setColumnAmount(0);
+    }else{
+        m_analyseModel->setLinesAmount(rowcol.front());
+        m_analyseModel->setColumnAmount(rowcol.back());
+    }
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }

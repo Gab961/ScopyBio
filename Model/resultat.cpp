@@ -1,6 +1,7 @@
 #include "resultat.h"
 #include <QPoint>
 
+
 Resultat::Resultat()
 {
     QPoint init;
@@ -20,3 +21,4 @@ QPoint Resultat::getBottomRightPoint() { return coordonees[1]; }
 void Resultat::addResult(float newResult) { results.push_back(newResult); }
 std::vector<float> Resultat::getResults() { return results; }
 float Resultat::getResultAtIndex(int index) { return results[index]; }
+void Resultat::setResults(const std::vector<float> &value){results = value;}

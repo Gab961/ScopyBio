@@ -8,6 +8,15 @@
 analyse_model::analyse_model() : areaIsSelected(false), userAreaIsSelected(false), isDataReady(false), columnAmount(30), linesAmount(30)
 {}
 
+void analyse_model::init(){
+    areaIsSelected = false;
+    userAreaIsSelected = false;
+    isDataReady = true;
+    currentArea = 0;
+
+    results.clear();
+}
+
 std::string analyse_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
 
 std::vector<Resultat> analyse_model::getResults() const { return results; }
@@ -68,6 +77,7 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
         oldX = nextX;
     }
 
+    /*
     for (unsigned int i=0; i<results.size(); i++)
     {
         for (unsigned int j=0; j<results[i].getResults().size(); j++)
@@ -77,6 +87,7 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
         std::cout << std::endl;
         std::cout << "------------------" << std::endl;
     }
+    */
 }
 
 int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue)
@@ -430,3 +441,8 @@ bool analyse_model::getAreaIsSelected() { return areaIsSelected; }
 void analyse_model::setAreaIsSelected(bool newValue) { areaIsSelected = newValue; }
 bool analyse_model::getUserAreaIsSelected() { return userAreaIsSelected; }
 void analyse_model::setUserAreaIsSelected(bool newValue) { userAreaIsSelected = newValue; }
+
+void analyse_model::setResults(const std::vector<Resultat> &value)
+{
+    results = value;
+}

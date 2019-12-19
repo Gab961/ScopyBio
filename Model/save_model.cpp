@@ -52,7 +52,7 @@ void save_model::saveCalques(std::vector<calque> calques){
     }
 }
 
-void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Resultat> &resultats){
+void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Resultat> &resultats, int row, int col){
     std::string _filename = savePath;
     _filename += separator;
     _filename += std::string(filename);
@@ -86,14 +86,14 @@ void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Res
 
         //Top left Point
         Json::Value arrayTopPoint;
-        arrayTopPoint.append(i.getBottomRightPoint().x());
-        arrayTopPoint.append(i.getBottomRightPoint().y());
+        arrayTopPoint.append(i.getTopLeftPoint().x());
+        arrayTopPoint.append(i.getTopLeftPoint().y());
         resultValue["topLeftPoint"] = arrayTopPoint;
 
         //Bottom right Point
         Json::Value arrayBotPoint;
-        arrayBotPoint.append(i.getTopLeftPoint().x());
-        arrayBotPoint.append(i.getTopLeftPoint().y());
+        arrayBotPoint.append(i.getBottomRightPoint().x());
+        arrayBotPoint.append(i.getBottomRightPoint().y());
         resultValue["bottomRightPoint"] = arrayBotPoint;
 
         //Array
@@ -105,9 +105,11 @@ void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Res
         resultValue["resultats"] = arrayV;
 
 
-        value["results"].append(resultValue);
+        value["results"]["data"].append(resultValue);
     }
 
+    value["results"]["rowAmount"] = row;
+    value["results"]["colAmount"] = col;
 
 
     std::ofstream outfile(_filename);
@@ -117,7 +119,7 @@ void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Res
     outfile.close();
 }
 
-void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques,std::vector<Resultat> resultats){
+void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques,std::vector<Resultat> resultats,int row, int col){
     //std::cout << "function save_as " << std::endl;
 
     auto first = fileName.find(".");
@@ -156,11 +158,11 @@ void save_model::save_as(std::string path, std::string fileName, std::vector<cal
 
     saveTiff(fileName);
 
-    save(_calques,resultats);
+    save(_calques,resultats,row,col);
 }
 
 
-bool save_model::save(std::vector<calque> _calques, const std::vector<Resultat> &resultats){
+bool save_model::save(std::vector<calque> _calques, const std::vector<Resultat> &resultats, int row, int col){
     if(savePath.empty()){
         return false;
     }else{
@@ -168,7 +170,7 @@ bool save_model::save(std::vector<calque> _calques, const std::vector<Resultat> 
             return false;
         }else{
             saveCalques(_calques);
-            saveJsonFile(_calques,resultats);
+            saveJsonFile(_calques,resultats,row,col);
             return true;
         }
     }
