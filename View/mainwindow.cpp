@@ -210,8 +210,9 @@ void MainWindow::open()
         else
             emit sendPath(path);
 
-        m_scopybioController->processResults();
-        emit changeMainPicture();
+        //TODO ICI ACTIVATION OU NON DE L'ETUDE IMMEDIATE
+//        m_scopybioController->processResults();
+//        emit changeMainPicture();
 
         m_options->setEnabled(true);
         m_tools->setEnabled(true);

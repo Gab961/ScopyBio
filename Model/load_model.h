@@ -8,6 +8,7 @@
 
 class calque;
 class Resultat;
+class Qpoint;
 
 class load_model
 {
