@@ -15,7 +15,21 @@ void Zoom_View::createView()
     m_layout = new QGridLayout(this);
     m_image = new QLabel(this);
 
+    m_layout->addWidget(m_image);
+    m_layout->setMargin(0);
+    m_image->setAlignment(Qt::AlignCenter);
+    m_image->setText("No data to show");
+
+
     setLayout(m_layout);
+}
+
+void Zoom_View::resetZoomView()
+{
+    std::cout << "CLEAR ZOOM" << std::endl;
+    m_image->clear();
+    m_image->setAlignment(Qt::AlignCenter);
+    m_image->setText("No data to show");
 }
 
 void Zoom_View::enableDisplay()

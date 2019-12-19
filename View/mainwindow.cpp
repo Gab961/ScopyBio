@@ -181,6 +181,12 @@ void MainWindow::connections()
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_zoomView, &Zoom_View::setPictureFromFile);
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_dataView, &Data_View::setGraphFromFile);
 
+    //Clear de la vue du Zoom
+    QObject::connect(this, &MainWindow::clearZoomView, m_zoomView, &Zoom_View::resetZoomView);
+
+    //Clear de la vue du Data
+    QObject::connect(this, &MainWindow::clearDataView, m_dataView, &Data_View::resetDataView);
+
     //Refresh du zoom sans sélection par l'utilisateur
     QObject::connect(m_tools, &Menu_Draw_Button::startFullAnalysis, this, &MainWindow::startFullAnalysis);
 }
@@ -388,6 +394,9 @@ void MainWindow::setCursorPipetteDisabled()
 
 void MainWindow::startFullAnalysis()
 {
+    emit clearZoomView();
+    emit clearDataView();
+
     m_scopybioController->processResults();
     emit changeMainPicture();
 }
@@ -418,7 +427,6 @@ void MainWindow::wheelEvent(QWheelEvent *ev)
             }
         }
     }
-
 
     ev->accept();
 }

@@ -35,6 +35,8 @@ class MainWindow: public QMainWindow
         void sendPathProjet(std::string path);
         void changeMainPicture();
         void changeZoomedPicture();
+        void clearZoomView();
+        void clearDataView();
 
     public slots:
         void open();

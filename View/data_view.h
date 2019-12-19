@@ -32,6 +32,7 @@ public slots:
     void processingResults(int labelWidth, int labelHeight);
     void setGraphFromFile();
     void enableDisplay();
+    void resetDataView();
 
 private:
     void drawResults();

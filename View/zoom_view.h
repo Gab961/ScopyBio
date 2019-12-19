@@ -20,6 +20,7 @@ class Zoom_View : public QGroupBox
         void setNewPicture(int zoneWidth, int zoneHeight);
         void setPictureFromFile();
         void enableDisplay();
+        void resetZoomView();
 
     signals:
         void processResultsFromZoom();
