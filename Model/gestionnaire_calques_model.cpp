@@ -237,10 +237,11 @@ void gestionnaire_calque_model::updateHistogram(int min, int max, int taille){
 
 /**
  * @brief gestionnaire_calque_model::updateQuadrillage
+ * @param posInitiale
  * @param columns
  * @param lines
  */
-void gestionnaire_calque_model::updateQuadrillage(int columns, int lines){
+void gestionnaire_calque_model::updateQuadrillage(QPoint posInitiale, int columns, int lines){
     calque newCalque = getCalqueForDisplay(-5, -5);
 
     newCalque.filtreQuadrillage(columns, lines);

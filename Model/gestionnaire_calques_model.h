@@ -15,7 +15,6 @@ class QPoint;
 
 using numImg = int;
 
-class calque;
 class command_memento;
 
 class gestionnaire_calque_model
@@ -41,7 +40,7 @@ public:
     void dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void updateCalqueVert(int min, int max, int taille);
     void updateHistogram(int min, int max, int taille);
-    void updateQuadrillage(int columns, int lines);
+    void updateQuadrillage(QPoint posInitiale, int columns, int lines);
     calque getCalqueForDisplay(int min, int max);
     calque getCalqueForDisplay(int id);
     calque getPertinenceCalque();

@@ -46,6 +46,9 @@ public:
      */
     void processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight);
 
+    //TODO
+    void processResultsWithCropsVERSIONDEUX(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire);
+
     /**
      * @brief processResults Calcul les résultats dans toute la fenêtre partie par partie
      * @param allPictures
