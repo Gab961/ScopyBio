@@ -99,27 +99,15 @@ void pile_model::load(string path)
     {
         CImg<float> img = images[i];
 
-        //TODO TBD où on l'enregistre
-        std::string chemin = "tmp" + separator + std::to_string(i) + ".bpm";
+        std::string chemin = "tmp/" + std::to_string(i) + ".bpm";
         img.save_bmp(chemin.c_str());         // problem here
         images_icons_filename.push_back(chemin);
     }
 
     currentImage = images[0];
 
-}
-
-void pile_model::loadProject(std::string path){
-    Json::Value calques;
-
-    std::ifstream calques_file(path, std::ifstream::binary);
-    calques_file >> calques;
-
-    /*
-    if(config["black"] != Json::Value::null){
-        percentageOfBlack = config["black"].asFloat();
-    }else{
-        percentageOfBlack = 100.0;
-    }
-    */
+    //Obtention de l'image aplatie
+    //TODO LE MULTIPLATFORME
+    std::string command = "convert " + path + " -flatten tmp/flatten.bmp";
+    system(command.c_str());
 }

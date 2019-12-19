@@ -8,7 +8,12 @@
  * @brief gestionnaire_calque_model::gestionnaire_calque_model construit un modèle et dès le départ crée un calque vert qui pourra être utilisé.
  */
 gestionnaire_calque_model::gestionnaire_calque_model(): id(0),isGreen(false),isHistogram(false){
+}
 
+void gestionnaire_calque_model::init(int pileWidth, int pileHeight){
+    listOfCalque.clear();
+    dictionnaireImgMap.clear();
+    initGlobalCalques(pileWidth,pileHeight);
 }
 
 /**
@@ -18,6 +23,9 @@ gestionnaire_calque_model::gestionnaire_calque_model(): id(0),isGreen(false),isH
  */
 void gestionnaire_calque_model::initGlobalCalques(int pileWidth, int pileHeight)
 {
+    //    std::cout << "cc :" << std::endl;
+    //    afficheCalques();
+    id = 0;
     calque _calqueHisto(pileWidth, pileHeight, -4,-4,id);
     id++;
     listOfCalque.push_back(_calqueHisto);
@@ -26,6 +34,12 @@ void gestionnaire_calque_model::initGlobalCalques(int pileWidth, int pileHeight)
     id++;
     _calqueVert.filtreVert();
     listOfCalque.push_back(_calqueVert);
+
+    calque _calquePertinence(pileWidth, pileHeight, -5,-5,id);
+    addInDict(-5,-5,30,id);
+    idPertinenceCalque = id;
+    listOfCalque.push_back(_calquePertinence);
+    id++;
 }
 
 /**
@@ -78,6 +92,18 @@ int gestionnaire_calque_model::getCalque(int min, int max){
     return -1;
 }
 
+
+void gestionnaire_calque_model::addCalques(std::vector<calque> calques, int taille){
+    if(!calques.empty()){
+        for(calque tmp : calques){
+            listOfCalque.push_back(tmp);
+            addInDict(tmp.getIntervalMin(),tmp.getIntervalMax(),taille,tmp.getId());
+        }
+
+        id = calques.back().getId()+1;
+    }
+}
+
 /**
  * @brief gestionnaire_calque_model::getCalqueForDisplay renvoie la copie du calque pour l'afficher
  * @param min connaitre à partir de quelle image s'applique le calque
@@ -94,6 +120,11 @@ calque gestionnaire_calque_model::getCalqueForDisplay(int id){
     return *res;
 }
 
+calque gestionnaire_calque_model::getPertinenceCalque(){
+    int id = -5;
+    auto res = std::find_if(listOfCalque.begin(), listOfCalque.end(), [&id](calque &a)->bool { return a.getId() == id ; } );
+    return *res;
+}
 
 std::vector<calque> gestionnaire_calque_model::getAllCalques() const
 {
@@ -110,6 +141,7 @@ std::vector<calque> gestionnaire_calque_model::getAllCalques() const
 void gestionnaire_calque_model::creerCalque(int width, int height, int min, int max, int taille){
     calque _calque(width, height, min,max,id);
 
+
     listOfCalque.push_back(_calque);
 
     if(min != -2){
@@ -117,6 +149,20 @@ void gestionnaire_calque_model::creerCalque(int width, int height, int min, int 
     }
 
     id++;
+}
+
+
+
+/**
+ * @brief gestionnaire_calque_model::manageNewAnalyse
+ * @param results
+ */
+void gestionnaire_calque_model::manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2){
+    calque newCalque = getCalqueForDisplay(-5, -5);
+
+    newCalque.dessinerRectanglePertinence(pos1,pos2,pertinence);
+
+    listOfCalque[idPertinenceCalque] = newCalque;
 }
 
 /**
@@ -172,8 +218,24 @@ void gestionnaire_calque_model::updateHistogram(int min, int max, int taille){
     isHistogram = !isHistogram;
 }
 
+/**
+ * @brief gestionnaire_calque_model::updateQuadrillage
+ * @param columns
+ * @param lines
+ */
+void gestionnaire_calque_model::updateQuadrillage(int columns, int lines){
+    calque newCalque = getCalqueForDisplay(-5, -5);
+
+    newCalque.filtreQuadrillage(columns, lines);
+
+    listOfCalque[idPertinenceCalque] = newCalque;
+}
+
 void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay){
     //ON FAIT DEGUEU POUR LE MOMENT A MODIFIER A TERME
+
+
+
     //TODO
     //Contraste en premier
     if (isHistogram)
@@ -193,8 +255,12 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     if (isGreen)
     {
         calque overlay = getCalqueForDisplay(1);
+        //std::cout << overlay.getId() << std::endl;
         currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
     }
+
+    //    afficheCalques();
+    //    std::cout << "*********************************************" << std::endl;
 
     if(ids.size() == 0){
         //std::cout << "0 image à merge" << std::endl;
@@ -203,15 +269,19 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     else
     {//Sinon on merge et on affiche
 
-//        std::cout << "id : ";
-//        for(auto i : ids){
-//            std::cout << i << " | ";
-//        }
+        //        std::cout << "plusieurs images à merge" << std::endl;
 
-//        std::cout << "plusieurs images à merge" << std::endl;
+        //        for(auto i : ids){
+        //            std::cout << i << " | ";
+        //        }
+
+        //        std::cout << "cc" << std::endl;
+
         //Et tous les autres ensuite
         for(auto i : ids){
+            //std::cout << "I = " << i << std::endl;
             calque overlay = getCalqueForDisplay(i);
+
             currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
         }
     }
@@ -233,6 +303,7 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
 //void gestionnaire_calque_model::merge2Images(calque &a, calque b){
 //    a.getCalque().draw_image(0,0,0,0,b.getCalque(),b.getCalque().get_channel(3),1,255);
 //}
+
 
 
 //              Fonction pour le dictionnaire.
@@ -267,6 +338,9 @@ void gestionnaire_calque_model::addInDict(int min, int max, int taille, int id){
     }
 }
 
+void gestionnaire_calque_model::addInDict(calque cal,int taille){
+    addInDict(cal.getIntervalMin(),cal.getIntervalMax(),taille,cal.getId());
+}
 
 void gestionnaire_calque_model::removeFromDict(int min, int max, int id){
 

@@ -40,7 +40,6 @@ public:
 
     void loadNewFilename(std::string filename);
     void load(string path);
-    void loadProject(std::string path);
     void save(string path);
     void read_json_config();
 

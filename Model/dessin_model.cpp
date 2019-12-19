@@ -28,6 +28,32 @@ CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelW
     return currentPicture;
 }
 
+CImg<float> dessin_model::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence, CImg<float> & currentPicture)
+{
+    //Clair
+    const unsigned char color1[] = { 136,255,136,50 };
+    //Moyen
+    const unsigned char color2[] = { 71,255,71,75 };
+    //Foncé
+    const unsigned char color3[] = { 0,255,0,100 };
+
+    switch (pertinence) {
+    case 1:
+        currentPicture.draw_rectangle(pos1.x(),pos1.y(),pos2.x(),pos2.y(),color1,~0U);
+        break;
+    case 2:
+        currentPicture.draw_rectangle(pos1.x(),pos1.y(),pos2.x(),pos2.y(),color2,~0U);
+        break;
+    case 3:
+        currentPicture.draw_rectangle(pos1.x(),pos1.y(),pos2.x(),pos2.y(),color3,~0U);
+        break;
+    default:
+        break;
+    }
+
+    return currentPicture;
+}
+
 CImg<float> dessin_model::dessinerRond(QPoint pos1, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
     const unsigned char color[] = { 255,174,0,255 };
@@ -39,6 +65,39 @@ CImg<float> dessin_model::dessinerRond(QPoint pos1, int labelWidth, int labelHei
 
     return currentPicture;
 }
+
+CImg<float> dessin_model::dessinerRond(QPoint pos, int pertinence, CImg<float> & currentPicture)
+{
+    const unsigned char color1[] = { 255,0,0,255 };
+    const unsigned char color2[] = { 255,39,39,255 };
+    const unsigned char color3[] = { 255,71,71,255 };
+    const unsigned char color4[] = { 255,102,102,255 };
+    const unsigned char color5[] = { 255,136,136,255 };
+
+
+    switch (pertinence) {
+    case 1:
+        currentPicture.draw_circle(pos.x(),pos.y(),10,color5,1);
+        break;
+    case 2:
+        currentPicture.draw_circle(pos.x(),pos.y(),10,color4,1);
+        break;
+    case 3:
+        currentPicture.draw_circle(pos.x(),pos.y(),10,color3,1);
+        break;
+    case 4:
+        currentPicture.draw_circle(pos.x(),pos.y(),10,color2,1);
+        break;
+    case 5:
+        currentPicture.draw_circle(pos.x(),pos.y(),10,color1,1);
+        break;
+    default:
+        break;
+    }
+
+    return currentPicture;
+}
+
 
 CImg<float> dessin_model::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
@@ -95,7 +154,16 @@ void dessin_model::saveZoomFromPicture(QPoint pos1, QPoint pos2, int labelWidth,
 
     //Création de l'image zoomée et demande d'affichage dans la partie zoomée
     CImg<float> zoom = currentPicture.get_crop(x1+1,y1+1,0,x2-1,y2-1,0);
-    zoom.resize(500,500);
+
+    zoom.save_bmp(pathOfZoomedDisplay.c_str());
+
+    zoomReady = true;
+}
+
+void dessin_model::saveZoomFromArea(QPoint posTopLeft, QPoint posBottomRight, CImg<float> currentPicture)
+{
+    //Création de l'image zoomée et demande d'affichage dans la partie zoomée
+    CImg<float> zoom = currentPicture.get_crop(posTopLeft.x(),posTopLeft.y(),0,posBottomRight.x(),posBottomRight.y(),0);
 
     zoom.save_bmp(pathOfZoomedDisplay.c_str());
 
@@ -113,6 +181,41 @@ CImg<float> dessin_model::applyGreenFilter(CImg<float> picture)
 {
     const unsigned char green[] = { 0,150,0,150 };
     picture.draw_rectangle(0,0,picture.width(),picture.height(),green);
+
+    return picture;
+}
+
+CImg<float> dessin_model::applyQuadrillageFilter(int columns, int lines, CImg<float> picture)
+{
+    const unsigned char color[] = { 255,0,0,255 };
+
+    int hauteur = picture.height();
+    int largeur = picture.width();
+
+    float xSeparateurFloat = (float)largeur / (float)columns;
+    float ySeparateurFloat = (float)hauteur / (float)lines;
+
+    float xSeparateur = (int)xSeparateurFloat;
+    float ySeparateur = (int)ySeparateurFloat;
+
+    int oldX = 0;
+
+    for (int i=0; i<columns; i++)
+    {
+        if (i == columns)
+            oldX = largeur;
+        picture.draw_line(oldX,0,oldX,hauteur,color,1,~0U);
+        oldX = oldX + xSeparateur;
+    }
+
+    int oldY = 0;
+    for (int j=0; j<lines; j++)
+    {
+        if (j == lines)
+            oldY = hauteur;
+        picture.draw_line(0,oldY,largeur, oldY, color,1,~0U);
+        oldY = oldY + ySeparateur;
+    }
 
     return picture;
 }
@@ -164,6 +267,13 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
 
 
     whiteColor = (int)picture(realX, realY, 0, 0);
+    baseColorGiven = true;
+}
+
+
+void dessin_model::manageNewWhiteColor(int newWhite)
+{
+    whiteColor = newWhite;
     baseColorGiven = true;
 }
 

@@ -1,3 +1,4 @@
+#include "definition.h"
 #include "mainwindow.h"
 
 #include <iostream>
@@ -8,19 +9,25 @@
 #include <QWidget>
 #include <QDesktopWidget>
 
-#include "boost/filesystem.hpp"
 #include "Model/save_model.h"
+
+#include <filesystem>
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
     //test
-    std::string tmp = "tmp";
-    boost::filesystem::create_directory(tmp);
+    string tmp = "tmp";
+    filesystem::create_directory(tmp);
     tmp += separator;
     tmp += std::string("mainDisplay");
-    boost::filesystem::create_directory(tmp.c_str());
+    filesystem::create_directory(tmp.c_str());
+
+    string analysePath = "tmp";
+    analysePath += separator;
+    analysePath += "saveAnalyse";
+    filesystem::create_directories(analysePath);
 
     QApplication scopyBio(argc, argv);
 
@@ -35,4 +42,3 @@ int main(int argc, char* argv[])
 
     return scopyBio.exec();
 }
-

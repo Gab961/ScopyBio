@@ -116,6 +116,9 @@ void MainWindow::connections()
     //Envoi du chemin d'une image tif pour charger la pile
     QObject::connect(this, &MainWindow::sendPath, m_pileView, &Pile_View::openFile);
 
+    //Envoi du chemin d'une image tif pour charger la pile
+    QObject::connect(this, &MainWindow::sendPathProjet, this, &MainWindow::openProject);
+
     //Fin de chargement de pile donc affichage de la première image
     QObject::connect(m_pileView, &Pile_View::pileInitDone, this, &MainWindow::showFirstInPile);
 
@@ -169,6 +172,17 @@ void MainWindow::connections()
 
     //Open Compare popup
     QObject::connect(m_openCompare, &QPushButton::clicked, m_comparePopup, &ComparePopup::createComparePopup);
+
+    //Gestion premier clic
+    QObject::connect(m_imageView, &Image_View::firstClickDone, m_dataView, &Data_View::enableDisplay);
+    QObject::connect(m_imageView, &Image_View::firstClickDone, m_zoomView, &Zoom_View::enableDisplay);
+
+    //Refresh du zoom sans sélection par l'utilisateur
+    QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_zoomView, &Zoom_View::setPictureFromFile);
+    QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_dataView, &Data_View::setGraphFromFile);
+
+    //Refresh du zoom sans sélection par l'utilisateur
+    QObject::connect(m_tools, &Menu_Draw_Button::startFullAnalysis, this, &MainWindow::startFullAnalysis);
 }
 
 void MainWindow::open()
@@ -176,21 +190,25 @@ void MainWindow::open()
     std::string path = "";
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                     "../../Data",
-                                                    tr("Images (*.tiff *.tif *.scp)"));
+                                                    tr("Images (*.tiff *.tif *.scb)"));
     path = fileName.toLocal8Bit().constData();
 
     if(path != "") {
         //Ouverture d'un fichier projet
-        if (path.substr(path.size()-3, path.size()) == "scp")
+        if (path.substr(path.size()-3, path.size()) == "scb")
         {
             //TODO Adapter pour séparateur
-            std::string directoryPath = path.substr(0,path.find_last_of('/'));
+            //std::string directoryPath = path.substr(0,path.find_last_of('/'));
 
-            m_scopybioController->changeSavePath(directoryPath);
+            m_scopybioController->changeSavePaths(path.substr(0,path.find_last_of(separator)));
             m_saveFile->setEnabled(true);
 
+
+            std::string tifPath = path.substr(0, path.size()-3) + "tiff";
+            emit sendPath(tifPath);
+
             //TODO Gerer séparator multi os
-            emit sendPath(directoryPath + "/pile.tif");
+            emit sendPathProjet(path);
         }
         else
             emit sendPath(path);
@@ -218,7 +236,6 @@ void MainWindow::saveAs()
     {
         path = directoryName.toLocal8Bit().constData();
 
-        std::cout << path << std::endl;
         m_scopybioController->save_as(path);
     }
 }
@@ -287,6 +304,11 @@ void MainWindow::updateSave()
     m_saveFile->setEnabled(true);
 }
 
+void MainWindow::openProject(std::string path)
+{
+    m_scopybioController->openProject(path);
+}
+
 void MainWindow::showFirstInPile()
 {
     m_scopybioController->saveAsMainDisplay(0);
@@ -299,9 +321,12 @@ void MainWindow::changeActualItem()
 {
     int indiceEnCours = m_pileView->currentRow();
     m_scopybioController->saveCurrent(indiceEnCours);
+    if (m_scopybioController->areaIsSelected())
+        m_scopybioController->saveZoomOfCurrentArea();
+    if (m_scopybioController->userAreaIsSelected())
+        m_scopybioController->saveZoomOfUserArea();
     m_imageView->updateZoomOnly();
     m_scopybioController->DisplayResultImage(indiceEnCours);
-    emit changeZoomedPicture();
     emit changeMainPicture();
 }
 
@@ -359,6 +384,13 @@ void MainWindow::setCursorPipetteDisabled()
     m_layer->setEnabled(true);
     m_openLoop->setEnabled(true);
     m_openCompare->setEnabled(true);
+}
+
+void MainWindow::startFullAnalysis()
+{
+    std::cout << "Debut d'analyse" << std::endl;
+    m_scopybioController->processResults();
+    emit changeMainPicture();
 }
 
 void MainWindow::wheelEvent(QWheelEvent *ev)

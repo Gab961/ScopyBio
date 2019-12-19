@@ -32,6 +32,11 @@ CImg<float> calque::getCalque() const
     return _calque;
 }
 
+void calque::saveCalque(std::string path)
+{
+    _calque.save_cimg(path.c_str());
+}
+
 annotation_user_memento *calque::createMemento(){
     return new annotation_user_memento(_calque);
 }
@@ -45,6 +50,18 @@ void calque::reinstateMemento(annotation_user_memento *mem){
 void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
     _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,_calque);
 }
+
+/**
+ * Plus utilisé, remplacé par dessinerRectangle
+ */
+void calque::dessinerRond(QPoint pos, int pertinence){
+    _calque = dessine.dessinerRond(pos, pertinence, _calque);
+}
+
+void calque::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence){
+    _calque = dessine.dessinerRectanglePertinence(pos1,pos2,pertinence,_calque);
+}
+
 
 /**
  * @brief calque::dessinerFaisceau supprimer le calque actuel et redessine le rectangle.
@@ -74,6 +91,10 @@ void calque::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHe
  */
 void calque::filtreVert(){
     _calque = dessine.applyGreenFilter(_calque);
+}
+
+void calque::filtreQuadrillage(int columns, int lines){
+    _calque = dessine.applyQuadrillageFilter(columns, lines, _calque);
 }
 
 /**

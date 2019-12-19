@@ -4,6 +4,7 @@
 #include "Model/analyse_model.h"
 #include "Model/faisceau_model.h"
 #include "Model/save_model.h"
+#include "Model/load_model.h"
 
 
 class ScopyBio_Controller
@@ -18,6 +19,13 @@ public:
     /***********************************************************************************/
     /******************************** Partie pile_model ********************************/
     /***********************************************************************************/
+
+    /**
+     * @brief openProject Charge un projet
+     * @param pathProject Le chemin du projet
+     */
+    void openProject(std::string pathProject);
+
     /**
      * @brief loadNewTiffFile Charge un tif multi-image
      * @param filename
@@ -92,6 +100,16 @@ public:
      * @param labelHeight
      */
     void saveZoom(int labelWidth, int labelHeight);
+
+    /**
+     * @brief saveZoomOfCurrentArea Enregistre le zoom de la zone actuellement sélectionnée
+     */
+    void saveZoomOfCurrentArea();
+
+    /**
+     * @brief saveZoomOfUserArea Enregistre le zoom de la zone sélectionnée par l'utilisateur
+     */
+    void saveZoomOfUserArea();
 
     /**
      * @brief getMainDisplayPath Renvoie le chemin de l'image du display principal
@@ -169,6 +187,29 @@ public:
     /******************************** Partie analyse_model ********************************/
     /***********************************************************************************/
     /**
+     * @brief areaIsSelected
+     * @return
+     */
+    bool areaIsSelected();
+
+    /**
+     * @brief setAreaIsSelected
+     */
+    void setAreaIsSelected();
+
+    /**
+     * @brief userAreaIsSelected
+     * @return
+     */
+    bool userAreaIsSelected();
+
+    /**
+     * @brief setUserAreaIsSelected
+     * @return
+     */
+    void setUserAreaIsSelected();
+
+    /**
      * @brief getResultDisplayPath Récupère le chemin de l'image s'affichant dans le data display
      * @return
      */
@@ -182,9 +223,11 @@ public:
     void processResultsWithCrop(int labelWidth, int labelHeight);
 
     /**
-     * @brief processResultsOnEverything Calcul et produit le résultat pour l'ensemble de l'image (non utilisé)
+     * @brief processResults Calcul et produit tous les résultats de l'image
+     * @param labelWidth
+     * @param lavelHeight
      */
-    void processResultsOnEverything();
+    void processResults();
 
     /**
      * @brief getItemAtPoint Renvoie l'item correspondant à l'axe des abscisses sur le graph de données
@@ -200,12 +243,20 @@ public:
      */
     bool dataReady();
 
+    /**
+     * @brief getDataFromArea Lors d'un clic sur une zone de l'image, affiche le graphe data et le zoom associés
+     * @param area
+     * @param labelWidth
+     * @param labelHeight
+     */
+    void getDataFromArea(QPoint area, int labelWidth, int labelHeight);
+
 
     /***********************************************************************************/
     /****************************** Partie faisceau_model ******************************/
     /***********************************************************************************/
     /**
-     * @brief setFaisceau Enregistre les points cliqués pour le faisceau
+     * @brief setFaisceau
      * @param pos1
      * @param pos2
      */
@@ -230,13 +281,14 @@ public:
      * @brief changeSavePath
      * @param newSavePath
      */
-    void changeSavePath(std::string newSavePath);
+    void changeSavePaths(std::string newSavePath);
 
 private:
     pile_model *m_pileModel;
     dessin_model *m_dessinModel;
-    analyse_model *m_dataModel;
+    analyse_model *m_analyseModel;
     gestionnaire_calque_model *m_gestion_calque;
     faisceau_model *m_faisceauModel;
     save_model *m_saveModel;
+    load_model * m_loadModel;
 };

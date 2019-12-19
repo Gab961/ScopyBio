@@ -46,6 +46,26 @@ public:
     CImg<float> dessinerRond(QPoint pos1, int labelWidth, int labelHeight, CImg<float> & currentPicture);
 
     /**
+     * @brief dessinerRectanglePertinence
+     * @param pos1
+     * @param pos2
+     * @param pertinence
+     * @param currentPicture
+     * @return
+     */
+    CImg<float> dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence, CImg<float> & currentPicture);
+
+    /**
+     * @brief dessinerRond
+     * @param pos1
+     * @param labelWidth
+     * @param labelHeight
+     * @param currentPicture
+     * @return
+     */
+    CImg<float> dessinerRond(QPoint pos1, int pertinence, CImg<float> & currentPicture);
+
+    /**
      * @brief dessinerLigne
      * @param pos1
      * @param pos2
@@ -57,6 +77,13 @@ public:
     CImg<float> dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture);
 
     /**
+     * @brief applyQuadrillageFilter
+     * @param picture
+     * @return
+     */
+    CImg<float> applyQuadrillageFilter(int columns, int lines, CImg<float> picture);
+
+    /**
      * @brief saveZoomFromPicture Enregistre la partie sélectionnée de l'image dans l'image zoomée
      * @param pos1
      * @param pos2
@@ -65,6 +92,14 @@ public:
      * @param currentPicture
      */
     void saveZoomFromPicture(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> currentPicture);
+
+    /**
+     * @brief saveZoomFromArea
+     * @param pos1
+     * @param pos2
+     * @param currentPicture
+     */
+    void saveZoomFromArea(QPoint pos1, QPoint pos2, CImg<float> currentPicture);
 
     /**
      * @brief savePics Je sais pas
@@ -98,6 +133,12 @@ public:
      */
     void manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView);
 
+    /**
+     * @brief manageNewWhiteColor Met une nouvelle couleur de blanc
+     * @param newWhite
+     */
+    void manageNewWhiteColor(int newWhite);
+
     int getWhiteValue() const;
     void setWhiteValue(int color);
 
@@ -122,7 +163,7 @@ public:
 
 private:
     int pathOfMainDisplayIndex = 0;
-    std::string pathOfMainDisplay = "tmp/mainDisplay/0.bmp";
+    std::string pathOfMainDisplay = "tmp/mainDisplay/mainDisplay0.bmp";
     std::string pathOfZoomedDisplay = "tmp/zoomedDisplay.bmp";
 
     bool zoomReady;

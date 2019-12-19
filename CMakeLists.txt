@@ -1,8 +1,8 @@
 project(ScopyBio)
 
-cmake_minimum_required(VERSION 3.1.0)
+cmake_minimum_required(VERSION 3.8.0)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 set(CMAKE_CXX_EXTENSIONS off)
 
@@ -11,7 +11,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-add_compile_options(-Wall -Wpedantic -std=c++14)
+add_compile_options(-Wall -Wpedantic -std=c++17)
 endif()
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
@@ -28,7 +28,6 @@ endif()
 
 # To use PKG_CHECK_MODULES to find some optional packages
 find_package(PkgConfig)
-#find_package(boost_filesystem CONFIG REQUIRED)
 
 #    Tell CMake whlere to leave executables
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/Build/bin)
@@ -140,4 +139,4 @@ add_subdirectory(View)
 add_subdirectory(Model)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS} Qt5::Widgets Controler View Model jsoncpp boost_filesystem)
+target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS} Qt5::Widgets Controler View Model jsoncpp)

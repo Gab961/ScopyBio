@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+#include "definition.h"
+
 class QPoint;
 
 #include "calque.h"
@@ -20,6 +22,9 @@ class gestionnaire_calque_model
 {
 public:
     gestionnaire_calque_model();
+
+    void init(int pileWidth, int pileHeight);
+
     void initGlobalCalques(int _pileWidth, int _pileHeight);
 
     void saveTmpforDisplay(int min, int max);
@@ -28,13 +33,18 @@ public:
 
     void creerCalque(int width, int height, int min, int max, int taille);
     int getCalque(int min, int max);
+    void addCalques(std::vector<calque> calques, int taille);
     void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2);
     void dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void updateCalqueVert(int min, int max, int taille);
     void updateHistogram(int min, int max, int taille);
+    void updateQuadrillage(int columns, int lines);
     calque getCalqueForDisplay(int min, int max);
     calque getCalqueForDisplay(int id);
+    calque getPertinenceCalque();
     std::vector<calque> getAllCalques() const;
+    void setCalque(int min, int max, calque cal);
 
 
     void mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay);
@@ -43,6 +53,7 @@ public:
 
     //          Fonction pour le dictionnaire
     void addInDict(int min, int max, int taille, int id);
+    void addInDict(calque cal, int taille);
     void removeFromDict(int min, int max, int id);
     std::vector<int> getListOfCalqueFromImage(int idImage);
 
@@ -61,6 +72,13 @@ public:
     }
 
 
+    void afficheCalques(){
+        for(calque i : listOfCalque){
+            std::cout << "id : " << i.getId() << ", min : " << i.getIntervalMin() << ", max : " << i.getIntervalMax() << std::endl;
+        }
+    }
+
+
 protected:
     // Le memento ne fonctionne pas encore. on fait sans.
     int pileWidth;
@@ -71,4 +89,5 @@ protected:
     bool isGreen; // Pour savoir s'il faut afficher le calque vert ou non
     bool isHistogram; //Pour savoir s'il faut afficher le calque contraste ou non
     std::string pathOfHistogramSave = "tmp/histogram.bmp";
+    int idPertinenceCalque;
 };

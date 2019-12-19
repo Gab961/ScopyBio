@@ -14,7 +14,7 @@ void Menu_Draw_Button::createView()
 
     m_gridTools = new QGridLayout();
 
-    m_selectSquare = new QPushButton("Square", this);
+    m_selectSquare = new QPushButton("LANCEMENT", this);
     m_gridTools->addWidget(m_selectSquare, 0, 0);
 
     m_selectCircle = new QPushButton("Circle", this);
@@ -42,8 +42,16 @@ void Menu_Draw_Button::connections()
 
     //Debut d'un dessin
     QObject::connect(m_pen, &QPushButton::clicked, this, &Menu_Draw_Button::activatePenAnnotation);
+
+    //Lancement analyse
+    QObject::connect(m_selectSquare, &QPushButton::clicked, this, &Menu_Draw_Button::askForAnalysis);
 }
 
+
+void Menu_Draw_Button::askForAnalysis()
+{
+    emit startFullAnalysis();
+}
 
 void Menu_Draw_Button::activatePipetteWaiting()
 {
