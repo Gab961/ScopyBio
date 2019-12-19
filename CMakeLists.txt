@@ -11,7 +11,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-add_compile_options(-Wall -Wpedantic -std=c++17 -lpthread)
+add_compile_options(-Wall -Wpedantic -std=c++17)
 endif()
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
