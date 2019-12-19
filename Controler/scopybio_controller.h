@@ -146,6 +146,12 @@ public:
     int getWhiteColor();
 
     /**
+     * @brief setWhiteColor
+     * @param value
+     */
+    void setWhiteColor(int value);
+
+    /**
      * @brief setPipetteClick Pour indiquer qu'un clic de pipette est attendu
      * @param pipetteClick
      */
@@ -236,6 +242,30 @@ public:
      * @param labelHeight
      */
     void getDataFromArea(QPoint area, int labelWidth, int labelHeight);
+
+    /**
+     * @brief getLineAmount
+     * @return
+     */
+    int getLineAmount();
+
+    /**
+     * @brief getColumnAmount
+     * @return
+     */
+    int getColumnAmount();
+
+    /**
+     * @brief setLineAmount
+     * @param value
+     */
+    void setLineAmount(int value);
+
+    /**
+     * @brief setColumnAmount
+     * @param value
+     */
+    void setColumnAmount(int value);
 
 
     /***********************************************************************************/

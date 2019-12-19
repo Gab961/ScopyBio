@@ -230,6 +230,10 @@ int ScopyBio_Controller::getWhiteColor()
     return m_dessinModel->getWhiteValue();
 }
 
+void ScopyBio_Controller::setWhiteColor(int value) {
+    m_dessinModel->setWhiteValue(value);
+}
+
 void ScopyBio_Controller::setPipetteClick(bool pipetteClick)
 {
     m_dessinModel->setListenPipetteClick(pipetteClick);
@@ -305,6 +309,22 @@ void ScopyBio_Controller::getDataFromArea(QPoint area, int labelWidth, int label
     int imageWidth = m_pileModel->getCurrentImage().width();
     int imageHeight = m_pileModel->getCurrentImage().height();
     m_analyseModel->getDataFromArea(area, labelWidth, labelHeight, imageWidth, imageHeight, m_pileModel->getCurrentImage(), m_dessinModel);
+}
+
+int ScopyBio_Controller::getLineAmount() {
+    return m_analyseModel->getLinesAmount();
+}
+
+int ScopyBio_Controller::getColumnAmount() {
+    return m_analyseModel->getColumnAmount();
+}
+
+void ScopyBio_Controller::setLineAmount(int value) {
+    m_analyseModel->setLinesAmount(value);
+}
+
+void ScopyBio_Controller::setColumnAmount(int value) {
+    m_analyseModel->setColumnAmount(value);
 }
 
 

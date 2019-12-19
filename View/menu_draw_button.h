@@ -3,6 +3,7 @@
 #include <QGroupBox>
 #include <QGridLayout>
 #include <QPushButton>
+#include <QColorDialog>
 
 class ScopyBio_Controller;
 
@@ -15,16 +16,31 @@ class Menu_Draw_Button: public QGroupBox
         void createView();
         void connections();
         void setPipetteActive(bool state);
+        void changePipetteStyleWhenUsed();
 
     public slots:
         void activatePenAnnotation();
         void activatePipetteWaiting();
+        void pen();
+        void shapes();
+        void text();
+        void eraser();
+        void pipette();
+        void filters();
+        void analysis();
 
     signals:
         void waitingForZoomClick();
         void pipetteCanceled();
         void readyToDrawPen();
         void penCanceled();
+        void penClicked();
+        void shapesClicked();
+        void textClicked();
+        void eraserClicked();
+        void pipetteClicked();
+        void filtersClicked();
+        void analysisClicked();
 
     private:
         QGridLayout *m_gridTools;
@@ -34,9 +50,10 @@ class Menu_Draw_Button: public QGroupBox
         QPushButton *m_eraser;
         QPushButton *m_pipette;
         QPushButton *m_pen;
-        QPushButton *m_selectSquare;
-        QPushButton *m_selectCircle;
-        QPushButton *m_selectDraw;
+        QPushButton *m_shapes;
+        QPushButton *m_text;
+        QPushButton *m_analysis;
+        QPushButton *m_filters;
 
         ScopyBio_Controller *m_scopybioController;
 };
