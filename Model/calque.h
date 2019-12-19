@@ -36,6 +36,8 @@ public:
     int getId() const;
     int getIntervalMin() const;
     int getIntervalMax() const;
+    bool getCanShow() const;
+    void setCanShow(bool value);
 
     //          ACTIONS !
     void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
@@ -46,5 +48,6 @@ public:
     void filtreVert();
     void filtreHistogram();
     void filtreQuadrillage(int columns, int lines);
+
 };
 
