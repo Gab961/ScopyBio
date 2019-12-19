@@ -266,13 +266,15 @@ CImg<float> dessin_model::applyHistogramFilter(CImg<float> picture)
     return output_img;
 }
 
-void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView)
+void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView, CImg<float> currentImage)
 {
     CImg<float> picture;
     if (zoomView)
         picture.load_bmp(pathOfZoomedDisplay.c_str());
     else
-        picture.load_bmp(pathOfMainDisplay.c_str());
+    {
+        picture = currentImage;
+    }
     int realX = pos.x() * picture.width() / labelWidth;
     int realY = pos.y() * picture.height() / labelHeight;
 

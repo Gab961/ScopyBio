@@ -141,7 +141,7 @@ public:
      * @param labelHeight
      * @param zoomView
      */
-    void manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView);
+    void manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView, CImg<float> currentImage);
 
     /**
      * @brief manageNewWhiteColor Met une nouvelle couleur de blanc
