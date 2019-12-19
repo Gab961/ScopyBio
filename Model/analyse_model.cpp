@@ -15,11 +15,12 @@ std::vector<Resultat> analyse_model::getResults() const { return results; }
 void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, gestionnaire_calque_model * gestionnaire)
 {
     ///DEBUG TESTS
-    columnAmount = 8;
-    linesAmount = 8;
+    columnAmount = 5;
+    linesAmount = 5;
     /////////////////
 
     results.clear();
+    gestionnaire->reinitPertinenceCalque();
 
     int largeurImage = allPictures[0].width();
     int hauteurImage = allPictures[0].height();
@@ -119,64 +120,7 @@ int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1,
         localResult.addResult(totalNuance/nombrePixels);
     }
 
-    //Calcul de la pertinence de la zone
-    int pertinence = 0;
-    int origineVariation;
-    bool graphMontant = false;
-    for (unsigned int i=0; i<localResult.getResults().size(); i++)
-    {
-        int currentValue = localResult.getResults()[i];
-
-        //Enregistrement de la valeur initiale du graph
-        if (i==0)
-        {
-            //Si la valeur est une valeur que l'on veut analyse on la prend en compte
-            if (currentValue >= whiteValue)
-                origineVariation = currentValue;
-            //Sinon on prend la valeur minimale d'étude, qui servira si on passe au dessus du seuil plus tard
-            else
-                origineVariation = whiteValue;
-        }
-        else
-        {
-            // On ne fait des études que si on a une valeur supérieur au seuil
-            if (currentValue >= whiteValue)
-            {
-                if (i==1)
-                {
-                    if (origineVariation < currentValue)
-                        graphMontant = true;
-                }
-                else
-                {
-                    int previousValue = localResult.getResults()[i-1];
-                    //Le graph montait et ça change de sens
-                    if (graphMontant && currentValue<previousValue)
-                    {
-                        int diff = abs(origineVariation-currentValue);
-                        if (diff > errorMargin)
-                            pertinence++;
-                        origineVariation = previousValue;
-                        graphMontant = false;
-                    }
-                    if (!graphMontant && currentValue>previousValue)
-                    {
-                        int diff = abs(origineVariation-currentValue);
-                        if (diff > errorMargin)
-                            pertinence++;
-                        origineVariation = previousValue;
-                        graphMontant = true;
-                    }
-                    if (i == localResult.getResults().size()-1 || currentValue == whiteValue)
-                    {
-                        int diff = abs(origineVariation-currentValue);
-                        if (diff > errorMargin)
-                            pertinence++;
-                    }
-                }
-            }
-        }
-    }
+    int pertinence = calculPertinence(localResult.getResults(), whiteValue);
 
     localResult.setPertinence(pertinence);
 
@@ -228,6 +172,70 @@ void analyse_model::processResultsWithCrops(CImgList<float> allPictures, QPoint 
     }
 
     createCropResultsDisplay(localResult, allPictures.size(), whiteValue);
+}
+
+int analyse_model::calculPertinence(std::vector<float> data, int whiteValue)
+{
+    //Calcul de la pertinence de la zone
+    int pertinence = 0;
+    int origineVariation;
+    bool graphMontant = false;
+    for (unsigned int i=0; i<data.size(); i++)
+    {
+        int currentValue = data[i];
+
+        //Enregistrement de la valeur initiale du graph
+        if (i==0)
+        {
+            //Si la valeur est une valeur que l'on veut analyse on la prend en compte
+            if (currentValue >= whiteValue)
+                origineVariation = currentValue;
+            //Sinon on prend la valeur minimale d'étude, qui servira si on passe au dessus du seuil plus tard
+            else
+                origineVariation = whiteValue;
+        }
+        else
+        {
+            // On ne fait des études que si on a une valeur supérieur au seuil
+            if (currentValue >= whiteValue)
+            {
+                if (i==1)
+                {
+                    if (origineVariation < currentValue)
+                        graphMontant = true;
+                }
+                else
+                {
+                    int previousValue = data[i-1];
+                    //Le graph montait et ça change de sens
+                    if (graphMontant && currentValue<previousValue)
+                    {
+                        int diff = abs(origineVariation-currentValue);
+                        if (diff > errorMargin)
+                            pertinence++;
+                        origineVariation = previousValue;
+                        graphMontant = false;
+                    }
+                    if (!graphMontant && currentValue>previousValue)
+                    {
+                        int diff = abs(origineVariation-currentValue);
+                        if (diff > errorMargin)
+                            pertinence++;
+                        origineVariation = previousValue;
+                        graphMontant = true;
+                    }
+                    if (i == data.size()-1 || currentValue == whiteValue)
+                    {
+                        int diff = abs(origineVariation-currentValue);
+                        if (diff > errorMargin)
+                            pertinence++;
+                    }
+                }
+            }
+        }
+    }
+
+    return pertinence;
 }
 
 //TODO DETERMINER LA MEILLEURE APPROCHE POUR LE BLANC

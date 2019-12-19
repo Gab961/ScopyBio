@@ -267,6 +267,7 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
 
 
     whiteColor = (int)picture(realX, realY, 0, 0);
+
     baseColorGiven = true;
 }
 

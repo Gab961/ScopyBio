@@ -174,8 +174,8 @@ void MainWindow::connections()
     QObject::connect(m_openCompare, &QPushButton::clicked, m_comparePopup, &ComparePopup::createComparePopup);
 
     //Gestion premier clic
-    QObject::connect(m_imageView, &Image_View::firstClickDone, m_dataView, &Data_View::enableDisplay);
-    QObject::connect(m_imageView, &Image_View::firstClickDone, m_zoomView, &Zoom_View::enableDisplay);
+    QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_dataView, &Data_View::enableDisplay);
+    QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_zoomView, &Zoom_View::enableDisplay);
 
     //Refresh du zoom sans sélection par l'utilisateur
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_zoomView, &Zoom_View::setPictureFromFile);
@@ -388,7 +388,6 @@ void MainWindow::setCursorPipetteDisabled()
 
 void MainWindow::startFullAnalysis()
 {
-    std::cout << "Debut d'analyse" << std::endl;
     m_scopybioController->processResults();
     emit changeMainPicture();
 }

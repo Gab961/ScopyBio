@@ -35,31 +35,31 @@ void menu_option::createView()
     m_gridContrast->addLayout(m_gridSlider, 1, 0);
     m_gridOptions->addLayout(m_gridContrast, 0, 0);
 
-    m_notes = new QCheckBox("Show annotations", this);
-    m_gridOptions->addWidget(m_notes, 1, 0);
+//    m_notes = new QCheckBox("Show annotations", this);
+//    //m_gridOptions->addWidget(m_notes, 1, 0);
 
-    m_filter = new QCheckBox("Show filter", this);
-    m_gridOptions->addWidget(m_filter, 2, 0);
+//    m_filter = new QCheckBox("Show filter", this);
+//    //m_gridOptions->addWidget(m_filter, 2, 0);
 
-    m_drawOnAllLayers = new QCheckBox("Draw on all layers", this);
-    m_gridOptions->addWidget(m_drawOnAllLayers, 3, 0);
+//    m_drawOnAllLayers = new QCheckBox("Draw on all layers", this);
+//    //m_gridOptions->addWidget(m_drawOnAllLayers, 3, 0);
 
-    m_shape = new QCheckBox("Shape", this);
-    m_gridOptions->addWidget(m_shape, 4, 0);
+//    m_shape = new QCheckBox("Shape", this);
+//    //m_gridOptions->addWidget(m_shape, 4, 0);
 
-    m_histoEqulization = new QCheckBox("Histogram equalization", this);
-    m_gridOptions->addWidget(m_histoEqulization, 5, 0);
+//    m_histoEqulization = new QCheckBox("Histogram equalization", this);
+//    //m_gridOptions->addWidget(m_histoEqulization, 5, 0);
 
     setLayout(m_gridOptions);
 }
 
 void menu_option::connections()
-{
+{/*
     //Demande d'affichage dans la fenêtre de data
     QObject::connect(m_filter,&QCheckBox::toggled,this,&menu_option::onFilterToggled);
 
     //Demande d'affichage dans la fenêtre de data
-    QObject::connect(m_histoEqulization,&QCheckBox::toggled,this,&menu_option::onHistoToggled);
+    QObject::connect(m_histoEqulization,&QCheckBox::toggled,this,&menu_option::onHistoToggled);*/
 }
 
 void menu_option::onFilterToggled(bool checked)

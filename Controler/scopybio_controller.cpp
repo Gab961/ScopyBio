@@ -63,7 +63,7 @@ void ScopyBio_Controller::loadNewTiffFile(std::string filename)
     if (filename.length()>0)
     {
         m_pileModel->loadNewFilename(filename);
-        m_gestion_calque->initGlobalCalques(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
+        m_gestion_calque->init(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
     }
 }
 
@@ -311,15 +311,21 @@ std::string ScopyBio_Controller::getResultDisplayPath()
 }
 
 void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight)
-{
+{    
+    std::cout << "Etude AVEC crop" << std::endl;
+    //Si l'utilisateur n'a pas fourni de donnée via la pipette on en calcul un automatiquement
+    if (!m_dessinModel->getBaseColorGiven())
+        m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
 
     m_analyseModel->processResultsWithCrops(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
 }
 
 void ScopyBio_Controller::processResults()
-{    
-    //Initialisation du white automatique
-    m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
+{
+    std::cout << "Etude TOTALE" << std::endl;
+    //Si l'utilisateur n'a pas fourni de donnée via la pipette on en calcul un automatiquement
+    if (!m_dessinModel->getBaseColorGiven())
+        m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
 
     m_analyseModel->processResults(m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
     DisplayResultImage(m_pileModel->getCurrentImageIndex());

@@ -36,6 +36,7 @@ public:
     void addCalques(std::vector<calque> calques, int taille);
     void removeCalques(int min, int max);
     void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void reinitPertinenceCalque();
     void manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2);
     void dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void updateCalqueVert(int min, int max, int taille);

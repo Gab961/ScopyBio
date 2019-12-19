@@ -10,7 +10,9 @@
 gestionnaire_calque_model::gestionnaire_calque_model(): id(0),isGreen(false),isHistogram(false){
 }
 
-void gestionnaire_calque_model::init(int pileWidth, int pileHeight){
+void gestionnaire_calque_model::init(int newPileWidth, int newPileHeight){
+    pileWidth = newPileWidth;
+    pileHeight = newPileHeight;
     listOfCalque.clear();
     dictionnaireImgMap.clear();
     initGlobalCalques(pileWidth,pileHeight);
@@ -158,7 +160,15 @@ void gestionnaire_calque_model::creerCalque(int width, int height, int min, int 
     id++;
 }
 
+void gestionnaire_calque_model::reinitPertinenceCalque()
+{
+    calque newCalque = getCalqueForDisplay(-5,-5);
 
+    CImg<float> newImage(pileWidth,pileHeight,1,4,0);
+    newCalque.setCalque(newImage);
+
+    listOfCalque[idPertinenceCalque] = newCalque;
+}
 
 /**
  * @brief gestionnaire_calque_model::manageNewAnalyse

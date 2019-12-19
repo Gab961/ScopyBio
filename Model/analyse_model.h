@@ -29,6 +29,13 @@ public:
     std::vector<Resultat> getResults() const;
 
     /**
+     * @brief analyse_model::calculPertinence
+     * @param data
+     * @return
+     */
+    int calculPertinence(std::vector<float> data, int whiteValue);
+
+    /**
      * @brief processResultsWithCrops Calcul les résultats depuis la fenêtre de sélection
      * @param allPictures
      * @param pos1

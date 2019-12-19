@@ -34,11 +34,11 @@ class menu_option: public QGroupBox
         QLabel *m_marginError_max;
         QSlider *m_marginError;
 
-        QCheckBox *m_histoEqulization;
-        QCheckBox *m_notes;
-        QCheckBox *m_filter;
-        QCheckBox *m_drawOnAllLayers;
-        QCheckBox *m_shape;
+//        QCheckBox *m_histoEqulization;
+//        QCheckBox *m_notes;
+//        QCheckBox *m_filter;
+//        QCheckBox *m_drawOnAllLayers;
+//        QCheckBox *m_shape;
 
         ScopyBio_Controller *m_scopybioController;
 };
