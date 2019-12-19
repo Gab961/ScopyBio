@@ -45,6 +45,7 @@ class MainWindow: public QMainWindow
         void showFirstInPile();
         void changeActualItem();
         void openProject(std::string path);
+        void startFullAnalysis();
 
     private:
         void createActions();

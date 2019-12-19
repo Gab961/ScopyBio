@@ -50,10 +50,10 @@ void ScopyBio_Controller::openProject(std::string pathProject){
     //Recreer les calques avec la fonction creer calque
 
     m_gestion_calque->addCalques(calques,m_pileModel->getImages().size());
-//    for(calque tmp : calques){
-//        m_gestion_calque->creerCalque(/*tmp*/m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),tmp.getIntervalMin(),tmp.getIntervalMax(),m_pileModel->getImages().size());
-//        m_gestion_calque->setCalque(tmp.getIntervalMin(),tmp.getIntervalMax(),tmp);
-//    }
+    //    for(calque tmp : calques){
+    //        m_gestion_calque->creerCalque(/*tmp*/m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),tmp.getIntervalMin(),tmp.getIntervalMax(),m_pileModel->getImages().size());
+    //        m_gestion_calque->setCalque(tmp.getIntervalMin(),tmp.getIntervalMax(),tmp);
+    //    }
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
@@ -64,9 +64,6 @@ void ScopyBio_Controller::loadNewTiffFile(std::string filename)
     {
         m_pileModel->loadNewFilename(filename);
         m_gestion_calque->initGlobalCalques(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
-
-        //Initialisation du white automatique
-        m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
     }
 }
 
@@ -196,8 +193,8 @@ void ScopyBio_Controller::saveZoomOfUserArea()
     std::cout << "BOTRIGHT = " << m_faisceauModel->getBotRight().x() << "x" << m_faisceauModel->getBotRight().y() << std::endl;
 
     //TODO Réparer
-//    if (m_analyseModel->dataReady())
-//        m_dessinModel->saveZoomFromArea(m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(),m_pileModel->getCurrentImage());
+    //    if (m_analyseModel->dataReady())
+    //        m_dessinModel->saveZoomFromArea(m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(),m_pileModel->getCurrentImage());
 }
 
 std::string ScopyBio_Controller::getMainDisplayPath()
@@ -320,7 +317,10 @@ void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight
 }
 
 void ScopyBio_Controller::processResults()
-{
+{    
+    //Initialisation du white automatique
+    m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
+
     m_analyseModel->processResults(m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }

@@ -180,6 +180,9 @@ void MainWindow::connections()
     //Refresh du zoom sans sélection par l'utilisateur
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_zoomView, &Zoom_View::setPictureFromFile);
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_dataView, &Data_View::setGraphFromFile);
+
+    //Refresh du zoom sans sélection par l'utilisateur
+    QObject::connect(m_tools, &Menu_Draw_Button::startFullAnalysis, this, &MainWindow::startFullAnalysis);
 }
 
 void MainWindow::open()
@@ -209,10 +212,6 @@ void MainWindow::open()
         }
         else
             emit sendPath(path);
-
-        //TODO ICI ACTIVATION OU NON DE L'ETUDE IMMEDIATE
-//        m_scopybioController->processResults();
-//        emit changeMainPicture();
 
         m_options->setEnabled(true);
         m_tools->setEnabled(true);
@@ -385,6 +384,13 @@ void MainWindow::setCursorPipetteDisabled()
     m_layer->setEnabled(true);
     m_openLoop->setEnabled(true);
     m_openCompare->setEnabled(true);
+}
+
+void MainWindow::startFullAnalysis()
+{
+    std::cout << "Debut d'analyse" << std::endl;
+    m_scopybioController->processResults();
+    emit changeMainPicture();
 }
 
 void MainWindow::wheelEvent(QWheelEvent *ev)
