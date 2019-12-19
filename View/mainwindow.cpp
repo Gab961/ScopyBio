@@ -37,6 +37,9 @@ void MainWindow::createView()
     int screenHeight = dw.height()*0.7;
     setMinimumSize(screenWidth, screenHeight);
 
+    m_loopWindow = new LoopView(this, m_scopybioController);
+    m_comparePopup = new ComparePopup(this, m_scopybioController);
+
     m_mainLayout = new QGridLayout();
     m_leftLayout = new QGridLayout();
     m_centerLayout = new QGridLayout();
@@ -48,10 +51,10 @@ void MainWindow::createView()
     m_zoomView->setFixedSize(screenWidth*0.20, screenHeight*0.45);
 
     m_tools = new Menu_Draw_Button(this, m_scopybioController);
-    m_tools->setFixedSize(screenWidth*0.20, screenHeight*0.17);
+    m_tools->setFixedSize(screenWidth*0.20, 100);
 
     m_options = new menu_option(this, m_scopybioController);
-    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.30);
+    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.47 - 100);
 
     m_leftLayout->addWidget(m_zoomView, 0, 0);
     m_leftLayout->addWidget(m_tools, 1, 0);
@@ -60,20 +63,7 @@ void MainWindow::createView()
     m_imageView = new Image_View(this, m_scopybioController);
     m_imageView->setFixedSize(screenWidth*0.50, screenHeight*0.95);
 
-
-    m_loopWindow = new LoopView(this, m_scopybioController);
-    m_openLoop = new QPushButton("Open loop", this);
-    m_openLoop->setMaximumWidth(screenWidth*0.15);
-
-    m_comparePopup = new ComparePopup(this, m_scopybioController);
-    m_openCompare = new QPushButton("Compare", this);
-    m_openCompare->setMaximumWidth(screenWidth*0.15);
-
-    m_buttonLayout->addWidget(m_openLoop, 0, 0);
-    m_buttonLayout->addWidget(m_openCompare, 0, 1);
-
     m_centerLayout->addWidget(m_imageView, 0, 0);
-    m_centerLayout->addLayout(m_buttonLayout, 1, 0);
 
     m_dataView = new Data_View(this, m_scopybioController);
     m_dataView->setFixedSize(screenWidth*0.25, screenHeight*0.45);
@@ -107,8 +97,6 @@ void MainWindow::createView()
     m_zoomView->setEnabled(false);
     m_dataView->setEnabled(false);
     m_layer->setEnabled(false);
-    m_openLoop->setEnabled(false);
-    m_openCompare->setEnabled(false);
 }
 
 void MainWindow::connections()
@@ -167,17 +155,11 @@ void MainWindow::connections()
     //Changement curseur quand clic pipette
     QObject::connect(m_zoomView, &Zoom_View::pipetteClicked, this, &MainWindow::setCursorPipetteDisabled);
 
-    //Open Loop window
-    QObject::connect(m_openLoop, &QPushButton::clicked, m_loopWindow, &LoopView::createLoopView);
-
-    //Open Compare popup
-    QObject::connect(m_openCompare, &QPushButton::clicked, m_comparePopup, &ComparePopup::createComparePopup);
-
-    //Gestion premier clic
-    QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_dataView, &Data_View::enableDisplay);
-    QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_zoomView, &Zoom_View::enableDisplay);
 
     //Refresh du zoom sans sélection par l'utilisateur
+    QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_zoomView, &Zoom_View::enableDisplay);
+    QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_dataView, &Data_View::enableDisplay);
+    //Gestion premier clic
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_zoomView, &Zoom_View::setPictureFromFile);
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_dataView, &Data_View::setGraphFromFile);
 
@@ -189,13 +171,23 @@ void MainWindow::connections()
 
     //Refresh du zoom sans sélection par l'utilisateur
     QObject::connect(m_tools, &Menu_Draw_Button::startFullAnalysis, this, &MainWindow::startFullAnalysis);
+
+
+    // Met à jour la vue des options en fonction de l'outil sélectionné
+    QObject::connect(m_tools, &Menu_Draw_Button::penClicked, m_options, &menu_option::pen);
+    QObject::connect(m_tools, &Menu_Draw_Button::shapesClicked, m_options, &menu_option::shapes);
+    QObject::connect(m_tools, &Menu_Draw_Button::textClicked, m_options, &menu_option::text);
+    QObject::connect(m_tools, &Menu_Draw_Button::eraserClicked, m_options, &menu_option::eraser);
+    QObject::connect(m_tools, &Menu_Draw_Button::pipetteClicked, m_options, &menu_option::pipette);
+    QObject::connect(m_tools, &Menu_Draw_Button::filtersClicked, m_options, &menu_option::filters);
+    QObject::connect(m_tools, &Menu_Draw_Button::analysisClicked, m_options, &menu_option::analysis);
 }
 
 void MainWindow::open()
 {
     std::string path = "";
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                    "../../Data",
+                                                    "../../Resources/Data",
                                                     tr("Images (*.tiff *.tif *.scb)"));
     path = fileName.toLocal8Bit().constData();
 
@@ -225,8 +217,8 @@ void MainWindow::open()
         m_zoomView->setEnabled(true);
         m_dataView->setEnabled(true);
         m_layer->setEnabled(true);
-        m_openLoop->setEnabled(true);
-        m_openCompare->setEnabled(true);
+        m_loop->setEnabled(true);
+        m_compare->setEnabled(true);
         m_saveAs->setEnabled(true);
     }
 }
@@ -235,7 +227,7 @@ void MainWindow::saveAs()
 {
     std::string path = "";
     QString directoryName = QFileDialog::getExistingDirectory(this, tr("Save Directory"),
-                                                              "../../Data",
+                                                              "../../Resources/Data",
                                                               QFileDialog::ShowDirsOnly
                                                               | QFileDialog::DontResolveSymlinks);
     if (directoryName != "")
@@ -258,7 +250,9 @@ void MainWindow::aboutUs()
                           " Pigache Bastien and Mohr Anaïs from the UFR des Sciences, Angers."
                           " It allows to do some operations on .tiff files to compare the different"
                           " images with some options."
-                          " This program was developed with Qt and C++ language.</p>"));
+                          " This program was developed with Qt and C++ language."
+                          ""
+                          "Icons made by Freepik, Pixel Perfect from www.flaticon.com.</p>"));
 }
 
 void MainWindow::howToUse()
@@ -284,7 +278,7 @@ void MainWindow::createActions()
     m_saveFile->setShortcut(tr("&Ctrl+S"));
     fileMenu->addAction(m_saveFile);
 
-    m_saveAs = new QAction(tr("&Save as..."), this);
+    m_saveAs = new QAction(tr("Sa&ve as..."), this);
     QObject::connect(m_saveAs, &QAction::triggered, this, &MainWindow::saveAs);
     m_saveAs->setEnabled(false);
     fileMenu->addAction(m_saveAs);
@@ -298,6 +292,18 @@ void MainWindow::createActions()
     m_howToUse = new QAction(tr("&How to use..."), this);
     QObject::connect(m_howToUse, &QAction::triggered, this, &MainWindow::howToUse);
     helpMenu->addAction(m_howToUse);
+
+    QMenu *imageMenu = menuBar()->addMenu(tr("&Image"));
+
+    m_compare = new QAction(tr("&Compare"), this);
+    QObject::connect(m_compare, &QAction::triggered, m_comparePopup, &ComparePopup::createComparePopup);
+    imageMenu->addAction(m_compare);
+    m_compare->setEnabled(false);
+
+    m_loop = new QAction(tr("&Loop"), this);
+    QObject::connect(m_loop, &QAction::triggered, m_loopWindow, &LoopView::createLoopView);
+    imageMenu->addAction(m_loop);
+    m_loop->setEnabled(false);
 }
 
 void MainWindow::updateSaveAs()
@@ -345,9 +351,9 @@ void MainWindow::resizeEvent(QResizeEvent* event)
 
     m_zoomView->setFixedSize(screenWidth*0.20, screenHeight*0.45);
 
-    m_tools->setFixedSize(screenWidth*0.20, screenHeight*0.17);
+    m_tools->setFixedSize(screenWidth*0.20, 100);
 
-    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.30);
+    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.47 - 100);
 
     m_imageView->setFixedSize(screenWidth*0.50, screenHeight*0.95);
 
@@ -375,12 +381,11 @@ void MainWindow::setCursorPipetteActive()
     m_options->setEnabled(false);
     m_dataView->setEnabled(false);
     m_layer->setEnabled(false);
-    m_openLoop->setEnabled(false);
-    m_openCompare->setEnabled(false);
 }
 
 void MainWindow::setCursorPipetteDisabled()
 {
+    m_tools->changePipetteStyleWhenUsed();
     m_tools->setPipetteActive(false);
     m_zoomView->setCursor(Qt::ArrowCursor);
     m_imageView->setCursor(Qt::CrossCursor);
@@ -388,8 +393,6 @@ void MainWindow::setCursorPipetteDisabled()
     m_options->setEnabled(true);
     m_dataView->setEnabled(true);
     m_layer->setEnabled(true);
-    m_openLoop->setEnabled(true);
-    m_openCompare->setEnabled(true);
 }
 
 void MainWindow::startFullAnalysis()
