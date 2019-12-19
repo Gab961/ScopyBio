@@ -67,6 +67,16 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
         oldY = 0;
         oldX = nextX;
     }
+
+    for (unsigned int i=0; i<results.size(); i++)
+    {
+        for (unsigned int j=0; j<results[i].getResults().size(); j++)
+        {
+            std::cout << results[i].getResults()[j] << " | ";
+        }
+        std::cout << std::endl;
+        std::cout << "------------------" << std::endl;
+    }
 }
 
 int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue)
