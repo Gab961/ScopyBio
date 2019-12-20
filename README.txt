@@ -16,7 +16,7 @@ after you are succefuly install all previous tools, you need to execute some com
 	get ready for a long time of wait
 	
 Forcing compilation with gcc = 9.2 :
-	* $ conan install .. -s compiler.version=9.2 --build gtest --build jsoncpp --build libjpeg --build libwebp --build protobuf --build zlib --build OpenSSL --build jasper --build libpng --build libtiff --build openexr --build libcurl --build libssh2 --build opencv --build libgit2
+	* $ conan install .. -s compiler.version=9.2 --build=missing
 
 *********************************** On Windows ***********************************************
 
