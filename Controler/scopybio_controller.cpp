@@ -362,10 +362,9 @@ void ScopyBio_Controller::processResults()
         t1.detach();
     }catch(...){
         t1.join();
-    }finally{
-        DisplayResultImage(m_pileModel->getCurrentImageIndex());
     }
 
+    //DisplayResultImage(m_pileModel->getCurrentImageIndex());
 
 }
 
