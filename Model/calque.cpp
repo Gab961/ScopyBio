@@ -83,7 +83,7 @@ void calque::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinenc
  */
 void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
     CImg<float> tmp(_calque.width(),_calque.height(),1,4,0);
-    _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,tmp);
+    _calque = dessine.dessinerFaisceau(pos1,pos2,labelWidth,labelHeight,tmp);
 }
 
 /**

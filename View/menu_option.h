@@ -99,7 +99,6 @@ class menu_option: public QGroupBox
         bool m_greenChecked;
 
         // Analysis view
-        bool analysisPanelActive;
         QGridLayout *m_gridAnalysis;
         QLabel *m_lineLabel;
         QLineEdit *m_lines;
@@ -118,8 +117,10 @@ class menu_option: public QGroupBox
         int m_accuracyValue;
 
         QPushButton *m_launchSelect;
-        bool activateUserAnalyse;
         QPushButton *m_launch;
 
-        ScopyBio_Controller *m_scopybioController;
+        ScopyBio_Controller *m_scopybioController;        
+
+        bool analysisPanelActive;
+        bool activateUserAnalyse;
 };

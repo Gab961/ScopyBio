@@ -46,6 +46,17 @@ public:
     CImg<float> dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> &currentPicture);
 
     /**
+     * @brief dessinerFaisceau
+     * @param pos1
+     * @param pos2
+     * @param labelWidth
+     * @param labelHeight
+     * @param currentPicture
+     * @return
+     */
+    CImg<float> dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture);
+
+    /**
      * @brief dessinerRond
      * @param pos1
      * @param labelWidth

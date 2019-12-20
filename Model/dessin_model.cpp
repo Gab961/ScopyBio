@@ -28,6 +28,37 @@ CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelW
     return currentPicture;
 }
 
+CImg<float> dessin_model::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
+{
+    const unsigned char colorFaisceau[] = { 255,174,0,255 };
+    const unsigned char colorMasque[] = { 200,200,255,150 };
+
+    int x1 = pos1.x() * currentPicture.width() / labelWidth;
+    int y1 = pos1.y() * currentPicture.height() / labelHeight;
+    int x2 = pos2.x() * currentPicture.width() / labelWidth;
+    int y2 = pos2.y() * currentPicture.height() / labelHeight;
+
+    if (x1<0)
+        x1 = -1;
+    if (y1 < 0)
+        y1 = -1;
+    if (x2 > currentPicture.width())
+        x2 = currentPicture.width();
+    if (y2 > currentPicture.height())
+        y2 = currentPicture.height();
+
+    //Masque gris pour la zone non sélectionnée
+    cimg_forXY(currentPicture,x,y) {
+        //Si on est en dehors du rectangle du faisceau
+        if (x<x1 || x>x2 || y<y1 || y>y2)
+            currentPicture.draw_point(x,y,colorMasque,1);
+    }
+
+    currentPicture.draw_rectangle(x1,y1,x2,y2,colorFaisceau,1,~0U);
+
+    return currentPicture;
+}
+
 CImg<float> dessin_model::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence, CImg<float> & currentPicture)
 {
     //Clair
