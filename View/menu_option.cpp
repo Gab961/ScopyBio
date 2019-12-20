@@ -2,7 +2,7 @@
 #include <iostream>
 #include "scopybio_controller.h"
 
-menu_option::menu_option(QWidget *parent, ScopyBio_Controller *scopybioController): m_scopybioController(scopybioController)
+menu_option::menu_option(QWidget *parent, ScopyBio_Controller *scopybioController): m_scopybioController(scopybioController), analysisPanelActive(false), activateUserAnalyse(false)
 {
     createView();
 
@@ -171,6 +171,7 @@ void menu_option::filters() {
 }
 
 void menu_option::analysis() {
+    analysisPanelActive = true;
     clearLayout(m_gridOptions);
 
     // Analysis view
@@ -205,7 +206,7 @@ void menu_option::analysis() {
     m_gridAnalysis->addLayout(m_gridAccuracy, 4, 0, 2, 0);
 
     m_launchSelect = new QPushButton("Analyse selection", this);
-    m_launchSelect->setEnabled(false);
+    m_launchSelect->setEnabled(activateUserAnalyse);
     m_launch = new QPushButton("Full analyse", this);
 
     m_gridAnalysis->addWidget(m_lineLabel, 0, 0);
@@ -218,10 +219,35 @@ void menu_option::analysis() {
     m_gridAnalysis->addWidget(m_launch, 5, 1);
     m_gridOptions->addLayout(m_gridAnalysis, 0, 0);
 
-    //Lance l'analyse de l'image
+    //Lance l'analyse de l'image complète
     QObject::connect(m_launch, &QPushButton::clicked, this, &menu_option::launchAnalysis);
 
+    //Lance l'analyse localement
+    QObject::connect(m_launchSelect, &QPushButton::clicked, this, &menu_option::launchAnalysisFromSelection);
+
     QObject::connect(m_accuracySlider, &QSlider::valueChanged, this, &menu_option::onAccuracyValueChanged);
+}
+
+//TODO METTRE A JOUR LE BOUTON
+void menu_option::activateLocalAnalyse()
+{
+    activateUserAnalyse = true;
+    if (analysisPanelActive)
+        m_launchSelect->setEnabled(activateUserAnalyse);
+    update();
+}
+
+void menu_option::desactivateLocalAnalyse()
+{
+    activateUserAnalyse = false;
+    if (analysisPanelActive)
+        m_launchSelect->setEnabled(activateUserAnalyse);
+    update();
+}
+
+void menu_option::launchAnalysisFromSelection()
+{
+    emit askForUserAnalyse();
 }
 
 void menu_option::launchAnalysis()
@@ -234,7 +260,6 @@ void menu_option::launchAnalysis()
 
     emit askFullAnalysis();
     // TODO set precision
-//    m_scopybioController->processResults();
 }
 
 void menu_option::onPenSizeValueChanged(int value) {
@@ -305,6 +330,7 @@ void menu_option::onSquareToggled(bool checked)
 
 void menu_option::clearLayout(QLayout* layout, bool deleteWidgets)
 {
+    analysisPanelActive = false;
     while (QLayoutItem* item = layout->takeAt(0))
     {
         if (deleteWidgets)

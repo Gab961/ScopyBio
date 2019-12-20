@@ -22,6 +22,7 @@ class menu_option: public QGroupBox
     signals:
         void refreshMainDisplay();
         void askFullAnalysis();
+        void askForUserAnalyse();
 
     public slots:
         void pen();
@@ -41,6 +42,10 @@ class menu_option: public QGroupBox
         void onHistoToggled(bool checked);
         void onCircleToggled(bool checked);
         void onSquareToggled(bool checked);
+        void launchAnalysisFromSelection();
+
+        void activateLocalAnalyse();
+        void desactivateLocalAnalyse();
 
     private:
         QGridLayout *m_gridOptions;
@@ -94,6 +99,7 @@ class menu_option: public QGroupBox
         bool m_greenChecked;
 
         // Analysis view
+        bool analysisPanelActive;
         QGridLayout *m_gridAnalysis;
         QLabel *m_lineLabel;
         QLineEdit *m_lines;
@@ -112,6 +118,7 @@ class menu_option: public QGroupBox
         int m_accuracyValue;
 
         QPushButton *m_launchSelect;
+        bool activateUserAnalyse;
         QPushButton *m_launch;
 
         ScopyBio_Controller *m_scopybioController;

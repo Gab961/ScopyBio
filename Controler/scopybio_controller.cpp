@@ -356,7 +356,7 @@ void ScopyBio_Controller::processResults()
 {
     std::cout << "Etude TOTALE" << std::endl;
 
-    if (m_faisceauModel->faisceauExist())
+    if (m_faisceauModel->faisceauIsActive())
     {
         m_gestion_calque->reinitFaisceauCalque();
         m_faisceauModel->setFaisceauInactive();
@@ -381,14 +381,13 @@ void ScopyBio_Controller::getDataFromArea(QPoint area, int labelWidth, int label
     int imageWidth = m_pileModel->getCurrentImage().width();
     int imageHeight = m_pileModel->getCurrentImage().height();
 
-    if (m_faisceauModel->faisceauExist())
+    if (m_faisceauModel->faisceauIsActive())
     {
         m_gestion_calque->reinitFaisceauCalque();
         m_faisceauModel->setFaisceauInactive();
     }
 
     m_analyseModel->getDataFromArea(area, labelWidth, labelHeight, imageWidth, imageHeight, m_pileModel->getCurrentImage(), m_dessinModel);
-
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 

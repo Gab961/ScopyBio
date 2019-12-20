@@ -38,7 +38,6 @@ class MainWindow: public QMainWindow
         void changeZoomedPicture();
         void clearZoomView();
         void clearDataView();
-
     public slots:
         void open();
         void save();
@@ -49,6 +48,7 @@ class MainWindow: public QMainWindow
         void changeActualItem();
         void openProject(std::string path);
         void startFullAnalysis();
+
 
     private:
         void createActions();

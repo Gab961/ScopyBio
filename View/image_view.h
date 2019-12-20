@@ -37,7 +37,8 @@ signals:
     void changeGraphPicture();
     void userAnalyseReady();
     void activateLocalAnalyse();
-    void desactiveLocalAnalyse();
+    void desactivateLocalAnalyse();
+    void clearDataView();
 
 public slots:
     void setNewPicture();
@@ -45,7 +46,8 @@ public slots:
     void readyForPenDraw();
     void cancelPenDraw();
     void askProcessFromZoom();
-    void nouvelleAnalyseUtilisateur(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void nouvelleSelectionUtilisateur(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void startUserAnalysis();
     void getData(QPoint area, int labelWidth, int labelHeight);
 
 private:

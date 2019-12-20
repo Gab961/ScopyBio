@@ -13,7 +13,6 @@ private:
     analyse_model Data;
     pile_model *p_Piles;
 
-    bool faisceauIsSet;
     bool faisceauActive;
 
 public:
@@ -21,7 +20,6 @@ public:
     faisceau_model(pile_model *pile, QPoint tl, QPoint br);
 
     void setFaisceau(QPoint pos1, QPoint pos2);
-    bool faisceauExist();
 
     bool faisceauIsActive();
     void setFaisceauInactive();

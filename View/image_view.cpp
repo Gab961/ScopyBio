@@ -36,7 +36,7 @@ void Image_View::createView()
 void Image_View::connections()
 {
     //Affichage du rectangle
-    QObject::connect(this, &Image_View::drawRectOnMouse, this, &Image_View::nouvelleAnalyseUtilisateur);
+    QObject::connect(this, &Image_View::drawRectOnMouse, this, &Image_View::nouvelleSelectionUtilisateur);
 
     // récupère la courbe et la zoom view de la zone sélectionnée issue de l'analyse automatique
     QObject::connect(this, &Image_View::getDataFromArea, this, &Image_View::getData);
@@ -169,7 +169,19 @@ void Image_View::setNewPicture()
     update();
 }
 
-void Image_View::nouvelleAnalyseUtilisateur(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
+void Image_View::startUserAnalysis()
+{
+    std::cout << "Démarrage analyse utilisateur" << std::endl;
+    emit processResults(m_image->width(),m_image->height());
+
+    //MAJ des interfaces
+    emit userAnalyseReady();
+    emit changeGraphPicture();
+
+    update();
+}
+
+void Image_View::nouvelleSelectionUtilisateur(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
     //Dessine le rectangle sur l'image et créer l'image zoomée
     m_scopybioController->setFaisceau(pos1, pos2);
@@ -177,19 +189,16 @@ void Image_View::nouvelleAnalyseUtilisateur(QPoint pos1, QPoint pos2, int labelW
     m_scopybioController->setUserAreaIsSelected();
     setNewPicture();
 
+
+    emit activateLocalAnalyse();
+    emit clearDataView();
+
     //Demande de rafraichir le zoom
     m_zoneWidth = pos1.x() - pos2.x();
     if (m_zoneWidth < 0) m_zoneWidth = m_zoneWidth * -1;
     m_zoneHeight = pos1.y() - pos2.y();
     if (m_zoneHeight < 0) m_zoneHeight = m_zoneHeight * -1;
-    emit changeZoomedPicture(m_zoneWidth, m_zoneHeight);
-
-    emit processResults(m_image->width(),m_image->height());
-
-    //MAJ des interfaces
-    emit userAnalyseReady();
     emit changeZoomPicture();
-    emit changeGraphPicture();
 
     update();
 }
@@ -208,16 +217,19 @@ void Image_View::askProcessFromZoom()
 }
 
 void Image_View::getData(QPoint area, int labelWidth, int labelHeight) {
-    m_scopybioController->setAreaIsSelected();
-    m_scopybioController->getDataFromArea(area, labelWidth, labelHeight);
+    if (m_scopybioController->dataReady())
+    {
+        m_scopybioController->setAreaIsSelected();
+        m_scopybioController->getDataFromArea(area, labelWidth, labelHeight);
 
-    setNewPicture();
-    emit desactiveLocalAnalyse();
+        setNewPicture();
+        emit desactivateLocalAnalyse();
 
-    //MAJ des interfaces
-    emit userAnalyseReady();
-    emit changeZoomPicture();
-    emit changeGraphPicture();
+        //MAJ des interfaces
+        emit userAnalyseReady();
+        emit changeZoomPicture();
+        emit changeGraphPicture();
 
-    update();
+        update();
+    }
 }

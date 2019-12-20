@@ -35,7 +35,7 @@ void faisceau_model::fillData()
 
 }
 
-faisceau_model::faisceau_model() : faisceauIsSet(true)
+faisceau_model::faisceau_model() : faisceauActive(false)
 {
 
 }
@@ -56,12 +56,6 @@ void faisceau_model::setFaisceau(QPoint pos1, QPoint pos2)
     faisceauActive = true;
 }
 
-bool faisceau_model::faisceauExist()
-{
-    return faisceauIsSet;
-}
-
-
 bool faisceau_model::faisceauIsActive()
 {
     return faisceauActive;
@@ -76,7 +70,7 @@ faisceau_model::faisceau_model(pile_model *pile , QPoint tl, QPoint br){
     topLeft = tl;
     botRight = br;
 
-    faisceauIsSet = true;
+    faisceauActive = false;
 
     p_Piles = pile;
 }

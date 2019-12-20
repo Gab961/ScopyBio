@@ -160,16 +160,24 @@ void MainWindow::connections()
     QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_dataView, &Data_View::enableDisplay);
     //Gestion premier clic
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_zoomView, &Zoom_View::setPictureFromFile);
-    QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_dataView, &Data_View::setGraphFromFile);
+    QObject::connect(m_imageView, &Image_View::changeGraphPicture, m_dataView, &Data_View::setGraphFromFile);
 
     //Clear de la vue du Zoom
     QObject::connect(this, &MainWindow::clearZoomView, m_zoomView, &Zoom_View::resetZoomView);
 
     //Clear de la vue du Data
     QObject::connect(this, &MainWindow::clearDataView, m_dataView, &Data_View::resetDataView);
+    QObject::connect(m_imageView, &Image_View::clearDataView, m_zoomView, &Zoom_View::resetZoomView);
 
     //Démarrage d'une analyse complete
     QObject::connect(m_options, &menu_option::askFullAnalysis, this, &MainWindow::startFullAnalysis);
+
+    //Démarrage d'une analyse de selection
+    QObject::connect(m_options, &menu_option::askForUserAnalyse, m_imageView, &Image_View::startUserAnalysis);
+
+    //Mise à jour du bouton d'analyse locale
+    QObject::connect(m_imageView, &Image_View::activateLocalAnalyse, m_options, &menu_option::activateLocalAnalyse);
+    QObject::connect(m_imageView, &Image_View::desactivateLocalAnalyse, m_options, &menu_option::desactivateLocalAnalyse);
 
     // Met à jour la vue des options en fonction de l'outil sélectionné
     QObject::connect(m_tools, &Menu_Draw_Button::penClicked, m_options, &menu_option::pen);
@@ -331,11 +339,17 @@ void MainWindow::changeActualItem()
 {
     int indiceEnCours = m_pileView->currentRow();
     m_scopybioController->saveCurrent(indiceEnCours);
+
     if (m_scopybioController->areaIsSelected())
+    {
         m_scopybioController->saveZoomOfCurrentArea();
+        m_imageView->updateZoomOnly();
+    }
     if (m_scopybioController->userAreaIsSelected())
+    {
         m_scopybioController->saveZoomOfUserArea();
-    m_imageView->updateZoomOnly();
+        m_imageView->updateZoomOnly();
+    }
     m_scopybioController->DisplayResultImage(indiceEnCours);
     emit changeMainPicture();
 }
