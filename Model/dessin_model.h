@@ -99,10 +99,13 @@ public:
 
     /**
      * @brief applyQuadrillageFilter
+     * @param posInit
+     * @param columns
+     * @param lines
      * @param picture
      * @return
      */
-    CImg<float> applyQuadrillageFilter(int columns, int lines, CImg<float> picture);
+    CImg<float> applyQuadrillageFilter(QPoint posInit, int columns, int lines, CImg<float> picture);
 
     /**
      * @brief saveZoomFromPicture Enregistre la partie sélectionnée de l'image dans l'image zoomée

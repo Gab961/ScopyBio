@@ -26,7 +26,6 @@ void Zoom_View::createView()
 
 void Zoom_View::resetZoomView()
 {
-    std::cout << "CLEAR ZOOM" << std::endl;
     m_image->clear();
     m_image->setAlignment(Qt::AlignCenter);
     m_image->setText("No data to show");

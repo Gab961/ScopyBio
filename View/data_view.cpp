@@ -29,7 +29,6 @@ void Data_View::createView()
 
 void Data_View::resetDataView()
 {
-    std::cout << "CLEAR DATA" << std::endl;
     m_image->clear();
     m_image->setAlignment(Qt::AlignCenter);
     m_image->setText("No data to show");

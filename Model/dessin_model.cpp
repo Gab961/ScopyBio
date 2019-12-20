@@ -227,7 +227,7 @@ CImg<float> dessin_model::applyGreenFilter(CImg<float> picture)
     return picture;
 }
 
-CImg<float> dessin_model::applyQuadrillageFilter(int columns, int lines, CImg<float> picture)
+CImg<float> dessin_model::applyQuadrillageFilter(QPoint posInit, int columns, int lines, CImg<float> picture)
 {
     const unsigned char color[] = { 255,0,0,255 };
 
@@ -240,7 +240,7 @@ CImg<float> dessin_model::applyQuadrillageFilter(int columns, int lines, CImg<fl
     float xSeparateur = (int)xSeparateurFloat;
     float ySeparateur = (int)ySeparateurFloat;
 
-    int oldX = 0;
+    int oldX = posInit.x();
 
     for (int i=0; i<columns; i++)
     {
@@ -250,7 +250,7 @@ CImg<float> dessin_model::applyQuadrillageFilter(int columns, int lines, CImg<fl
         oldX = oldX + xSeparateur;
     }
 
-    int oldY = 0;
+    int oldY = posInit.y();
     for (int j=0; j<lines; j++)
     {
         if (j == lines)

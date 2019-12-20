@@ -346,10 +346,13 @@ void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight
     std::cout << "Etude AVEC crop" << std::endl;
 
     //VERSION 1
-    m_analyseModel->processResultsWithCrops(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
+    //    m_analyseModel->processResultsWithCrops(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
 
     //VERSION 2
-    //    m_analyseModel->processResultsWithCropsVERSIONDEUX(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
+    m_analyseModel->processResultsWithCropsVERSIONDEUX(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
+
+
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
 void ScopyBio_Controller::processResults()

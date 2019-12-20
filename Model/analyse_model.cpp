@@ -188,8 +188,8 @@ void analyse_model::processResultsWithCropsVERSIONDEUX(CImgList<float> allPictur
     QPoint finAnalyseBasDroite(x2,y2);
 
     /////DEBUG
-//    columnAmount = 5;
-//    linesAmount = 5;
+    columnAmount = 5;
+    linesAmount = 5;
     //////
 
     results.clear();
