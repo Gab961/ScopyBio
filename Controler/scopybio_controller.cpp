@@ -20,6 +20,12 @@ void ScopyBio_Controller::DisplayResultImage(int idImage){
     m_gestion_calque->mergeCalques(m_gestion_calque->getListOfCalqueFromImage(idImage), m_pileModel->getCurrentImage(), m_dessinModel->getMainDisplayPath());
 }
 
+void ScopyBio_Controller::afficherCalque(int min, int max, bool aff){
+    if(m_gestion_calque->existeCalque(min,max)){
+        m_gestion_calque->calqueShowable(min,max,aff);
+    }
+}
+
 //=======================
 // Save_Model
 //=======================
@@ -124,6 +130,14 @@ void ScopyBio_Controller::saveCurrent(int indiceEnCours)
 int ScopyBio_Controller::getCurrentImageIndex()
 {
     return m_pileModel->getCurrentImageIndex();
+}
+
+//=======================
+// Calque
+//=======================
+
+void ScopyBio_Controller::removeCalque(int min, int max){
+    m_gestion_calque->removeCalques(min,max);
 }
 
 //=======================
