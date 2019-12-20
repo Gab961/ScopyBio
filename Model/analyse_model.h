@@ -31,6 +31,13 @@ public:
     std::vector<Resultat> getResults() const;
 
     /**
+     * @brief analyse_model::calculPertinence
+     * @param data
+     * @return
+     */
+    int calculPertinence(std::vector<float> data, int whiteValue);
+
+    /**
      * @brief processResultsWithCrops Calcul les résultats depuis la fenêtre de sélection
      * @param allPictures
      * @param pos1
@@ -40,6 +47,9 @@ public:
      * @param labelHeight
      */
     void processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight);
+
+    //TODO
+    void processResultsWithCropsVERSIONDEUX(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire);
 
     /**
      * @brief processResults Calcul les résultats dans toute la fenêtre partie par partie

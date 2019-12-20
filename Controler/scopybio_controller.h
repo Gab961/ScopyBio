@@ -15,6 +15,7 @@ public:
 
     /** Partie affichage **/
     void DisplayResultImage(int idImage);
+    void afficherCalque(int min, int max,bool);
 
     /***********************************************************************************/
     /******************************** Partie pile_model ********************************/
@@ -74,6 +75,12 @@ public:
      * @return
      */
     int getCurrentImageIndex();
+
+    /***********************************************************************************/
+    /******************************** Partie Calque ************************************/
+    /***********************************************************************************/
+
+    void removeCalque(int min, int max);
 
     /***********************************************************************************/
     /******************************* Partie dessin_model *******************************/
@@ -160,6 +167,12 @@ public:
     int getWhiteColor();
 
     /**
+     * @brief setWhiteColor
+     * @param value
+     */
+    void setWhiteColor(int value);
+
+    /**
      * @brief setPipetteClick Pour indiquer qu'un clic de pipette est attendu
      * @param pipetteClick
      */
@@ -184,7 +197,7 @@ public:
     bool getBaseColorGiven();
 
     /***********************************************************************************/
-    /******************************** Partie analyse_model ********************************/
+    /******************************** Partie analyse_model *****************************/
     /***********************************************************************************/
     /**
      * @brief areaIsSelected
@@ -250,6 +263,30 @@ public:
      * @param labelHeight
      */
     void getDataFromArea(QPoint area, int labelWidth, int labelHeight);
+
+    /**
+     * @brief getLineAmount
+     * @return
+     */
+    int getLineAmount();
+
+    /**
+     * @brief getColumnAmount
+     * @return
+     */
+    int getColumnAmount();
+
+    /**
+     * @brief setLineAmount
+     * @param value
+     */
+    void setLineAmount(int value);
+
+    /**
+     * @brief setColumnAmount
+     * @param value
+     */
+    void setColumnAmount(int value);
 
 
     /***********************************************************************************/

@@ -24,11 +24,12 @@ std::vector<Resultat> analyse_model::getResults() const { return results; }
 void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, gestionnaire_calque_model * gestionnaire)
 {
     ///DEBUG TESTS
-    columnAmount = 8;
-    linesAmount = 8;
+    columnAmount = 5;
+    linesAmount = 5;
     /////////////////
 
     results.clear();
+    gestionnaire->reinitPertinenceCalque();
 
     int largeurImage = allPictures[0].width();
     int hauteurImage = allPictures[0].height();
@@ -64,19 +65,6 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
             if (pertinence>1)
                 gestionnaire->manageNewAnalyse(pertinence, pos1, pos2);
 
-            //DEBUG
-//            if (pertinence>1)
-//            {
-//                Resultat r = results.back();
-//                std::cout << "%%%%%%% PERTINENCE " << pertinence << "%%%%%%%" << std::endl;
-//                for (unsigned int i=0; i<r.getResults().size(); i++)
-//                {
-//                    std::cout << r.getResults()[i] << " | ";
-//                }
-//                std::cout << std::endl;
-//                std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
-//            }
-
             oldY = nextY;
         }
 
@@ -84,8 +72,10 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
         oldX = nextX;
     }
 
+    //Dans le cas de l'analyse global, on part de tout en haut à gauche
+    QPoint posInit(0,0);
     //Dessin du quadrillage à la fin pour recouvrir l'ensemble après qu'on ai fait des carrés verts de pertinence
-    gestionnaire->updateQuadrillage(columnAmount,linesAmount);
+    gestionnaire->updateQuadrillage(posInit,columnAmount,linesAmount);
 }
 
 int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue)
@@ -128,64 +118,7 @@ int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1,
         localResult.addResult(totalNuance/nombrePixels);
     }
 
-    //Calcul de la pertinence de la zone
-    int pertinence = 0;
-    int origineVariation;
-    bool graphMontant = false;
-    for (unsigned int i=0; i<localResult.getResults().size(); i++)
-    {
-        int currentValue = localResult.getResults()[i];
-
-        //Enregistrement de la valeur initiale du graph
-        if (i==0)
-        {
-            //Si la valeur est une valeur que l'on veut analyse on la prend en compte
-            if (currentValue >= whiteValue)
-                origineVariation = currentValue;
-            //Sinon on prend la valeur minimale d'étude, qui servira si on passe au dessus du seuil plus tard
-            else
-                origineVariation = whiteValue;
-        }
-        else
-        {
-            // On ne fait des études que si on a une valeur supérieur au seuil
-            if (currentValue >= whiteValue)
-            {
-                if (i==1)
-                {
-                    if (origineVariation < currentValue)
-                        graphMontant = true;
-                }
-                else
-                {
-                    int previousValue = localResult.getResults()[i-1];
-                    //Le graph montait et ça change de sens
-                    if (graphMontant && currentValue<previousValue)
-                    {
-                        int diff = abs(origineVariation-currentValue);
-                        if (diff > errorMargin)
-                            pertinence++;
-                        origineVariation = previousValue;
-                        graphMontant = false;
-                    }
-                    if (!graphMontant && currentValue>previousValue)
-                    {
-                        int diff = abs(origineVariation-currentValue);
-                        if (diff > errorMargin)
-                            pertinence++;
-                        origineVariation = previousValue;
-                        graphMontant = true;
-                    }
-                    if (i == localResult.getResults().size()-1 || currentValue == whiteValue)
-                    {
-                        int diff = abs(origineVariation-currentValue);
-                        if (diff > errorMargin)
-                            pertinence++;
-                    }
-                }
-            }
-        }
-    }
+    int pertinence = calculPertinence(localResult.getResults(), whiteValue);
 
     localResult.setPertinence(pertinence);
 
@@ -237,6 +170,134 @@ void analyse_model::processResultsWithCrops(CImgList<float> allPictures, QPoint 
     }
 
     createCropResultsDisplay(localResult, allPictures.size(), whiteValue);
+}
+
+void analyse_model::processResultsWithCropsVERSIONDEUX(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire)
+{
+    int x1 = pos1.x() * allPictures[0].width() / labelWidth;
+    int y1 = pos1.y() * allPictures[0].height() / labelHeight;
+    int x2 = pos2.x() * allPictures[0].width() / labelWidth;
+    int y2 = pos2.y() * allPictures[0].height() / labelHeight;
+
+    //Positions de l'analyse en haut à gauche et en bas à droite
+    QPoint departAnalyseHautGauche(x1,y1);
+    QPoint finAnalyseBasDroite(x2,y2);
+
+    columnAmount = 5;
+    linesAmount = 5;
+
+    results.clear();
+    gestionnaire->reinitPertinenceCalque();
+
+    int largeurImage = abs(departAnalyseHautGauche.x()-finAnalyseBasDroite.x());
+    int hauteurImage = abs(departAnalyseHautGauche.y()-finAnalyseBasDroite.y());
+
+    //Calcul de la taille de chaque ligne et colonne
+    float xSeparateurFloat = (float)largeurImage / (float)columnAmount;
+    float ySeparateurFloat = (float)hauteurImage / (float)linesAmount;
+
+    int xSeparation = (int)xSeparateurFloat;
+    int ySeparation = (int)ySeparateurFloat;
+
+    int oldX = departAnalyseHautGauche.x();
+    int oldY = departAnalyseHautGauche.y();
+
+    for (int i=1; i<=columnAmount; i++)
+    {
+        int nextX = oldX + xSeparation;
+        if (i == columnAmount)
+            nextX = largeurImage;
+
+        for (int j=1; j<=linesAmount; j++)
+        {
+            int nextY = oldY + ySeparation;
+            if (j == linesAmount)
+                nextY = hauteurImage;
+
+            QPoint pos1(oldX,oldY);
+            QPoint pos2(nextX,nextY);
+
+            int pertinence = processLocalResults(allPictures,pos1,pos2,whiteValue);
+
+            //On créer un rond en fonction de l'analyse
+            if (pertinence>1)
+                gestionnaire->manageNewAnalyse(pertinence, pos1, pos2);
+
+            oldY = nextY;
+        }
+
+        oldY = 0;
+        oldX = nextX;
+    }
+
+    //Dessin du quadrillage à la fin pour recouvrir l'ensemble après qu'on ai fait des carrés verts de pertinence
+    gestionnaire->updateQuadrillage(departAnalyseHautGauche,columnAmount,linesAmount);
+
+    std::cout << "ETUDE CROP TERMINEE" << std::endl;
+}
+
+int analyse_model::calculPertinence(std::vector<float> data, int whiteValue)
+{
+    //Calcul de la pertinence de la zone
+    int pertinence = 0;
+    int origineVariation;
+    bool graphMontant = false;
+    for (unsigned int i=0; i<data.size(); i++)
+    {
+        int currentValue = data[i];
+
+        //Enregistrement de la valeur initiale du graph
+        if (i==0)
+        {
+            //Si la valeur est une valeur que l'on veut analyse on la prend en compte
+            if (currentValue >= whiteValue)
+                origineVariation = currentValue;
+            //Sinon on prend la valeur minimale d'étude, qui servira si on passe au dessus du seuil plus tard
+            else
+                origineVariation = whiteValue;
+        }
+        else
+        {
+            // On ne fait des études que si on a une valeur supérieur au seuil
+            if (currentValue >= whiteValue)
+            {
+                if (i==1)
+                {
+                    if (origineVariation < currentValue)
+                        graphMontant = true;
+                }
+                else
+                {
+                    int previousValue = data[i-1];
+                    //Le graph montait et ça change de sens
+                    if (graphMontant && currentValue<previousValue)
+                    {
+                        int diff = abs(origineVariation-currentValue);
+                        if (diff > errorMargin)
+                            pertinence++;
+                        origineVariation = previousValue;
+                        graphMontant = false;
+                    }
+                    if (!graphMontant && currentValue>previousValue)
+                    {
+                        int diff = abs(origineVariation-currentValue);
+                        if (diff > errorMargin)
+                            pertinence++;
+                        origineVariation = previousValue;
+                        graphMontant = true;
+                    }
+                    if (i == data.size()-1 || currentValue == whiteValue)
+                    {
+                        int diff = abs(origineVariation-currentValue);
+                        if (diff > errorMargin)
+                            pertinence++;
+                    }
+                }
+            }
+        }
+    }
+
+    return pertinence;
 }
 
 //TODO DETERMINER LA MEILLEURE APPROCHE POUR LE BLANC

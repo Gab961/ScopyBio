@@ -10,7 +10,9 @@
 gestionnaire_calque_model::gestionnaire_calque_model(): id(0),isGreen(false),isHistogram(false){
 }
 
-void gestionnaire_calque_model::init(int pileWidth, int pileHeight){
+void gestionnaire_calque_model::init(int newPileWidth, int newPileHeight){
+    pileWidth = newPileWidth;
+    pileHeight = newPileHeight;
     listOfCalque.clear();
     dictionnaireImgMap.clear();
     initGlobalCalques(pileWidth,pileHeight);
@@ -111,6 +113,13 @@ void gestionnaire_calque_model::removeCalques(int min, int max){
     }
 }
 
+void gestionnaire_calque_model::calqueShowable(int min, int max, bool show){
+    int search = getCalque(min,max);
+    if(search != -1){
+        listOfCalque[search].setCanShow(show);
+    }
+}
+
 /**
  * @brief gestionnaire_calque_model::getCalqueForDisplay renvoie la copie du calque pour l'afficher
  * @param min connaitre à partir de quelle image s'applique le calque
@@ -158,7 +167,15 @@ void gestionnaire_calque_model::creerCalque(int width, int height, int min, int 
     id++;
 }
 
+void gestionnaire_calque_model::reinitPertinenceCalque()
+{
+    calque newCalque = getCalqueForDisplay(-5,-5);
 
+    CImg<float> newImage(pileWidth,pileHeight,1,4,0);
+    newCalque.setCalque(newImage);
+
+    listOfCalque[idPertinenceCalque] = newCalque;
+}
 
 /**
  * @brief gestionnaire_calque_model::manageNewAnalyse
@@ -227,10 +244,11 @@ void gestionnaire_calque_model::updateHistogram(int min, int max, int taille){
 
 /**
  * @brief gestionnaire_calque_model::updateQuadrillage
+ * @param posInitiale
  * @param columns
  * @param lines
  */
-void gestionnaire_calque_model::updateQuadrillage(int columns, int lines){
+void gestionnaire_calque_model::updateQuadrillage(QPoint posInitiale, int columns, int lines){
     calque newCalque = getCalqueForDisplay(-5, -5);
 
     newCalque.filtreQuadrillage(columns, lines);
