@@ -113,6 +113,13 @@ void gestionnaire_calque_model::removeCalques(int min, int max){
     }
 }
 
+void gestionnaire_calque_model::calqueShowable(int min, int max, bool show){
+    int search = getCalque(min,max);
+    if(search != -1){
+        listOfCalque[search].setCanShow(show);
+    }
+}
+
 /**
  * @brief gestionnaire_calque_model::getCalqueForDisplay renvoie la copie du calque pour l'afficher
  * @param min connaitre à partir de quelle image s'applique le calque
