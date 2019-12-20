@@ -48,6 +48,7 @@ public:
     void filtreVert();
     void filtreHistogram();
     void filtreQuadrillage(int columns, int lines);
+    void ecrireText(QPoint pos1, int labelWidth, int labelHeight,std::string text_a_ecrire, CImg<float> & currentPicture);
 
 };
 

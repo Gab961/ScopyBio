@@ -35,7 +35,7 @@ signals:
     void getDataFromArea(const QPoint&, int labelWidth, int labelHeight);
     void changeZoomPicture();
     void changeGraphPicture();
-    void firstClickDone();
+    void userAnalyseReady();
 
 public slots:
     void setNewPicture();
@@ -43,7 +43,7 @@ public slots:
     void readyForPenDraw();
     void cancelPenDraw();
     void askProcessFromZoom();
-    void nouvelleAnalyseUtiliser(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void nouvelleAnalyseUtilisateur(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void getData(QPoint area, int labelWidth, int labelHeight);
 
 private:

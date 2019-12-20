@@ -25,11 +25,11 @@ void ScopyBio_Controller::DisplayResultImage(int idImage){
 //=======================
 
 void ScopyBio_Controller::save_as(std::string path){
-    m_saveModel->save_as(path,m_pileModel->getFileName(),m_gestion_calque->getAllCalques(), m_analyseModel->getResults());
+    m_saveModel->save_as(path,m_pileModel->getFileName(),m_gestion_calque->getAllCalques(), m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount());
 }
 
 bool ScopyBio_Controller::save(){
-    return m_saveModel->save(m_gestion_calque->getAllCalques(), m_analyseModel->getResults());
+    return m_saveModel->save(m_gestion_calque->getAllCalques(), m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount());
 }
 
 
@@ -42,18 +42,29 @@ void ScopyBio_Controller::changeSavePaths(std::string newSavePath)
 // Pile_Modele
 //=======================
 void ScopyBio_Controller::openProject(std::string pathProject){
-
+    //Calques !
     m_gestion_calque->init(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
     std::vector<calque> calques;
 
     calques = m_loadModel->loadCalques(pathProject);
-    //Recreer les calques avec la fonction creer calque
 
     m_gestion_calque->addCalques(calques,m_pileModel->getImages().size());
-    //    for(calque tmp : calques){
-    //        m_gestion_calque->creerCalque(/*tmp*/m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),tmp.getIntervalMin(),tmp.getIntervalMax(),m_pileModel->getImages().size());
-    //        m_gestion_calque->setCalque(tmp.getIntervalMin(),tmp.getIntervalMax(),tmp);
-    //    }
+
+    //Resultat
+    m_analyseModel->init();
+    std::vector<Resultat> res;
+    res = m_loadModel->loadResults(pathProject);
+
+    m_analyseModel->setResults(res);
+
+    std::vector<int> rowcol = m_loadModel->loadColRowAmounts(pathProject);
+    if(rowcol.empty()){
+        m_analyseModel->setLinesAmount(0);
+        m_analyseModel->setColumnAmount(0);
+    }else{
+        m_analyseModel->setLinesAmount(rowcol.front());
+        m_analyseModel->setColumnAmount(rowcol.back());
+    }
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
@@ -63,7 +74,9 @@ void ScopyBio_Controller::loadNewTiffFile(std::string filename)
     if (filename.length()>0)
     {
         m_pileModel->loadNewFilename(filename);
-        m_gestion_calque->initGlobalCalques(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
+        m_gestion_calque->init(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
+
+        m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
     }
 }
 
@@ -251,12 +264,16 @@ void ScopyBio_Controller::applyHistogramFilter()
 
 void ScopyBio_Controller::manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView)
 {
-    m_dessinModel->manageNewWhiteColor(pos, labelWidth, labelHeight, isZoomView);
+    m_dessinModel->manageNewWhiteColor(pos, labelWidth, labelHeight, isZoomView, m_pileModel->getCurrentImage());
 }
 
 int ScopyBio_Controller::getWhiteColor()
 {
     return m_dessinModel->getWhiteValue();
+}
+
+void ScopyBio_Controller::setWhiteColor(int value) {
+    m_dessinModel->setWhiteValue(value);
 }
 
 void ScopyBio_Controller::setPipetteClick(bool pipetteClick)
@@ -311,17 +328,22 @@ std::string ScopyBio_Controller::getResultDisplayPath()
 }
 
 void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight)
-{
+{    
+    std::cout << "Etude AVEC crop" << std::endl;
 
+    //VERSION 1
     m_analyseModel->processResultsWithCrops(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
-}
+
+    //VERSION 2
+//    m_analyseModel->processResultsWithCropsVERSIONDEUX(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
+  }
 
 void ScopyBio_Controller::processResults()
-{    
-    //Initialisation du white automatique
-    m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
+{
+    std::cout << "Etude TOTALE" << std::endl;
 
     m_analyseModel->processResults(m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
+
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
@@ -339,6 +361,22 @@ void ScopyBio_Controller::getDataFromArea(QPoint area, int labelWidth, int label
     int imageWidth = m_pileModel->getCurrentImage().width();
     int imageHeight = m_pileModel->getCurrentImage().height();
     m_analyseModel->getDataFromArea(area, labelWidth, labelHeight, imageWidth, imageHeight, m_pileModel->getCurrentImage(), m_dessinModel);
+}
+
+int ScopyBio_Controller::getLineAmount() {
+    return m_analyseModel->getLinesAmount();
+}
+
+int ScopyBio_Controller::getColumnAmount() {
+    return m_analyseModel->getColumnAmount();
+}
+
+void ScopyBio_Controller::setLineAmount(int value) {
+    m_analyseModel->setLinesAmount(value);
+}
+
+void ScopyBio_Controller::setColumnAmount(int value) {
+    m_analyseModel->setColumnAmount(value);
 }
 
 

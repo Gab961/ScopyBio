@@ -19,6 +19,7 @@ class Data_View;
 class ScopyBio_Controller;
 class LoopView;
 class ComparePopup;
+class AnalysisPopup;
 
 class MainWindow: public QMainWindow
 {
@@ -35,6 +36,8 @@ class MainWindow: public QMainWindow
         void sendPathProjet(std::string path);
         void changeMainPicture();
         void changeZoomedPicture();
+        void clearZoomView();
+        void clearDataView();
 
     public slots:
         void open();
@@ -64,9 +67,7 @@ class MainWindow: public QMainWindow
         QGridLayout *m_centerLayout;
         QGridLayout *m_buttonLayout;
         Image_View *m_imageView;
-        QPushButton *m_openLoop;
         LoopView *m_loopWindow;
-        QPushButton *m_openCompare;
         ComparePopup *m_comparePopup;
 
         QGridLayout *m_rightLayout;
@@ -81,6 +82,10 @@ class MainWindow: public QMainWindow
         QAction *m_saveAs;
         QAction *m_aboutUs;
         QAction *m_howToUse;
+        QAction *m_compare;
+        QAction *m_loop;
+
+        AnalysisPopup *m_analysisPopup;
 
         QWidget *m_window;
         QGridLayout *m_mainLayout;

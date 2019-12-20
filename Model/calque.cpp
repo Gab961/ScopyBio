@@ -114,3 +114,7 @@ void calque::filtreQuadrillage(int columns, int lines){
 void calque::filtreHistogram(){
     _calque = dessine.applyHistogramFilter(_calque);
 }
+
+void calque::ecrireText(QPoint pos1, int labelWidth, int labelHeight,std::string text_a_ecrire, CImg<float> & currentPicture){
+    _calque = dessine.ecrireText(pos1,labelWidth,labelHeight,text_a_ecrire,currentPicture);
+}

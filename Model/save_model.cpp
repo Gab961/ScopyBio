@@ -52,7 +52,7 @@ void save_model::saveCalques(std::vector<calque> calques){
     }
 }
 
-void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Resultat> &resultats){
+void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Resultat> &resultats, int row, int col){
     std::string _filename = savePath;
     _filename += separator;
     _filename += std::string(filename);
@@ -80,20 +80,36 @@ void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Res
 
 
     for(Resultat i : resultats){
+        //Pertinence
         Json::Value resultValue;
         resultValue["pertinence"] = i.getPertinence();
 
+        //Top left Point
+        Json::Value arrayTopPoint;
+        arrayTopPoint.append(i.getTopLeftPoint().x());
+        arrayTopPoint.append(i.getTopLeftPoint().y());
+        resultValue["topLeftPoint"] = arrayTopPoint;
+
+        //Bottom right Point
+        Json::Value arrayBotPoint;
+        arrayBotPoint.append(i.getBottomRightPoint().x());
+        arrayBotPoint.append(i.getBottomRightPoint().y());
+        resultValue["bottomRightPoint"] = arrayBotPoint;
+
         //Array
         Json::Value arrayV;
-        for (int element: i.getResults()) {
+        //int index = 0;
+        for (auto element: i.getResults()) {
             arrayV.append(element);
         }
         resultValue["resultats"] = arrayV;
 
 
-        value["results"].append(resultValue);
+        value["results"]["data"].append(resultValue);
     }
 
+    value["results"]["rowAmount"] = row;
+    value["results"]["colAmount"] = col;
 
 
     std::ofstream outfile(_filename);
@@ -103,13 +119,12 @@ void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Res
     outfile.close();
 }
 
-void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques,std::vector<Resultat> resultats){
-    std::cout << "function save_as " << std::endl;
+void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques,std::vector<Resultat> resultats,int row, int col){
+    //std::cout << "function save_as " << std::endl;
 
     auto first = fileName.find(".");
     std::string f = fileName.substr(0, first);
     filename = getFileName(f,true,separator);
-
 
     savePath = path;
 
@@ -117,26 +132,37 @@ void save_model::save_as(std::string path, std::string fileName, std::vector<cal
     saveCalquesPath += separator;
     saveCalquesPath += std::string("Calques");
 
-    if(std::filesystem::exists(saveCalquesPath.c_str())){
-        std::cout << saveCalquesPath << " Found" << std::endl;
+    if(!std::filesystem::is_empty(std::filesystem::path(savePath))){
 
-        std::filesystem::remove_all(std::filesystem::path(saveCalquesPath));
+        if(std::filesystem::exists(saveCalquesPath.c_str())){
+            //std::cout << saveCalquesPath << " Found" << std::endl;
 
+            std::filesystem::remove_all(std::filesystem::path(saveCalquesPath));
 
-        std::cout << saveCalquesPath << " Removed" << std::endl;
+            std::filesystem::remove_all(std::filesystem::path(savePath));
+
+            //std::cout << saveCalquesPath << " Removed" << std::endl;
+
+        }else{
+            savePath = path + separator + filename;
+
+            saveCalquesPath = savePath;
+            saveCalquesPath += separator;
+            saveCalquesPath += std::string("Calques");
+        }
     }
 
 
-    std::filesystem::create_directory(saveCalquesPath.c_str());
-//    fs::remove_all(fs::path(saveCalquesPath));
+
+    std::filesystem::create_directories(saveCalquesPath.c_str());
 
     saveTiff(fileName);
 
-    save(_calques,resultats);
+    save(_calques,resultats,row,col);
 }
 
 
-bool save_model::save(std::vector<calque> _calques, const std::vector<Resultat> &resultats){
+bool save_model::save(std::vector<calque> _calques, const std::vector<Resultat> &resultats, int row, int col){
     if(savePath.empty()){
         return false;
     }else{
@@ -144,7 +170,7 @@ bool save_model::save(std::vector<calque> _calques, const std::vector<Resultat> 
             return false;
         }else{
             saveCalques(_calques);
-            saveJsonFile(_calques,resultats);
+            saveJsonFile(_calques,resultats,row,col);
             return true;
         }
     }

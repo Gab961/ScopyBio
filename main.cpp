@@ -29,6 +29,11 @@ int main(int argc, char* argv[])
     analysePath += "saveAnalyse";
     filesystem::create_directories(analysePath);
 
+    string pileDisplayPath = "tmp";
+    pileDisplayPath += separator;
+    pileDisplayPath += "pileDisplay";
+    filesystem::create_directories(pileDisplayPath);
+
     QApplication scopyBio(argc, argv);
 
     MainWindow mainWindow;

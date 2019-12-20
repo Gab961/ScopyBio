@@ -26,4 +26,5 @@ public:
     std::vector<QPoint> coordonees;
     std::vector<float> getResults();
     float getResultAtIndex(int index);
+    void setResults(const std::vector<float> &value);
 };

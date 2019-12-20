@@ -5,8 +5,17 @@
 #include "analyse_model.h"
 #include "dessin_model.h"
 
-analyse_model::analyse_model() : areaIsSelected(false), userAreaIsSelected(false), isDataReady(false), columnAmount(30), linesAmount(30)
+analyse_model::analyse_model() : areaIsSelected(false), userAreaIsSelected(false), isDataReady(false), columnAmount(30), linesAmount(30), errorMargin(5)
 {}
+
+void analyse_model::init(){
+    areaIsSelected = false;
+    userAreaIsSelected = false;
+    isDataReady = true;
+    currentArea = 0;
+
+    results.clear();
+}
 
 std::string analyse_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
 
@@ -20,9 +29,7 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
     /////////////////
 
     results.clear();
-
-    //Dessin du quadrillage
-    gestionnaire->updateQuadrillage(columnAmount,linesAmount);
+    gestionnaire->reinitPertinenceCalque();
 
     int largeurImage = allPictures[0].width();
     int hauteurImage = allPictures[0].height();
@@ -51,14 +58,11 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
 
             QPoint pos1(oldX,oldY);
             QPoint pos2(nextX,nextY);
-            int milieuX = oldX+abs(oldX-nextX)/2;
-            int milieuY = oldY+abs(oldY-nextY)/2;
-            QPoint posMid(milieuX,milieuY);
-            //            std::cout << "Analyse de " << pos1.x() << "," << pos1.y() << " à " << pos2.x() << "," << pos2.y() << std::endl;
 
             int pertinence = processLocalResults(allPictures,pos1,pos2,whiteValue);
+
             //On créer un rond en fonction de l'analyse
-            if (pertinence>0)
+            if (pertinence>1)
                 gestionnaire->manageNewAnalyse(pertinence, pos1, pos2);
 
             oldY = nextY;
@@ -67,6 +71,11 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
         oldY = 0;
         oldX = nextX;
     }
+
+    //Dans le cas de l'analyse global, on part de tout en haut à gauche
+    QPoint posInit(0,0);
+    //Dessin du quadrillage à la fin pour recouvrir l'ensemble après qu'on ai fait des carrés verts de pertinence
+    gestionnaire->updateQuadrillage(posInit,columnAmount,linesAmount);
 }
 
 int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue)
@@ -106,37 +115,10 @@ int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1,
             if (niveauDeNoirMaximal > niveauNuance)
                 niveauDeNoirMaximal = niveauNuance;
         }
-
         localResult.addResult(totalNuance/nombrePixels);
     }
 
-
-    //Calcul de la pertinence de la zone
-    int pertinence = 0;
-    bool sousLeWhite;
-    for (unsigned int i=0; i<localResult.getResults().size(); i++)
-    {
-        if (i==0)
-        {
-            if (localResult.getResultAtIndex(i)<whiteValue)
-                sousLeWhite = true;
-            else
-                sousLeWhite = false;
-        }
-        else
-        {
-            if (sousLeWhite == false && localResult.getResultAtIndex(i)<=whiteValue)
-            {
-                sousLeWhite = true;
-                pertinence++;
-            }
-            if (sousLeWhite == true && localResult.getResultAtIndex(i)>=whiteValue)
-            {
-                sousLeWhite = false;
-                pertinence++;
-            }
-        }
-    }
+    int pertinence = calculPertinence(localResult.getResults(), whiteValue);
 
     localResult.setPertinence(pertinence);
 
@@ -188,6 +170,134 @@ void analyse_model::processResultsWithCrops(CImgList<float> allPictures, QPoint 
     }
 
     createCropResultsDisplay(localResult, allPictures.size(), whiteValue);
+}
+
+void analyse_model::processResultsWithCropsVERSIONDEUX(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire)
+{
+    int x1 = pos1.x() * allPictures[0].width() / labelWidth;
+    int y1 = pos1.y() * allPictures[0].height() / labelHeight;
+    int x2 = pos2.x() * allPictures[0].width() / labelWidth;
+    int y2 = pos2.y() * allPictures[0].height() / labelHeight;
+
+    //Positions de l'analyse en haut à gauche et en bas à droite
+    QPoint departAnalyseHautGauche(x1,y1);
+    QPoint finAnalyseBasDroite(x2,y2);
+
+    columnAmount = 5;
+    linesAmount = 5;
+
+    results.clear();
+    gestionnaire->reinitPertinenceCalque();
+
+    int largeurImage = abs(departAnalyseHautGauche.x()-finAnalyseBasDroite.x());
+    int hauteurImage = abs(departAnalyseHautGauche.y()-finAnalyseBasDroite.y());
+
+    //Calcul de la taille de chaque ligne et colonne
+    float xSeparateurFloat = (float)largeurImage / (float)columnAmount;
+    float ySeparateurFloat = (float)hauteurImage / (float)linesAmount;
+
+    int xSeparation = (int)xSeparateurFloat;
+    int ySeparation = (int)ySeparateurFloat;
+
+    int oldX = departAnalyseHautGauche.x();
+    int oldY = departAnalyseHautGauche.y();
+
+    for (int i=1; i<=columnAmount; i++)
+    {
+        int nextX = oldX + xSeparation;
+        if (i == columnAmount)
+            nextX = largeurImage;
+
+        for (int j=1; j<=linesAmount; j++)
+        {
+            int nextY = oldY + ySeparation;
+            if (j == linesAmount)
+                nextY = hauteurImage;
+
+            QPoint pos1(oldX,oldY);
+            QPoint pos2(nextX,nextY);
+
+            int pertinence = processLocalResults(allPictures,pos1,pos2,whiteValue);
+
+            //On créer un rond en fonction de l'analyse
+            if (pertinence>1)
+                gestionnaire->manageNewAnalyse(pertinence, pos1, pos2);
+
+            oldY = nextY;
+        }
+
+        oldY = 0;
+        oldX = nextX;
+    }
+
+    //Dessin du quadrillage à la fin pour recouvrir l'ensemble après qu'on ai fait des carrés verts de pertinence
+    gestionnaire->updateQuadrillage(departAnalyseHautGauche,columnAmount,linesAmount);
+
+    std::cout << "ETUDE CROP TERMINEE" << std::endl;
+}
+
+int analyse_model::calculPertinence(std::vector<float> data, int whiteValue)
+{
+    //Calcul de la pertinence de la zone
+    int pertinence = 0;
+    int origineVariation;
+    bool graphMontant = false;
+    for (unsigned int i=0; i<data.size(); i++)
+    {
+        int currentValue = data[i];
+
+        //Enregistrement de la valeur initiale du graph
+        if (i==0)
+        {
+            //Si la valeur est une valeur que l'on veut analyse on la prend en compte
+            if (currentValue >= whiteValue)
+                origineVariation = currentValue;
+            //Sinon on prend la valeur minimale d'étude, qui servira si on passe au dessus du seuil plus tard
+            else
+                origineVariation = whiteValue;
+        }
+        else
+        {
+            // On ne fait des études que si on a une valeur supérieur au seuil
+            if (currentValue >= whiteValue)
+            {
+                if (i==1)
+                {
+                    if (origineVariation < currentValue)
+                        graphMontant = true;
+                }
+                else
+                {
+                    int previousValue = data[i-1];
+                    //Le graph montait et ça change de sens
+                    if (graphMontant && currentValue<previousValue)
+                    {
+                        int diff = abs(origineVariation-currentValue);
+                        if (diff > errorMargin)
+                            pertinence++;
+                        origineVariation = previousValue;
+                        graphMontant = false;
+                    }
+                    if (!graphMontant && currentValue>previousValue)
+                    {
+                        int diff = abs(origineVariation-currentValue);
+                        if (diff > errorMargin)
+                            pertinence++;
+                        origineVariation = previousValue;
+                        graphMontant = true;
+                    }
+                    if (i == data.size()-1 || currentValue == whiteValue)
+                    {
+                        int diff = abs(origineVariation-currentValue);
+                        if (diff > errorMargin)
+                            pertinence++;
+                    }
+                }
+            }
+        }
+    }
+
+    return pertinence;
 }
 
 //TODO DETERMINER LA MEILLEURE APPROCHE POUR LE BLANC
@@ -420,3 +530,8 @@ bool analyse_model::getAreaIsSelected() { return areaIsSelected; }
 void analyse_model::setAreaIsSelected(bool newValue) { areaIsSelected = newValue; }
 bool analyse_model::getUserAreaIsSelected() { return userAreaIsSelected; }
 void analyse_model::setUserAreaIsSelected(bool newValue) { userAreaIsSelected = newValue; }
+
+void analyse_model::setResults(const std::vector<Resultat> &value)
+{
+    results = value;
+}
