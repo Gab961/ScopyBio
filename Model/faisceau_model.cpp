@@ -35,7 +35,7 @@ void faisceau_model::fillData()
 
 }
 
-faisceau_model::faisceau_model() : faisceauIsSet(false)
+faisceau_model::faisceau_model() : faisceauIsSet(true)
 {
 
 }
@@ -53,12 +53,23 @@ void faisceau_model::setFaisceau(QPoint pos1, QPoint pos2)
         setBotRight(pos2);
     }
 
-    faisceauIsSet = true;
+    faisceauActive = true;
 }
 
 bool faisceau_model::faisceauExist()
 {
     return faisceauIsSet;
+}
+
+
+bool faisceau_model::faisceauIsActive()
+{
+    return faisceauActive;
+}
+
+void faisceau_model::setFaisceauInactive()
+{
+    faisceauActive = false;
 }
 
 faisceau_model::faisceau_model(pile_model *pile , QPoint tl, QPoint br){

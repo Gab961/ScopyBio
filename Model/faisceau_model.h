@@ -14,6 +14,7 @@ private:
     pile_model *p_Piles;
 
     bool faisceauIsSet;
+    bool faisceauActive;
 
 public:
     faisceau_model();
@@ -21,6 +22,9 @@ public:
 
     void setFaisceau(QPoint pos1, QPoint pos2);
     bool faisceauExist();
+
+    bool faisceauIsActive();
+    void setFaisceauInactive();
 
     QPoint getTopLeft() const;
     void setTopLeft(QPoint value);

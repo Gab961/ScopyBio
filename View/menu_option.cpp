@@ -187,6 +187,7 @@ void menu_option::analysis() {
     m_whiteLevel = new QLineEdit();
     m_whiteLevel->setReadOnly(true);
     m_whiteLevel->setText(QVariant(m_scopybioController->getWhiteColor()).toString());
+    m_whiteLevel->setEnabled(false);
 
     m_gridAccuracy = new QGridLayout();
     m_accuracy = new QLabel("Accuracy : ", this);
@@ -203,8 +204,9 @@ void menu_option::analysis() {
     m_gridAccuracy->addWidget(m_accuracyMax, 0, 8);
     m_gridAnalysis->addLayout(m_gridAccuracy, 4, 0, 2, 0);
 
-    m_launchSelect = new QPushButton("Launch on selection", this);
-    m_launch = new QPushButton("Launch", this);
+    m_launchSelect = new QPushButton("Analyse selection", this);
+    m_launchSelect->setEnabled(false);
+    m_launch = new QPushButton("Full analyse", this);
 
     m_gridAnalysis->addWidget(m_lineLabel, 0, 0);
     m_gridAnalysis->addWidget(m_lines, 0, 1);
@@ -224,6 +226,8 @@ void menu_option::analysis() {
 
 void menu_option::launchAnalysis()
 {
+    m_launchSelect->setEnabled(false);
+
     m_scopybioController->setLineAmount(m_lines->text().toInt());
     m_scopybioController->setColumnAmount(m_columns->text().toInt());
     m_scopybioController->setWhiteColor(m_whiteLevel->text().toInt());

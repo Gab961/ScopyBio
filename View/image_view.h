@@ -36,6 +36,8 @@ signals:
     void changeZoomPicture();
     void changeGraphPicture();
     void userAnalyseReady();
+    void activateLocalAnalyse();
+    void desactiveLocalAnalyse();
 
 public slots:
     void setNewPicture();

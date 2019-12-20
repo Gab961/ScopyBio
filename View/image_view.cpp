@@ -212,6 +212,7 @@ void Image_View::getData(QPoint area, int labelWidth, int labelHeight) {
     m_scopybioController->getDataFromArea(area, labelWidth, labelHeight);
 
     setNewPicture();
+    emit desactiveLocalAnalyse();
 
     //MAJ des interfaces
     emit userAnalyseReady();
