@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <thread>
 
 #include "scopybio_controller.h"
 
@@ -356,12 +355,17 @@ void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight
 void ScopyBio_Controller::processResults()
 {
     std::cout << "Etude TOTALE" << std::endl;
-    std::thread t1(&analyse_model::processResults,m_analyseModel,m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
 
     try{
-        t1.detach();
+        background_task = std::thread(&analyse_model::processResults,m_analyseModel,m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
+        //background_task.detach();
+
+        listener = std::thread(&ScopyBio_Controller::listen,this);
+        listener.detach();
     }catch(...){
-        t1.join();
+        std::cout << "fini dans controleur" << std::endl;
+        background_task.join();
+        listener.join();
     }
 
     //DisplayResultImage(m_pileModel->getCurrentImageIndex());
@@ -408,4 +412,21 @@ void ScopyBio_Controller::setColumnAmount(int value) {
 void ScopyBio_Controller::setFaisceau(QPoint pos1, QPoint pos2)
 {
     m_faisceauModel->setFaisceau(pos1, pos2);
+}
+
+
+//=======================
+// THREAD
+//=======================
+void ScopyBio_Controller::listen(){
+
+    if(background_task.joinable()){
+        background_task.join();
+    }
+
+
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
+
+    std::cout << "Thread control fini" << std::endl;
+
 }

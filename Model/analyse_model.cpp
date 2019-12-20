@@ -76,6 +76,7 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
     QPoint posInit(0,0);
     //Dessin du quadrillage à la fin pour recouvrir l'ensemble après qu'on ai fait des carrés verts de pertinence
     gestionnaire->updateQuadrillage(posInit,columnAmount,linesAmount);
+    std::cout << "fini" << std::endl;
 }
 
 int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue)
