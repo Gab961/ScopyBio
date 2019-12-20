@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <thread>
 
 #include "scopybio_controller.h"
 
@@ -355,10 +356,17 @@ void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight
 void ScopyBio_Controller::processResults()
 {
     std::cout << "Etude TOTALE" << std::endl;
+    std::thread t1(&analyse_model::processResults,m_analyseModel,m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
 
-    m_analyseModel->processResults(m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
+    try{
+        t1.detach();
+    }catch(...){
+        t1.join();
+    }finally{
+        DisplayResultImage(m_pileModel->getCurrentImageIndex());
+    }
 
-    DisplayResultImage(m_pileModel->getCurrentImageIndex());
+
 }
 
 int ScopyBio_Controller::getItemAtPoint(int posX, int labelWidth)
