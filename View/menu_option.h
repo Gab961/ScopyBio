@@ -111,6 +111,7 @@ class menu_option: public QGroupBox
         QSlider *m_accuracySlider;
         int m_accuracyValue;
 
+        QPushButton *m_launchSelect;
         QPushButton *m_launch;
 
         ScopyBio_Controller *m_scopybioController;

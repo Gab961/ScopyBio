@@ -24,8 +24,8 @@ std::vector<Resultat> analyse_model::getResults() const { return results; }
 void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, gestionnaire_calque_model * gestionnaire)
 {
     ///DEBUG TESTS
-    columnAmount = 5;
-    linesAmount = 5;
+//    columnAmount = 5;
+//    linesAmount = 5;
     /////////////////
 
     results.clear();
@@ -183,8 +183,10 @@ void analyse_model::processResultsWithCropsVERSIONDEUX(CImgList<float> allPictur
     QPoint departAnalyseHautGauche(x1,y1);
     QPoint finAnalyseBasDroite(x2,y2);
 
-    columnAmount = 5;
-    linesAmount = 5;
+    /////DEBUG
+//    columnAmount = 5;
+//    linesAmount = 5;
+    //////
 
     results.clear();
     gestionnaire->reinitPertinenceCalque();

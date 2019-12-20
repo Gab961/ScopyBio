@@ -203,6 +203,7 @@ void menu_option::analysis() {
     m_gridAccuracy->addWidget(m_accuracyMax, 0, 8);
     m_gridAnalysis->addLayout(m_gridAccuracy, 4, 0, 2, 0);
 
+    m_launchSelect = new QPushButton("Launch on selection", this);
     m_launch = new QPushButton("Launch", this);
 
     m_gridAnalysis->addWidget(m_lineLabel, 0, 0);
@@ -211,6 +212,7 @@ void menu_option::analysis() {
     m_gridAnalysis->addWidget(m_columns, 1, 1);
     m_gridAnalysis->addWidget(m_whiteLevelLabel, 2, 0);
     m_gridAnalysis->addWidget(m_whiteLevel, 2, 1);
+    m_gridAnalysis->addWidget(m_launchSelect, 5, 0);
     m_gridAnalysis->addWidget(m_launch, 5, 1);
     m_gridOptions->addLayout(m_gridAnalysis, 0, 0);
 

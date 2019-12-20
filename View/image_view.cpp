@@ -211,6 +211,8 @@ void Image_View::getData(QPoint area, int labelWidth, int labelHeight) {
     m_scopybioController->setAreaIsSelected();
     m_scopybioController->getDataFromArea(area, labelWidth, labelHeight);
 
+    setNewPicture();
+
     //MAJ des interfaces
     emit userAnalyseReady();
     emit changeZoomPicture();

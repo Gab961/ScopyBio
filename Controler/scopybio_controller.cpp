@@ -349,12 +349,15 @@ void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight
     m_analyseModel->processResultsWithCrops(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
 
     //VERSION 2
-//    m_analyseModel->processResultsWithCropsVERSIONDEUX(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
-  }
+    //    m_analyseModel->processResultsWithCropsVERSIONDEUX(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
+}
 
 void ScopyBio_Controller::processResults()
 {
     std::cout << "Etude TOTALE" << std::endl;
+
+    if (m_faisceauModel->faisceauExist())
+        m_gestion_calque->reinitFaisceauCalque();
 
     m_analyseModel->processResults(m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
 
@@ -374,7 +377,16 @@ bool ScopyBio_Controller::dataReady()
 void ScopyBio_Controller::getDataFromArea(QPoint area, int labelWidth, int labelHeight) {
     int imageWidth = m_pileModel->getCurrentImage().width();
     int imageHeight = m_pileModel->getCurrentImage().height();
+
+    if (m_faisceauModel->faisceauExist())
+    {
+        std::cout << "Reinit faisceau" << std::endl;
+        m_gestion_calque->reinitFaisceauCalque();
+    }
+
     m_analyseModel->getDataFromArea(area, labelWidth, labelHeight, imageWidth, imageHeight, m_pileModel->getCurrentImage(), m_dessinModel);
+
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
 int ScopyBio_Controller::getLineAmount() {

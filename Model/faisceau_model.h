@@ -13,11 +13,14 @@ private:
     analyse_model Data;
     pile_model *p_Piles;
 
+    bool faisceauIsSet;
+
 public:
     faisceau_model();
     faisceau_model(pile_model *pile, QPoint tl, QPoint br);
 
     void setFaisceau(QPoint pos1, QPoint pos2);
+    bool faisceauExist();
 
     QPoint getTopLeft() const;
     void setTopLeft(QPoint value);

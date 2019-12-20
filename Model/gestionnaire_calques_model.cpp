@@ -167,6 +167,9 @@ void gestionnaire_calque_model::creerCalque(int width, int height, int min, int 
     id++;
 }
 
+/**
+ * @brief gestionnaire_calque_model::reinitPertinenceCalque
+ */
 void gestionnaire_calque_model::reinitPertinenceCalque()
 {
     calque newCalque = getCalqueForDisplay(-5,-5);
@@ -175,6 +178,21 @@ void gestionnaire_calque_model::reinitPertinenceCalque()
     newCalque.setCalque(newImage);
 
     listOfCalque[idPertinenceCalque] = newCalque;
+}
+
+/**
+ * @brief gestionnaire_calque_model::reinitPertinenceCalque
+ */
+void gestionnaire_calque_model::reinitFaisceauCalque()
+{
+    calque newCalque = getCalqueForDisplay(-2,-2);
+
+    CImg<float> newImage(pileWidth,pileHeight,1,4,0);
+    newCalque.setCalque(newImage);
+
+    int indexFaisceau = getCalque(-2,-2);
+
+    listOfCalque[indexFaisceau] = newCalque;
 }
 
 /**
