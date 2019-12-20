@@ -1,7 +1,7 @@
 #include "pile_model.h"
 #include <json/json.h>
-#include "gestionnaire_calques_model.h"
 #include <iostream>
+#include <filesystem>
 
 #define PATH "../../Resources/Config/config.json"
 
@@ -90,8 +90,12 @@ void pile_model::read_json_config(){
 
 void pile_model::load(string path)
 {
+
     images.clear();
     images_icons_filename.clear();
+    if(!std::filesystem::exists(std::filesystem::path(path))){
+        path += "f";
+    }
     images.load_tiff(path.c_str());
 
     //Enregistrement dans un fichier temporaire
@@ -99,7 +103,7 @@ void pile_model::load(string path)
     {
         CImg<float> img = images[i];
 
-        std::string chemin = "tmp/" + std::to_string(i) + ".bpm";
+        std::string chemin = "tmp/pileDisplay/" + std::to_string(i) + ".bpm";
         img.save_bmp(chemin.c_str());         // problem here
         images_icons_filename.push_back(chemin);
     }
@@ -110,13 +114,4 @@ void pile_model::load(string path)
     //TODO LE MULTIPLATFORME
     std::string command = "convert " + path + " -flatten tmp/flatten.bmp";
     system(command.c_str());
-
-    return;
-
 }
-
-void pile_model::save(string path)
-{
-
-}
-

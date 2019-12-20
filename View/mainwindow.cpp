@@ -104,6 +104,9 @@ void MainWindow::connections()
     //Envoi du chemin d'une image tif pour charger la pile
     QObject::connect(this, &MainWindow::sendPath, m_pileView, &Pile_View::openFile);
 
+    //Envoi du chemin d'une image tif pour charger la pile
+    QObject::connect(this, &MainWindow::sendPathProjet, this, &MainWindow::openProject);
+
     //Fin de chargement de pile donc affichage de la première image
     QObject::connect(m_pileView, &Pile_View::pileInitDone, this, &MainWindow::showFirstInPile);
 
@@ -152,10 +155,21 @@ void MainWindow::connections()
     //Changement curseur quand clic pipette
     QObject::connect(m_zoomView, &Zoom_View::pipetteClicked, this, &MainWindow::setCursorPipetteDisabled);
 
-
+    //Refresh du zoom sans sélection par l'utilisateur
+    QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_zoomView, &Zoom_View::enableDisplay);
+    QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_dataView, &Data_View::enableDisplay);
+    //Gestion premier clic
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_zoomView, &Zoom_View::setPictureFromFile);
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_dataView, &Data_View::setGraphFromFile);
 
+    //Clear de la vue du Zoom
+    QObject::connect(this, &MainWindow::clearZoomView, m_zoomView, &Zoom_View::resetZoomView);
+
+    //Clear de la vue du Data
+    QObject::connect(this, &MainWindow::clearDataView, m_dataView, &Data_View::resetDataView);
+
+    //Démarrage d'une analyse complete
+    QObject::connect(m_options, &menu_option::askFullAnalysis, this, &MainWindow::startFullAnalysis);
 
     // Met à jour la vue des options en fonction de l'outil sélectionné
     QObject::connect(m_tools, &Menu_Draw_Button::penClicked, m_options, &menu_option::pen);
@@ -180,13 +194,17 @@ void MainWindow::open()
         if (path.substr(path.size()-3, path.size()) == "scb")
         {
             //TODO Adapter pour séparateur
-            std::string directoryPath = path.substr(0,path.find_last_of('/'));
+            //std::string directoryPath = path.substr(0,path.find_last_of('/'));
 
-            m_scopybioController->changeSavePath(directoryPath);
+            m_scopybioController->changeSavePaths(path.substr(0,path.find_last_of(separator)));
             m_saveFile->setEnabled(true);
 
+
+            std::string tifPath = path.substr(0, path.size()-3) + "tif";
+            emit sendPath(tifPath);
+
             //TODO Gerer séparator multi os
-            emit sendPath(directoryPath + "/pile.tif");
+            emit sendPathProjet(path);
         }
         else
             emit sendPath(path);
@@ -296,6 +314,11 @@ void MainWindow::updateSave()
     m_saveFile->setEnabled(true);
 }
 
+void MainWindow::openProject(std::string path)
+{
+    m_scopybioController->openProject(path);
+}
+
 void MainWindow::showFirstInPile()
 {
     m_scopybioController->saveAsMainDisplay(0);
@@ -310,8 +333,8 @@ void MainWindow::changeActualItem()
     m_scopybioController->saveCurrent(indiceEnCours);
     if (m_scopybioController->areaIsSelected())
         m_scopybioController->saveZoomOfCurrentArea();
-//    if (m_scopybioController->userAreaIsSelected())
-//        //TODO
+    if (m_scopybioController->userAreaIsSelected())
+        m_scopybioController->saveZoomOfUserArea();
     m_imageView->updateZoomOnly();
     m_scopybioController->DisplayResultImage(indiceEnCours);
     emit changeMainPicture();
@@ -370,6 +393,15 @@ void MainWindow::setCursorPipetteDisabled()
     m_layer->setEnabled(true);
 }
 
+void MainWindow::startFullAnalysis()
+{
+    emit clearZoomView();
+    emit clearDataView();
+
+    m_scopybioController->processResults();
+    emit changeMainPicture();
+}
+
 void MainWindow::wheelEvent(QWheelEvent *ev)
 {
     if(m_scopybioController->fileReady())
@@ -396,7 +428,6 @@ void MainWindow::wheelEvent(QWheelEvent *ev)
             }
         }
     }
-
 
     ev->accept();
 }

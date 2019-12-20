@@ -28,6 +28,43 @@ CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelW
     return currentPicture;
 }
 
+CImg<float> dessin_model::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence, CImg<float> & currentPicture)
+{
+    //Clair
+    const unsigned char color1[] = { 136,255,136,50 };
+    //Moyen
+    const unsigned char color2[] = { 71,255,71,100 };
+    //Foncé
+    const unsigned char color3[] = { 0,255,0,150 };
+
+    switch (pertinence) {
+    case 2:
+        currentPicture.draw_rectangle(pos1.x(),pos1.y(),pos2.x(),pos2.y(),color1,~0U);
+        break;
+    case 3:
+        currentPicture.draw_rectangle(pos1.x(),pos1.y(),pos2.x(),pos2.y(),color2,~0U);
+        break;
+    case 4:
+        currentPicture.draw_rectangle(pos1.x(),pos1.y(),pos2.x(),pos2.y(),color3,~0U);
+        break;
+    default:
+        break;
+    }
+
+    return currentPicture;
+}
+
+CImg<float> dessin_model::ecrireText(QPoint pos1, int labelWidth, int labelHeight,std::string text_a_ecrire, CImg<float> & currentPicture){
+    const unsigned char color[] = { 255,0,255,255 };
+
+    int x1 = pos1.x() * currentPicture.width() / labelWidth;
+    int y1 = pos1.y() * currentPicture.height() / labelHeight;
+
+    currentPicture.draw_text(x1,y1,text_a_ecrire.c_str(),color);
+
+    return currentPicture;
+}
+
 CImg<float> dessin_model::dessinerRond(QPoint pos1, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
     const unsigned char color[] = { 255,174,0,255 };
@@ -229,18 +266,23 @@ CImg<float> dessin_model::applyHistogramFilter(CImg<float> picture)
     return output_img;
 }
 
-void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView)
+void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView, CImg<float> currentImage)
 {
     CImg<float> picture;
     if (zoomView)
         picture.load_bmp(pathOfZoomedDisplay.c_str());
     else
-        picture.load_bmp(pathOfMainDisplay.c_str());
+    {
+        picture = currentImage;
+    }
     int realX = pos.x() * picture.width() / labelWidth;
     int realY = pos.y() * picture.height() / labelHeight;
 
 
     whiteColor = (int)picture(realX, realY, 0, 0);
+
+    std::cout << "Nouvelle white = " << whiteColor << std::endl;
+
     baseColorGiven = true;
 }
 
@@ -248,6 +290,7 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
 void dessin_model::manageNewWhiteColor(int newWhite)
 {
     whiteColor = newWhite;
+    std::cout << "Nouvelle white = " << whiteColor << std::endl;
     baseColorGiven = true;
 }
 

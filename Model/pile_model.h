@@ -7,11 +7,15 @@
 #define cimg_use_tiff
 #include "CImg.h"
 
+#include "../definition.h"
+
 #include "gestionnaire_calques_model.h"
 
 class gestionnaire_calque_model;
 using namespace cimg_library;
 using namespace std;
+
+#include <string>
 
 
 class pile_model
@@ -29,6 +33,7 @@ private:
     bool isDisplayingAnnotation;    //To display or hide annotation on the image
     bool isDisplayingContour;       //To display or hide Contour on the image
     bool fileIsLoaded;
+
 
 public:
     pile_model();

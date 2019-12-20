@@ -88,6 +88,11 @@ void Menu_Draw_Button::connections()
 }
 
 
+void Menu_Draw_Button::askForAnalysis()
+{
+    emit startFullAnalysis();
+}
+
 void Menu_Draw_Button::activatePipetteWaiting()
 {
     // Si le bouton est pressé une première fois

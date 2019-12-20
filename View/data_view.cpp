@@ -7,7 +7,7 @@
 
 using namespace cimg_library;
 
-Data_View::Data_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController)
+Data_View::Data_View( QWidget * parent, ScopyBio_Controller *scopybioController) : QGroupBox( parent ), m_scopybioController(scopybioController), readyToShow(false)
 {    
     setTitle("Data view");
     this->setAttribute(Qt::WA_Hover, true);
@@ -22,24 +22,41 @@ void Data_View::createView()
     m_layout->addWidget(m_image);
     m_layout->setMargin(0);
     m_image->setAlignment(Qt::AlignCenter);
-    m_image->setText("No base color selected.");
+    m_image->setText("No data to show");
 
     setLayout(m_layout);
 }
 
+void Data_View::resetDataView()
+{
+    std::cout << "CLEAR DATA" << std::endl;
+    m_image->clear();
+    m_image->setAlignment(Qt::AlignCenter);
+    m_image->setText("No data to show");
+}
+
 void Data_View::drawResults()
 {
-    setCursor(Qt::PointingHandCursor);
-    QPixmap pm(m_scopybioController->getResultDisplayPath().c_str());
-    m_image->setPixmap(pm);
-    m_image->setScaledContents(true);
-    update();
+    if (readyToShow)
+    {
+        setCursor(Qt::PointingHandCursor);
+        QPixmap pm(m_scopybioController->getResultDisplayPath().c_str());
+        m_image->setPixmap(pm);
+        m_image->setScaledContents(true);
+        update();
+    }
 }
 
 void Data_View::processingResults(int labelWidth, int labelHeight)
 {
     m_scopybioController->processResultsWithCrop( labelWidth, labelHeight);
     drawResults();
+}
+
+
+void Data_View::enableDisplay()
+{
+    readyToShow = true;
 }
 
 void Data_View::mousePressEvent( QMouseEvent* ev )

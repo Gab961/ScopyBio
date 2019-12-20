@@ -25,6 +25,16 @@ public:
     std::string getZoomDisplayPath() const;
 
     /**
+     * @brief ecrireText Ecrie un text sur l'image
+     * @param pos1
+     * @param labelWidth
+     * @param labelHeight
+     * @param currentPicture
+     * @return
+     */
+    CImg<float> ecrireText(QPoint pos1, int labelWidth, int labelHeight,std::string text_a_ecrire, CImg<float> & currentPicture);
+
+    /**
      * @brief dessinerRectangle Dessine un rectangle sur une image en paramètre (calque)
      * @param pos1
      * @param pos2
@@ -44,6 +54,16 @@ public:
      * @return
      */
     CImg<float> dessinerRond(QPoint pos1, int labelWidth, int labelHeight, CImg<float> & currentPicture);
+
+    /**
+     * @brief dessinerRectanglePertinence
+     * @param pos1
+     * @param pos2
+     * @param pertinence
+     * @param currentPicture
+     * @return
+     */
+    CImg<float> dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence, CImg<float> & currentPicture);
 
     /**
      * @brief dessinerRond
@@ -121,7 +141,7 @@ public:
      * @param labelHeight
      * @param zoomView
      */
-    void manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView);
+    void manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView, CImg<float> currentImage);
 
     /**
      * @brief manageNewWhiteColor Met une nouvelle couleur de blanc

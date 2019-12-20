@@ -1,20 +1,14 @@
 #pragma once
-#include "boost/filesystem.hpp"
+#include "../definition.h"
 #include <iostream>
 #include <regex>
 #include <fstream>
 #include <vector>
-
 #include <string>
 
-const char separator =
-#ifdef _WIN32
-                            '\\';
-#else
-                            '/';
-#endif
-
 class calque;
+class Resultat;
+class Qpoint;
 
 class save_model
 {
@@ -22,17 +16,16 @@ public:
     save_model();
 
 
-    void saveTiff();
-    void saveCalques();
-    void saveJsonFile();
-    bool save(std::vector<calque> _calques);
-    void save_as(std::string path, std::string fileName, std::vector<calque> _calques);
+    void saveTiff(std::string pathSource);
+    void saveCalques(std::vector<calque> calques);
+    void saveJsonFile(std::vector<calque> calques, const std::vector<Resultat> &resultats, int row, int col);
+    bool save(std::vector<calque> _calques,const std::vector<Resultat> & resultats, int row, int col);
+    void save_as(std::string path, std::string fileName, std::vector<calque> _calques, std::vector<Resultat> resultats, int row, int col);
     std::string getFileName(std::string filePath, bool withExtension, char seperator);
-    void changeSavePath(std::string newSavePath);
+    void changeSavePaths(std::string newSavePath);
 
 
 private:
-    std::vector<calque> calques;
     std::string savePath;
     std::string saveCalquesPath;
     std::string filename;

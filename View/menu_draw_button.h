@@ -28,12 +28,15 @@ class Menu_Draw_Button: public QGroupBox
         void pipette();
         void filters();
         void analysis();
+        void askForAnalysis();
 
     signals:
         void waitingForZoomClick();
         void pipetteCanceled();
         void readyToDrawPen();
         void penCanceled();
+        //TODO
+        void startFullAnalysis();
         void penClicked();
         void shapesClicked();
         void textClicked();

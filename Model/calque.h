@@ -19,6 +19,7 @@ private:
     int intervalMin;
     int intervalMax;
     int id;
+    bool canShow;
 
 
 
@@ -29,19 +30,25 @@ public:
     void reinstateMemento(annotation_user_memento *mem);
 
     CImg<float> getCalque() const;
+    void saveCalque(std::string path);
     void setCalque(const CImg<float> &calque);
 
     int getId() const;
     int getIntervalMin() const;
     int getIntervalMax() const;
+    bool getCanShow() const;
+    void setCanShow(bool value);
 
     //          ACTIONS !
     void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence);
     void dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinerRond(QPoint pos, int pertinence);
     void filtreVert();
     void filtreHistogram();
     void filtreQuadrillage(int columns, int lines);
+    void ecrireText(QPoint pos1, int labelWidth, int labelHeight,std::string text_a_ecrire, CImg<float> & currentPicture);
+
 };
 

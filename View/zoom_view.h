@@ -19,6 +19,8 @@ class Zoom_View : public QGroupBox
     public slots:
         void setNewPicture(int zoneWidth, int zoneHeight);
         void setPictureFromFile();
+        void enableDisplay();
+        void resetZoomView();
 
     signals:
         void processResultsFromZoom();
@@ -28,4 +30,5 @@ class Zoom_View : public QGroupBox
         QGridLayout *m_layout;
         QLabel *m_image;
         ScopyBio_Controller *m_scopybioController;
+        bool readyToShow;
 };

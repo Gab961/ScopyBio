@@ -31,6 +31,8 @@ signals:
 public slots:
     void processingResults(int labelWidth, int labelHeight);
     void setGraphFromFile();
+    void enableDisplay();
+    void resetDataView();
 
 private:
     void drawResults();
@@ -39,4 +41,5 @@ private:
     ScopyBio_Controller *m_scopybioController;
     QGridLayout *m_layout;
     QLabel *m_image;
+    bool readyToShow;
 };

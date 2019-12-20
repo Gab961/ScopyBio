@@ -16,6 +16,8 @@ class analyse_model
 public:
     analyse_model();
 
+    void init();
+
     /**
      * @brief getResultDisplayPath Renvoie le chemin de l'image contenant les résultats
      * @return
@@ -29,6 +31,13 @@ public:
     std::vector<Resultat> getResults() const;
 
     /**
+     * @brief analyse_model::calculPertinence
+     * @param data
+     * @return
+     */
+    int calculPertinence(std::vector<float> data, int whiteValue);
+
+    /**
      * @brief processResultsWithCrops Calcul les résultats depuis la fenêtre de sélection
      * @param allPictures
      * @param pos1
@@ -38,6 +47,9 @@ public:
      * @param labelHeight
      */
     void processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight);
+
+    //TODO
+    void processResultsWithCropsVERSIONDEUX(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire);
 
     /**
      * @brief processResults Calcul les résultats dans toute la fenêtre partie par partie
@@ -55,7 +67,7 @@ public:
      * @param whiteValue
      * @return
      */
-    int processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, QPoint posMid, int whiteValue);
+    int processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue);
 
     /**
      * @brief createCropResultsDisplay
@@ -172,6 +184,8 @@ public:
      */
     void setUserAreaIsSelected(bool newValue);
 
+    void setResults(const std::vector<Resultat> &value);
+
 private:
     bool areaIsSelected;
     bool userAreaIsSelected;
@@ -179,6 +193,7 @@ private:
     int columnAmount;
     int linesAmount;
     int currentArea;
+    int errorMargin;
 
     std::string pathOfResultsStorage = "tmp/saveAnalyse/resultDisplay";
     std::string pathOfResultsDisplay = "tmp/resultDisplay.tmp";
