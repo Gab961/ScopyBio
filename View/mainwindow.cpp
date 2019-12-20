@@ -179,6 +179,9 @@ void MainWindow::connections()
     QObject::connect(m_tools, &Menu_Draw_Button::pipetteClicked, m_options, &menu_option::pipette);
     QObject::connect(m_tools, &Menu_Draw_Button::filtersClicked, m_options, &menu_option::filters);
     QObject::connect(m_tools, &Menu_Draw_Button::analysisClicked, m_options, &menu_option::analysis);
+
+    // Met à jour les calques en fonction de l'image sélectionnée
+    QObject::connect(m_pileView, &Pile_View::rowClicked, m_layerView, &LayerView::loadLayers);
 }
 
 void MainWindow::open()
@@ -322,6 +325,7 @@ void MainWindow::openProject(std::string path)
 void MainWindow::showFirstInPile()
 {
     m_scopybioController->saveAsMainDisplay(0);
+    m_layerView->loadLayers(0);
     emit changeMainPicture();
 
     update();

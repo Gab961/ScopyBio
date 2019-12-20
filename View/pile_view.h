@@ -17,13 +17,16 @@ class Pile_View: public QListWidget
     public:
         Pile_View(QWidget *parent, ScopyBio_Controller *scopybioController);
         CImg<float> getImage(int i);
+        void connections();
 
     signals:
         void pileInitDone();
+        void rowClicked(int row);
 
     public slots:
         void openFile(std::string path);
         void changeToElement(int i);
+        void rowChanged(int row);
 
     private:
         ScopyBio_Controller *m_scopybioController;

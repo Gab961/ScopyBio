@@ -140,6 +140,10 @@ void ScopyBio_Controller::removeCalque(int min, int max){
     m_gestion_calque->removeCalques(min,max);
 }
 
+std::vector<int> ScopyBio_Controller::getCalquesIdFromImage(int image) {
+    return m_gestion_calque->getListOfCalqueFromImage(image);
+}
+
 //=======================
 // Dessin_Modele
 //=======================
