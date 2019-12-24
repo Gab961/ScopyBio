@@ -37,12 +37,15 @@ public:
     void calqueShowable(int min, int max, bool show);
     void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void reinitPertinenceCalque();
+    void reinitUserPertinenceCalque(int width, int height);
     void reinitFaisceauCalque();
+    void manageNewUserAnalyse(int pertinence, QPoint pos1, QPoint pos2);
     void manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2);
     void dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void updateCalqueVert(int min, int max, int taille);
     void updateHistogram(int min, int max, int taille);
-    void updateQuadrillage(QPoint posInitiale, int columns, int lines);
+    void updateQuadrillage(int columns, int lines);
+    void updateUserQuadrillage(int columns, int lines);
     calque getCalqueForDisplay(int min, int max);
     calque getCalqueForDisplay(int id);
     calque getPertinenceCalque();
@@ -79,4 +82,5 @@ protected:
     bool isHistogram; //Pour savoir s'il faut afficher le calque contraste ou non
     std::string pathOfHistogramSave = "tmp/histogram.bmp";
     int idPertinenceCalque;
+    int idUserPertinenceCalque;
 };

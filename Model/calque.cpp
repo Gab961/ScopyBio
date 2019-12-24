@@ -104,8 +104,8 @@ void calque::filtreVert(){
     _calque = dessine.applyGreenFilter(_calque);
 }
 
-void calque::filtreQuadrillage(QPoint posInit, int columns, int lines){
-    _calque = dessine.applyQuadrillageFilter(posInit, columns, lines, _calque);
+void calque::filtreQuadrillage(int columns, int lines){
+    _calque = dessine.applyQuadrillageFilter(columns, lines, _calque);
 }
 
 /**

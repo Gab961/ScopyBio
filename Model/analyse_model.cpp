@@ -24,8 +24,8 @@ std::vector<Resultat> analyse_model::getResults() const { return results; }
 void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, gestionnaire_calque_model * gestionnaire)
 {
     ///DEBUG TESTS
-//    columnAmount = 5;
-//    linesAmount = 5;
+    //    columnAmount = 5;
+    //    linesAmount = 5;
     /////////////////
 
     results.clear();
@@ -59,7 +59,7 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
             QPoint pos1(oldX,oldY);
             QPoint pos2(nextX,nextY);
 
-            int pertinence = processLocalResults(allPictures,pos1,pos2,whiteValue);
+            int pertinence = processLocalResults(allPictures,pos1,pos2,whiteValue,false);
 
             //On créer un rond en fonction de l'analyse
             if (pertinence>1)
@@ -75,12 +75,83 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
     //Dans le cas de l'analyse global, on part de tout en haut à gauche
     QPoint posInit(0,0);
     //Dessin du quadrillage à la fin pour recouvrir l'ensemble après qu'on ai fait des carrés verts de pertinence
-    gestionnaire->updateQuadrillage(posInit,columnAmount,linesAmount);
+    gestionnaire->updateQuadrillage(columnAmount,linesAmount);
+
+    std::cout << "ETUDE TOTALE TERMINEE" << std::endl;
 
     isDataReady = true;
 }
 
-int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue)
+void analyse_model::processResultsWithCropsVERSIONDEUX(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire)
+{
+    int x1 = pos1.x() * allPictures[0].width() / labelWidth;
+    int y1 = pos1.y() * allPictures[0].height() / labelHeight;
+    int x2 = pos2.x() * allPictures[0].width() / labelWidth;
+    int y2 = pos2.y() * allPictures[0].height() / labelHeight;
+
+    //Positions de l'analyse en haut à gauche et en bas à droite
+    QPoint departAnalyseHautGauche(x1,y1);
+    QPoint finAnalyseBasDroite(x2,y2);
+
+    /////DEBUG
+    //    columnAmount = 5;
+    //    linesAmount = 5;
+    //////
+
+    userResults.clear();
+
+    int largeurImage = abs(departAnalyseHautGauche.x()-finAnalyseBasDroite.x());
+    int hauteurImage = abs(departAnalyseHautGauche.y()-finAnalyseBasDroite.y());
+    gestionnaire->reinitUserPertinenceCalque(largeurImage,hauteurImage);
+
+    //Calcul de la taille de chaque ligne et colonne
+    float xSeparateurFloat = (float)largeurImage / (float)columnAmount;
+    float ySeparateurFloat = (float)hauteurImage / (float)linesAmount;
+
+    int xSeparation = (int)xSeparateurFloat;
+    int ySeparation = (int)ySeparateurFloat;
+
+    int oldX = departAnalyseHautGauche.x();
+    int oldY = departAnalyseHautGauche.y();
+
+    for (int i=1; i<=columnAmount; i++)
+    {
+        int nextX = oldX + xSeparation;
+        if (i == columnAmount)
+            nextX = largeurImage;
+
+        for (int j=1; j<=linesAmount; j++)
+        {
+            int nextY = oldY + ySeparation;
+            if (j == linesAmount)
+                nextY = hauteurImage;
+
+            QPoint pos1(oldX,oldY);
+            QPoint pos2(nextX,nextY);
+
+            int pertinence = processLocalResults(allPictures,pos1,pos2,whiteValue,true);
+
+            //On créer un rond en fonction de l'analyse
+            if (pertinence>1)
+                gestionnaire->manageNewUserAnalyse(pertinence, pos1, pos2);
+
+            oldY = nextY;
+        }
+
+        oldY = 0;
+        oldX = nextX;
+    }
+
+    //Dessin du quadrillage à la fin pour recouvrir l'ensemble après qu'on a fait des carrés verts de pertinence
+    std::cout << "Colonnes = " << columnAmount << std::endl;
+    std::cout << "Lignes = " << linesAmount << std::endl;
+    gestionnaire->updateUserQuadrillage(columnAmount,linesAmount);
+
+    isDataReady = true;
+    std::cout << "ETUDE CROP TERMINEE" << std::endl;
+}
+
+int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, bool isUserAnalysis)
 {
     Resultat localResult;
 
@@ -124,124 +195,66 @@ int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1,
 
     localResult.setPertinence(pertinence);
 
-    results.push_back(localResult);
-
-    //Génération du graphique associé au résultat
-    createResultsDisplay(results.size()-1,allPictures.size(),whiteValue);
+    if (isUserAnalysis)
+    {
+        userResults.push_back(localResult);
+        //Génération du graphique associé au résultat
+        createResultsDisplay(userResults.size()-1,allPictures.size(),whiteValue,true);
+    }
+    else
+    {
+        results.push_back(localResult);
+        //Génération du graphique associé au résultat
+        createResultsDisplay(results.size()-1,allPictures.size(),whiteValue,false);
+    }
 
     return pertinence;
 }
 
-void analyse_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight)
-{
-    Resultat localResult;
+//SOON TO BE DEPRECATED
+//void analyse_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight)
+//{
+//    Resultat localResult;
 
-    int x1 = pos1.x() * allPictures[0].width() / labelWidth;
-    int y1 = pos1.y() * allPictures[0].height() / labelHeight;
-    int x2 = pos2.x() * allPictures[0].width() / labelWidth;
-    int y2 = pos2.y() * allPictures[0].height() / labelHeight;
+//    int x1 = pos1.x() * allPictures[0].width() / labelWidth;
+//    int y1 = pos1.y() * allPictures[0].height() / labelHeight;
+//    int x2 = pos2.x() * allPictures[0].width() / labelWidth;
+//    int y2 = pos2.y() * allPictures[0].height() / labelHeight;
 
-    QPoint picturePos1(x1,y1);
-    QPoint picturePos2(x2,y2);
-    localResult.setTopLeftPoint(picturePos1);
-    localResult.setBottomRightPoint(picturePos2);
+//    QPoint picturePos1(x1,y1);
+//    QPoint picturePos2(x2,y2);
+//    localResult.setTopLeftPoint(picturePos1);
+//    localResult.setBottomRightPoint(picturePos2);
 
-    for(CImg<float> image : allPictures)
-    {
-        CImg<float> zoom = image.get_crop(x1+1,y1+1,0,x2-1,y2-1,0);
-        float nombrePixels = zoom.width() * zoom.height();
-        float totalNuance = 0;
-        int niveauDeBlancMaximal = 0;
-        int niveauDeNoirMaximal = 255;
+//    for(CImg<float> image : allPictures)
+//    {
+//        CImg<float> zoom = image.get_crop(x1+1,y1+1,0,x2-1,y2-1,0);
+//        float nombrePixels = zoom.width() * zoom.height();
+//        float totalNuance = 0;
+//        int niveauDeBlancMaximal = 0;
+//        int niveauDeNoirMaximal = 255;
 
-        //Pour chaque pixel de l'image
-        cimg_forXY(zoom,x,y) {
-            //Niveau de gris du pixel en cours
-            int niveauNuance = (float)zoom(x,y,0,0);
+//        //Pour chaque pixel de l'image
+//        cimg_forXY(zoom,x,y) {
+//            //Niveau de gris du pixel en cours
+//            int niveauNuance = (float)zoom(x,y,0,0);
 
-            totalNuance += niveauNuance;
+//            totalNuance += niveauNuance;
 
-            if (niveauDeBlancMaximal < niveauNuance)
-                niveauDeBlancMaximal = niveauNuance;
+//            if (niveauDeBlancMaximal < niveauNuance)
+//                niveauDeBlancMaximal = niveauNuance;
 
-            if (niveauDeNoirMaximal > niveauNuance)
-                niveauDeNoirMaximal = niveauNuance;
-        }
+//            if (niveauDeNoirMaximal > niveauNuance)
+//                niveauDeNoirMaximal = niveauNuance;
+//        }
 
-        localResult.addResult(totalNuance/nombrePixels);
-    }
+//        localResult.addResult(totalNuance/nombrePixels);
+//    }
 
-    createCropResultsDisplay(localResult, allPictures.size(), whiteValue);
+//    createResultsDisplay(localResult, allPictures.size(), whiteValue);
 
-    isDataReady = true;
-}
-
-void analyse_model::processResultsWithCropsVERSIONDEUX(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire)
-{
-    int x1 = pos1.x() * allPictures[0].width() / labelWidth;
-    int y1 = pos1.y() * allPictures[0].height() / labelHeight;
-    int x2 = pos2.x() * allPictures[0].width() / labelWidth;
-    int y2 = pos2.y() * allPictures[0].height() / labelHeight;
-
-    //Positions de l'analyse en haut à gauche et en bas à droite
-    QPoint departAnalyseHautGauche(x1,y1);
-    QPoint finAnalyseBasDroite(x2,y2);
-
-    /////DEBUG
-    columnAmount = 5;
-    linesAmount = 5;
-    //////
-
-    results.clear();
-    gestionnaire->reinitPertinenceCalque();
-
-    int largeurImage = abs(departAnalyseHautGauche.x()-finAnalyseBasDroite.x());
-    int hauteurImage = abs(departAnalyseHautGauche.y()-finAnalyseBasDroite.y());
-
-    //Calcul de la taille de chaque ligne et colonne
-    float xSeparateurFloat = (float)largeurImage / (float)columnAmount;
-    float ySeparateurFloat = (float)hauteurImage / (float)linesAmount;
-
-    int xSeparation = (int)xSeparateurFloat;
-    int ySeparation = (int)ySeparateurFloat;
-
-    int oldX = departAnalyseHautGauche.x();
-    int oldY = departAnalyseHautGauche.y();
-
-    for (int i=1; i<=columnAmount; i++)
-    {
-        int nextX = oldX + xSeparation;
-        if (i == columnAmount)
-            nextX = largeurImage;
-
-        for (int j=1; j<=linesAmount; j++)
-        {
-            int nextY = oldY + ySeparation;
-            if (j == linesAmount)
-                nextY = hauteurImage;
-
-            QPoint pos1(oldX,oldY);
-            QPoint pos2(nextX,nextY);
-
-            int pertinence = processLocalResults(allPictures,pos1,pos2,whiteValue);
-
-            //On créer un rond en fonction de l'analyse
-            if (pertinence>1)
-                gestionnaire->manageNewAnalyse(pertinence, pos1, pos2);
-
-            oldY = nextY;
-        }
-
-        oldY = 0;
-        oldX = nextX;
-    }
-
-    //Dessin du quadrillage à la fin pour recouvrir l'ensemble après qu'on ai fait des carrés verts de pertinence
-    gestionnaire->updateQuadrillage(departAnalyseHautGauche,columnAmount,linesAmount);
-
-    isDataReady = true;
-    std::cout << "ETUDE CROP TERMINEE" << std::endl;
-}
+//    isDataReady = true;
+//}
 
 int analyse_model::calculPertinence(std::vector<float> data, int whiteValue)
 {
@@ -307,7 +320,6 @@ int analyse_model::calculPertinence(std::vector<float> data, int whiteValue)
     return pertinence;
 }
 
-//TODO DETERMINER LA MEILLEURE APPROCHE POUR LE BLANC
 int analyse_model::analyseForWhiteValue()
 {
     CImg<float> flattenImage;
@@ -361,11 +373,10 @@ int analyse_model::analyseForWhiteValue()
 
     /** Mediane */
     int mediane = (blancMax + noirMax) / 2;
-    //Test random pour trouver une valeur bien
-    return mediane + 30;
+    return mediane;
 }
 
-void analyse_model::createResultsDisplay(int index, int imagesSize, int whiteValue)
+void analyse_model::createResultsDisplay(int index, int imagesSize, int whiteValue, bool isUserAnalysis)
 {
     int black[] = { 0,0,0 };
     int white[] = { 255,255,255 };
@@ -401,22 +412,46 @@ void analyse_model::createResultsDisplay(int index, int imagesSize, int whiteVal
     bool firstIteration = true;
 
 
-    for (int y : results[index].getResults())
+    if (isUserAnalysis)
     {
-        if (firstIteration)
+        for (int y : userResults[index].getResults())
         {
-            oldY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
-            image.draw_point(oldX,oldY,red,1);
-            firstIteration = false;
-        }
-        else
-        {
-            int newX = oldX+decalageX;
-            int newY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
+            if (firstIteration)
+            {
+                oldY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
+                image.draw_point(oldX,oldY,red,1);
+                firstIteration = false;
+            }
+            else
+            {
+                int newX = oldX+decalageX;
+                int newY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
 
-            image.draw_line(oldX,oldY,newX,newY,red);
-            oldX = newX;
-            oldY = newY;
+                image.draw_line(oldX,oldY,newX,newY,red);
+                oldX = newX;
+                oldY = newY;
+            }
+        }
+    }
+    else
+    {
+        for (int y : results[index].getResults())
+        {
+            if (firstIteration)
+            {
+                oldY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
+                image.draw_point(oldX,oldY,red,1);
+                firstIteration = false;
+            }
+            else
+            {
+                int newX = oldX+decalageX;
+                int newY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
+
+                image.draw_line(oldX,oldY,newX,newY,red);
+                oldX = newX;
+                oldY = newY;
+            }
         }
     }
 
@@ -428,66 +463,67 @@ void analyse_model::createResultsDisplay(int index, int imagesSize, int whiteVal
     isDataReady = true;
 }
 
-void analyse_model::createCropResultsDisplay(Resultat result, unsigned int imagesSize, int whiteValue)
-{
-    int black[] = { 0,0,0 };
-    int white[] = { 255,255,255 };
-    int blue[] = { 0,0,255 };
-    int red[] = { 255,0,0 };
-    float valeurMediane = whiteValue * 100 / 255;
-    float valMaxGraph = 100-valeurMediane;
-    float valMinGraph = (100-valMaxGraph) * -1;
 
-    CImg<float> image;
-    image.assign(300,200,1,3);
-    image.fill(255);
+//void analyse_model::createCropResultsDisplay(Resultat result, unsigned int imagesSize, int whiteValue)
+//{
+//    int black[] = { 0,0,0 };
+//    int white[] = { 255,255,255 };
+//    int blue[] = { 0,0,255 };
+//    int red[] = { 255,0,0 };
+//    float valeurMediane = whiteValue * 100 / 255;
+//    float valMaxGraph = 100-valeurMediane;
+//    float valMinGraph = (100-valMaxGraph) * -1;
 
-
-    int hauteurAbscisse = image.height() - image.height() * valeurMediane/100;
-    std::string val = std::to_string(valeurMediane);
-    std::string abscisseText;
-    if (valeurMediane < 10)
-        abscisseText = val.substr(0,1);
-    else
-        abscisseText = val.substr(0,2) + "%";
-    abscisseText.append("%");
-
-    std::string ordonnee = " Variation % Nuance";
-    image.draw_text(20,0,ordonnee.c_str(),black,white,1);
-    image.draw_axes(0,imagesSize-1,valMaxGraph,valMinGraph,black,1,-60,-60,1);
-
-    //Calculs pour placer les points correctement
-    int decalageX = image.width()/imagesSize;
-
-    int oldX = 0;
-    int oldY = 0;
-    bool firstIteration = true;
+//    CImg<float> image;
+//    image.assign(300,200,1,3);
+//    image.fill(255);
 
 
-    for (int y : result.getResults())
-    {
-        if (firstIteration)
-        {
-            oldY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
-            image.draw_point(oldX,oldY,red,1);
-            firstIteration = false;
-        }
-        else
-        {
-            int newX = oldX+decalageX;
-            int newY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
+//    int hauteurAbscisse = image.height() - image.height() * valeurMediane/100;
+//    std::string val = std::to_string(valeurMediane);
+//    std::string abscisseText;
+//    if (valeurMediane < 10)
+//        abscisseText = val.substr(0,1);
+//    else
+//        abscisseText = val.substr(0,2) + "%";
+//    abscisseText.append("%");
 
-            image.draw_line(oldX,oldY,newX,newY,red);
-            oldX = newX;
-            oldY = newY;
-        }
-    }
+//    std::string ordonnee = " Variation % Nuance";
+//    image.draw_text(20,0,ordonnee.c_str(),black,white,1);
+//    image.draw_axes(0,imagesSize-1,valMaxGraph,valMinGraph,black,1,-60,-60,1);
 
-    image.draw_text(10,hauteurAbscisse-15,abscisseText.c_str(),blue,white,1);
+//    //Calculs pour placer les points correctement
+//    int decalageX = image.width()/imagesSize;
 
-    image.save_bmp(pathOfResultsDisplay.c_str());
-    isDataReady = true;
-}
+//    int oldX = 0;
+//    int oldY = 0;
+//    bool firstIteration = true;
+
+
+//    for (int y : result.getResults())
+//    {
+//        if (firstIteration)
+//        {
+//            oldY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
+//            image.draw_point(oldX,oldY,red,1);
+//            firstIteration = false;
+//        }
+//        else
+//        {
+//            int newX = oldX+decalageX;
+//            int newY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
+
+//            image.draw_line(oldX,oldY,newX,newY,red);
+//            oldX = newX;
+//            oldY = newY;
+//        }
+//    }
+
+//    image.draw_text(10,hauteurAbscisse-15,abscisseText.c_str(),blue,white,1);
+
+//    image.save_bmp(pathOfResultsDisplay.c_str());
+//    isDataReady = true;
+//}
 
 int analyse_model::calculPlacementY(int imageHeight, int y, int valeurMediane, int hauteurAbscisse)
 {

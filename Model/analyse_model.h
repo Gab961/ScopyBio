@@ -65,17 +65,19 @@ public:
      * @param pos1
      * @param pos2
      * @param whiteValue
+     * @param isUserAnalysis
      * @return
      */
-    int processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue);
+    int processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, bool isUserAnalysis);
 
     /**
      * @brief createCropResultsDisplay
      * @param result
      * @param imagesSize
      * @param whiteValue
+     * @param isUserAnalysis
      */
-    void createCropResultsDisplay(Resultat result, unsigned int imagesSize, int whiteValue);
+//    void createCropResultsDisplay(Resultat result, unsigned int imagesSize, int whiteValue, bool isUserAnalysis);
 
     /**
      * @brief createResultsDisplay
@@ -83,7 +85,7 @@ public:
      * @param imagesSize
      * @param whiteValue
      */
-    void createResultsDisplay(int index, int imagesSize, int whiteValue);
+    void createResultsDisplay(int index, int imagesSize, int whiteValue, bool isUserAnalysis);
 
     /**
      * @brief calculPlacementY Calcul le placement d'un point précis pour le positionner correctement sur le graph de données
@@ -198,5 +200,6 @@ private:
     std::string pathOfResultsStorage = "tmp/saveAnalyse/resultDisplay";
     std::string pathOfResultsDisplay = "tmp/resultDisplay.tmp";
     std::vector<Resultat> results;
+    std::vector<Resultat> userResults;
 };
 

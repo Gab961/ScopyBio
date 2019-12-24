@@ -42,6 +42,12 @@ void gestionnaire_calque_model::initGlobalCalques(int pileWidth, int pileHeight)
     idPertinenceCalque = id;
     listOfCalque.push_back(_calquePertinence);
     id++;
+
+    //Calque de pertinence dans le cas d'une analyse utilisateur
+    calque _calquePertinenceUser(pileWidth, pileHeight, -99,-99,id);
+    idUserPertinenceCalque = id;
+    listOfCalque.push_back(_calquePertinenceUser);
+    id++;
 }
 
 /**
@@ -168,6 +174,23 @@ void gestionnaire_calque_model::creerCalque(int width, int height, int min, int 
 }
 
 /**
+ * @brief gestionnaire_calque_model::reinitUserPertinenceCalque
+ * @param width
+ * @param height
+ */
+void gestionnaire_calque_model::reinitUserPertinenceCalque(int width, int height)
+{
+    calque newCalque = getCalqueForDisplay(-99,-99);
+
+    CImg<float> newImage(width,height,1,4,0);
+    newCalque.setCalque(newImage);
+
+    newCalque.getCalque().save_bmp("/home/etudiant/reinit.bmp");
+
+    listOfCalque[idUserPertinenceCalque] = newCalque;
+}
+
+/**
  * @brief gestionnaire_calque_model::reinitPertinenceCalque
  */
 void gestionnaire_calque_model::reinitPertinenceCalque()
@@ -181,7 +204,7 @@ void gestionnaire_calque_model::reinitPertinenceCalque()
 }
 
 /**
- * @brief gestionnaire_calque_model::reinitPertinenceCalque
+ * @brief gestionnaire_calque_model::reinitFaisceauCalque
  */
 void gestionnaire_calque_model::reinitFaisceauCalque()
 {
@@ -205,6 +228,21 @@ void gestionnaire_calque_model::manageNewAnalyse(int pertinence, QPoint pos1, QP
     newCalque.dessinerRectanglePertinence(pos1,pos2,pertinence);
 
     listOfCalque[idPertinenceCalque] = newCalque;
+}
+
+/**
+ * @brief gestionnaire_calque_model::manageNewUserAnalyse
+ * @param pertinence
+ * @param pos1
+ * @param pos2
+ */
+//TODO ICI
+void gestionnaire_calque_model::manageNewUserAnalyse(int pertinence, QPoint pos1, QPoint pos2){
+    calque newCalque = getCalqueForDisplay(-99, -99);
+
+    newCalque.dessinerRectanglePertinence(pos1,pos2,pertinence);
+
+    listOfCalque[idUserPertinenceCalque] = newCalque;
 }
 
 /**
@@ -266,12 +304,23 @@ void gestionnaire_calque_model::updateHistogram(int min, int max, int taille){
  * @param columns
  * @param lines
  */
-void gestionnaire_calque_model::updateQuadrillage(QPoint posInitiale, int columns, int lines){
+void gestionnaire_calque_model::updateQuadrillage(int columns, int lines){
     calque newCalque = getCalqueForDisplay(-5, -5);
 
-    newCalque.filtreQuadrillage(posInitiale, columns, lines);
+    newCalque.filtreQuadrillage(columns, lines);
 
     listOfCalque[idPertinenceCalque] = newCalque;
+}
+
+void gestionnaire_calque_model::updateUserQuadrillage(int columns, int lines){
+    calque newCalque = getCalqueForDisplay(-99, -99);
+
+    newCalque.filtreQuadrillage(columns, lines);
+
+    listOfCalque[idUserPertinenceCalque] = newCalque;
+
+    //DEBUG
+    newCalque.getCalque().save_bmp("/home/etudiant/testDeMort.bmp");
 }
 
 void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay){

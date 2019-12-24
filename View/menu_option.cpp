@@ -247,6 +247,8 @@ void menu_option::desactivateLocalAnalyse()
 
 void menu_option::launchAnalysisFromSelection()
 {
+    m_scopybioController->setLineAmount(m_lines->text().toInt());
+    m_scopybioController->setColumnAmount(m_columns->text().toInt());
     emit askForUserAnalyse();
 }
 
