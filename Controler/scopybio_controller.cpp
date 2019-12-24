@@ -205,23 +205,13 @@ void ScopyBio_Controller::saveZoom(int labelWidth, int labelHeight)
 
 void ScopyBio_Controller::saveZoomOfCurrentArea()
 {
-    std::cout << "Auto" << std::endl;
-    std::cout << "TOPLEFT = " << m_analyseModel->getTopLeftPointOfCurrentArea().x() << "x" << m_analyseModel->getTopLeftPointOfCurrentArea().y() << std::endl;
-    std::cout << "BOTRIGHT = " << m_analyseModel->getBottomRightPointOfCurrentArea().x() << "x" << m_analyseModel->getBottomRightPointOfCurrentArea().y() << std::endl;
-
     if (m_analyseModel->dataReady())
         m_dessinModel->saveZoomFromArea(m_analyseModel->getTopLeftPointOfCurrentArea(),m_analyseModel->getBottomRightPointOfCurrentArea(),m_pileModel->getCurrentImage());
 }
 
 void ScopyBio_Controller::saveZoomOfUserArea()
 {
-    std::cout << "User" << std::endl;
-    std::cout << "TOPLEFT = " << m_faisceauModel->getTopLeft().x() << "x" << m_faisceauModel->getTopLeft().y() << std::endl;
-    std::cout << "BOTRIGHT = " << m_faisceauModel->getBotRight().x() << "x" << m_faisceauModel->getBotRight().y() << std::endl;
-
-    //TODO Réparer
-    //    if (m_analyseModel->dataReady())
-    //        m_dessinModel->saveZoomFromArea(m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(),m_pileModel->getCurrentImage());
+    m_dessinModel->saveZoomFromArea(m_faisceauModel->getScaledTopLeft(),m_faisceauModel->getScaledBotRight(),m_pileModel->getCurrentImage());
 }
 
 std::string ScopyBio_Controller::getMainDisplayPath()
@@ -415,7 +405,7 @@ void ScopyBio_Controller::setColumnAmount(int value) {
 // Faisceau_Modele
 //=======================
 
-void ScopyBio_Controller::setFaisceau(QPoint pos1, QPoint pos2)
+void ScopyBio_Controller::setFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
-    m_faisceauModel->setFaisceau(pos1, pos2);
+    m_faisceauModel->setFaisceau(pos1, pos2, m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(), labelWidth, labelHeight);
 }

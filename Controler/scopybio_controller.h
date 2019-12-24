@@ -296,8 +296,10 @@ public:
      * @brief setFaisceau
      * @param pos1
      * @param pos2
+     * @param labelWidth
+     * @param labelHeight
      */
-    void setFaisceau(QPoint pos1, QPoint pos2);
+    void setFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
     /***********************************************************************************/
     /******************************** Partie save_model ********************************/

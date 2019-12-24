@@ -35,23 +35,49 @@ void faisceau_model::fillData()
 
 }
 
+QPoint faisceau_model::getScaledTopLeft() const { return scaledTopLeft; }
+QPoint faisceau_model::getScaledBotRight() const { return scaledBotRight; }
+void faisceau_model::setScaledTopLeft(int tl, int br)
+{
+    scaledTopLeft.setX(tl);
+    scaledTopLeft.setY(br);
+}
+void faisceau_model::setScaledBotRight(int tl, int br)
+{
+    scaledBotRight.setX(tl);
+    scaledBotRight.setY(br);
+}
+
 faisceau_model::faisceau_model() : faisceauActive(false)
 {
 
 }
 
-void faisceau_model::setFaisceau(QPoint pos1, QPoint pos2)
+void faisceau_model::setFaisceau(QPoint pos1, QPoint pos2, int pictureWidth, int pictureHeight, int labelWidth, int labelHeight)
 {
+    int x1 = pos1.x() * pictureWidth / labelWidth;
+    int y1 = pos1.y() * pictureHeight / labelHeight;
+    int x2 = pos2.x() * pictureWidth / labelWidth;
+    int y2 = pos2.y() * pictureHeight/ labelHeight;
+
     if (pos1.x() > pos2.x())
     {
         setTopLeft(pos2);
         setBotRight(pos1);
+        setScaledTopLeft(x2,y2);
+        setScaledBotRight(x1,y1);
     }
     else
     {
         setTopLeft(pos1);
         setBotRight(pos2);
+        setScaledBotRight(x2,y2);
+        setScaledTopLeft(x1,y1);
     }
+
+    std::cout << "SCALED" << std::endl;
+    std::cout << "TopLeft: " << scaledTopLeft.x() << "x" << scaledTopLeft.y() << std::endl;
+    std::cout << "BotRight: " << scaledBotRight.x() << "x" << scaledBotRight.y() << std::endl;
 
     faisceauActive = true;
 }

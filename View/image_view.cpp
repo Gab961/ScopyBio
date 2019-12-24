@@ -184,7 +184,7 @@ void Image_View::startUserAnalysis()
 void Image_View::nouvelleSelectionUtilisateur(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
     //Dessine le rectangle sur l'image et créer l'image zoomée
-    m_scopybioController->setFaisceau(pos1, pos2);
+    m_scopybioController->setFaisceau(pos1, pos2, labelWidth, labelHeight);
     m_scopybioController->dessinerFaisceau(labelWidth, labelHeight);
     m_scopybioController->setUserAreaIsSelected();
     setNewPicture();
