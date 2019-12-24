@@ -284,9 +284,6 @@ int analyse_model::calculPertinence(std::vector<float> data, int whiteValue)
 
 int analyse_model::analyseForWhiteValue(CImg<float> middleImage)
 {
-    CImg<float> flattenImage;
-    flattenImage.load_bmp("tmp/flatten.bmp");
-
     /** MOYENNE
     float totalNuance = 0;
     float nombrePixel = flattenImage.width() * flattenImage.height();
@@ -300,9 +297,9 @@ int analyse_model::analyseForWhiteValue(CImg<float> middleImage)
     int blancMax = 0;
     int noirMax = 255;
 
-    cimg_forXY(flattenImage,x,y) {
+    cimg_forXY(middleImage,x,y) {
         //Niveau de gris du pixel en cours
-        int niveauNuance = (float)flattenImage(x,y,0,0);
+        int niveauNuance = (float)middleImage(x,y,0,0);
 
         /** CALCUL DE LA MOYENNE
         totalNuance += niveauNuance;
@@ -419,7 +416,12 @@ void analyse_model::createResultsDisplay(int index, int imagesSize, int whiteVal
 
     image.draw_text(10,hauteurAbscisse-15,abscisseText.c_str(),blue,white,1);
 
-    std::string chemin = pathOfResultsStorage + std::to_string(index) + ".bmp";
+    //TODO Separator
+    std::string chemin;
+    if (isUserAnalysis)
+        chemin = pathOfResultsStorage + "/user/" + std::to_string(index) + ".bmp";
+    else
+        chemin = pathOfResultsStorage + std::to_string(index) + ".bmp";
 
     image.save_bmp(chemin.c_str());
     isDataReady = true;
