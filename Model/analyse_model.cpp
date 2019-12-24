@@ -218,51 +218,6 @@ int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1,
     return pertinence;
 }
 
-//SOON TO BE DEPRECATED
-//void analyse_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight)
-//{
-//    Resultat localResult;
-
-//    int x1 = pos1.x() * allPictures[0].width() / labelWidth;
-//    int y1 = pos1.y() * allPictures[0].height() / labelHeight;
-//    int x2 = pos2.x() * allPictures[0].width() / labelWidth;
-//    int y2 = pos2.y() * allPictures[0].height() / labelHeight;
-
-//    QPoint picturePos1(x1,y1);
-//    QPoint picturePos2(x2,y2);
-//    localResult.setTopLeftPoint(picturePos1);
-//    localResult.setBottomRightPoint(picturePos2);
-
-//    for(CImg<float> image : allPictures)
-//    {
-//        CImg<float> zoom = image.get_crop(x1+1,y1+1,0,x2-1,y2-1,0);
-//        float nombrePixels = zoom.width() * zoom.height();
-//        float totalNuance = 0;
-//        int niveauDeBlancMaximal = 0;
-//        int niveauDeNoirMaximal = 255;
-
-//        //Pour chaque pixel de l'image
-//        cimg_forXY(zoom,x,y) {
-//            //Niveau de gris du pixel en cours
-//            int niveauNuance = (float)zoom(x,y,0,0);
-
-//            totalNuance += niveauNuance;
-
-//            if (niveauDeBlancMaximal < niveauNuance)
-//                niveauDeBlancMaximal = niveauNuance;
-
-//            if (niveauDeNoirMaximal > niveauNuance)
-//                niveauDeNoirMaximal = niveauNuance;
-//        }
-
-//        localResult.addResult(totalNuance/nombrePixels);
-//    }
-
-//    createResultsDisplay(localResult, allPictures.size(), whiteValue);
-
-//    isDataReady = true;
-//}
-
 int analyse_model::calculPertinence(std::vector<float> data, int whiteValue)
 {
     //Calcul de la pertinence de la zone
@@ -327,7 +282,7 @@ int analyse_model::calculPertinence(std::vector<float> data, int whiteValue)
     return pertinence;
 }
 
-int analyse_model::analyseForWhiteValue()
+int analyse_model::analyseForWhiteValue(CImg<float> middleImage)
 {
     CImg<float> flattenImage;
     flattenImage.load_bmp("tmp/flatten.bmp");

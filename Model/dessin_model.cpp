@@ -202,14 +202,14 @@ void dessin_model::saveZoomFromPicture(QPoint pos1, QPoint pos2, int labelWidth,
     zoomReady = true;
 }
 
-void dessin_model::saveZoomFromArea(QPoint posTopLeft, QPoint posBottomRight, CImg<float> currentPicture)
+CImg<float> dessin_model::saveZoomFromArea(QPoint posTopLeft, QPoint posBottomRight, CImg<float> currentPicture)
 {
     //Création de l'image zoomée et demande d'affichage dans la partie zoomée
     CImg<float> zoom = currentPicture.get_crop(posTopLeft.x(),posTopLeft.y(),0,posBottomRight.x(),posBottomRight.y(),0);
 
-    zoom.save_bmp(pathOfZoomedDisplay.c_str());
-
     zoomReady = true;
+
+    return zoom;
 }
 
 void dessin_model::savePics(int x1, int y1, int x2, int y2, unsigned char color, CImg<float> currentPicture){
@@ -312,6 +312,8 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
 
     whiteColor = (int)picture(realX, realY, 0, 0);
 
+    std::cout << "Nouvelle white = " << whiteColor << std::endl;
+
     baseColorGiven = true;
 }
 
@@ -319,6 +321,7 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
 void dessin_model::manageNewWhiteColor(int newWhite)
 {
     whiteColor = newWhite;
+    std::cout << "Nouvelle white = " << whiteColor << std::endl;
     baseColorGiven = true;
 }
 

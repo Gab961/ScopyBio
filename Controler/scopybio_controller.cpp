@@ -82,7 +82,8 @@ void ScopyBio_Controller::loadNewTiffFile(std::string filename)
         m_pileModel->loadNewFilename(filename);
         m_gestion_calque->init(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
 
-        m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue());
+        int middleIndex = m_pileModel->getImages().size() / 2;
+        m_dessinModel->manageNewWhiteColor(m_analyseModel->analyseForWhiteValue(m_pileModel->getImageAtIndex(middleIndex)));
     }
 }
 
@@ -206,12 +207,16 @@ void ScopyBio_Controller::saveZoom(int labelWidth, int labelHeight)
 void ScopyBio_Controller::saveZoomOfCurrentArea()
 {
     if (m_analyseModel->dataReady())
-        m_dessinModel->saveZoomFromArea(m_analyseModel->getTopLeftPointOfCurrentArea(),m_analyseModel->getBottomRightPointOfCurrentArea(),m_pileModel->getCurrentImage());
+    {
+        CImg<float> zoom = m_dessinModel->saveZoomFromArea(m_analyseModel->getTopLeftPointOfCurrentArea(),m_analyseModel->getBottomRightPointOfCurrentArea(),m_pileModel->getCurrentImage());
+        m_gestion_calque->mergeUserAnalysis(zoom,m_dessinModel->getZoomDisplayPath());
+    }
 }
 
 void ScopyBio_Controller::saveZoomOfUserArea()
 {
-    m_dessinModel->saveZoomFromArea(m_faisceauModel->getScaledTopLeft(),m_faisceauModel->getScaledBotRight(),m_pileModel->getCurrentImage());
+    CImg<float> zoom = m_dessinModel->saveZoomFromArea(m_faisceauModel->getScaledTopLeft(),m_faisceauModel->getScaledBotRight(),m_pileModel->getCurrentImage());
+    m_gestion_calque->mergeUserAnalysis(zoom,m_dessinModel->getZoomDisplayPath());
 }
 
 std::string ScopyBio_Controller::getMainDisplayPath()
@@ -332,23 +337,14 @@ std::string ScopyBio_Controller::getResultDisplayPath()
 }
 
 void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight)
-{    
-    std::cout << "Etude AVEC crop" << std::endl;
-
-    //VERSION 1
-    //    m_analyseModel->processResultsWithCrops(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
-
+{
     //VERSION 2
     m_analyseModel->processResultsWithCropsVERSIONDEUX(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
-
-
-    DisplayResultImage(m_pileModel->getCurrentImageIndex());
+    saveZoomOfUserArea();
 }
 
 void ScopyBio_Controller::processResults()
 {
-    std::cout << "Etude TOTALE" << std::endl;
-
     if (m_faisceauModel->faisceauIsActive())
     {
         m_gestion_calque->reinitFaisceauCalque();

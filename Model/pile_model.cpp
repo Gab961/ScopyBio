@@ -109,9 +109,4 @@ void pile_model::load(string path)
     }
 
     currentImage = images[0];
-
-    //Obtention de l'image aplatie
-    //TODO LE MULTIPLATFORME
-    std::string command = "convert " + path + " -flatten tmp/flatten.bmp";
-    system(command.c_str());
 }

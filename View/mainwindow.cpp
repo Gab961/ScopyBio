@@ -158,6 +158,7 @@ void MainWindow::connections()
     //Refresh du zoom sans sélection par l'utilisateur
     QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_zoomView, &Zoom_View::enableDisplay);
     QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_dataView, &Data_View::enableDisplay);
+
     //Gestion premier clic
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_zoomView, &Zoom_View::setPictureFromFile);
     QObject::connect(m_imageView, &Image_View::changeGraphPicture, m_dataView, &Data_View::setGraphFromFile);

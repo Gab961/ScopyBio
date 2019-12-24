@@ -110,7 +110,7 @@ public:
      * @brief analyseForWhiteValue
      * @return
      */
-    int analyseForWhiteValue();
+    int analyseForWhiteValue(CImg<float> middleImage);
 
     /**
      * @brief dataReady Renvoie vrai si une image existe dans la fenêtre de données

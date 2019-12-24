@@ -52,7 +52,7 @@ public:
     std::vector<calque> getAllCalques() const;
     void setCalque(int min, int max, calque cal);
 
-
+    void mergeUserAnalysis(CImg<float> zoom, std::string zoomPath);
     void mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay);
     //    void merge2Images(calque &a, calque b);
 

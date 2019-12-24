@@ -323,12 +323,15 @@ void gestionnaire_calque_model::updateUserQuadrillage(int columns, int lines){
     newCalque.getCalque().save_bmp("/home/etudiant/testDeMort.bmp");
 }
 
+void gestionnaire_calque_model::mergeUserAnalysis(CImg<float> zoom, std::string zoomPath)
+{
+    int idCalque = getCalque(-99,-99);
+    calque overlay = getCalqueForDisplay(idCalque);
+    zoom.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
+    zoom.save_bmp(zoomPath.c_str());
+}
+
 void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay){
-    //ON FAIT DEGUEU POUR LE MOMENT A MODIFIER A TERME
-
-
-
-    //TODO
     //Contraste en premier
     if (isHistogram)
     {

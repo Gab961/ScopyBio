@@ -171,12 +171,13 @@ void Image_View::setNewPicture()
 
 void Image_View::startUserAnalysis()
 {
-    std::cout << "Démarrage analyse utilisateur" << std::endl;
+    std::cout << ">>>>>>>>>>>>>>>>>>>>>>>> Démarrage analyse utilisateur" << std::endl;
     emit processResults(m_image->width(),m_image->height());
 
     //MAJ des interfaces
     emit userAnalyseReady();
     emit changeGraphPicture();
+    emit changeZoomPicture();
 
     update();
 }
