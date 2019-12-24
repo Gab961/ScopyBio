@@ -338,7 +338,6 @@ std::string ScopyBio_Controller::getResultDisplayPath()
 
 void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight)
 {
-    //VERSION 2
     m_analyseModel->processResultsWithCropsVERSIONDEUX(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
     saveZoomOfUserArea();
 }
@@ -378,6 +377,13 @@ void ScopyBio_Controller::getDataFromArea(QPoint area, int labelWidth, int label
 
     m_analyseModel->getDataFromArea(area, labelWidth, labelHeight, imageWidth, imageHeight, m_pileModel->getCurrentImage(), m_dessinModel);
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
+}
+
+void ScopyBio_Controller::getDataFromZoomArea(QPoint area, int labelWidth, int labelHeight) {
+    if (m_faisceauModel->faisceauIsActive())
+    {
+        m_analyseModel->getDataFromZoomArea(area, labelWidth, labelHeight, m_dessinModel->getZoomDisplayPath());
+    }
 }
 
 int ScopyBio_Controller::getLineAmount() {

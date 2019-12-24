@@ -92,15 +92,22 @@ void Zoom_View::readyForClick() { m_scopybioController->setPipetteClick(true); }
 
 void Zoom_View::mousePressEvent( QMouseEvent* ev )
 {
-    QPoint origPoint = ev->pos();
-    if (m_scopybioController->getPipetteClick() && m_scopybioController->getZoomReady())
+    if (m_scopybioController->getZoomReady())
     {
-        m_scopybioController->setPipetteClick(false);
-        origPoint.setX(origPoint.x() - m_image->x());
-        origPoint.setY(origPoint.y() - m_image->y());
-        m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), true);
+        QPoint origPoint = ev->pos();
+        if (m_scopybioController->getPipetteClick())
+        {
+            m_scopybioController->setPipetteClick(false);
+            origPoint.setX(origPoint.x() - m_image->x());
+            origPoint.setY(origPoint.y() - m_image->y());
+            m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), true);
 
-        emit pipetteClicked();
+            emit pipetteClicked();
+        }
+        //If une analyse a été effectuée
+        else
+            getData(origPoint,m_image->width(),m_image->height());
+
     }
 }
 
@@ -150,3 +157,13 @@ void Zoom_View::setPictureFromFile()
     update();
 }
 
+void Zoom_View::getData(QPoint area, int labelWidth, int labelHeight) {
+    if (m_scopybioController->dataReady())
+    {
+        m_scopybioController->getDataFromZoomArea(area, labelWidth, labelHeight);
+
+        emit changeGraphPicture();
+
+        update();
+    }
+}

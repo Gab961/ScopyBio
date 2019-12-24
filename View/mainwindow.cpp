@@ -163,6 +163,9 @@ void MainWindow::connections()
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_zoomView, &Zoom_View::setPictureFromFile);
     QObject::connect(m_imageView, &Image_View::changeGraphPicture, m_dataView, &Data_View::setGraphFromFile);
 
+    //Mise a jour graph au clic sur le zoom
+    QObject::connect(m_zoomView, &Zoom_View::changeGraphPicture, m_dataView, &Data_View::setGraphFromFile);
+
     //Clear de la vue du Zoom
     QObject::connect(this, &MainWindow::clearZoomView, m_zoomView, &Zoom_View::resetZoomView);
 

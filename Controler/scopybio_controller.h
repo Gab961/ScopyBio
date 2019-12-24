@@ -265,6 +265,14 @@ public:
     void getDataFromArea(QPoint area, int labelWidth, int labelHeight);
 
     /**
+     * @brief getDataFromZoomArea
+     * @param area
+     * @param labelWidth
+     * @param labelHeight
+     */
+    void getDataFromZoomArea(QPoint area, int labelWidth, int labelHeight);
+
+    /**
      * @brief getLineAmount
      * @return
      */

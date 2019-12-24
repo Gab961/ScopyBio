@@ -527,6 +527,32 @@ void analyse_model::getDataFromArea(QPoint area, int labelWidth, int labelHeight
     }
 }
 
+//TODO ICI
+void analyse_model::getDataFromZoomArea(QPoint area, int labelWidth, int labelHeight, std::string zoomPath) {
+
+    CImg<float> zoomPicture;
+    zoomPicture.load_bmp(zoomPath.c_str());
+    int x = area.x() * zoomPicture.width() / labelWidth;
+    int y = area.y() * zoomPicture.height() / labelHeight;
+
+    for(unsigned int i = 0; i < userResults.size(); i++) {
+        if (userResults[i].getTopLeftPoint().x() <= x
+                && userResults[i].getTopLeftPoint().y() <= y
+                && userResults[i].getBottomRightPoint().x() > x
+                && userResults[i].getBottomRightPoint().y() > y) {
+
+            currentArea = i;
+            std::cout << "Please que j'en termine = " << i << std::endl;
+            areaIsSelected = true;
+            //TODO Separator
+            std::string graphFromArea = pathOfResultsStorage + "/user/" + std::to_string(i) + ".bmp";
+            CImg<float> graphImg;
+            graphImg.load_bmp(graphFromArea.c_str());
+            graphImg.save_bmp(pathOfResultsDisplay.c_str());
+        }
+    }
+}
+
 
 bool analyse_model::dataReady() { return isDataReady; }
 void analyse_model::setColumnAmount(int newColumn) { columnAmount = newColumn; }

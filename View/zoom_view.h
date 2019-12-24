@@ -15,6 +15,7 @@ class Zoom_View : public QGroupBox
         void mousePressEvent( QMouseEvent* ev );
         void readyForClick();
         void createView();
+        void getData(QPoint area, int labelWidth, int labelHeight);
 
     public slots:
         void setNewPicture(int zoneWidth, int zoneHeight);
@@ -25,6 +26,7 @@ class Zoom_View : public QGroupBox
     signals:
         void processResultsFromZoom();
         void pipetteClicked();
+        void changeGraphPicture();
 
     private:
         QGridLayout *m_layout;

@@ -151,6 +151,15 @@ public:
     void getDataFromArea(QPoint area, int labelWidth, int labelHeight, int imageWidth, int imageHeight, CImg<float> currentImage, dessin_model *dessin);
 
     /**
+     * @brief getDataFromZoomArea
+     * @param area
+     * @param labelWidth
+     * @param labelHeight
+     * @param zoomPath
+     */
+    void getDataFromZoomArea(QPoint area, int labelWidth, int labelHeight, std::string zoomPath);
+
+    /**
      * @brief getTopLeftPointOfCurrentArea
      * @return
      */
