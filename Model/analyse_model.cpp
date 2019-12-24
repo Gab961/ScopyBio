@@ -118,13 +118,13 @@ void analyse_model::processResultsWithCropsVERSIONDEUX(CImgList<float> allPictur
     {
         int nextX = oldX + xSeparation;
         if (i == columnAmount)
-            nextX = largeurImage;
+            nextX = departAnalyseHautGauche.x()+largeurImage;
 
         for (int j=1; j<=linesAmount; j++)
         {
             int nextY = oldY + ySeparation;
             if (j == linesAmount)
-                nextY = hauteurImage;
+                nextY = departAnalyseHautGauche.y()+hauteurImage;
 
             QPoint pos1(oldX,oldY);
             QPoint pos2(nextX,nextY);
@@ -133,18 +133,25 @@ void analyse_model::processResultsWithCropsVERSIONDEUX(CImgList<float> allPictur
 
             //On créer un rond en fonction de l'analyse
             if (pertinence>1)
+            {
+                //Les valeurs de point sont celles de l'image complète. Celles du calque commencent à zéro.
+                //Il faut donc modifier les points pour les adapter au calque.
+                pos1.setX(pos1.x()-departAnalyseHautGauche.x());
+                pos1.setY(pos1.y()-departAnalyseHautGauche.y());
+                pos2.setX(pos2.x()-departAnalyseHautGauche.x());
+                pos2.setY(pos2.y()-departAnalyseHautGauche.y());
+
                 gestionnaire->manageNewUserAnalyse(pertinence, pos1, pos2);
+            }
 
             oldY = nextY;
         }
 
-        oldY = 0;
+        oldY = departAnalyseHautGauche.y();
         oldX = nextX;
     }
 
     //Dessin du quadrillage à la fin pour recouvrir l'ensemble après qu'on a fait des carrés verts de pertinence
-    std::cout << "Colonnes = " << columnAmount << std::endl;
-    std::cout << "Lignes = " << linesAmount << std::endl;
     gestionnaire->updateUserQuadrillage(columnAmount,linesAmount);
 
     isDataReady = true;
