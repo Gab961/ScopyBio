@@ -318,9 +318,6 @@ void gestionnaire_calque_model::updateUserQuadrillage(int columns, int lines){
     newCalque.filtreQuadrillage(columns, lines);
 
     listOfCalque[idUserPertinenceCalque] = newCalque;
-
-    //DEBUG
-    newCalque.getCalque().save_bmp("/home/etudiant/testDeMort.bmp");
 }
 
 void gestionnaire_calque_model::mergeUserAnalysis(CImg<float> zoom, std::string zoomPath)

@@ -75,10 +75,6 @@ void faisceau_model::setFaisceau(QPoint pos1, QPoint pos2, int pictureWidth, int
         setScaledTopLeft(x1,y1);
     }
 
-    std::cout << "SCALED" << std::endl;
-    std::cout << "TopLeft: " << scaledTopLeft.x() << "x" << scaledTopLeft.y() << std::endl;
-    std::cout << "BotRight: " << scaledBotRight.x() << "x" << scaledBotRight.y() << std::endl;
-
     faisceauActive = true;
 }
 

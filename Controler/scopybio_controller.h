@@ -296,6 +296,19 @@ public:
      */
     void setColumnAmount(int value);
 
+    /**
+     * @brief getAnalysisType
+     * @return
+     */
+    bool getAnalysisType();
+
+    /**
+     * @brief setAnalysisTypeIsUser
+     * @param type
+     * @return
+     */
+    void setAnalysisTypeIsUser(bool type);
+
 
     /***********************************************************************************/
     /****************************** Partie faisceau_model ******************************/

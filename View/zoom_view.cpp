@@ -106,7 +106,11 @@ void Zoom_View::mousePressEvent( QMouseEvent* ev )
         }
         //If une analyse a été effectuée
         else
+        {
+            origPoint.setX(origPoint.x() - m_image->x());
+            origPoint.setY(origPoint.y() - m_image->y());
             getData(origPoint,m_image->width(),m_image->height());
+        }
 
     }
 }

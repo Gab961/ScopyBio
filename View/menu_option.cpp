@@ -234,6 +234,7 @@ void menu_option::activateLocalAnalyse()
     activateUserAnalyse = true;
     if (analysisPanelActive)
         m_launchSelect->setEnabled(activateUserAnalyse);
+    m_scopybioController->setAnalysisTypeIsUser(true);
     update();
 }
 
@@ -242,6 +243,7 @@ void menu_option::desactivateLocalAnalyse()
     activateUserAnalyse = false;
     if (analysisPanelActive)
         m_launchSelect->setEnabled(activateUserAnalyse);
+    m_scopybioController->setAnalysisTypeIsUser(false);
     update();
 }
 
@@ -249,6 +251,7 @@ void menu_option::launchAnalysisFromSelection()
 {
     m_scopybioController->setLineAmount(m_lines->text().toInt());
     m_scopybioController->setColumnAmount(m_columns->text().toInt());
+    m_scopybioController->setAnalysisTypeIsUser(true);
     emit askForUserAnalyse();
 }
 
@@ -259,13 +262,13 @@ void menu_option::launchAnalysis()
     m_scopybioController->setLineAmount(m_lines->text().toInt());
     m_scopybioController->setColumnAmount(m_columns->text().toInt());
     m_scopybioController->setWhiteColor(m_whiteLevel->text().toInt());
+    m_scopybioController->setAnalysisTypeIsUser(false);
 
     emit askFullAnalysis();
     // TODO set precision
 }
 
 void menu_option::onPenSizeValueChanged(int value) {
-    std::cout << value << std::endl;
     m_penSizeValue = value;
     m_penSizeSlider->setValue(value);
 

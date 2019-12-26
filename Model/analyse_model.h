@@ -65,19 +65,21 @@ public:
      * @param pos1
      * @param pos2
      * @param whiteValue
-     * @param isUserAnalysis
      * @return
      */
-    int processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, bool isUserAnalysis);
+    int processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue);
 
     /**
-     * @brief createCropResultsDisplay
-     * @param result
-     * @param imagesSize
+     * @brief processLocalUserResults
+     * @param allPictures
+     * @param pos1
+     * @param pos2
      * @param whiteValue
-     * @param isUserAnalysis
+     * @param pos1Scaled
+     * @param pos2Scaled
+     * @return
      */
-//    void createCropResultsDisplay(Resultat result, unsigned int imagesSize, int whiteValue, bool isUserAnalysis);
+    int processLocalUserResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, QPoint pos1Scaled, QPoint pos2Scaled);
 
     /**
      * @brief createResultsDisplay
@@ -197,10 +199,24 @@ public:
 
     void setResults(const std::vector<Resultat> &value);
 
+    /**
+     * @brief setCurrentAnalysisType
+     * @param type
+     */
+    void setCurrentAnalysisType(bool type);
+
+    /**
+     * @brief getCurrentAnalysisType
+     * @return
+     */
+    bool getCurrentAnalysisType();
+
+
 private:
     bool areaIsSelected;
     bool userAreaIsSelected;
     bool isDataReady;
+    bool currentAnalysisIsAUserOne;
     int columnAmount;
     int linesAmount;
     int currentArea;

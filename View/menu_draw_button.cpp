@@ -172,7 +172,6 @@ void Menu_Draw_Button::filters() {emit filtersClicked();}
 void Menu_Draw_Button::analysis() {emit analysisClicked();}
 
 void Menu_Draw_Button::changePipetteStyleWhenUsed() {
-    std::cout << "coucou" << std::endl;
     QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
     m_pipette->setStyleSheet(buttonStyle);
 }

@@ -365,6 +365,16 @@ bool ScopyBio_Controller::dataReady()
     return m_analyseModel->dataReady();
 }
 
+bool ScopyBio_Controller::getAnalysisType()
+{
+    return m_analyseModel->getCurrentAnalysisType();
+}
+
+void ScopyBio_Controller::setAnalysisTypeIsUser(bool type)
+{
+    m_analyseModel->setCurrentAnalysisType(type);
+}
+
 void ScopyBio_Controller::getDataFromArea(QPoint area, int labelWidth, int labelHeight) {
     int imageWidth = m_pileModel->getCurrentImage().width();
     int imageHeight = m_pileModel->getCurrentImage().height();
@@ -383,6 +393,8 @@ void ScopyBio_Controller::getDataFromZoomArea(QPoint area, int labelWidth, int l
     if (m_faisceauModel->faisceauIsActive())
     {
         m_analyseModel->getDataFromZoomArea(area, labelWidth, labelHeight, m_dessinModel->getZoomDisplayPath());
+        //Dessiner sur le zoom
+
     }
 }
 
