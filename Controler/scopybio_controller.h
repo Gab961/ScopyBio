@@ -6,6 +6,8 @@
 #include "Model/save_model.h"
 #include "Model/load_model.h"
 
+#include <thread>
+
 
 class ScopyBio_Controller
 {
@@ -343,6 +345,12 @@ public:
      */
     void changeSavePaths(std::string newSavePath);
 
+    /***********************************************************************************/
+    /******************************** Partie THREAD ************************************/
+    /***********************************************************************************/
+
+    void listen();
+
 private:
     pile_model *m_pileModel;
     dessin_model *m_dessinModel;
@@ -351,4 +359,6 @@ private:
     faisceau_model *m_faisceauModel;
     save_model *m_saveModel;
     load_model * m_loadModel;
+    std::thread listener;
+    std::thread background_task;
 };
