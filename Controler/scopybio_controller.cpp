@@ -338,8 +338,17 @@ std::string ScopyBio_Controller::getResultDisplayPath()
 
 void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight)
 {
-    m_analyseModel->processResultsWithCropsVERSIONDEUX(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
-    saveZoomOfUserArea();
+    try{
+        background_task = std::thread(&analyse_model::processResultsWithCropsVERSIONDEUX,m_analyseModel,m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
+        //background_task.detach();
+
+        listener = std::thread(&ScopyBio_Controller::listenUserAnalysis,this);
+        listener.detach();
+    }catch(...){
+        std::cout << "fini dans controleur" << std::endl;
+        background_task.join();
+        listener.join();
+    }
 }
 
 void ScopyBio_Controller::processResults()
@@ -354,16 +363,13 @@ void ScopyBio_Controller::processResults()
         background_task = std::thread(&analyse_model::processResults,m_analyseModel,m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
         //background_task.detach();
 
-        listener = std::thread(&ScopyBio_Controller::listen,this);
+        listener = std::thread(&ScopyBio_Controller::listenFullAnalysis,this);
         listener.detach();
     }catch(...){
         std::cout << "fini dans controleur" << std::endl;
         background_task.join();
         listener.join();
     }
-
-    //DisplayResultImage(m_pileModel->getCurrentImageIndex());
-
 }
 
 int ScopyBio_Controller::getItemAtPoint(int posX, int labelWidth)
@@ -397,6 +403,8 @@ void ScopyBio_Controller::getDataFromArea(QPoint area, int labelWidth, int label
     }
 
     m_analyseModel->getDataFromArea(area, labelWidth, labelHeight, imageWidth, imageHeight, m_pileModel->getCurrentImage(), m_dessinModel);
+    saveZoomOfCurrentArea();
+
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
@@ -404,8 +412,6 @@ void ScopyBio_Controller::getDataFromZoomArea(QPoint area, int labelWidth, int l
     if (m_faisceauModel->faisceauIsActive())
     {
         m_analyseModel->getDataFromZoomArea(area, labelWidth, labelHeight, m_dessinModel->getZoomDisplayPath());
-        //Dessiner sur le zoom
-
     }
 }
 
@@ -439,15 +445,26 @@ void ScopyBio_Controller::setFaisceau(QPoint pos1, QPoint pos2, int labelWidth, 
 //=======================
 // THREAD
 //=======================
-void ScopyBio_Controller::listen(){
+void ScopyBio_Controller::listenFullAnalysis(){
 
     if(background_task.joinable()){
         background_task.join();
     }
 
-
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 
-    std::cout << "Thread control fini" << std::endl;
+    emit fullAnalysisEnded();
+    std::cout << "Thread total fini" << std::endl;
+
+}
+
+void ScopyBio_Controller::listenUserAnalysis(){
+
+    if(background_task.joinable()){
+        background_task.join();
+    }
+
+    emit userAnalysisEnded();
+    std::cout << "Thread user fini" << std::endl;
 
 }

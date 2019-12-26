@@ -23,6 +23,8 @@ std::vector<Resultat> analyse_model::getResults() const { return results; }
 
 void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, gestionnaire_calque_model * gestionnaire)
 {
+    std::cout << "DEBUT ANALYSE TOTALE" << std::endl;
+
     ///DEBUG TESTS
     //    columnAmount = 5;
     //    linesAmount = 5;
@@ -78,10 +80,14 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
     gestionnaire->updateQuadrillage(columnAmount,linesAmount);
 
     isDataReady = true;
+
+    std::cout << "ANALYSE TOTALE TERMINEE" << std::endl;
 }
 
 void analyse_model::processResultsWithCropsVERSIONDEUX(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire)
-{
+{    
+    std::cout << "DEBUT ANALYSE UTILISATEUR" << std::endl;
+
     int x1 = pos1.x() * allPictures[0].width() / labelWidth;
     int y1 = pos1.y() * allPictures[0].height() / labelHeight;
     int x2 = pos2.x() * allPictures[0].width() / labelWidth;
@@ -155,6 +161,9 @@ void analyse_model::processResultsWithCropsVERSIONDEUX(CImgList<float> allPictur
     gestionnaire->updateUserQuadrillage(columnAmount,linesAmount);
 
     isDataReady = true;
+
+
+    std::cout << "ANALYSE UTILISATEUR TERMINEE" << std::endl;
 }
 
 int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue)
@@ -497,7 +506,6 @@ void analyse_model::getDataFromArea(QPoint area, int labelWidth, int labelHeight
 
             currentArea = i;
             areaIsSelected = true;
-            dessin->saveZoomFromArea(results[currentArea].getTopLeftPoint(), results[currentArea].getBottomRightPoint(), currentImage);
             std::string graphFromArea = pathOfResultsStorage + std::to_string(i) + ".bmp";
             CImg<float> graphImg;
             graphImg.load_bmp(graphFromArea.c_str());

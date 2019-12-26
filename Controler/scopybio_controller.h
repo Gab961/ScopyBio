@@ -1,4 +1,5 @@
 #pragma once
+#include <QWidget>
 #include "Model/pile_model.h"
 #include "Model/dessin_model.h"
 #include "Model/analyse_model.h"
@@ -9,8 +10,12 @@
 #include <thread>
 
 
-class ScopyBio_Controller
-{
+class ScopyBio_Controller : public QWidget
+{    
+    Q_OBJECT
+signals:
+    void fullAnalysisEnded();
+    void userAnalysisEnded();
 
 public:
     ScopyBio_Controller();
@@ -347,9 +352,16 @@ public:
 
     /***********************************************************************************/
     /******************************** Partie THREAD ************************************/
-    /***********************************************************************************/
+    /*************************************************************************************/
+    /**
+     * @brief listenFullAnalysis
+     */
+    void listenFullAnalysis();
 
-    void listen();
+    /**
+     * @brief listenUserAnalysis
+     */
+    void listenUserAnalysis();
 
 private:
     pile_model *m_pileModel;

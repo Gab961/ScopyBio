@@ -48,6 +48,8 @@ public slots:
     void changeActualItem();
     void openProject(std::string path);
     void startFullAnalysis();
+    void userAnalysisEnded();
+    void fullAnalysisEnded();
 
 protected:
     void closeEvent(QCloseEvent* e) override;

@@ -1,3 +1,4 @@
+#include <QMessageBox>
 #include "menu_option.h"
 #include <iostream>
 #include "scopybio_controller.h"
@@ -253,6 +254,8 @@ void menu_option::launchAnalysisFromSelection()
     m_scopybioController->setColumnAmount(m_columns->text().toInt());
     m_scopybioController->setAnalysisTypeIsUser(true);
     emit askForUserAnalyse();
+
+    QMessageBox::information(this, "", "Local analysis processing");
 }
 
 void menu_option::launchAnalysis()
@@ -266,6 +269,8 @@ void menu_option::launchAnalysis()
 
     emit askFullAnalysis();
     // TODO set precision
+
+    QMessageBox::information(this, "", "Full analysis processing");
 }
 
 void menu_option::onPenSizeValueChanged(int value) {

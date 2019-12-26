@@ -116,6 +116,7 @@ void MainWindow::connections()
 
     //Demande d'affichage dans la fenêtre de zoom
     QObject::connect(m_imageView, &Image_View::changeZoomedPicture, m_zoomView, &Zoom_View::setNewPicture);
+    QObject::connect(this, &MainWindow::changeZoomedPicture, m_zoomView, &Zoom_View::setPictureFromFile);
 
     //Gestion du changement dans la liste
     QObject::connect(m_pileView, &Pile_View::currentRowChanged, this, &MainWindow::changeActualItem);
@@ -192,6 +193,10 @@ void MainWindow::connections()
     QObject::connect(m_tools, &Menu_Draw_Button::pipetteClicked, m_options, &menu_option::pipette);
     QObject::connect(m_tools, &Menu_Draw_Button::filtersClicked, m_options, &menu_option::filters);
     QObject::connect(m_tools, &Menu_Draw_Button::analysisClicked, m_options, &menu_option::analysis);
+
+    //Mise à jour de l'interface lorsque les thread d'analyse ont terminé leurs actions
+    QObject::connect(m_scopybioController, &ScopyBio_Controller::userAnalysisEnded, this, &MainWindow::userAnalysisEnded);
+    QObject::connect(m_scopybioController, &ScopyBio_Controller::fullAnalysisEnded, this, &MainWindow::fullAnalysisEnded);
 }
 
 void MainWindow::closeEvent(QCloseEvent* e)
@@ -455,4 +460,17 @@ void MainWindow::wheelEvent(QWheelEvent *ev)
     }
 
     ev->accept();
+}
+
+void MainWindow::fullAnalysisEnded()
+{
+    QMessageBox::information(this, "", "Full analysis completed");
+    emit changeMainPicture();
+}
+
+void MainWindow::userAnalysisEnded()
+{
+    QMessageBox::information(this, "", "User analysis completed");
+    m_scopybioController->saveZoomOfUserArea();
+    emit changeZoomedPicture();
 }
