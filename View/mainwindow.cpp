@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 
 #include <iostream>
+#include <filesystem>
 
 #include <QDesktopWidget>
 #include <QFileDialog>
@@ -191,6 +192,12 @@ void MainWindow::connections()
     QObject::connect(m_tools, &Menu_Draw_Button::pipetteClicked, m_options, &menu_option::pipette);
     QObject::connect(m_tools, &Menu_Draw_Button::filtersClicked, m_options, &menu_option::filters);
     QObject::connect(m_tools, &Menu_Draw_Button::analysisClicked, m_options, &menu_option::analysis);
+}
+
+void MainWindow::closeEvent(QCloseEvent* e)
+{
+    std::filesystem::remove_all(std::filesystem::path("tmp"));
+    QMainWindow::closeEvent(e);
 }
 
 void MainWindow::open()
