@@ -149,7 +149,7 @@ void ScopyBio_Controller::removeCalque(int id){
 }
 
 void ScopyBio_Controller::setCurrentCalqueId(int newId){
-    m_gestion_calque->setCurrentCalqueId(m_gestion_calque->getCalqueForDisplay(newId,newId).getId());
+    m_gestion_calque->setCurrentCalqueId(newId);
 }
 
 std::vector<int> ScopyBio_Controller::getCalquesIdFromImage(int image) {

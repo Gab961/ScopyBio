@@ -100,6 +100,9 @@ bool LayerView::event(QEvent * e)
 void LayerView::rowChanged(int row)
 {
     currentLayerRow = row;
+
+    std::cout << "Nouvelle current = " << currentLayerRow << std::endl;
+    std::cout << "Ici = " << layerIdList[currentLayerRow] << std::endl;
     m_scopybioController->setCurrentCalqueId(layerIdList[currentLayerRow]);
 }
 
