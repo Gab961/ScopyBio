@@ -80,7 +80,7 @@ public:
     /******************************** Partie Calque ************************************/
     /***********************************************************************************/
 
-    void removeCalque(int min, int max);
+    void removeCalque(int id);
 
     std::vector<int> getCalquesIdFromImage(int image);
 

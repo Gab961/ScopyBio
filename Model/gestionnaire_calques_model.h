@@ -32,6 +32,7 @@ public:
 
     void creerCalque(int width, int height, int min, int max, int taille);
     int getCalque(int min, int max);
+    int getCalqueIndex(int id);
     void addCalques(std::vector<calque> calques, int taille);
     void removeCalques(int min, int max);
     void calqueShowable(int min, int max, bool show);

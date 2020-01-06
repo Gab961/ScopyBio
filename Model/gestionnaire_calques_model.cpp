@@ -94,6 +94,21 @@ int gestionnaire_calque_model::getCalque(int min, int max){
     return -1;
 }
 
+int gestionnaire_calque_model::getCalqueIndex(int id){
+    int index(0);
+
+    for(calque i : listOfCalque){
+        if(i.getId() == id){
+            return index;
+        }
+        else{
+            index++;
+        }
+    }
+    return -1;
+}
+
+
 
 void gestionnaire_calque_model::addCalques(std::vector<calque> calques, int taille){
     if(!calques.empty()){

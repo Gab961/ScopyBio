@@ -136,7 +136,8 @@ int ScopyBio_Controller::getCurrentImageIndex()
 // Calque
 //=======================
 
-void ScopyBio_Controller::removeCalque(int min, int max){
+void ScopyBio_Controller::removeCalque(int id){
+    int min = m_gestion_calque->getCalqueForDisplay(id).getIntervalMin(), max=m_gestion_calque->getCalqueForDisplay(id).getIntervalMax();
     m_gestion_calque->removeCalques(min, max);
 }
 
