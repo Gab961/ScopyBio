@@ -233,15 +233,31 @@ void MainWindow::open()
         else
             emit sendPath(path);
 
-        m_options->setEnabled(true);
-        m_tools->setEnabled(true);
-        m_imageView->setEnabled(true);
-        m_zoomView->setEnabled(true);
-        m_dataView->setEnabled(true);
-        m_layer->setEnabled(true);
-        m_loop->setEnabled(true);
-        m_compare->setEnabled(true);
-        m_saveAs->setEnabled(true);
+        if (m_scopybioController->is24Bits())
+        {
+            m_options->setEnabled(true);
+            m_tools->setEnabled(true);
+            m_imageView->setEnabled(true);
+            m_zoomView->setEnabled(true);
+            m_dataView->setEnabled(true);
+            m_layer->setEnabled(true);
+            m_loop->setEnabled(true);
+            m_compare->setEnabled(true);
+            m_saveAs->setEnabled(true);
+        }
+        else
+        {
+            QMessageBox::information(this, "", "This picture is a 16-bits image, and is not yet supported. You can only go through the differents images from the tiff pile.");
+            m_options->setEnabled(false);
+            m_tools->setEnabled(false);
+            m_imageView->setEnabled(true);
+            m_zoomView->setEnabled(false);
+            m_dataView->setEnabled(false);
+            m_layer->setEnabled(true);
+            m_loop->setEnabled(false);
+            m_compare->setEnabled(false);
+            m_saveAs->setEnabled(false);
+        }
     }
 }
 

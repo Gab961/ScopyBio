@@ -42,6 +42,7 @@ public:
     void load(string path);
     void save(string path);
     void read_json_config();
+    bool is24Bits();
 
     //===================
     //      Getter

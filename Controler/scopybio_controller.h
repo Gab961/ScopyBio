@@ -53,6 +53,12 @@ public:
     CImg<float> getCurrentTiff();
 
     /**
+     * @brief is24Bits Retourne vrai si l'image est de type 24 bits
+     * @return
+     */
+    bool is24Bits();
+
+    /**
      * @brief getIconFilenames Récupère la liste des tous les fichiers enregistrés pour la pile
      * @return
      */

@@ -75,6 +75,11 @@ void ScopyBio_Controller::openProject(std::string pathProject){
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
+bool ScopyBio_Controller::is24Bits()
+{
+    return m_pileModel->is24Bits();
+}
+
 void ScopyBio_Controller::loadNewTiffFile(std::string filename)
 {
     if (filename.length()>0)

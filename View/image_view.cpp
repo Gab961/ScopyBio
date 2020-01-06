@@ -63,7 +63,7 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
  */
 void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 {
-    if (m_scopybioController->fileReady())
+    if (m_scopybioController->fileReady() && m_scopybioController->is24Bits())
     {
         //Si on est pas en train de dessiner ni de choisir avec la pipette
         if (!listenPenClick && !m_scopybioController->getPipetteClick())

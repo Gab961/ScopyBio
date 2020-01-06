@@ -110,3 +110,11 @@ void pile_model::load(string path)
 
     currentImage = images[0];
 }
+
+bool pile_model::is24Bits()
+{
+    if (currentImage.spectrum() == 3)
+        return true;
+    else
+        return false;
+}
