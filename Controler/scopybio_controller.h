@@ -155,6 +155,10 @@ public:
      */
     void applyHistogramFilter();
 
+    void applyResultatFilter();
+
+    void applyZoomResultatFilter();
+
     /**
      * @brief removeHistogramFilter Supprime le contraste à l'ensemble des images
      */

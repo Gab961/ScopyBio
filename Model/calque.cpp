@@ -61,7 +61,6 @@ void calque::undo()
     }
     numList--;
     reinstateMemento(numList);
-    _calque.save_png("./tmp/imageactuel.png");
 }
 
 void calque::redo()
@@ -73,7 +72,6 @@ void calque::redo()
     numList++;
     reinstateMemento(numList);
     std::cout << "numList = " << numList << " Highwater = " << highWater << std::endl;
-    _calque.save_png("./tmp/imageactuel.png");
 }
 
 void calque::addMemento(){
