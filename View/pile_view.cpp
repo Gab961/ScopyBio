@@ -8,6 +8,7 @@
 Pile_View::Pile_View(QWidget *parent, ScopyBio_Controller *scopybioController) : m_scopybioController(scopybioController)
 {
     this->setIconSize(QSize(125, 125));
+    connections();
 }
 
 void Pile_View::openFile(std::string path)
@@ -33,6 +34,10 @@ void Pile_View::openFile(std::string path)
     this->update();
 }
 
+void Pile_View::connections() {
+    QObject::connect(this, &QListWidget::currentRowChanged, this, &Pile_View::rowChanged);
+}
+
 
 CImg<float> Pile_View::getImage(int i)
 {
@@ -48,3 +53,5 @@ void Pile_View::changeToElement(int i)
         getImage(i);
     }
 }
+
+void Pile_View::rowChanged(int row) { emit rowClicked(row); }

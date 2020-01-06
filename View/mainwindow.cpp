@@ -194,6 +194,9 @@ void MainWindow::connections()
     QObject::connect(m_tools, &Menu_Draw_Button::filtersClicked, m_options, &menu_option::filters);
     QObject::connect(m_tools, &Menu_Draw_Button::analysisClicked, m_options, &menu_option::analysis);
 
+    // Met à jour les calques en fonction de l'image sélectionnée
+    QObject::connect(m_pileView, &Pile_View::rowClicked, m_layerView, &LayerView::loadLayers);
+
     //Mise à jour de l'interface lorsque les thread d'analyse ont terminé leurs actions
     QObject::connect(m_scopybioController, &ScopyBio_Controller::userAnalysisEnded, this, &MainWindow::userAnalysisEnded);
     QObject::connect(m_scopybioController, &ScopyBio_Controller::fullAnalysisEnded, this, &MainWindow::fullAnalysisEnded);
@@ -375,6 +378,7 @@ void MainWindow::openProject(std::string path)
 void MainWindow::showFirstInPile()
 {
     m_scopybioController->saveAsMainDisplay(0);
+    m_layerView->loadLayers(0);
     emit changeMainPicture();
 
     update();

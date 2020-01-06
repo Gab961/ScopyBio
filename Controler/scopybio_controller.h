@@ -87,10 +87,13 @@ public:
     /******************************** Partie Calque ************************************/
     /***********************************************************************************/
 
-    void removeCalque(int min, int max);
     void undoAction();
     void redoAction();
     void addMemento();
+    void removeCalque(int id);
+    void removeCalque(int min, int max);
+
+    std::vector<int> getCalquesIdFromImage(int image);
 
     /***********************************************************************************/
     /******************************* Partie dessin_model *******************************/

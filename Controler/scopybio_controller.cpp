@@ -137,8 +137,17 @@ int ScopyBio_Controller::getCurrentImageIndex()
 // Calque
 //=======================
 
-void ScopyBio_Controller::removeCalque(int min, int max){
-    m_gestion_calque->removeCalques(min,max);
+void ScopyBio_Controller::removeCalque(int id){
+    std::cout << "Control id = " << id << std::endl;
+    int min = m_gestion_calque->getCalqueForDisplay(id).getIntervalMin(), max=m_gestion_calque->getCalqueForDisplay(id).getIntervalMax();
+
+    std::cout << "min = " << min << " max = " << max << std::endl;
+    m_gestion_calque->removeCalques(min, max);
+    m_gestion_calque->removeFromDict(min,max,id);
+}
+
+std::vector<int> ScopyBio_Controller::getCalquesIdFromImage(int image) {
+    return m_gestion_calque->getListOfCalqueFromImage(image);
 }
 
 void ScopyBio_Controller::undoAction(){
