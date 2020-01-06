@@ -38,6 +38,11 @@ bool ScopyBio_Controller::save(){
     return m_saveModel->save(m_gestion_calque->getAllCalques(), m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount());
 }
 
+void ScopyBio_Controller::saveCurrentDisplay(std::string path)
+{
+    m_saveModel->saveCurrentDisplay(path,m_dessinModel->getMainDisplayPath());
+}
+
 
 void ScopyBio_Controller::changeSavePaths(std::string newSavePath)
 {

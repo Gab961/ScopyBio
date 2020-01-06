@@ -244,6 +244,7 @@ void MainWindow::open()
             m_loop->setEnabled(true);
             m_compare->setEnabled(true);
             m_saveAs->setEnabled(true);
+            m_saveCurrentDisplay->setEnabled(true);
         }
         else
         {
@@ -257,6 +258,7 @@ void MainWindow::open()
             m_loop->setEnabled(false);
             m_compare->setEnabled(false);
             m_saveAs->setEnabled(false);
+            m_saveCurrentDisplay->setEnabled(false);
         }
     }
 }
@@ -273,6 +275,20 @@ void MainWindow::saveAs()
         path = directoryName.toLocal8Bit().constData();
 
         m_scopybioController->save_as(path);
+    }
+}
+
+void MainWindow::saveCurrentDisplay()
+{
+    std::string path = "";
+    QString directoryName = QFileDialog::getSaveFileName(this, tr("Save file"),
+                                                              "../../Resources/Data",
+                                                              ".bmp");
+    if (directoryName != "")
+    {
+        path = directoryName.toLocal8Bit().constData();
+
+        m_scopybioController->saveCurrentDisplay(path);
     }
 }
 
@@ -320,6 +336,11 @@ void MainWindow::createActions()
     QObject::connect(m_saveAs, &QAction::triggered, this, &MainWindow::saveAs);
     m_saveAs->setEnabled(false);
     fileMenu->addAction(m_saveAs);
+
+    m_saveCurrentDisplay = new QAction(tr("Save current display..."), this);
+    QObject::connect(m_saveCurrentDisplay, &QAction::triggered, this, &MainWindow::saveCurrentDisplay);
+    m_saveCurrentDisplay->setEnabled(false);
+    fileMenu->addAction(m_saveCurrentDisplay);
 
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
 

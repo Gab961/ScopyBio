@@ -345,6 +345,12 @@ public:
     void save_as(std::string path);
 
     /**
+     * @brief saveCurrentDisplay
+     * @param path
+     */
+    void saveCurrentDisplay(std::string path);
+
+    /**
      * @brief save
      * @return
      */

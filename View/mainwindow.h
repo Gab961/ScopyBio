@@ -42,6 +42,7 @@ public slots:
     void open();
     void save();
     void saveAs();
+    void saveCurrentDisplay();
     void aboutUs();
     void howToUse();
     void showFirstInPile();
@@ -84,6 +85,7 @@ private:
     QAction *m_loadFile;
     QAction *m_saveFile;
     QAction *m_saveAs;
+    QAction *m_saveCurrentDisplay;
     QAction *m_aboutUs;
     QAction *m_howToUse;
     QAction *m_compare;

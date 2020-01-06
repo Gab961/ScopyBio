@@ -119,6 +119,13 @@ void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Res
     outfile.close();
 }
 
+void save_model::saveCurrentDisplay(std::string savePath, std::string currentDisplayPath)
+{
+    CImg<float> img;
+    img.load_bmp(currentDisplayPath.c_str());
+    img.save_bmp(savePath.c_str());
+}
+
 void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques,std::vector<Resultat> resultats,int row, int col){
     //std::cout << "function save_as " << std::endl;
 
