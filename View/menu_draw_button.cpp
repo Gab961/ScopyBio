@@ -66,6 +66,13 @@ void Menu_Draw_Button::createView()
     m_analysis->setMaximumSize(25,25);
     m_gridTools->addWidget(m_analysis, 1, 2);
 
+    m_newLayer = new QPushButton(QIcon("../../Resources/Icons/new-file.svg"), "", this);
+    m_newLayer->setStyleSheet(buttonStyle);
+    m_newLayer->setIconSize(QSize(20,20));
+    m_newLayer->setMinimumSize(25,25);
+    m_newLayer->setMaximumSize(25,25);
+    m_gridTools->addWidget(m_newLayer, 1, 3);
+
     setLayout(m_gridTools);
 }
 
@@ -85,6 +92,7 @@ void Menu_Draw_Button::connections()
     QObject::connect(m_pipette, &QPushButton::clicked, this, &Menu_Draw_Button::pipette);
     QObject::connect(m_filters, &QPushButton::clicked, this, &Menu_Draw_Button::filters);
     QObject::connect(m_analysis, &QPushButton::clicked, this, &Menu_Draw_Button::analysis);
+    QObject::connect(m_newLayer, &QPushButton::clicked, this, &Menu_Draw_Button::newLayer);
 }
 
 
@@ -170,6 +178,8 @@ void Menu_Draw_Button::pipette() {emit pipetteClicked();}
 void Menu_Draw_Button::filters() {emit filtersClicked();}
 
 void Menu_Draw_Button::analysis() {emit analysisClicked();}
+
+void Menu_Draw_Button::newLayer() {emit newLayerClicked();}
 
 void Menu_Draw_Button::changePipetteStyleWhenUsed() {
     QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";

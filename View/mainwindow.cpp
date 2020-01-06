@@ -193,12 +193,13 @@ void MainWindow::connections()
     QObject::connect(m_tools, &Menu_Draw_Button::pipetteClicked, m_options, &menu_option::pipette);
     QObject::connect(m_tools, &Menu_Draw_Button::filtersClicked, m_options, &menu_option::filters);
     QObject::connect(m_tools, &Menu_Draw_Button::analysisClicked, m_options, &menu_option::analysis);
+    QObject::connect(m_tools, &Menu_Draw_Button::newLayerClicked, m_options, &menu_option::newLayer);
 
     // Met à jour les calques en fonction de l'image sélectionnée
     QObject::connect(m_pileView, &Pile_View::rowClicked, m_layerView, &LayerView::loadLayers);
 
     // Met à jour l'affichage de l'image après chaque action effectuée dans le layer_view (suppression, création, affichage)
-    QObject::connect(m_layerView, &LayerView::actionDoneWithLayer, this, &MainWindow::testtruc);
+    QObject::connect(m_layerView, &LayerView::actionDoneWithLayer, this, &MainWindow::updateImageView);
 
     //Mise à jour de l'interface lorsque les thread d'analyse ont terminé leurs actions
     QObject::connect(m_scopybioController, &ScopyBio_Controller::userAnalysisEnded, this, &MainWindow::userAnalysisEnded);
@@ -498,7 +499,7 @@ void MainWindow::wheelEvent(QWheelEvent *ev)
     ev->accept();
 }
 
-void MainWindow::testtruc() {
+void MainWindow::updateImageView() {
     int indiceEnCours = m_pileView->currentRow();
     m_scopybioController->DisplayResultImage(indiceEnCours);
     emit changeMainPicture();

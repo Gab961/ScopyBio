@@ -229,23 +229,44 @@ void menu_option::analysis() {
     QObject::connect(m_accuracySlider, &QSlider::valueChanged, this, &menu_option::onAccuracyValueChanged);
 }
 
+void menu_option::newLayer() {
+    clearLayout(m_gridOptions);
+    // New layer view
+    m_gridNewLayer = new QGridLayout();
+    m_firstLayerLabel = new QLabel("First image : ");
+    m_firstLayer = new QLineEdit();
+    m_firstLayer->setText("0");
+
+    m_lastLayerLabel = new QLabel("Last image : ");
+    m_lastLayer = new QLineEdit();
+    m_lastLayer->setText("0");
+
+    m_createLayer = new QPushButton("Create layer");
+
+    m_gridNewLayer->addWidget(m_firstLayerLabel, 0, 0);
+    m_gridNewLayer->addWidget(m_firstLayer, 0, 1);
+    m_gridNewLayer->addWidget(m_lastLayerLabel, 1, 0);
+    m_gridNewLayer->addWidget(m_lastLayer, 1, 1);
+    m_gridNewLayer->addWidget(m_createLayer, 2, 0);
+    m_gridOptions->addLayout(m_gridNewLayer, 0, 0);
+
+    //Créer le nouveau calque sur les images renseignées
+    QObject::connect(m_createLayer, &QPushButton::clicked, this, &menu_option::onCreateLayer);
+}
+
 //TODO METTRE A JOUR LE BOUTON
 void menu_option::activateLocalAnalyse()
 {
     activateUserAnalyse = true;
-    if (analysisPanelActive)
-        m_launchSelect->setEnabled(activateUserAnalyse);
     m_scopybioController->setAnalysisTypeIsUser(true);
-    update();
+    analysis();
 }
 
 void menu_option::desactivateLocalAnalyse()
 {
     activateUserAnalyse = false;
-    if (analysisPanelActive)
-        m_launchSelect->setEnabled(activateUserAnalyse);
     m_scopybioController->setAnalysisTypeIsUser(false);
-    update();
+    analysis();
 }
 
 void menu_option::launchAnalysisFromSelection()
@@ -277,35 +298,35 @@ void menu_option::onPenSizeValueChanged(int value) {
     m_penSizeValue = value;
     m_penSizeSlider->setValue(value);
 
-    // TODO
+    // TODO backend
 }
 
 void menu_option::onShapeSizeValueChanged(int value) {
     m_shapeSizeValue = value;
     m_shapeSizeSlider->setValue(value);
 
-    // TODO
+    // TODO backend
 }
 
 void menu_option::onTextSizeValueChanged(int value) {
     m_textSizeValue = value;
     m_textSizeSlider->setValue(value);
 
-    // TODO
+    // TODO backend
 }
 
 void menu_option::onEraserSizeValueChanged(int value) {
     m_eraserSizeValue = value;
     m_eraserSizeSlider->setValue(value);
 
-    // TODO
+    // TODO backend
 }
 
 void menu_option::onAccuracyValueChanged(int value) {
     m_accuracyValue = value;
     m_accuracySlider->setValue(value);
 
-    // TODO
+    // TODO backend
 }
 
 void menu_option::onFilterToggled(bool checked)
@@ -327,7 +348,7 @@ void menu_option::onCircleToggled(bool checked)
     m_isCircle = checked;
     m_square->setChecked(!checked);
 
-    // TODO
+    // TODO backend
 }
 
 void menu_option::onSquareToggled(bool checked)
@@ -335,7 +356,7 @@ void menu_option::onSquareToggled(bool checked)
     m_isCircle = !checked;
     m_circle->setChecked(!checked);
 
-    // TODO
+    // TODO backend
 }
 
 void menu_option::clearLayout(QLayout* layout, bool deleteWidgets)
@@ -352,6 +373,10 @@ void menu_option::clearLayout(QLayout* layout, bool deleteWidgets)
             clearLayout(childLayout, deleteWidgets);
         delete item;
     }
+}
+
+void menu_option::onCreateLayer() {
+    // TODO Creer calque backend (m_firstLayer = min, m_lastLayer = max)
 }
 
 
