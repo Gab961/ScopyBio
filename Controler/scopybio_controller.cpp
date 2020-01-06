@@ -146,39 +146,39 @@ void ScopyBio_Controller::removeCalque(int id){
     m_gestion_calque->removeFromDict(min,max,id);
 }
 
+void ScopyBio_Controller::setCurrentCalqueId(int newId){
+    m_gestion_calque->setCurrentCalqueId(m_gestion_calque->getCalqueForDisplay(newId,newId).getId());
+}
+
 std::vector<int> ScopyBio_Controller::getCalquesIdFromImage(int image) {
     return m_gestion_calque->getListOfCalqueFromImage(image);
 }
 
 void ScopyBio_Controller::undoAction(){
-    int min = 0, max = 0;
-
     std::cout << "undoAction" << std::endl;
+    std::cout << "Id calque" << m_gestion_calque->getCurrentCalqueId() << std::endl;
     //Verifier s'il existe dans le dico
-    if(m_gestion_calque->existeCalque(min,max)){
+    if(m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
         std::cout << "calque Existe -> undo" << std::endl;
         //Si n'existe pas Creer le calque et mettre à jour le dico
-        m_gestion_calque->undo(min,max);
+        m_gestion_calque->undo();
     }
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
 void ScopyBio_Controller::redoAction(){
-    int min = 0, max = 0;
-
-
     //Verifier s'il existe dans le dico
-    if(m_gestion_calque->existeCalque(min,max)){
+    if(m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
         //Si n'existe pas Creer le calque et mettre à jour le dico
-        m_gestion_calque->redo(min,max);
+        m_gestion_calque->redo();
     }
 }
 
 
 void ScopyBio_Controller::addMemento()
 {
-//    m_gestion_calque->addMemento(m_jsaipakwa.getIdCurrentCalque());
+    m_gestion_calque->addMemento();
 }
 
 //=======================

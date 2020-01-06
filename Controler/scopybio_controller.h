@@ -92,6 +92,7 @@ public:
     void addMemento();
     void removeCalque(int id);
     void removeCalque(int min, int max);
+    void setCurrentCalqueId(int newId);
 
     std::vector<int> getCalquesIdFromImage(int image);
 

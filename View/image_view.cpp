@@ -98,10 +98,11 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 
         emit pipetteClicked();
     }
-
     //Si on était en train de dessiner
-    if (firstPenDraw)
+    else
     {
+        //TODO Gestion min max
+        m_scopybioController->setCurrentCalqueId(m_scopybioController->getCurrentImageIndex());
         m_scopybioController->addMemento();
     }
 
@@ -123,6 +124,7 @@ void Image_View::mouseMoveEvent(QMouseEvent* ev) {
             QPoint pos = ev->pos();
             pos.setX(pos.x()-m_image->x());
             pos.setY(pos.y()-m_image->y());
+
             m_scopybioController->dessinerLignePerso(m_scopybioController->getCurrentImageIndex(),origPoint,pos,m_image->width(),m_image->height());
             setNewPicture();
             origPoint = pos;

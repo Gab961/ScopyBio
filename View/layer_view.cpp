@@ -97,6 +97,7 @@ bool LayerView::event(QEvent * e)
 void LayerView::rowChanged(int row)
 {
     currentLayerRow = row;
+    m_scopybioController->setCurrentCalqueId(layerIdList[currentLayerRow]);
 }
 
 void LayerView::removeLayer()

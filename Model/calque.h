@@ -48,6 +48,7 @@ public:
     void redo();
     void addMemento();
     void reinstateMemento(int mem);
+    void clearMemento();
 
 
     //          ACTIONS !

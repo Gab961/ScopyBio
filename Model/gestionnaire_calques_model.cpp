@@ -80,6 +80,15 @@ bool gestionnaire_calque_model::existeCalque(int min, int max){
     }
 }
 
+bool gestionnaire_calque_model::existeCalque(int id){
+    auto res = std::find_if(listOfCalque.begin(), listOfCalque.end(), [&id](calque &a)->bool { return a.getId() == id; } );
+    if(res != listOfCalque.end()){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 /**
  * @brief gestionnaire_calque_model::getCalque renvoie l'id du calque qu'on souhaite modifier
  * @param min connaitre à partir de quelle image s'applique le calque
@@ -414,16 +423,24 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
 
 //MEMENTO
 void gestionnaire_calque_model::undo(){
-    auto search = getCalque(idCurrentCalque);
+    std::cout << "Undo sur le calque d'ID " << idCurrentCalque << std::endl;
+    auto search = getCalqueIndex(idCurrentCalque);
     if(search != -1){
         listOfCalque[search].undo();
     }
 }
 
 void gestionnaire_calque_model::redo(){
-    auto search = getCalque(idCurrentCalque);
+    auto search = getCalqueIndex(idCurrentCalque);
     if(search != -1){
         listOfCalque[search].redo();
+    }
+}
+
+void gestionnaire_calque_model::addMemento(){
+    auto search = getCalqueIndex(idCurrentCalque);
+    if(search != -1){
+        listOfCalque[search].addMemento();
     }
 }
 
@@ -518,3 +535,6 @@ void gestionnaire_calque_model::afficheCalques(){
         std::cout << "id : " << i.getId() << ", min : " << i.getIntervalMin() << ", max : " << i.getIntervalMax() << std::endl;
     }
 }
+
+int gestionnaire_calque_model::getCurrentCalqueId() { return idCurrentCalque; }
+void gestionnaire_calque_model::setCurrentCalqueId(int newId) { idCurrentCalque = newId; }
