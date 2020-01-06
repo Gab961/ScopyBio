@@ -4,7 +4,7 @@
 #include "calque.h"
 
 
-calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id),canShow(true), numList(0), highWater(0)
+calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id),canShow(true), numList(-1), highWater(0)
 {
     addMemento();
 }

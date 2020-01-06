@@ -295,35 +295,33 @@ void MainWindow::createActions()
     QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
 
     m_loadFile = new QAction(tr("&Open..."), this);
-    m_loadFile->setShortcut(tr("&Ctrl+N"));
+    m_loadFile->setShortcut(Qt::Key_O | Qt::CTRL);
     QObject::connect(m_loadFile, &QAction::triggered, this, &MainWindow::open);
     fileMenu->addAction(m_loadFile);
 
-    // TODO
     m_saveFile = new QAction(tr("&Save"), this);
     QObject::connect(m_saveFile, &QAction::triggered, this, &MainWindow::save);
     m_saveFile->setEnabled(false);
-    m_saveFile->setShortcut(tr("&Ctrl+S"));
+    m_saveFile->setShortcut(Qt::Key_S | Qt::CTRL);
     fileMenu->addAction(m_saveFile);
 
     m_saveAs = new QAction(tr("Sa&ve as..."), this);
     QObject::connect(m_saveAs, &QAction::triggered, this, &MainWindow::saveAs);
+    m_saveAs->setShortcut(Qt::Key_S | Qt::CTRL| Qt::SHIFT);
     m_saveAs->setEnabled(false);
     fileMenu->addAction(m_saveAs);
-
-    ////
 
     //TODO faire attention si y a plus d'action faut griser
     QMenu *editMenu = menuBar()->addMenu(tr("&Edit"));
 
     m_undo = new QAction(tr("&Undo..."), this);
-    m_undo->setShortcut(tr("&Ctrl+Z"));
     QObject::connect(m_undo, &QAction::triggered, this, &MainWindow::undo);
+    m_undo->setShortcut(Qt::Key_Z | Qt::CTRL);
     editMenu->addAction(m_undo);
 
     m_redo = new QAction(tr("&Redo"), this);
     QObject::connect(m_redo, &QAction::triggered, this, &MainWindow::redo);
-    m_redo->setShortcut(tr("&Ctrl+Y"));
+    m_redo->setShortcut(Qt::Key_Y | Qt::CTRL);
     editMenu->addAction(m_redo);
 
     /////
@@ -343,11 +341,13 @@ void MainWindow::createActions()
     m_compare = new QAction(tr("&Compare"), this);
     QObject::connect(m_compare, &QAction::triggered, m_comparePopup, &ComparePopup::createComparePopup);
     imageMenu->addAction(m_compare);
+    m_compare->setShortcut(Qt::Key_C | Qt::CTRL| Qt::SHIFT);
     m_compare->setEnabled(false);
 
     m_loop = new QAction(tr("&Loop"), this);
     QObject::connect(m_loop, &QAction::triggered, m_loopWindow, &LoopView::createLoopView);
     imageMenu->addAction(m_loop);
+    m_loop->setShortcut(Qt::Key_L | Qt::CTRL| Qt::SHIFT);
     m_loop->setEnabled(false);
 }
 

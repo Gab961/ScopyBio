@@ -38,7 +38,7 @@ void gestionnaire_calque_model::initGlobalCalques(int pileWidth, int pileHeight)
     listOfCalque.push_back(_calqueVert);
 
     calque _calquePertinence(pileWidth, pileHeight, -5,-5,id);
-    addInDict(-5,-5,30,id);
+    //addInDict(-5,-5,30,id);
     idPertinenceCalque = id;
     listOfCalque.push_back(_calquePertinence);
     id++;
