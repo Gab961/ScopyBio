@@ -23,6 +23,7 @@ class LayerView: public QListWidget
 
     public slots:
         void loadLayers(int currentRow);
+        void removeLayer(int currentRow);
 //        void showContextMenu(const QPoint&);
 //        void eraseLayer();
 //        void newLayer();

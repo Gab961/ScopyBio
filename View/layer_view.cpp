@@ -12,7 +12,7 @@ LayerView::LayerView(QWidget *parent, ScopyBio_Controller *scopybioController) :
 }
 
 void LayerView::connections() {
-    //QObject::connect(this, &LayerView::contextMenuRequest, this, &LayerView::showContextMenu);
+   // QObject::connect(m_delete, &QPushButton::clicked, this, &LayerView::removeLayer);
 }
 
 void LayerView::loadLayers(int currentRow)
@@ -43,14 +43,13 @@ void LayerView::loadLayers(int currentRow)
         m_itemLayout->addWidget(m_hide, 0, 2);
 
         m_line = new QWidget();
+        m_line->setFixedHeight(50);
         m_layerId = new QLabel(QString::number(layerList[i]));
         m_itemLayout->addWidget(m_layerId, 0, 0);
 
-        //QString::number(layerList[i]),
         QListWidgetItem *item = new QListWidgetItem(this);
         m_line->setLayout(m_itemLayout);
         m_line->setFixedWidth(this->size().width());
-        m_line->setFixedHeight(50);
 
         this->setItemWidget(item, m_line);
 
@@ -61,32 +60,9 @@ void LayerView::loadLayers(int currentRow)
     this->update();
 }
 
-//void LayerView::showContextMenu(const QPoint &pos)
-//{
-//    QPoint globalPos = this->mapToGlobal(pos);
+void LayerView::removeLayer(int currentRow)
+{
 
-//    //QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
-//    QMenu contextMenu;
-//    contextMenu.addAction("New", this, newLayer);
-//    contextMenu.addAction("Erase", this, eraseLayer);
-////    contextMenu.addAction("Show", this, showLayer);
-////    contextMenu.addAction("Hide", this, hideLayer);
-
-//    contextMenu.exec(globalPos);
-//}
-
-//void LayerView::eraseLayer()
-//{
-//    // If multiple selection is on, we need to erase all selected items
-//    for (int i = 0; i < this->selectedItems().size(); ++i) {
-//        // Get curent item on selected row
-//        QListWidgetItem *item = this->takeItem(this->currentRow());
-//        // And remove it
-//        delete item;
-//    }
-//}
-
-//void LayerView::newLayer()
-//{
-
-//}
+    m_scopybioController->removeCalque(currentRow, currentRow);
+    //this->removeItemWidget(itemAt(currentRow));
+}
