@@ -194,6 +194,12 @@ void MainWindow::connections()
     QObject::connect(m_tools, &Menu_Draw_Button::filtersClicked, m_options, &menu_option::filters);
     QObject::connect(m_tools, &Menu_Draw_Button::analysisClicked, m_options, &menu_option::analysis);
 
+    // Met à jour les calques en fonction de l'image sélectionnée
+    QObject::connect(m_pileView, &Pile_View::rowClicked, m_layerView, &LayerView::loadLayers);
+
+    // Met à jour l'affichage de l'image après chaque action effectuée dans le layer_view (suppression, création, affichage)
+    QObject::connect(m_layerView, &LayerView::actionDoneWithLayer, this, &MainWindow::recreateMainDisplay);
+
     //Mise à jour de l'interface lorsque les thread d'analyse ont terminé leurs actions
     QObject::connect(m_scopybioController, &ScopyBio_Controller::userAnalysisEnded, this, &MainWindow::userAnalysisEnded);
     QObject::connect(m_scopybioController, &ScopyBio_Controller::fullAnalysisEnded, this, &MainWindow::fullAnalysisEnded);
@@ -289,59 +295,59 @@ void MainWindow::createActions()
     QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
 
     m_loadFile = new QAction(tr("&Open..."), this);
-    m_loadFile->setShortcut(tr("&Ctrl+N"));
+    m_loadFile->setShortcut(Qt::Key_O | Qt::CTRL);
     QObject::connect(m_loadFile, &QAction::triggered, this, &MainWindow::open);
     fileMenu->addAction(m_loadFile);
 
-    // TODO
-    m_saveFile = new QAction(tr("&Save"), this);
+    m_saveFile = new QAction(tr("Save"), this);
     QObject::connect(m_saveFile, &QAction::triggered, this, &MainWindow::save);
     m_saveFile->setEnabled(false);
-    m_saveFile->setShortcut(tr("&Ctrl+S"));
+    m_saveFile->setShortcut(Qt::Key_S | Qt::CTRL);
     fileMenu->addAction(m_saveFile);
 
-    m_saveAs = new QAction(tr("Sa&ve as..."), this);
+    m_saveAs = new QAction(tr("Save as..."), this);
     QObject::connect(m_saveAs, &QAction::triggered, this, &MainWindow::saveAs);
+    m_saveAs->setShortcut(Qt::Key_S | Qt::CTRL| Qt::SHIFT);
     m_saveAs->setEnabled(false);
     fileMenu->addAction(m_saveAs);
-
-    ////
 
     //TODO faire attention si y a plus d'action faut griser
     QMenu *editMenu = menuBar()->addMenu(tr("&Edit"));
 
-    m_undo = new QAction(tr("&Undo..."), this);
-    m_undo->setShortcut(tr("&Ctrl+Z"));
+    m_undo = new QAction(tr("Undo..."), this);
     QObject::connect(m_undo, &QAction::triggered, this, &MainWindow::undo);
+    m_undo->setShortcut(Qt::Key_Z | Qt::CTRL);
     editMenu->addAction(m_undo);
 
-    m_redo = new QAction(tr("&Redo"), this);
+    m_redo = new QAction(tr("Redo"), this);
     QObject::connect(m_redo, &QAction::triggered, this, &MainWindow::redo);
-    m_redo->setShortcut(tr("&Ctrl+Y"));
+    m_redo->setShortcut(Qt::Key_Y | Qt::CTRL);
     editMenu->addAction(m_redo);
 
     /////
 
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
 
-    m_aboutUs = new QAction(tr("&About us..."), this);
+    m_aboutUs = new QAction(tr("About us..."), this);
     QObject::connect(m_aboutUs, &QAction::triggered, this, &MainWindow::aboutUs);
     helpMenu->addAction(m_aboutUs);
 
-    m_howToUse = new QAction(tr("&How to use..."), this);
+    m_howToUse = new QAction(tr("How to use..."), this);
     QObject::connect(m_howToUse, &QAction::triggered, this, &MainWindow::howToUse);
     helpMenu->addAction(m_howToUse);
 
     QMenu *imageMenu = menuBar()->addMenu(tr("&Image"));
 
-    m_compare = new QAction(tr("&Compare"), this);
+    m_compare = new QAction(tr("Compare"), this);
     QObject::connect(m_compare, &QAction::triggered, m_comparePopup, &ComparePopup::createComparePopup);
     imageMenu->addAction(m_compare);
+    m_compare->setShortcut(Qt::Key_C | Qt::CTRL| Qt::SHIFT);
     m_compare->setEnabled(false);
 
-    m_loop = new QAction(tr("&Loop"), this);
+    m_loop = new QAction(tr("Loop"), this);
     QObject::connect(m_loop, &QAction::triggered, m_loopWindow, &LoopView::createLoopView);
     imageMenu->addAction(m_loop);
+    m_loop->setShortcut(Qt::Key_L | Qt::CTRL| Qt::SHIFT);
     m_loop->setEnabled(false);
 }
 
@@ -359,12 +365,14 @@ void MainWindow::updateSave()
 void MainWindow::undo()
 {
     m_scopybioController->undoAction();
+    recreateMainDisplay();
 }
 
 
 void MainWindow::redo()
 {
     m_scopybioController->redoAction();
+    recreateMainDisplay();
 }
 
 void MainWindow::openProject(std::string path)
@@ -375,6 +383,7 @@ void MainWindow::openProject(std::string path)
 void MainWindow::showFirstInPile()
 {
     m_scopybioController->saveAsMainDisplay(0);
+    m_layerView->loadLayers(0);
     emit changeMainPicture();
 
     update();
@@ -489,6 +498,17 @@ void MainWindow::wheelEvent(QWheelEvent *ev)
     }
 
     ev->accept();
+}
+
+void MainWindow::recreateMainDisplay() {
+    int indiceEnCours = m_pileView->currentRow();
+
+    //Si aucune image n'a déjà été sélectionnée, alors ça signifie qu'on est toujours sur la première image
+    if (indiceEnCours == -1)
+        indiceEnCours = 0;
+
+    m_scopybioController->DisplayResultImage(indiceEnCours);
+    emit changeMainPicture();
 }
 
 void MainWindow::fullAnalysisEnded()

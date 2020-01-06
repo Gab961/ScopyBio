@@ -22,7 +22,7 @@ public:
 
     /** Partie affichage **/
     void DisplayResultImage(int idImage);
-    void afficherCalque(int min, int max,bool);
+    void afficherCalque(int id, bool);
 
     /***********************************************************************************/
     /******************************** Partie pile_model ********************************/
@@ -87,9 +87,16 @@ public:
     /******************************** Partie Calque ************************************/
     /***********************************************************************************/
 
-    void removeCalque(int min, int max);
     void undoAction();
     void redoAction();
+    void addMemento();
+    void removeCalque(int id);
+    void removeCalque(int min, int max);
+    void setCurrentCalqueId(int newId);
+    void setCurrentCalqueIdMinMax(int min, int max);
+    std::vector<int> getCalquesIdFromImage(int image);
+
+    bool isHidden(int id);
 
     /***********************************************************************************/
     /******************************* Partie dessin_model *******************************/

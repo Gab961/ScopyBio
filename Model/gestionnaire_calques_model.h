@@ -29,9 +29,11 @@ public:
     void saveTmpforDisplay(int min, int max);
 
     bool existeCalque(int min, int max);
+    bool existeCalque(int id);
 
     void creerCalque(int width, int height, int min, int max, int taille);
     int getCalque(int min, int max);
+    int getCalqueIndex(int id);
     void addCalques(std::vector<calque> calques, int taille);
     void removeCalques(int min, int max);
     void calqueShowable(int min, int max, bool show);
@@ -53,14 +55,17 @@ public:
     calque getPertinenceCalque();
     std::vector<calque> getAllCalques() const;
     void setCalque(int min, int max, calque cal);
+    int getCurrentCalqueId();
+    void setCurrentCalqueId(int newId);
 
     void mergeUserAnalysis(CImg<float> zoom, std::string zoomPath);
     void mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay);
     //    void merge2Images(calque &a, calque b);
 
     //MEMENTO
-    void undo(int min, int max);
-    void redo(int min, int max);
+    void undo();
+    void redo();
+    void addMemento();
 
 
     //          Fonction pour le dictionnaire
@@ -91,4 +96,5 @@ protected:
     std::string pathOfHistogramSave = "tmp/histogram.bmp";
     int idPertinenceCalque;
     int idUserPertinenceCalque;
+    int idCurrentCalque;
 };

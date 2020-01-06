@@ -20,8 +20,10 @@ void ScopyBio_Controller::DisplayResultImage(int idImage){
     m_gestion_calque->mergeCalques(m_gestion_calque->getListOfCalqueFromImage(idImage), m_pileModel->getCurrentImage(), m_dessinModel->getMainDisplayPath());
 }
 
-void ScopyBio_Controller::afficherCalque(int min, int max, bool aff){
-    if(m_gestion_calque->existeCalque(min,max)){
+void ScopyBio_Controller::afficherCalque(int id, bool aff) {
+    int min = m_gestion_calque->getCalqueForDisplay(id).getIntervalMin(),
+            max = m_gestion_calque->getCalqueForDisplay(id).getIntervalMax();
+    if(m_gestion_calque->existeCalque(min, max)){
         m_gestion_calque->calqueShowable(min,max,aff);
     }
 }
@@ -137,33 +139,56 @@ int ScopyBio_Controller::getCurrentImageIndex()
 // Calque
 //=======================
 
-void ScopyBio_Controller::removeCalque(int min, int max){
-    m_gestion_calque->removeCalques(min,max);
+void ScopyBio_Controller::removeCalque(int id){
+    std::cout << "Control id = " << id << std::endl;
+    int min = m_gestion_calque->getCalqueForDisplay(id).getIntervalMin(), max=m_gestion_calque->getCalqueForDisplay(id).getIntervalMax();
+
+    std::cout << "min = " << min << " max = " << max << std::endl;
+    m_gestion_calque->removeCalques(min, max);
+    m_gestion_calque->removeFromDict(min,max,id);
+}
+
+void ScopyBio_Controller::setCurrentCalqueId(int newId){
+    m_gestion_calque->setCurrentCalqueId(newId);
+}
+
+void ScopyBio_Controller::setCurrentCalqueIdMinMax(int min, int max){
+    int currentId = m_gestion_calque->getCalqueForDisplay(min,max).getId();
+
+    m_gestion_calque->setCurrentCalqueId(currentId);
+}
+
+std::vector<int> ScopyBio_Controller::getCalquesIdFromImage(int image) {
+    return m_gestion_calque->getListOfCalqueFromImage(image);
+}
+
+
+bool ScopyBio_Controller::isHidden(int id) {
+    return !m_gestion_calque->getCalqueForDisplay(id).getCanShow();
 }
 
 void ScopyBio_Controller::undoAction(){
-    int min = 0, max = 0;
-
-    std::cout << "undoAction" << std::endl;
     //Verifier s'il existe dans le dico
-    if(m_gestion_calque->existeCalque(min,max)){
-        std::cout << "calque Existe -> undo" << std::endl;
+    if(m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
         //Si n'existe pas Creer le calque et mettre à jour le dico
-        m_gestion_calque->undo(min,max);
+        m_gestion_calque->undo();
     }
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
 void ScopyBio_Controller::redoAction(){
-    int min = 0, max = 0;
-
-
     //Verifier s'il existe dans le dico
-    if(m_gestion_calque->existeCalque(min,max)){
+    if(m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
         //Si n'existe pas Creer le calque et mettre à jour le dico
-        m_gestion_calque->redo(min,max);
+        m_gestion_calque->redo();
     }
+}
+
+
+void ScopyBio_Controller::addMemento()
+{
+    m_gestion_calque->addMemento();
 }
 
 //=======================

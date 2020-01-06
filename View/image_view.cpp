@@ -88,21 +88,27 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
                 emit getDataFromArea(origPoint, widthOfLabel, heightOfLabel);
             }
         }
-    }
+        //Si on sélectionnait une couleur avec la pipette
+        else if (m_scopybioController->getPipetteClick())
+            {
+                m_scopybioController->setPipetteClick(false);
+                m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
 
-    if (m_scopybioController->getPipetteClick())
-    {
-        m_scopybioController->setPipetteClick(false);
-        m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
-
-        emit pipetteClicked();
+                emit pipetteClicked();
+            }
+        //Si on était en train de dessiner
+            else
+            {
+                //TODO Gestion min max
+                m_scopybioController->setCurrentCalqueIdMinMax(m_scopybioController->getCurrentImageIndex(),m_scopybioController->getCurrentImageIndex());
+                m_scopybioController->addMemento();
+            }
     }
 }
 
 void Image_View::mouseMoveEvent(QMouseEvent* ev) {
     if (listenPenClick)
     {
-
         if (firstPenDraw)
         {
             firstPenDraw = false;
@@ -115,6 +121,7 @@ void Image_View::mouseMoveEvent(QMouseEvent* ev) {
             QPoint pos = ev->pos();
             pos.setX(pos.x()-m_image->x());
             pos.setY(pos.y()-m_image->y());
+
             m_scopybioController->dessinerLignePerso(m_scopybioController->getCurrentImageIndex(),origPoint,pos,m_image->width(),m_image->height());
             setNewPicture();
             origPoint = pos;

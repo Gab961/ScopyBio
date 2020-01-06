@@ -4,8 +4,10 @@
 #include "calque.h"
 
 
-calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id),canShow(true), numList(0), highWater(0)
-{}
+calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id),canShow(true), numList(-1), highWater(0)
+{
+    addMemento();
+}
 
 int calque::getId() const
 {
@@ -75,7 +77,7 @@ void calque::redo()
 }
 
 void calque::addMemento(){
-    if(numList < highWater){
+    if(numList < highWater-1){
         mementoList.erase(mementoList.begin()+numList,mementoList.end());
     }
 
@@ -84,11 +86,14 @@ void calque::addMemento(){
     highWater++;
 }
 
+void calque::clearMemento(){
+    mementoList.clear();
+}
+
 //                               ACTION !
 
 void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
     _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,_calque);
-    addMemento();
 }
 
 /**
@@ -96,7 +101,6 @@ void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int lab
  */
 void calque::dessinerRond(QPoint pos, int pertinence){
     _calque = dessine.dessinerRond(pos, pertinence, _calque);
-    addMemento();
 }
 
 void calque::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence){
@@ -125,7 +129,6 @@ void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labe
  */
 void calque::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
     _calque = dessine.dessinerLigne(pos1,pos2,labelWidth,labelHeight,_calque);
-    addMemento();
 }
 
 /**

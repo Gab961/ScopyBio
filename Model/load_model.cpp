@@ -35,6 +35,8 @@ std::vector<calque> load_model::loadCalques(std::string path){
 
             calque tmp(caltmp.width(),caltmp.height(),json["min"].asInt(),json["max"].asInt(),json["id"].asInt());
             tmp.setCalque(caltmp);
+            tmp.clearMemento();
+            tmp.addMemento();
 
             vecteur.push_back(tmp);
         }

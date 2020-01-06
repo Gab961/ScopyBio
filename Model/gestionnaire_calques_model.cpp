@@ -84,6 +84,15 @@ bool gestionnaire_calque_model::existeCalque(int min, int max){
     }
 }
 
+bool gestionnaire_calque_model::existeCalque(int id){
+    auto res = std::find_if(listOfCalque.begin(), listOfCalque.end(), [&id](calque &a)->bool { return a.getId() == id; } );
+    if(res != listOfCalque.end()){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 /**
  * @brief gestionnaire_calque_model::getCalque renvoie l'id du calque qu'on souhaite modifier
  * @param min connaitre à partir de quelle image s'applique le calque
@@ -103,6 +112,21 @@ int gestionnaire_calque_model::getCalque(int min, int max){
     }
     return -1;
 }
+
+int gestionnaire_calque_model::getCalqueIndex(int id){
+    int index(0);
+
+    for(calque i : listOfCalque){
+        if(i.getId() == id){
+            return index;
+        }
+        else{
+            index++;
+        }
+    }
+    return -1;
+}
+
 
 
 void gestionnaire_calque_model::addCalques(std::vector<calque> calques, int taille){
@@ -137,6 +161,7 @@ void gestionnaire_calque_model::calqueShowable(int min, int max, bool show){
  * @return la copie du calque que l'on cherche
  */
 calque gestionnaire_calque_model::getCalqueForDisplay(int min, int max){
+    std::cout << "On est ici avec min = " << min << " et max = " << max << std::endl;
     auto res = std::find_if(listOfCalque.begin(), listOfCalque.end(), [&min,&max](calque &a)->bool { return a.getIntervalMin() == min && a.getIntervalMax() == max; } );
     return *res;
 }
@@ -415,17 +440,24 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
 //}
 
 //MEMENTO
-void gestionnaire_calque_model::undo(int min, int max){
-    auto search = getCalque(min,max);
+void gestionnaire_calque_model::undo(){
+    auto search = getCalqueIndex(idCurrentCalque);
     if(search != -1){
         listOfCalque[search].undo();
     }
 }
 
-void gestionnaire_calque_model::redo(int min, int max){
-    auto search = getCalque(min,max);
+void gestionnaire_calque_model::redo(){
+    auto search = getCalqueIndex(idCurrentCalque);
     if(search != -1){
         listOfCalque[search].redo();
+    }
+}
+
+void gestionnaire_calque_model::addMemento(){
+    auto search = getCalqueIndex(idCurrentCalque);
+    if(search != -1){
+        listOfCalque[search].addMemento();
     }
 }
 
@@ -520,3 +552,7 @@ void gestionnaire_calque_model::afficheCalques(){
         std::cout << "id : " << i.getId() << ", min : " << i.getIntervalMin() << ", max : " << i.getIntervalMax() << std::endl;
     }
 }
+
+int gestionnaire_calque_model::getCurrentCalqueId() { return idCurrentCalque; }
+void gestionnaire_calque_model::setCurrentCalqueId(int newId) { idCurrentCalque = newId;
+                                                              std::cout << "Nouveau calque courant = " << idCurrentCalque << std::endl;}
