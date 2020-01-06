@@ -88,22 +88,21 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
                 emit getDataFromArea(origPoint, widthOfLabel, heightOfLabel);
             }
         }
-    }
+        //Si on sélectionnait une couleur avec la pipette
+        else if (m_scopybioController->getPipetteClick())
+            {
+                m_scopybioController->setPipetteClick(false);
+                m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
 
-    //Si on sélectionnait une couleur avec la pipette
-    if (m_scopybioController->getPipetteClick())
-    {
-        m_scopybioController->setPipetteClick(false);
-        m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
-
-        emit pipetteClicked();
-    }
-    //Si on était en train de dessiner
-    else
-    {
-        //TODO Gestion min max
-        m_scopybioController->setCurrentCalqueIdMinMax(m_scopybioController->getCurrentImageIndex(),m_scopybioController->getCurrentImageIndex());
-        m_scopybioController->addMemento();
+                emit pipetteClicked();
+            }
+        //Si on était en train de dessiner
+            else
+            {
+                //TODO Gestion min max
+                m_scopybioController->setCurrentCalqueIdMinMax(m_scopybioController->getCurrentImageIndex(),m_scopybioController->getCurrentImageIndex());
+                m_scopybioController->addMemento();
+            }
     }
 }
 

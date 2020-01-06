@@ -24,7 +24,6 @@ void LayerView::loadLayers(int currentRow)
     for (unsigned int i = 0; i < layerIdList.size(); i++) {
         if (layerIdList[i] != 2)
         {
-            std::cout << "layeridlist = " << layerIdList[i] << std::endl;
             m_itemLayout = new QGridLayout(this);
 
             m_delete = new QPushButton(QIcon("../../Resources/Icons/delete-cross.svg"), "", this);
@@ -102,16 +101,11 @@ bool LayerView::event(QEvent * e)
 void LayerView::rowChanged(int row)
 {
     currentLayerRow = row;
-
-    std::cout << "Nouvelle current = " << currentLayerRow << std::endl;
-    std::cout << "Ici = " << layerIdList[currentLayerRow] << std::endl;
     m_scopybioController->setCurrentCalqueId(layerIdList[currentLayerRow]);
 }
 
 void LayerView::removeLayer()
 {
-    std::cout << "Item selectionné = " << currentLayerRow << std::endl;
-    std::cout << "Id à supprimer = " << layerIdList[currentLayerRow] << std::endl;
     m_scopybioController->removeCalque(layerIdList[currentLayerRow]);
     this->removeItemWidget(item(currentLayerRow));
 

@@ -299,13 +299,13 @@ void MainWindow::createActions()
     QObject::connect(m_loadFile, &QAction::triggered, this, &MainWindow::open);
     fileMenu->addAction(m_loadFile);
 
-    m_saveFile = new QAction(tr("&Save"), this);
+    m_saveFile = new QAction(tr("Save"), this);
     QObject::connect(m_saveFile, &QAction::triggered, this, &MainWindow::save);
     m_saveFile->setEnabled(false);
     m_saveFile->setShortcut(Qt::Key_S | Qt::CTRL);
     fileMenu->addAction(m_saveFile);
 
-    m_saveAs = new QAction(tr("Sa&ve as..."), this);
+    m_saveAs = new QAction(tr("Save as..."), this);
     QObject::connect(m_saveAs, &QAction::triggered, this, &MainWindow::saveAs);
     m_saveAs->setShortcut(Qt::Key_S | Qt::CTRL| Qt::SHIFT);
     m_saveAs->setEnabled(false);
@@ -314,12 +314,12 @@ void MainWindow::createActions()
     //TODO faire attention si y a plus d'action faut griser
     QMenu *editMenu = menuBar()->addMenu(tr("&Edit"));
 
-    m_undo = new QAction(tr("&Undo..."), this);
+    m_undo = new QAction(tr("Undo..."), this);
     QObject::connect(m_undo, &QAction::triggered, this, &MainWindow::undo);
     m_undo->setShortcut(Qt::Key_Z | Qt::CTRL);
     editMenu->addAction(m_undo);
 
-    m_redo = new QAction(tr("&Redo"), this);
+    m_redo = new QAction(tr("Redo"), this);
     QObject::connect(m_redo, &QAction::triggered, this, &MainWindow::redo);
     m_redo->setShortcut(Qt::Key_Y | Qt::CTRL);
     editMenu->addAction(m_redo);
@@ -328,23 +328,23 @@ void MainWindow::createActions()
 
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
 
-    m_aboutUs = new QAction(tr("&About us..."), this);
+    m_aboutUs = new QAction(tr("About us..."), this);
     QObject::connect(m_aboutUs, &QAction::triggered, this, &MainWindow::aboutUs);
     helpMenu->addAction(m_aboutUs);
 
-    m_howToUse = new QAction(tr("&How to use..."), this);
+    m_howToUse = new QAction(tr("How to use..."), this);
     QObject::connect(m_howToUse, &QAction::triggered, this, &MainWindow::howToUse);
     helpMenu->addAction(m_howToUse);
 
     QMenu *imageMenu = menuBar()->addMenu(tr("&Image"));
 
-    m_compare = new QAction(tr("&Compare"), this);
+    m_compare = new QAction(tr("Compare"), this);
     QObject::connect(m_compare, &QAction::triggered, m_comparePopup, &ComparePopup::createComparePopup);
     imageMenu->addAction(m_compare);
     m_compare->setShortcut(Qt::Key_C | Qt::CTRL| Qt::SHIFT);
     m_compare->setEnabled(false);
 
-    m_loop = new QAction(tr("&Loop"), this);
+    m_loop = new QAction(tr("Loop"), this);
     QObject::connect(m_loop, &QAction::triggered, m_loopWindow, &LoopView::createLoopView);
     imageMenu->addAction(m_loop);
     m_loop->setShortcut(Qt::Key_L | Qt::CTRL| Qt::SHIFT);
@@ -502,6 +502,11 @@ void MainWindow::wheelEvent(QWheelEvent *ev)
 
 void MainWindow::recreateMainDisplay() {
     int indiceEnCours = m_pileView->currentRow();
+
+    //Si aucune image n'a déjà été sélectionnée, alors ça signifie qu'on est toujours sur la première image
+    if (indiceEnCours == -1)
+        indiceEnCours = 0;
+
     m_scopybioController->DisplayResultImage(indiceEnCours);
     emit changeMainPicture();
 }

@@ -168,11 +168,8 @@ bool ScopyBio_Controller::isHidden(int id) {
 }
 
 void ScopyBio_Controller::undoAction(){
-    std::cout << "undoAction" << std::endl;
-    std::cout << "Id calque = " << m_gestion_calque->getCurrentCalqueId() << std::endl;
     //Verifier s'il existe dans le dico
     if(m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
-        std::cout << "calque Existe -> undo" << std::endl;
         //Si n'existe pas Creer le calque et mettre à jour le dico
         m_gestion_calque->undo();
     }

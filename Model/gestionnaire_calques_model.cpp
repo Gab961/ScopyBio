@@ -38,7 +38,7 @@ void gestionnaire_calque_model::initGlobalCalques(int pileWidth, int pileHeight)
     listOfCalque.push_back(_calqueVert);
 
     calque _calquePertinence(pileWidth, pileHeight, -5,-5,id);
-    //addInDict(-5,-5,30,id);
+    addInDict(-5,-5,30,id);
     idPertinenceCalque = id;
     listOfCalque.push_back(_calquePertinence);
     id++;
@@ -424,7 +424,6 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
 
 //MEMENTO
 void gestionnaire_calque_model::undo(){
-    std::cout << "Undo sur le calque d'ID " << idCurrentCalque << std::endl;
     auto search = getCalqueIndex(idCurrentCalque);
     if(search != -1){
         listOfCalque[search].undo();
