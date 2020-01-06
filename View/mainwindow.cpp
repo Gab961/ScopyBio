@@ -344,6 +344,7 @@ void MainWindow::createActions()
     fileMenu->addAction(m_saveAs);
 
     m_saveCurrentDisplay = new QAction(tr("Save current display..."), this);
+    m_saveCurrentDisplay->setShortcut(Qt::Key_D | Qt::CTRL);
     QObject::connect(m_saveCurrentDisplay, &QAction::triggered, this, &MainWindow::saveCurrentDisplay);
     m_saveCurrentDisplay->setEnabled(false);
     fileMenu->addAction(m_saveCurrentDisplay);
@@ -360,8 +361,6 @@ void MainWindow::createActions()
     QObject::connect(m_redo, &QAction::triggered, this, &MainWindow::redo);
     m_redo->setShortcut(Qt::Key_Y | Qt::CTRL);
     editMenu->addAction(m_redo);
-
-    /////
 
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
 
