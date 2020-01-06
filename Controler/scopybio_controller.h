@@ -90,6 +90,7 @@ public:
     void removeCalque(int min, int max);
     void undoAction();
     void redoAction();
+    void addMemento();
 
     /***********************************************************************************/
     /******************************* Partie dessin_model *******************************/

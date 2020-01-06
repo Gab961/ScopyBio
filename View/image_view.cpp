@@ -90,6 +90,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
         }
     }
 
+    //Si on sélectionnait une couleur avec la pipette
     if (m_scopybioController->getPipetteClick())
     {
         m_scopybioController->setPipetteClick(false);
@@ -97,6 +98,13 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 
         emit pipetteClicked();
     }
+
+    //Si on était en train de dessiner
+    if (firstPenDraw)
+    {
+        m_scopybioController->addMemento();
+    }
+
 }
 
 void Image_View::mouseMoveEvent(QMouseEvent* ev) {

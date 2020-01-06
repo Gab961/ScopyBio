@@ -7,7 +7,7 @@
 /**
  * @brief gestionnaire_calque_model::gestionnaire_calque_model construit un modèle et dès le départ crée un calque vert qui pourra être utilisé.
  */
-gestionnaire_calque_model::gestionnaire_calque_model(): id(0),isGreen(false),isHistogram(false){
+gestionnaire_calque_model::gestionnaire_calque_model(): id(0),isGreen(false),isHistogram(false),idCurrentCalque(-1){
 }
 
 void gestionnaire_calque_model::init(int newPileWidth, int newPileHeight){
@@ -398,15 +398,15 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
 //}
 
 //MEMENTO
-void gestionnaire_calque_model::undo(int min, int max){
-    auto search = getCalque(min,max);
+void gestionnaire_calque_model::undo(){
+    auto search = getCalque(idCurrentCalque);
     if(search != -1){
         listOfCalque[search].undo();
     }
 }
 
-void gestionnaire_calque_model::redo(int min, int max){
-    auto search = getCalque(min,max);
+void gestionnaire_calque_model::redo(){
+    auto search = getCalque(idCurrentCalque);
     if(search != -1){
         listOfCalque[search].redo();
     }

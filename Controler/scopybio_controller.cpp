@@ -166,6 +166,12 @@ void ScopyBio_Controller::redoAction(){
     }
 }
 
+
+void ScopyBio_Controller::addMemento()
+{
+//    m_gestion_calque->addMemento(m_jsaipakwa.getIdCurrentCalque());
+}
+
 //=======================
 // Dessin_Modele
 //=======================

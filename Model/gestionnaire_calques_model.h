@@ -57,8 +57,9 @@ public:
     //    void merge2Images(calque &a, calque b);
 
     //MEMENTO
-    void undo(int min, int max);
-    void redo(int min, int max);
+    void undo();
+    void redo();
+    void addMemento();
 
 
     //          Fonction pour le dictionnaire
@@ -87,4 +88,5 @@ protected:
     std::string pathOfHistogramSave = "tmp/histogram.bmp";
     int idPertinenceCalque;
     int idUserPertinenceCalque;
+    int idCurrentCalque;
 };

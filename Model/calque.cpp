@@ -90,7 +90,6 @@ void calque::addMemento(){
 
 void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
     _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,_calque);
-    addMemento();
 }
 
 /**
@@ -98,7 +97,6 @@ void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int lab
  */
 void calque::dessinerRond(QPoint pos, int pertinence){
     _calque = dessine.dessinerRond(pos, pertinence, _calque);
-    addMemento();
 }
 
 void calque::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence){
@@ -127,7 +125,6 @@ void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labe
  */
 void calque::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
     _calque = dessine.dessinerLigne(pos1,pos2,labelWidth,labelHeight,_calque);
-    addMemento();
 }
 
 /**
