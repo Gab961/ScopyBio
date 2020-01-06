@@ -2,10 +2,9 @@
 #include <iostream>
 
 #include "calque.h"
-#include "annotation_user_memento.h"
 
 
-calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id),canShow(true)
+calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id),canShow(true), numList(0), highWater(0)
 {}
 
 int calque::getId() const
@@ -48,18 +47,47 @@ void calque::saveCalque(std::string path)
     _calque.save_cimg(path.c_str());
 }
 
-annotation_user_memento *calque::createMemento(){
-    return new annotation_user_memento(_calque);
+//MEMENTO
+
+void calque::reinstateMemento(int mem){
+    _calque = mementoList[mem];
 }
 
-void calque::reinstateMemento(annotation_user_memento *mem){
-    _calque = mem->_calque;
+void calque::undo()
+{
+    if (numList == 0)
+    {
+        return ;
+    }
+    numList--;
+    reinstateMemento(numList);
+}
+
+void calque::redo()
+{
+    if (numList >= highWater)
+    {
+        return ;
+    }
+    numList++;
+    reinstateMemento(numList);
+}
+
+void calque::addMemento(){
+    if(numList < highWater){
+        mementoList.erase(mementoList.begin()+numList,mementoList.end());
+    }
+
+    mementoList.push_back(_calque);
+    numList++;
+    highWater++;
 }
 
 //                               ACTION !
 
 void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
     _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,_calque);
+    addMemento();
 }
 
 /**
@@ -67,6 +95,7 @@ void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int lab
  */
 void calque::dessinerRond(QPoint pos, int pertinence){
     _calque = dessine.dessinerRond(pos, pertinence, _calque);
+    addMemento();
 }
 
 void calque::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence){
