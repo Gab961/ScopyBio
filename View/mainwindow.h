@@ -49,6 +49,7 @@ class MainWindow: public QMainWindow
         void changeActualItem();
         void openProject(std::string path);
         void startFullAnalysis();
+        void testtruc();
 
     private:
         void createActions();

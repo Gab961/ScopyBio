@@ -20,8 +20,10 @@ void ScopyBio_Controller::DisplayResultImage(int idImage){
     m_gestion_calque->mergeCalques(m_gestion_calque->getListOfCalqueFromImage(idImage), m_pileModel->getCurrentImage(), m_dessinModel->getMainDisplayPath());
 }
 
-void ScopyBio_Controller::afficherCalque(int min, int max, bool aff){
-    if(m_gestion_calque->existeCalque(min,max)){
+void ScopyBio_Controller::afficherCalque(int id, bool aff) {
+    int min = m_gestion_calque->getCalqueForDisplay(id).getIntervalMin(),
+            max = m_gestion_calque->getCalqueForDisplay(id).getIntervalMax();
+    if(m_gestion_calque->existeCalque(min, max)){
         m_gestion_calque->calqueShowable(min,max,aff);
     }
 }
@@ -147,6 +149,11 @@ void ScopyBio_Controller::removeCalque(int id){
 
 std::vector<int> ScopyBio_Controller::getCalquesIdFromImage(int image) {
     return m_gestion_calque->getListOfCalqueFromImage(image);
+}
+
+
+bool ScopyBio_Controller::isHidden(int id) {
+    return !m_gestion_calque->getCalqueForDisplay(id).getCanShow();
 }
 
 //=======================
@@ -358,8 +365,8 @@ void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight
     m_analyseModel->processResultsWithCrops(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight);
 
     //VERSION 2
-//    m_analyseModel->processResultsWithCropsVERSIONDEUX(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
-  }
+    //    m_analyseModel->processResultsWithCropsVERSIONDEUX(m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
+}
 
 void ScopyBio_Controller::processResults()
 {
