@@ -93,7 +93,7 @@ public:
     void removeCalque(int id);
     void removeCalque(int min, int max);
     void setCurrentCalqueId(int newId);
-
+    void setCurrentCalqueIdMinMax(int min, int max);
     std::vector<int> getCalquesIdFromImage(int image);
 
     bool isHidden(int id);

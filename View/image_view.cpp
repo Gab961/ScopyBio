@@ -102,16 +102,14 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
     else
     {
         //TODO Gestion min max
-        m_scopybioController->setCurrentCalqueId(m_scopybioController->getCurrentImageIndex());
+        m_scopybioController->setCurrentCalqueIdMinMax(m_scopybioController->getCurrentImageIndex(),m_scopybioController->getCurrentImageIndex());
         m_scopybioController->addMemento();
     }
-
 }
 
 void Image_View::mouseMoveEvent(QMouseEvent* ev) {
     if (listenPenClick)
     {
-
         if (firstPenDraw)
         {
             firstPenDraw = false;

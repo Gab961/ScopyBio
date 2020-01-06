@@ -152,6 +152,12 @@ void ScopyBio_Controller::setCurrentCalqueId(int newId){
     m_gestion_calque->setCurrentCalqueId(newId);
 }
 
+void ScopyBio_Controller::setCurrentCalqueIdMinMax(int min, int max){
+    int currentId = m_gestion_calque->getCalqueForDisplay(min,max).getId();
+
+    m_gestion_calque->setCurrentCalqueId(currentId);
+}
+
 std::vector<int> ScopyBio_Controller::getCalquesIdFromImage(int image) {
     return m_gestion_calque->getListOfCalqueFromImage(image);
 }
@@ -163,7 +169,7 @@ bool ScopyBio_Controller::isHidden(int id) {
 
 void ScopyBio_Controller::undoAction(){
     std::cout << "undoAction" << std::endl;
-    std::cout << "Id calque" << m_gestion_calque->getCurrentCalqueId() << std::endl;
+    std::cout << "Id calque = " << m_gestion_calque->getCurrentCalqueId() << std::endl;
     //Verifier s'il existe dans le dico
     if(m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
         std::cout << "calque Existe -> undo" << std::endl;

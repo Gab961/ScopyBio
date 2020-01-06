@@ -198,7 +198,7 @@ void MainWindow::connections()
     QObject::connect(m_pileView, &Pile_View::rowClicked, m_layerView, &LayerView::loadLayers);
 
     // Met à jour l'affichage de l'image après chaque action effectuée dans le layer_view (suppression, création, affichage)
-    QObject::connect(m_layerView, &LayerView::actionDoneWithLayer, this, &MainWindow::testtruc);
+    QObject::connect(m_layerView, &LayerView::actionDoneWithLayer, this, &MainWindow::recreateMainDisplay);
 
     //Mise à jour de l'interface lorsque les thread d'analyse ont terminé leurs actions
     QObject::connect(m_scopybioController, &ScopyBio_Controller::userAnalysisEnded, this, &MainWindow::userAnalysisEnded);
@@ -365,12 +365,14 @@ void MainWindow::updateSave()
 void MainWindow::undo()
 {
     m_scopybioController->undoAction();
+    recreateMainDisplay();
 }
 
 
 void MainWindow::redo()
 {
     m_scopybioController->redoAction();
+    recreateMainDisplay();
 }
 
 void MainWindow::openProject(std::string path)
@@ -498,7 +500,7 @@ void MainWindow::wheelEvent(QWheelEvent *ev)
     ev->accept();
 }
 
-void MainWindow::testtruc() {
+void MainWindow::recreateMainDisplay() {
     int indiceEnCours = m_pileView->currentRow();
     m_scopybioController->DisplayResultImage(indiceEnCours);
     emit changeMainPicture();

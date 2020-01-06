@@ -52,8 +52,8 @@ public slots:
     void startFullAnalysis();
     void userAnalysisEnded();
     void fullAnalysisEnded();
+    void recreateMainDisplay();
 
-        void testtruc();
 protected:
     void closeEvent(QCloseEvent* e) override;
 
