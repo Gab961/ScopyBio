@@ -201,6 +201,28 @@ void ScopyBio_Controller::addMemento()
     m_gestion_calque->addMemento();
 }
 
+bool ScopyBio_Controller::CreerNouveauCalque(int min, int max){
+    int taille = m_pileModel->getImages().size();
+
+    if(min > max){
+        int tmp = min;
+        min = max;
+        max = tmp;
+    }
+
+    if(m_gestion_calque->existeCalque(min, max)){
+        return false;
+    }else{
+        if(min < 0 || max < 0 || min >= taille || max >= taille){
+            return false;
+        }else{
+            m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
+            return true;
+        }
+    }
+    return false;
+}
+
 //=======================
 // Dessin_Modele
 //=======================

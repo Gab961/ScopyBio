@@ -377,6 +377,7 @@ void menu_option::clearLayout(QLayout* layout, bool deleteWidgets)
 
 void menu_option::onCreateLayer() {
     // TODO Creer calque backend (m_firstLayer = min, m_lastLayer = max)
+    m_scopybioController->CreerNouveauCalque(m_firstLayer->text().toInt(), m_lastLayer->text().toInt());
 }
 
 

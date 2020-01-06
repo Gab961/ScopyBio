@@ -103,6 +103,7 @@ public:
     std::vector<int> getCalquesIdFromImage(int image);
 
     bool isHidden(int id);
+    bool CreerNouveauCalque(int min, int max);
 
     /***********************************************************************************/
     /******************************* Partie dessin_model *******************************/
