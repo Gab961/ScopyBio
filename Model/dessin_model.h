@@ -25,14 +25,15 @@ public:
     std::string getZoomDisplayPath() const;
 
     /**
-     * @brief ecrireText Ecrie un text sur l'image
+     * @brief ecrireText
      * @param pos1
+     * @param text_a_ecrire
      * @param labelWidth
      * @param labelHeight
      * @param currentPicture
      * @return
      */
-    CImg<float> ecrireText(QPoint pos1, int labelWidth, int labelHeight,std::string text_a_ecrire, CImg<float> & currentPicture);
+    CImg<float> ecrireText(QPoint pos1, std::string text_a_ecrire, int fontSize, int labelWidth, int labelHeight, CImg<float> & currentPicture);
 
     /**
      * @brief dessinerRectangle Dessine un rectangle sur une image en paramètre (calque)
@@ -229,6 +230,4 @@ private:
     int textSize;
     int eraserSize;
     bool circleIsSelected;
-
-
 };

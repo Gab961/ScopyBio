@@ -38,6 +38,7 @@ public:
     void removeCalques(int min, int max);
     void calqueShowable(int min, int max, bool show);
     void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void dessinText(int min, int max, QPoint pos1, std::string text, int fontSize, int labelWidth, int labelHeight);
     void reinitPertinenceCalque();
     void reinitUserPertinenceCalque(int width, int height);
     void reinitFaisceauCalque();

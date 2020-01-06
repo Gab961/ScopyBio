@@ -258,6 +258,23 @@ void ScopyBio_Controller::dessinerLignePerso(int imageIndex, QPoint origPoint, Q
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
+void ScopyBio_Controller::dessinerText(int imageIndex, std::string text, QPoint origPoint, int labelWidth, int labelHeight)
+{
+    int min = imageIndex, max = imageIndex;
+    int taille = m_pileModel->getImages().size();
+
+    //Verifier s'il existe dans le dico
+    if(!m_gestion_calque->existeCalque(min,max)){
+        //Si n'existe pas Creer le calque et mettre à jour le dico
+        m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
+    }
+
+    //On est sur que le calque existe, on dessine le rectangle.
+    m_gestion_calque->dessinText(min, max, origPoint, text, m_dessinModel->getTextSize(), labelWidth, labelHeight);
+
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
+}
+
 void ScopyBio_Controller::saveZoom(int labelWidth, int labelHeight)
 {
     //Necessaire pour afficher le zoom.

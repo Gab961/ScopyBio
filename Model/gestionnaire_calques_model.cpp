@@ -303,6 +303,21 @@ void gestionnaire_calque_model::dessinLigne(int min, int max, QPoint pos1, QPoin
 }
 
 /**
+ * @brief gestionnaire_calque_model::dessinText
+ * @param min
+ * @param max
+ * @param pos1
+ * @param labelWidth
+ * @param labelHeight
+ */
+void gestionnaire_calque_model::dessinText(int min, int max, QPoint pos1, std::string text, int fontSize, int labelWidth, int labelHeight){
+    int search = getCalque(min,max);
+    if(search != -1){
+        listOfCalque[search].ecrireText(pos1,text,fontSize,labelWidth,labelHeight);
+    }
+}
+
+/**
  * @brief gestionnaire_calque_model::updateCalqueVert met juste à jour le dictionnaire, l'ajoute dans le dico s'il est actif, le supprime sinon.
  * @param min
  * @param max

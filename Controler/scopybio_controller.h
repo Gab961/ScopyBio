@@ -124,6 +124,16 @@ public:
     void dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight);
 
     /**
+     * @brief dessinerText
+     * @param imageIndex
+     * @param text
+     * @param origPoint
+     * @param labelWidth
+     * @param labelHeight
+     */
+    void dessinerText(int imageIndex, std::string text, QPoint origPoint, int labelWidth, int labelHeight);
+
+    /**
      * @brief saveZoom Enregistre l'image zoomée depuis la sélection
      * @param labelWidth
      * @param labelHeight

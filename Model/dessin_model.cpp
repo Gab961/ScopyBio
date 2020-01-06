@@ -85,13 +85,14 @@ CImg<float> dessin_model::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, 
     return currentPicture;
 }
 
-CImg<float> dessin_model::ecrireText(QPoint pos1, int labelWidth, int labelHeight,std::string text_a_ecrire, CImg<float> & currentPicture){
+CImg<float> dessin_model::ecrireText(QPoint pos1, std::string text_a_ecrire, int fontSize, int labelWidth, int labelHeight, CImg<float> & currentPicture){
     const unsigned char color[] = { 255,0,255,255 };
+    const unsigned char colorBackground[] = { 0,0,0,0 };
 
     int x1 = pos1.x() * currentPicture.width() / labelWidth;
     int y1 = pos1.y() * currentPicture.height() / labelHeight;
 
-    currentPicture.draw_text(x1,y1,text_a_ecrire.c_str(),color);
+    currentPicture.draw_text(x1, y1, text_a_ecrire.c_str(), color, colorBackground, 1, fontSize);
 
     return currentPicture;
 }
@@ -361,12 +362,12 @@ bool dessin_model::getZoomReady() const { return zoomReady; }
 bool dessin_model::getBaseColorGiven() const { return baseColorGiven; }
 void dessin_model::setBaseColorGiven() { baseColorGiven = true; }
 int dessin_model::getPenSize() { return penSize; }
-void dessin_model::setPenSize(int newValue) { penSize = newValue; }
+void dessin_model::setPenSize(int newValue) { this->penSize = newValue; }
 int dessin_model::getShapeSize() { return shapeSize; }
-void dessin_model::setShapeSize(int newValue) { shapeSize = newValue; }
+void dessin_model::setShapeSize(int newValue) { this->shapeSize = newValue; }
 int dessin_model::getTextSize() { return textSize; }
-void dessin_model::setTextSize(int newValue) { textSize = newValue; }
+void dessin_model::setTextSize(int newValue) { this->textSize = newValue; }
 int dessin_model::getEraserSize() { return eraserSize; }
-void dessin_model::setEraserSize(int newValue) { eraserSize = newValue; }
+void dessin_model::setEraserSize(int newValue) { this->eraserSize = newValue; }
 bool dessin_model::getCircleIsSelected() { return circleIsSelected; }
 void dessin_model::setCircleIsSelected(bool newValue) { circleIsSelected = newValue; }

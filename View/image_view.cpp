@@ -110,6 +110,12 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
         {
             //TODO
             std::cout << "ON VEUT TEXT" << std::endl;
+            QPoint pos = ev->pos();
+            pos.setX(pos.x()-m_image->x());
+            pos.setY(pos.y()-m_image->y());
+
+            m_scopybioController->dessinerText(m_scopybioController->getCurrentImageIndex(),"COUCOU TEST",pos,m_image->width(),m_image->height());
+            setNewPicture();
         }
         //Si on était en train de dessiner
         if (m_scopybioController->getListenPenClick())

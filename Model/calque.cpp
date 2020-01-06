@@ -150,6 +150,6 @@ void calque::filtreHistogram(){
     _calque = dessine.applyHistogramFilter(_calque);
 }
 
-void calque::ecrireText(QPoint pos1, int labelWidth, int labelHeight,std::string text_a_ecrire, CImg<float> & currentPicture){
-    _calque = dessine.ecrireText(pos1,labelWidth,labelHeight,text_a_ecrire,currentPicture);
+void calque::ecrireText(QPoint pos1, std::string text_a_ecrire, int fontSize, int labelWidth, int labelHeight){
+    _calque = dessine.ecrireText(pos1,text_a_ecrire,fontSize,labelWidth,labelHeight, _calque);
 }
