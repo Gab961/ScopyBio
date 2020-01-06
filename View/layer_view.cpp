@@ -43,15 +43,15 @@ void LayerView::loadLayers(int currentRow)
         m_itemLayout->addWidget(m_hide, 0, 2);
 
         m_line = new QWidget();
-        m_line->setFixedHeight(50);
         m_layerId = new QLabel(QString::number(layerList[i]));
         m_itemLayout->addWidget(m_layerId, 0, 0);
 
         QListWidgetItem *item = new QListWidgetItem(this);
         m_line->setLayout(m_itemLayout);
-        m_line->setFixedWidth(this->size().width());
 
         this->setItemWidget(item, m_line);
+        QSize itemSize(this->size().width(), 50);
+        item->setSizeHint(itemSize);
 
         this->insertItem(0, item);
     }
