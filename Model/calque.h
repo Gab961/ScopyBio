@@ -1,5 +1,7 @@
 #pragma once
 
+#include<vector>
+
 #include "CImg.h"
 #include "dessin_model.h"
 
@@ -20,14 +22,16 @@ private:
     int intervalMax;
     int id;
     bool canShow;
+    //MEMENTO
+    int numList;
+    int highWater;
+    std::vector<CImg<float>> mementoList;
 
 
 
 public:
     calque(int width, int height, int min, int max, int _id);
-
-    annotation_user_memento *createMemento();
-    void reinstateMemento(annotation_user_memento *mem);
+    ~calque(){mementoList.clear();}
 
     CImg<float> getCalque() const;
     void saveCalque(std::string path);
@@ -38,6 +42,14 @@ public:
     int getIntervalMax() const;
     bool getCanShow() const;
     void setCanShow(bool value);
+
+    //MEMENTO
+    void undo();
+    void redo();
+    void addMemento();
+    void reinstateMemento(int mem);
+    void clearMemento();
+
 
     //          ACTIONS !
     void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);

@@ -41,6 +41,8 @@ signals:
 public slots:
     void open();
     void save();
+    void undo();
+    void redo();
     void saveAs();
     void saveCurrentDisplay();
     void aboutUs();
@@ -51,6 +53,7 @@ public slots:
     void startFullAnalysis();
     void userAnalysisEnded();
     void fullAnalysisEnded();
+    void recreateMainDisplay();
 
 protected:
     void closeEvent(QCloseEvent* e) override;
@@ -90,6 +93,8 @@ private:
     QAction *m_howToUse;
     QAction *m_compare;
     QAction *m_loop;
+    QAction *m_undo;
+    QAction *m_redo;
 
     AnalysisPopup *m_analysisPopup;
 
