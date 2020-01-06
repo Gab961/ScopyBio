@@ -118,11 +118,9 @@ SET(CIMG_FFTW3_CCFLAGS  -Dcimg_use_fftw3)
 # Add CIMG Flags to Compilation Flags
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CIMG_CFLAGS}")
 
-find_package(Qt5Widgets CONFIG REQUIRED)
-message("${}")
-
 ### JsonCPP ###
 find_package(jsoncpp REQUIRED)
+find_package(Qt5 COMPONENTS Widgets Core)
 
 aux_source_directory(. SRC_LIST)
 add_subdirectory(Controler)
@@ -130,4 +128,4 @@ add_subdirectory(View)
 add_subdirectory(Model)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS} Qt5::Widgets Controler View Model jsoncpp)
+target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS} Qt5::Widgets Qt5::Core Controler View Model jsoncpp)

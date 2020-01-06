@@ -1,5 +1,6 @@
 
  [requires]
+ icu/59.1@bincrafters/stable
  qt/5.9.8@bincrafters/stable
  opencv/4.1.1@conan/stable
  libtiff/4.0.9@bincrafters/stable
@@ -14,11 +15,11 @@
 
  [options]
  *:shared=False
- Qt:shared=False
- Qt:qtmultimedia=True
- Qt:qtsvg=True
- Qt:qttools=True
-
+ qt:shared=False
+ qt:qtmultimedia=True
+ qt:qtsvg=True
+ qt:qttools=True
+ qt:with_glib=False
 
  [imports]
  bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder
