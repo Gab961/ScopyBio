@@ -305,6 +305,23 @@ void MainWindow::createActions()
     m_saveAs->setEnabled(false);
     fileMenu->addAction(m_saveAs);
 
+    ////
+
+    //TODO faire attention si y a plus d'action faut griser
+    QMenu *editMenu = menuBar()->addMenu(tr("&Edit"));
+
+    m_undo = new QAction(tr("&Undo..."), this);
+    m_undo->setShortcut(tr("&Ctrl+Z"));
+    QObject::connect(m_undo, &QAction::triggered, this, &MainWindow::undo);
+    fileMenu->addAction(m_loadFile);
+
+    m_redo = new QAction(tr("&Redo"), this);
+    QObject::connect(m_redo, &QAction::triggered, this, &MainWindow::redo);
+    m_redo->setShortcut(tr("&Ctrl+Y"));
+    fileMenu->addAction(m_saveFile);
+
+    /////
+
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
 
     m_aboutUs = new QAction(tr("&About us..."), this);
@@ -336,6 +353,18 @@ void MainWindow::updateSaveAs()
 void MainWindow::updateSave()
 {
     m_saveFile->setEnabled(true);
+}
+
+
+void MainWindow::undo()
+{
+    m_scopybioController->undoAction();
+}
+
+
+void MainWindow::redo()
+{
+    m_scopybioController->redoAction();
 }
 
 void MainWindow::openProject(std::string path)
