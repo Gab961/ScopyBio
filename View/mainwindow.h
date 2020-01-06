@@ -38,6 +38,7 @@ signals:
     void changeZoomedPicture();
     void clearZoomView();
     void clearDataView();
+
 public slots:
     void open();
     void save();
@@ -79,11 +80,13 @@ private:
     ComparePopup *m_comparePopup;
 
     QGridLayout *m_rightLayout;
+    QGridLayout *m_layerLayout;
     QGridLayout *m_pileLayerLayout;
     QGroupBox *m_layer;
     Data_View *m_dataView;
     Pile_View *m_pileView;
     LayerView *m_layerView;
+    QPushButton *m_newLayer;
 
     QAction *m_loadFile;
     QAction *m_saveFile;

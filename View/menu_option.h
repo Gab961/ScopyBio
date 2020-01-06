@@ -32,6 +32,7 @@ class menu_option: public QGroupBox
         void pipette();
         void filters();
         void analysis();
+        void newLayer();
         void launchAnalysis();
         void onPenSizeValueChanged(int value);
         void onShapeSizeValueChanged(int value);
@@ -43,9 +44,9 @@ class menu_option: public QGroupBox
         void onCircleToggled(bool checked);
         void onSquareToggled(bool checked);
         void launchAnalysisFromSelection();
-
         void activateLocalAnalyse();
         void desactivateLocalAnalyse();
+        void onCreateLayer();
 
     private:
         QGridLayout *m_gridOptions;
@@ -118,6 +119,16 @@ class menu_option: public QGroupBox
 
         QPushButton *m_launchSelect;
         QPushButton *m_launch;
+
+        // New layer view
+        QGridLayout *m_gridNewLayer;
+        QLabel *m_firstLayerLabel;
+        QLineEdit *m_firstLayer;
+
+        QLabel *m_lastLayerLabel;
+        QLineEdit *m_lastLayer;
+
+        QPushButton *m_createLayer;
 
         ScopyBio_Controller *m_scopybioController;        
 

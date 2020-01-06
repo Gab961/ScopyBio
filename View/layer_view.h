@@ -31,7 +31,6 @@ class LayerView: public QListWidget
         void loadLayers(int currentRow);
         void removeLayer();
         void hideLayer();
-       // void newLayer();
 
     private:
         int currentLayerRow;
@@ -39,7 +38,6 @@ class LayerView: public QListWidget
         QGridLayout *m_itemLayout;
         QPushButton *m_delete;
         QPushButton *m_hide;
-        QPushButton *m_new;
         QLabel *m_layerId;
         std::vector<int> layerIdList;
         ScopyBio_Controller *m_scopybioController;

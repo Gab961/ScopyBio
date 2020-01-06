@@ -26,12 +26,15 @@ void LayerView::loadLayers(int currentRow)
         {
             m_itemLayout = new QGridLayout(this);
 
-            m_delete = new QPushButton(QIcon("../../Resources/Icons/delete-cross.svg"), "", this);
-            m_delete->setStyleSheet(buttonStyle);
-            m_delete->setIconSize(QSize(20,20));
-            m_delete->setMinimumSize(25,25);
-            m_delete->setMaximumSize(25,25);
-            m_itemLayout->addWidget(m_delete, 0, 1);
+        m_layerId = new QLabel(QString::number(layerIdList[i]));
+        m_itemLayout->addWidget(m_layerId, 0, 0);
+
+        m_delete = new QPushButton(QIcon("../../Resources/Icons/delete-cross.svg"), "", this);
+        m_delete->setStyleSheet(buttonStyle);
+        m_delete->setIconSize(QSize(20,20));
+        m_delete->setMinimumSize(25,25);
+        m_delete->setMaximumSize(25,25);
+        m_itemLayout->addWidget(m_delete, 0, 1);
 
             QObject::connect(m_delete, &QPushButton::clicked, this, &LayerView::removeLayer);
 
@@ -49,17 +52,13 @@ void LayerView::loadLayers(int currentRow)
 
             QObject::connect(m_hide, &QPushButton::clicked, this, &LayerView::hideLayer);
 
-            m_line = new QWidget();
-            m_layerId = new QLabel(QString::number(layerIdList[i]));
+        m_line = new QWidget();
+        m_line->setLayout(m_itemLayout);
 
-            m_itemLayout->addWidget(m_layerId, 0, 0);
-
-            QListWidgetItem *item = new QListWidgetItem(this);
-            m_line->setLayout(m_itemLayout);
-
-            this->setItemWidget(item, m_line);
-            QSize itemSize(this->size().width(), 50);
-            item->setSizeHint(itemSize);
+        QListWidgetItem *item = new QListWidgetItem(this);
+        this->setItemWidget(item, m_line);
+        QSize itemSize(this->size().width() - 2, 50);
+        item->setSizeHint(itemSize);
 
             this->insertItem(0, item);
         }
