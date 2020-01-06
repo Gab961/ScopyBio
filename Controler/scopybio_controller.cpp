@@ -300,21 +300,7 @@ void ScopyBio_Controller::saveAsMainDisplay(int i)
  */
 void ScopyBio_Controller::applyGreenFilter()
 {
-    //m_gestion_calque->afficheCalques();
-    // -3 = filtre vert
-    // Normalement le calque vert est déjà créé, cette fonction met juste à jour le dictionnaire de calque. il doit y avoir une fonction qui met à jour la view.
-    // /!\ Bug parce que le remove est fait dans une autre fonction
-    int min = -3, max = -3;
-    int taille = m_pileModel->getImages().size();
-    if(!m_gestion_calque->existeCalque(min,max)){
-        //Si n'existe pas Creer le calque et mettre à jour le dico
-        std::cout << "Calque vert n'existe pas" << std::endl;
-        m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
-    }
-
-    m_gestion_calque->updateCalqueVert(min,max,taille);
-    //      gestion_calque.afficheDic();
-
+    m_gestion_calque->updateCalqueVert();
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
@@ -327,8 +313,19 @@ void ScopyBio_Controller::applyGreenFilter()
 
 void ScopyBio_Controller::applyHistogramFilter()
 {
-    m_gestion_calque->updateHistogram(-4,-4,m_pileModel->getImages().size());
+    m_gestion_calque->updateHistogram();
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
+}
+
+void ScopyBio_Controller::applyResultatFilter()
+{
+    m_gestion_calque->updateResultat();
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
+}
+
+void ScopyBio_Controller::applyZoomResultatFilter(){
+    CImg<float> zoom = m_dessinModel->saveZoomFromArea(m_analyseModel->getTopLeftPointOfCurrentArea(),m_analyseModel->getBottomRightPointOfCurrentArea(),m_pileModel->getCurrentImage());
+    m_gestion_calque->updateZoomResultat(zoom,m_dessinModel->getZoomDisplayPath());
 }
 
 void ScopyBio_Controller::manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView)

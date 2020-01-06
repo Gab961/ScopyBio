@@ -44,8 +44,10 @@ public:
     void manageNewUserAnalyse(int pertinence, QPoint pos1, QPoint pos2);
     void manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2);
     void dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
-    void updateCalqueVert(int min, int max, int taille);
-    void updateHistogram(int min, int max, int taille);
+    void updateCalqueVert();
+    void updateHistogram();
+    void updateResultat();
+    void updateZoomResultat(CImg<float> zoom, std::string zoomPath);
     void updateQuadrillage(int columns, int lines);
     void updateUserQuadrillage(int columns, int lines);
     calque getCalqueForDisplay(int min, int max);
@@ -89,6 +91,8 @@ protected:
     int id;//Permet de créer des calques avec un identifiant unique.
     bool isGreen; // Pour savoir s'il faut afficher le calque vert ou non
     bool isHistogram; //Pour savoir s'il faut afficher le calque contraste ou non
+    bool isResultat;
+    bool isZoomResultat;
     std::string pathOfHistogramSave = "tmp/histogram.bmp";
     int idPertinenceCalque;
     int idUserPertinenceCalque;
