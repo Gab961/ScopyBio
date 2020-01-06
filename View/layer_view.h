@@ -16,7 +16,6 @@ class LayerView: public QListWidget
 
     public:
         LayerView(QWidget *parent, ScopyBio_Controller *scopybioController);
-        // TODO
         void createView();
         void connections();
         void hoverEnter(QHoverEvent * event);
@@ -26,16 +25,13 @@ class LayerView: public QListWidget
         void rowChanged(int row);
 
     signals:
-//        void contextMenuRequest(const QPoint&);
+        void actionDoneWithLayer();
 
     public slots:
         void loadLayers(int currentRow);
         void removeLayer();
-//        void showContextMenu(const QPoint&);
-//        void eraseLayer();
-//        void newLayer();
-//        void showLayer();
-//        void hideLayer();
+        void hideLayer();
+       // void newLayer();
 
     private:
         int currentLayerRow;
@@ -43,6 +39,7 @@ class LayerView: public QListWidget
         QGridLayout *m_itemLayout;
         QPushButton *m_delete;
         QPushButton *m_hide;
+        QPushButton *m_new;
         QLabel *m_layerId;
         std::vector<int> layerIdList;
         ScopyBio_Controller *m_scopybioController;

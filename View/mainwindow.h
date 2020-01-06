@@ -53,6 +53,7 @@ public slots:
     void userAnalysisEnded();
     void fullAnalysisEnded();
 
+        void testtruc();
 protected:
     void closeEvent(QCloseEvent* e) override;
 

@@ -22,7 +22,7 @@ public:
 
     /** Partie affichage **/
     void DisplayResultImage(int idImage);
-    void afficherCalque(int min, int max,bool);
+    void afficherCalque(int id, bool);
 
     /***********************************************************************************/
     /******************************** Partie pile_model ********************************/
@@ -95,6 +95,8 @@ public:
     void setCurrentCalqueId(int newId);
 
     std::vector<int> getCalquesIdFromImage(int image);
+
+    bool isHidden(int id);
 
     /***********************************************************************************/
     /******************************* Partie dessin_model *******************************/

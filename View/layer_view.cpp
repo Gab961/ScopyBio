@@ -10,22 +10,18 @@ LayerView::LayerView(QWidget *parent, ScopyBio_Controller *scopybioController) :
 {
     this->setContextMenuPolicy(Qt::CustomContextMenu);
     this->setAttribute(Qt::WA_Hover, true);
-    connections();
-}
-
-void LayerView::connections() {
-
 }
 
 void LayerView::loadLayers(int currentRow)
 {
+    QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+    QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
     setCursor(Qt::PointingHandCursor);
     clear();
 
     layerIdList = m_scopybioController->getCalquesIdFromImage(currentRow);
 
     for (unsigned int i = 0; i < layerIdList.size(); i++) {
-        QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
         m_itemLayout = new QGridLayout(this);
 
         m_delete = new QPushButton(QIcon("../../Resources/Icons/delete-cross.svg"), "", this);
@@ -38,11 +34,18 @@ void LayerView::loadLayers(int currentRow)
         QObject::connect(m_delete, &QPushButton::clicked, this, &LayerView::removeLayer);
 
         m_hide = new QPushButton(QIcon("../../Resources/Icons/visibility.svg"), "", this);
-        m_hide->setStyleSheet(buttonStyle);
+
+        if(m_scopybioController->isHidden(layerIdList[i]))
+            m_hide->setStyleSheet(buttonStylePressed);
+        else
+            m_hide->setStyleSheet(buttonStyle);
+
         m_hide->setIconSize(QSize(20,20));
         m_hide->setMinimumSize(25,25);
         m_hide->setMaximumSize(25,25);
         m_itemLayout->addWidget(m_hide, 0, 2);
+
+        QObject::connect(m_hide, &QPushButton::clicked, this, &LayerView::hideLayer);
 
         m_line = new QWidget();
         m_layerId = new QLabel(QString::number(layerIdList[i]));
@@ -106,4 +109,25 @@ void LayerView::removeLayer()
     std::cout << "Id à supprimer = " << layerIdList[currentLayerRow] << std::endl;
     m_scopybioController->removeCalque(layerIdList[currentLayerRow]);
     this->removeItemWidget(item(currentLayerRow));
+
+    emit actionDoneWithLayer();
+    this->update();
+}
+
+void LayerView::hideLayer()
+{
+    QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+    QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+    // Si le calques est caché on l'affiche
+    if(m_scopybioController->isHidden(layerIdList[currentLayerRow])) {
+        m_hide->setStyleSheet(buttonStyle);
+        m_scopybioController->afficherCalque(layerIdList[currentLayerRow], true);
+    }
+    else {
+        m_hide->setStyleSheet(buttonStylePressed);
+        m_scopybioController->afficherCalque(layerIdList[currentLayerRow], false);
+    }
+
+    emit actionDoneWithLayer();
+    this->update();
 }
