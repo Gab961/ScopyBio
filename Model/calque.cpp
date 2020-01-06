@@ -61,16 +61,19 @@ void calque::undo()
     }
     numList--;
     reinstateMemento(numList);
+    _calque.save_png("./tmp/imageactuel.png");
 }
 
 void calque::redo()
 {
-    if (numList >= highWater)
+    if (numList >= highWater-1)
     {
         return ;
     }
     numList++;
     reinstateMemento(numList);
+    std::cout << "numList = " << numList << " Highwater = " << highWater << std::endl;
+    _calque.save_png("./tmp/imageactuel.png");
 }
 
 void calque::addMemento(){
@@ -124,6 +127,7 @@ void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labe
  */
 void calque::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
     _calque = dessine.dessinerLigne(pos1,pos2,labelWidth,labelHeight,_calque);
+    addMemento();
 }
 
 /**

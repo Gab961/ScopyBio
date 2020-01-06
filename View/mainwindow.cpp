@@ -313,12 +313,12 @@ void MainWindow::createActions()
     m_undo = new QAction(tr("&Undo..."), this);
     m_undo->setShortcut(tr("&Ctrl+Z"));
     QObject::connect(m_undo, &QAction::triggered, this, &MainWindow::undo);
-    fileMenu->addAction(m_loadFile);
+    editMenu->addAction(m_undo);
 
     m_redo = new QAction(tr("&Redo"), this);
     QObject::connect(m_redo, &QAction::triggered, this, &MainWindow::redo);
     m_redo->setShortcut(tr("&Ctrl+Y"));
-    fileMenu->addAction(m_saveFile);
+    editMenu->addAction(m_redo);
 
     /////
 

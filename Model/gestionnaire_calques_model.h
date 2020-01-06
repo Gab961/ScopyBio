@@ -56,6 +56,10 @@ public:
     void mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay);
     //    void merge2Images(calque &a, calque b);
 
+    //MEMENTO
+    void undo(int min, int max);
+    void redo(int min, int max);
+
 
     //          Fonction pour le dictionnaire
     void addInDict(int min, int max, int taille, int id);

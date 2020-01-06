@@ -31,6 +31,7 @@ private:
 
 public:
     calque(int width, int height, int min, int max, int _id);
+    ~calque(){mementoList.clear();}
 
     CImg<float> getCalque() const;
     void saveCalque(std::string path);

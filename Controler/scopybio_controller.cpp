@@ -141,6 +141,31 @@ void ScopyBio_Controller::removeCalque(int min, int max){
     m_gestion_calque->removeCalques(min,max);
 }
 
+void ScopyBio_Controller::undoAction(){
+    int min = 0, max = 0;
+
+    std::cout << "undoAction" << std::endl;
+    //Verifier s'il existe dans le dico
+    if(m_gestion_calque->existeCalque(min,max)){
+        std::cout << "calque Existe -> undo" << std::endl;
+        //Si n'existe pas Creer le calque et mettre à jour le dico
+        m_gestion_calque->undo(min,max);
+    }
+
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
+}
+
+void ScopyBio_Controller::redoAction(){
+    int min = 0, max = 0;
+
+
+    //Verifier s'il existe dans le dico
+    if(m_gestion_calque->existeCalque(min,max)){
+        //Si n'existe pas Creer le calque et mettre à jour le dico
+        m_gestion_calque->redo(min,max);
+    }
+}
+
 //=======================
 // Dessin_Modele
 //=======================

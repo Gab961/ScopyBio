@@ -397,6 +397,20 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
 //    a.getCalque().draw_image(0,0,0,0,b.getCalque(),b.getCalque().get_channel(3),1,255);
 //}
 
+//MEMENTO
+void gestionnaire_calque_model::undo(int min, int max){
+    auto search = getCalque(min,max);
+    if(search != -1){
+        listOfCalque[search].undo();
+    }
+}
+
+void gestionnaire_calque_model::redo(int min, int max){
+    auto search = getCalque(min,max);
+    if(search != -1){
+        listOfCalque[search].redo();
+    }
+}
 
 
 //              Fonction pour le dictionnaire.
