@@ -10,13 +10,12 @@ menu_option::menu_option(QWidget *parent, ScopyBio_Controller *scopybioControlle
     m_scopybioController = scopybioController;
     m_greenChecked = false;
     m_histoChecked = false;
-    m_isCircle = true;
-    m_eraserSizeValue = 1;
-    m_shapeSizeValue = 1;
-    m_penSizeValue = 1;
-    m_textSizeValue = 1;
-    // TODO Recup valeur controller
-    m_accuracyValue = 5;
+    m_isCircle = m_scopybioController->getCircleIsSelected();
+    m_eraserSizeValue = m_scopybioController->getEraserSize();
+    m_shapeSizeValue = m_scopybioController->getShapeSize();
+    m_penSizeValue = m_scopybioController->getPenSize();
+    m_textSizeValue = m_scopybioController->getTextSize();
+    m_accuracyValue = m_scopybioController->getAnalysisErrorMargin();
 }
 
 void menu_option::createView()
@@ -33,6 +32,7 @@ void menu_option::createView()
 }
 
 void menu_option::pen() {
+    m_scopybioController->setListenPenClick(true);
     clearLayout(m_gridOptions);
 
     // Pen view
@@ -55,6 +55,7 @@ void menu_option::pen() {
 }
 
 void menu_option::shapes() {
+    m_scopybioController->setListenShapeClick(true);
     clearLayout(m_gridOptions);
 
     // Shape view
@@ -97,6 +98,7 @@ void menu_option::shapes() {
 }
 
 void menu_option::text() {
+    m_scopybioController->setListenTextClick(true);
     clearLayout(m_gridOptions);
 
     // Text view
@@ -119,6 +121,7 @@ void menu_option::text() {
 }
 
 void menu_option::eraser() {
+    m_scopybioController->setListenEraserClick(true);
     clearLayout(m_gridOptions);
 
     // Eraser view
@@ -289,7 +292,6 @@ void menu_option::launchAnalysis()
     m_scopybioController->setAnalysisTypeIsUser(false);
 
     emit askFullAnalysis();
-    // TODO set precision
 
     QMessageBox::information(this, "", "Full analysis processing");
 }
@@ -298,35 +300,35 @@ void menu_option::onPenSizeValueChanged(int value) {
     m_penSizeValue = value;
     m_penSizeSlider->setValue(value);
 
-    // TODO backend
+    m_scopybioController->setPenSize(m_penSizeValue);
 }
 
 void menu_option::onShapeSizeValueChanged(int value) {
     m_shapeSizeValue = value;
     m_shapeSizeSlider->setValue(value);
 
-    // TODO backend
+    m_scopybioController->setShapeSize(m_shapeSizeValue);
 }
 
 void menu_option::onTextSizeValueChanged(int value) {
     m_textSizeValue = value;
     m_textSizeSlider->setValue(value);
 
-    // TODO backend
+    m_scopybioController->setTextSize(m_textSizeValue);
 }
 
 void menu_option::onEraserSizeValueChanged(int value) {
     m_eraserSizeValue = value;
     m_eraserSizeSlider->setValue(value);
 
-    // TODO backend
+    m_scopybioController->setEraserSize(m_eraserSizeValue);
 }
 
 void menu_option::onAccuracyValueChanged(int value) {
     m_accuracyValue = value;
     m_accuracySlider->setValue(value);
 
-    // TODO backend
+    m_scopybioController->setAnalysisErrorMargin(m_accuracyValue);
 }
 
 void menu_option::onFilterToggled(bool checked)
@@ -348,7 +350,7 @@ void menu_option::onCircleToggled(bool checked)
     m_isCircle = checked;
     m_square->setChecked(!checked);
 
-    // TODO backend
+    m_scopybioController->setCircleIsSelected(true);
 }
 
 void menu_option::onSquareToggled(bool checked)
@@ -356,7 +358,7 @@ void menu_option::onSquareToggled(bool checked)
     m_isCircle = !checked;
     m_circle->setChecked(!checked);
 
-    // TODO backend
+    m_scopybioController->setCircleIsSelected(false);
 }
 
 void menu_option::clearLayout(QLayout* layout, bool deleteWidgets)
@@ -378,5 +380,3 @@ void menu_option::clearLayout(QLayout* layout, bool deleteWidgets)
 void menu_option::onCreateLayer() {
     // TODO Creer calque backend (m_firstLayer = min, m_lastLayer = max)
 }
-
-

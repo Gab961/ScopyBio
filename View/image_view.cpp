@@ -89,25 +89,40 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
             }
         }
         //Si on sélectionnait une couleur avec la pipette
-        else if (m_scopybioController->getPipetteClick())
-            {
-                m_scopybioController->setPipetteClick(false);
-                m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
+        if (m_scopybioController->getPipetteClick())
+        {
+            m_scopybioController->setPipetteClick(false);
+            m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
 
-                emit pipetteClicked();
-            }
+            emit pipetteClicked();
+        }
+        if (m_scopybioController->getListenEraserClick())
+        {
+            //TODO
+            std::cout << "ON VEUT EFFACER" << std::endl;
+        }
+        if (m_scopybioController->getListenShapeClick())
+        {
+            //TODO
+            std::cout << "ON VEUT SHAPE" << std::endl;
+        }
+        if (m_scopybioController->getListenTextClick())
+        {
+            //TODO
+            std::cout << "ON VEUT TEXT" << std::endl;
+        }
         //Si on était en train de dessiner
-            else
-            {
-                //TODO Gestion min max
-                m_scopybioController->setCurrentCalqueIdMinMax(m_scopybioController->getCurrentImageIndex(),m_scopybioController->getCurrentImageIndex());
-                m_scopybioController->addMemento();
-            }
+        if (m_scopybioController->getListenPenClick())
+        {
+            //TODO Gestion min max
+            m_scopybioController->setCurrentCalqueIdMinMax(m_scopybioController->getCurrentImageIndex(),m_scopybioController->getCurrentImageIndex());
+            m_scopybioController->addMemento();
+        }
     }
 }
 
 void Image_View::mouseMoveEvent(QMouseEvent* ev) {
-    if (listenPenClick)
+    if (m_scopybioController->getListenPenClick())
     {
         if (firstPenDraw)
         {

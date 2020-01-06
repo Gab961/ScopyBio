@@ -2,7 +2,7 @@
 #include <iostream>
 #include "dessin_model.h"
 
-dessin_model::dessin_model() : zoomReady(false), baseColorGiven(false), listenPipetteClick(false), whiteColor(0)
+dessin_model::dessin_model() : zoomReady(false), baseColorGiven(false), listenPipetteClick(false), whiteColor(0), penSize(1), shapeSize(10), textSize(10), eraserSize(10), circleIsSelected(true)
 {}
 
 CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
@@ -333,13 +333,40 @@ void dessin_model::switchSaveLocation()
     pathOfMainDisplay = newPath;
 }
 
+void dessin_model::shutdownAllListening()
+{
+    listenEraserClick = false;
+    listenPenClick = false;
+    listenPipetteClick = false;
+    listenShapeClick = false;
+    listenTextClick = false;
+}
+
 void dessin_model::saveImageAsMainDisplay(CImg<float> pictureToShow) { pictureToShow.save_bmp(pathOfMainDisplay.c_str()); }
 std::string dessin_model::getMainDisplayPath() const { return pathOfMainDisplay; }
 std::string dessin_model::getZoomDisplayPath() const { return pathOfZoomedDisplay; }
 int dessin_model::getWhiteValue() const { return whiteColor; }
 void dessin_model::setWhiteValue(int color) { whiteColor = color; }
 bool dessin_model::getListenPipetteClick() const { return listenPipetteClick; }
-void dessin_model::setListenPipetteClick(bool pipetteClick) { listenPipetteClick = pipetteClick; }
+void dessin_model::setListenPipetteClick(bool newValue) { shutdownAllListening(); listenPipetteClick = newValue; }
+bool dessin_model::getListenPenClick() const { return listenPenClick; }
+void dessin_model::setListenPenClick(bool newValue) { shutdownAllListening(); listenPenClick = newValue; }
+bool dessin_model::getListenEraserClick() const { return listenEraserClick; }
+void dessin_model::setListenEraserClick(bool newValue) { shutdownAllListening(); listenEraserClick = newValue; }
+bool dessin_model::getListenShapeClick() const { return listenShapeClick; }
+void dessin_model::setListenShapeClick(bool newValue) { shutdownAllListening(); listenShapeClick = newValue; }
+bool dessin_model::getListenTextClick() const { return listenTextClick; }
+void dessin_model::setListenTextClick(bool newValue) { shutdownAllListening(); listenTextClick = newValue; }
 bool dessin_model::getZoomReady() const { return zoomReady; }
 bool dessin_model::getBaseColorGiven() const { return baseColorGiven; }
 void dessin_model::setBaseColorGiven() { baseColorGiven = true; }
+int dessin_model::getPenSize() { return penSize; }
+void dessin_model::setPenSize(int newValue) { penSize = newValue; }
+int dessin_model::getShapeSize() { return shapeSize; }
+void dessin_model::setShapeSize(int newValue) { shapeSize = newValue; }
+int dessin_model::getTextSize() { return textSize; }
+void dessin_model::setTextSize(int newValue) { textSize = newValue; }
+int dessin_model::getEraserSize() { return eraserSize; }
+void dessin_model::setEraserSize(int newValue) { eraserSize = newValue; }
+bool dessin_model::getCircleIsSelected() { return circleIsSelected; }
+void dessin_model::setCircleIsSelected(bool newValue) { circleIsSelected = newValue; }

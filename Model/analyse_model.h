@@ -211,6 +211,17 @@ public:
      */
     bool getCurrentAnalysisType();
 
+    /**
+     * @brief setErrorMargin
+     * @param newValue
+     */
+    void setErrorMargin(int newValue);
+
+    /**
+     * @brief getErrorMargin
+     */
+    int getErrorMargin();
+
 
 private:
     bool areaIsSelected;

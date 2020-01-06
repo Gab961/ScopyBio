@@ -207,6 +207,54 @@ public:
     bool getPipetteClick();
 
     /**
+     * @brief getListenPenClick
+     * @return
+     */
+    bool getListenPenClick() const;
+
+    /**
+     * @brief setListenPenClick
+     * @param newValue
+     */
+    void setListenPenClick(bool newValue);
+
+    /**
+     * @brief getListenEraserClick
+     * @return
+     */
+    bool getListenEraserClick() const;
+
+    /**
+     * @brief setListenEraserClick
+     * @param newValue
+     */
+    void setListenEraserClick(bool newValue);
+
+    /**
+     * @brief getListenShapeClick
+     * @return
+     */
+    bool getListenShapeClick() const;
+
+    /**
+     * @brief setListenShapeClick
+     * @param newValue
+     */
+    void setListenShapeClick(bool newValue);
+
+    /**
+     * @brief getListenTextClick
+     * @return
+     */
+    bool getListenTextClick() const;
+
+    /**
+     * @brief setListenTextClick
+     * @param newValue
+     */
+    void setListenTextClick(bool newValue);
+
+    /**
      * @brief getZoomReady Récupère si il existe une image dans la fenêtre de zoom
      * @return
      */
@@ -217,6 +265,66 @@ public:
      * @return
      */
     bool getBaseColorGiven();
+
+    /**
+     * @brief getPenSize
+     * @return
+     */
+    int getPenSize();
+
+    /**
+     * @brief setPenSize
+     * @param newValue
+     */
+    void setPenSize(int newValue);
+
+    /**
+     * @brief getShapeSize
+     * @return
+     */
+    int getShapeSize();
+
+    /**
+     * @brief setShapeSize
+     * @param newValue
+     */
+    void setShapeSize(int newValue);
+
+    /**
+     * @brief getTextSize
+     * @return
+     */
+    int getTextSize();
+
+    /**
+     * @brief setTextSize
+     * @param newValue
+     */
+    void setTextSize(int newValue);
+
+    /**
+     * @brief getEraserSize
+     * @return
+     */
+    int getEraserSize();
+
+    /**
+     * @brief setEraserSize
+     * @param newValue
+     */
+    void setEraserSize(int newValue) ;
+
+    /**
+     * @brief getCircleIsSelected
+     * @return
+     */
+    bool getCircleIsSelected();
+
+    /**
+     * @brief setCircleIsSelected
+     * @param newValue
+     */
+    void setCircleIsSelected(bool newValue);
 
     /***********************************************************************************/
     /******************************** Partie analyse_model *****************************/
@@ -231,6 +339,17 @@ public:
      * @brief setAreaIsSelected
      */
     void setAreaIsSelected();
+
+    /**
+     * @brief setAnalysisErrorMargin
+     * @param newValue
+     */
+    void setAnalysisErrorMargin(int newValue);
+
+    /**
+     * @brief getAnalysisErrorMargin
+     */
+    int getAnalysisErrorMargin();
 
     /**
      * @brief userAreaIsSelected

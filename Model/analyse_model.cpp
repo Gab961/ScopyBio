@@ -17,6 +17,10 @@ void analyse_model::init(){
     results.clear();
 }
 
+void analyse_model::setErrorMargin(int newValue) { errorMargin = newValue; }
+
+int analyse_model::getErrorMargin() { return errorMargin; }
+
 std::string analyse_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
 
 std::vector<Resultat> analyse_model::getResults() const { return results; }

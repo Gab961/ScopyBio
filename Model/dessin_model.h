@@ -165,9 +165,22 @@ public:
     int getWhiteValue() const;
     void setWhiteValue(int color);
 
+    /**
+     * @brief shutdownAllListening Annule toutes les écoutes de clic
+     */
+    void shutdownAllListening();
+
     //Vrai si on attend un clic
     bool getListenPipetteClick() const;
-    void setListenPipetteClick(bool pipetteClick);
+    void setListenPipetteClick(bool newValue);
+    bool getListenPenClick() const;
+    void setListenPenClick(bool newValue);
+    bool getListenEraserClick() const;
+    void setListenEraserClick(bool newValue);
+    bool getListenShapeClick() const;
+    void setListenShapeClick(bool newValue);
+    bool getListenTextClick() const;
+    void setListenTextClick(bool newValue);
 
     /**
      * @brief getZoomReady Vrai si il existe une image dans le zoom display
@@ -184,6 +197,18 @@ public:
 
     void switchSaveLocation();
 
+    int getPenSize();
+    void setPenSize(int newValue);
+    int getShapeSize();
+    void setShapeSize(int newValue);
+    int getTextSize();
+    void setTextSize(int newValue);
+    int getEraserSize();
+    void setEraserSize(int newValue);
+    bool getCircleIsSelected();
+    void setCircleIsSelected(bool newValue);
+
+
 private:
     int pathOfMainDisplayIndex = 0;
     std::string pathOfMainDisplay = "tmp/mainDisplay/mainDisplay0.bmp";
@@ -193,5 +218,17 @@ private:
 
     bool baseColorGiven;
     bool listenPipetteClick;
+    bool listenEraserClick;
+    bool listenPenClick;
+    bool listenShapeClick;
+    bool listenTextClick;
     int whiteColor;
+
+    int penSize;
+    int shapeSize;
+    int textSize;
+    int eraserSize;
+    bool circleIsSelected;
+
+
 };

@@ -157,7 +157,6 @@ void gestionnaire_calque_model::calqueShowable(int min, int max, bool show){
  * @return la copie du calque que l'on cherche
  */
 calque gestionnaire_calque_model::getCalqueForDisplay(int min, int max){
-    std::cout << "On est ici avec min = " << min << " et max = " << max << std::endl;
     auto res = std::find_if(listOfCalque.begin(), listOfCalque.end(), [&min,&max](calque &a)->bool { return a.getIntervalMin() == min && a.getIntervalMax() == max; } );
     return *res;
 }

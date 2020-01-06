@@ -355,6 +355,15 @@ bool ScopyBio_Controller::getPipetteClick()
     return m_dessinModel->getListenPipetteClick();
 }
 
+bool ScopyBio_Controller::getListenPenClick() const { return m_dessinModel->getListenPenClick(); }
+void ScopyBio_Controller::setListenPenClick(bool newValue) { m_dessinModel->setListenPenClick(newValue); }
+bool ScopyBio_Controller::getListenEraserClick() const { return  m_dessinModel->getListenEraserClick(); }
+void ScopyBio_Controller::setListenEraserClick(bool newValue) { m_dessinModel->setListenEraserClick(newValue); }
+bool ScopyBio_Controller::getListenShapeClick() const { return  m_dessinModel->getListenShapeClick(); }
+void ScopyBio_Controller::setListenShapeClick(bool newValue) { m_dessinModel->setListenShapeClick(newValue); }
+bool ScopyBio_Controller::getListenTextClick() const {  return m_dessinModel->getListenTextClick(); }
+void ScopyBio_Controller::setListenTextClick(bool newValue) { m_dessinModel->setListenTextClick(newValue); }
+
 bool ScopyBio_Controller::getZoomReady()
 {
     return m_dessinModel->getZoomReady();
@@ -363,6 +372,50 @@ bool ScopyBio_Controller::getZoomReady()
 bool ScopyBio_Controller::getBaseColorGiven()
 {
     return m_dessinModel->getBaseColorGiven();
+}
+
+int ScopyBio_Controller::getPenSize()
+{
+    return m_dessinModel->getPenSize();
+}
+
+void ScopyBio_Controller::setPenSize(int newValue)
+{
+    m_dessinModel->setPenSize(newValue);
+}
+int ScopyBio_Controller::getShapeSize()
+{
+    return m_dessinModel->getShapeSize();
+}
+void ScopyBio_Controller::setShapeSize(int newValue)
+{
+    m_dessinModel->setShapeSize(newValue);
+}
+int ScopyBio_Controller::getTextSize()
+{
+    return m_dessinModel->getTextSize();
+}
+void ScopyBio_Controller::setTextSize(int newValue)
+{
+    m_dessinModel->setTextSize(newValue);
+}
+int ScopyBio_Controller::getEraserSize()
+{
+    return m_dessinModel->getEraserSize();
+}
+void ScopyBio_Controller::setEraserSize(int newValue)
+{
+    m_dessinModel->setEraserSize(newValue);
+}
+
+bool ScopyBio_Controller::getCircleIsSelected()
+{
+    return m_dessinModel->getCircleIsSelected();
+}
+
+void ScopyBio_Controller::setCircleIsSelected(bool newValue)
+{
+    m_dessinModel->setCircleIsSelected(newValue);
 }
 
 //=======================
@@ -378,6 +431,16 @@ void ScopyBio_Controller::setAreaIsSelected()
 {
     m_analyseModel->setAreaIsSelected(true);
     m_analyseModel->setUserAreaIsSelected(false);
+}
+
+void ScopyBio_Controller::setAnalysisErrorMargin(int newValue)
+{
+    m_analyseModel->setErrorMargin(newValue);
+}
+
+int ScopyBio_Controller::getAnalysisErrorMargin()
+{
+    return m_analyseModel->getErrorMargin();
 }
 
 bool ScopyBio_Controller::userAreaIsSelected()
