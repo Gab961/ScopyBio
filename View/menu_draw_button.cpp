@@ -45,6 +45,13 @@ void Menu_Draw_Button::createView()
     m_eraser->setMaximumSize(25,25);
     m_gridTools->addWidget(m_eraser, 0, 3);
 
+    m_select = new QPushButton(QIcon("../../Resources/Icons/selection.svg"), "", this);
+    m_select->setStyleSheet(buttonStyle);
+    m_select->setIconSize(QSize(20,20));
+    m_select->setMinimumSize(25,25);
+    m_select->setMaximumSize(25,25);
+    m_gridTools->addWidget(m_select, 0, 4);
+
     m_pipette = new QPushButton(QIcon("../../Resources/Icons/pipette.svg"), "", this);
     m_pipette->setStyleSheet(buttonStyle);
     m_pipette->setIconSize(QSize(20,20));
@@ -78,11 +85,17 @@ void Menu_Draw_Button::createView()
 
 void Menu_Draw_Button::connections()
 {
-    //Demande d'affichage dans la fenêtre de data
+    //Gestion des icones
+    QObject::connect(m_pen, &QPushButton::clicked, this, &Menu_Draw_Button::activatePenAnnotation);
+    QObject::connect(m_eraser, &QPushButton::clicked, this, &Menu_Draw_Button::activateEraserAnnotation);
+    QObject::connect(m_shapes, &QPushButton::clicked, this, &Menu_Draw_Button::activateShapesAnnotation);
+    QObject::connect(m_text, &QPushButton::clicked, this, &Menu_Draw_Button::activateTextAnnotation);
+    QObject::connect(m_select, &QPushButton::clicked, this, &Menu_Draw_Button::activateSelectionAnnotation);
+    QObject::connect(m_analysis, &QPushButton::clicked, this, &Menu_Draw_Button::activateAnalysisTool);
+    QObject::connect(m_filters, &QPushButton::clicked, this, &Menu_Draw_Button::activateFiltersTool);
+    QObject::connect(m_newLayer, &QPushButton::clicked, this, &Menu_Draw_Button::activateNewLayerTool);
     QObject::connect(m_pipette, &QPushButton::clicked, this, &Menu_Draw_Button::activatePipetteWaiting);
 
-    //Debut d'un dessin
-    QObject::connect(m_pen, &QPushButton::clicked, this, &Menu_Draw_Button::activatePenAnnotation);
 
     // Met à jour la vue des options en fonction de l'outil sélectionné
     QObject::connect(m_pen, &QPushButton::clicked, this, &Menu_Draw_Button::pen);
@@ -93,6 +106,7 @@ void Menu_Draw_Button::connections()
     QObject::connect(m_filters, &QPushButton::clicked, this, &Menu_Draw_Button::filters);
     QObject::connect(m_analysis, &QPushButton::clicked, this, &Menu_Draw_Button::analysis);
     QObject::connect(m_newLayer, &QPushButton::clicked, this, &Menu_Draw_Button::newLayer);
+    QObject::connect(m_select, &QPushButton::clicked, this, &Menu_Draw_Button::selectButton);
 }
 
 
@@ -103,18 +117,35 @@ void Menu_Draw_Button::askForAnalysis()
 
 void Menu_Draw_Button::activatePipetteWaiting()
 {
+    QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+    QString buttonStyleUnpressed = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+
     // Si le bouton est pressé une première fois
     if (!isPipetteButtonActive) {
-        QString buttonStyle = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
-        m_pipette->setStyleSheet(buttonStyle);
+        m_pen->setStyleSheet(buttonStyleUnpressed);
+        m_shapes->setStyleSheet(buttonStyleUnpressed);
+        m_eraser->setStyleSheet(buttonStyleUnpressed);
+        m_text->setStyleSheet(buttonStyleUnpressed);
+        m_analysis->setStyleSheet(buttonStyleUnpressed);
+        m_pipette->setStyleSheet(buttonStylePressed);
+        m_filters->setStyleSheet(buttonStyleUnpressed);
+        m_newLayer->setStyleSheet(buttonStyleUnpressed);
+        m_select->setStyleSheet(buttonStyleUnpressed);
 
         setPipetteActive(true);
+        isPenButtonActive = false;
+        isEraserButtonActive = false;
+        isShapesButtonActive = false;
+        isTextButtonActive = false;
+        isAnalysisButtonActive = false;
+        isFiltersButtonActive = false;
+        isLayerButtonActive = false;
+
         emit waitingForZoomClick();
     }
     // Si le bouton a déjà été pressé et on reclic dessus
     else {
-        QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
-        m_pipette->setStyleSheet(buttonStyle);
+        m_pipette->setStyleSheet(buttonStyleUnpressed);
 
         setPipetteActive(false);
         emit pipetteCanceled();
@@ -123,23 +154,242 @@ void Menu_Draw_Button::activatePipetteWaiting()
 
 void Menu_Draw_Button::activatePenAnnotation()
 {
+    QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+    QString buttonStyleUnpressed = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+
     // Si le bouton est pressé une première fois
     if (!isPenButtonActive) {
-        QString buttonStyle = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
-        m_pen->setStyleSheet(buttonStyle);
+        m_pen->setStyleSheet(buttonStylePressed);
+        m_shapes->setStyleSheet(buttonStyleUnpressed);
+        m_eraser->setStyleSheet(buttonStyleUnpressed);
+        m_text->setStyleSheet(buttonStyleUnpressed);
+        m_analysis->setStyleSheet(buttonStyleUnpressed);
+        m_pipette->setStyleSheet(buttonStyleUnpressed);
+        m_filters->setStyleSheet(buttonStyleUnpressed);
+        m_newLayer->setStyleSheet(buttonStyleUnpressed);
+        m_select->setStyleSheet(buttonStyleUnpressed);
 
+        setPipetteActive(false);
         isPenButtonActive = true;
+        isEraserButtonActive = false;
+        isShapesButtonActive = false;
+        isTextButtonActive = false;
+        isAnalysisButtonActive = false;
+        isFiltersButtonActive = false;
+        isLayerButtonActive = false;
+
         emit readyToDrawPen();
     }
     // Si le bouton a déjà été pressé et on reclic dessus
     else {
-        QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
-        m_pen->setStyleSheet(buttonStyle);
+        m_pen->setStyleSheet(buttonStyleUnpressed);
 
         isPenButtonActive = false;
         emit penCanceled();
     }
 }
+
+void Menu_Draw_Button::activateEraserAnnotation()
+{
+    QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+    QString buttonStyleUnpressed = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+
+    // Si le bouton est pressé une première fois
+    if (!isEraserButtonActive) {
+        m_pen->setStyleSheet(buttonStyleUnpressed);
+        m_shapes->setStyleSheet(buttonStyleUnpressed);
+        m_eraser->setStyleSheet(buttonStylePressed);
+        m_text->setStyleSheet(buttonStyleUnpressed);
+        m_analysis->setStyleSheet(buttonStyleUnpressed);
+        m_pipette->setStyleSheet(buttonStyleUnpressed);
+        m_filters->setStyleSheet(buttonStyleUnpressed);
+        m_newLayer->setStyleSheet(buttonStyleUnpressed);
+        m_select->setStyleSheet(buttonStyleUnpressed);
+
+        setPipetteActive(false);
+        isPenButtonActive = false;
+        isEraserButtonActive = true;
+        isShapesButtonActive = false;
+        isTextButtonActive = false;
+        isAnalysisButtonActive = false;
+        isFiltersButtonActive = false;
+        isLayerButtonActive = false;
+        isSelectionButtonActive = false;
+    }
+}
+
+void Menu_Draw_Button::activateShapesAnnotation()
+{
+    QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+    QString buttonStyleUnpressed = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+
+    // Si le bouton est pressé une première fois
+    if (!isShapesButtonActive) {
+        m_pen->setStyleSheet(buttonStyleUnpressed);
+        m_shapes->setStyleSheet(buttonStylePressed);
+        m_eraser->setStyleSheet(buttonStyleUnpressed);
+        m_text->setStyleSheet(buttonStyleUnpressed);
+        m_analysis->setStyleSheet(buttonStyleUnpressed);
+        m_pipette->setStyleSheet(buttonStyleUnpressed);
+        m_filters->setStyleSheet(buttonStyleUnpressed);
+        m_newLayer->setStyleSheet(buttonStyleUnpressed);
+        m_select->setStyleSheet(buttonStyleUnpressed);
+
+        setPipetteActive(false);
+        isPenButtonActive = false;
+        isEraserButtonActive = false;
+        isShapesButtonActive = true;
+        isTextButtonActive = false;
+        isAnalysisButtonActive = false;
+        isFiltersButtonActive = false;
+        isLayerButtonActive = false;
+        isSelectionButtonActive = false;
+    }
+}
+
+
+void Menu_Draw_Button::activateSelectionAnnotation()
+{
+    QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+    QString buttonStyleUnpressed = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+
+    // Si le bouton est pressé une première fois
+    if (!isShapesButtonActive) {
+        m_pen->setStyleSheet(buttonStyleUnpressed);
+        m_shapes->setStyleSheet(buttonStyleUnpressed);
+        m_eraser->setStyleSheet(buttonStyleUnpressed);
+        m_text->setStyleSheet(buttonStyleUnpressed);
+        m_analysis->setStyleSheet(buttonStyleUnpressed);
+        m_pipette->setStyleSheet(buttonStyleUnpressed);
+        m_filters->setStyleSheet(buttonStyleUnpressed);
+        m_newLayer->setStyleSheet(buttonStyleUnpressed);
+        m_select->setStyleSheet(buttonStylePressed);
+
+        setPipetteActive(false);
+        isPenButtonActive = false;
+        isEraserButtonActive = false;
+        isShapesButtonActive = true;
+        isTextButtonActive = false;
+        isAnalysisButtonActive = false;
+        isFiltersButtonActive = false;
+        isLayerButtonActive = false;
+        isSelectionButtonActive = true;
+    }
+}
+
+void Menu_Draw_Button::activateTextAnnotation()
+{
+    QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+    QString buttonStyleUnpressed = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+
+    // Si le bouton est pressé une première fois
+    if (!isTextButtonActive) {
+        m_pen->setStyleSheet(buttonStyleUnpressed);
+        m_shapes->setStyleSheet(buttonStyleUnpressed);
+        m_eraser->setStyleSheet(buttonStyleUnpressed);
+        m_text->setStyleSheet(buttonStylePressed);
+        m_analysis->setStyleSheet(buttonStyleUnpressed);
+        m_pipette->setStyleSheet(buttonStyleUnpressed);
+        m_filters->setStyleSheet(buttonStyleUnpressed);
+        m_newLayer->setStyleSheet(buttonStyleUnpressed);
+        m_select->setStyleSheet(buttonStyleUnpressed);
+
+        setPipetteActive(false);
+        isPenButtonActive = false;
+        isEraserButtonActive = false;
+        isShapesButtonActive = false;
+        isTextButtonActive = true;
+        isAnalysisButtonActive = false;
+        isFiltersButtonActive = false;
+        isLayerButtonActive = false;
+        isSelectionButtonActive = false;
+    }
+}
+
+void Menu_Draw_Button::activateAnalysisTool() {
+    QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+    QString buttonStyleUnpressed = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+
+    // Si le bouton est pressé une première fois
+    if (!isAnalysisButtonActive) {
+        m_pen->setStyleSheet(buttonStyleUnpressed);
+        m_shapes->setStyleSheet(buttonStyleUnpressed);
+        m_eraser->setStyleSheet(buttonStyleUnpressed);
+        m_text->setStyleSheet(buttonStyleUnpressed);
+        m_analysis->setStyleSheet(buttonStylePressed);
+        m_pipette->setStyleSheet(buttonStyleUnpressed);
+        m_filters->setStyleSheet(buttonStyleUnpressed);
+        m_newLayer->setStyleSheet(buttonStyleUnpressed);
+        m_select->setStyleSheet(buttonStyleUnpressed);
+
+        setPipetteActive(false);
+        isPenButtonActive = false;
+        isEraserButtonActive = false;
+        isShapesButtonActive = false;
+        isTextButtonActive = false;
+        isAnalysisButtonActive = true;
+        isFiltersButtonActive = false;
+        isLayerButtonActive = false;
+        isSelectionButtonActive = false;
+    }
+}
+
+void Menu_Draw_Button::activateFiltersTool() {
+    QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+    QString buttonStyleUnpressed = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+
+    // Si le bouton est pressé une première fois
+    if (!isFiltersButtonActive) {
+        m_pen->setStyleSheet(buttonStyleUnpressed);
+        m_shapes->setStyleSheet(buttonStyleUnpressed);
+        m_eraser->setStyleSheet(buttonStyleUnpressed);
+        m_text->setStyleSheet(buttonStyleUnpressed);
+        m_analysis->setStyleSheet(buttonStyleUnpressed);
+        m_pipette->setStyleSheet(buttonStyleUnpressed);
+        m_filters->setStyleSheet(buttonStylePressed);
+        m_newLayer->setStyleSheet(buttonStyleUnpressed);
+        m_select->setStyleSheet(buttonStyleUnpressed);
+
+        setPipetteActive(false);
+        isPenButtonActive = false;
+        isEraserButtonActive = false;
+        isShapesButtonActive = false;
+        isTextButtonActive = false;
+        isAnalysisButtonActive = false;
+        isFiltersButtonActive = true;
+        isLayerButtonActive = false;
+        isSelectionButtonActive = false;
+    }
+}
+
+void Menu_Draw_Button::activateNewLayerTool() {
+    QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+    QString buttonStyleUnpressed = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+
+    // Si le bouton est pressé une première fois
+    if (!isLayerButtonActive) {
+        m_pen->setStyleSheet(buttonStyleUnpressed);
+        m_shapes->setStyleSheet(buttonStyleUnpressed);
+        m_eraser->setStyleSheet(buttonStyleUnpressed);
+        m_text->setStyleSheet(buttonStyleUnpressed);
+        m_analysis->setStyleSheet(buttonStyleUnpressed);
+        m_pipette->setStyleSheet(buttonStyleUnpressed);
+        m_filters->setStyleSheet(buttonStyleUnpressed);
+        m_newLayer->setStyleSheet(buttonStylePressed);
+        m_select->setStyleSheet(buttonStyleUnpressed);
+
+        setPipetteActive(false);
+        isPenButtonActive = false;
+        isEraserButtonActive = false;
+        isShapesButtonActive = false;
+        isTextButtonActive = false;
+        isAnalysisButtonActive = false;
+        isFiltersButtonActive = false;
+        isLayerButtonActive = true;
+        isSelectionButtonActive = false;
+    }
+}
+
 
 void Menu_Draw_Button::setPipetteActive(bool state)
 {
@@ -180,6 +430,8 @@ void Menu_Draw_Button::filters() {emit filtersClicked();}
 void Menu_Draw_Button::analysis() {emit analysisClicked();}
 
 void Menu_Draw_Button::newLayer() {emit newLayerClicked();}
+
+void Menu_Draw_Button::selectButton() {emit selectClicked();}
 
 void Menu_Draw_Button::changePipetteStyleWhenUsed() {
     QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";

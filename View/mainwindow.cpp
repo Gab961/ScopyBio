@@ -204,6 +204,7 @@ void MainWindow::connections()
     QObject::connect(m_tools, &Menu_Draw_Button::filtersClicked, m_options, &menu_option::filters);
     QObject::connect(m_tools, &Menu_Draw_Button::analysisClicked, m_options, &menu_option::analysis);
     QObject::connect(m_tools, &Menu_Draw_Button::newLayerClicked, m_options, &menu_option::newLayer);
+    QObject::connect(m_tools, &Menu_Draw_Button::selectClicked, m_options, &menu_option::selection);
 
     // Met à jour les calques en fonction de l'image sélectionnée
     QObject::connect(m_pileView, &Pile_View::rowClicked, m_layerView, &LayerView::loadLayers);
@@ -221,6 +222,9 @@ void MainWindow::connections()
 
     //Cache ou affiche la grille issue de l'analyse sur la zoom view
     QObject::connect(m_hide, &QPushButton::pressed, this, &MainWindow::changeStateGrid);
+
+    //Mise à jour de l'interface quand on créé un nouveau calque
+    QObject::connect(m_options, &menu_option::switchToIndex, m_pileView, &Pile_View::changeToElement);
 }
 
 void MainWindow::closeEvent(QCloseEvent* e)

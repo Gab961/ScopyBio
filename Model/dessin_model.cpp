@@ -366,6 +366,7 @@ void dessin_model::switchSaveLocation()
 
 void dessin_model::shutdownAllListening()
 {
+    listenSelectionClick = false;
     listenEraserClick = false;
     listenPenClick = false;
     listenPipetteClick = false;
@@ -423,6 +424,8 @@ bool dessin_model::getListenShapeClick() const { return listenShapeClick; }
 void dessin_model::setListenShapeClick(bool newValue) { shutdownAllListening(); listenShapeClick = newValue; }
 bool dessin_model::getListenTextClick() const { return listenTextClick; }
 void dessin_model::setListenTextClick(bool newValue) { shutdownAllListening(); listenTextClick = newValue; }
+bool dessin_model::getListenSelectionClick() const { return listenSelectionClick; }
+void dessin_model::setListenSelectionClick(bool newValue) { shutdownAllListening(); listenSelectionClick = newValue; }
 bool dessin_model::getZoomReady() const { return zoomReady; }
 bool dessin_model::getBaseColorGiven() const { return baseColorGiven; }
 void dessin_model::setBaseColorGiven() { baseColorGiven = true; }
