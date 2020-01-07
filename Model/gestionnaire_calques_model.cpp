@@ -95,6 +95,11 @@ void gestionnaire_calque_model::addCalques(std::vector<calque> calques, int tail
     }
 }
 
+void gestionnaire_calque_model::addCalqueSpecial(CImg<float> cal, int id){
+    int search = getCalqueIndex(id);
+    listOfCalque[search].setCalque(cal);
+}
+
 
 void gestionnaire_calque_model::removeCalques(int idCalque){
     int search = getCalqueIndex(idCalque);

@@ -31,11 +31,14 @@ void ScopyBio_Controller::afficherCalque(int id, bool aff) {
 //=======================
 
 void ScopyBio_Controller::save_as(std::string path){
-    m_saveModel->save_as(path,m_pileModel->getFileName(),m_gestion_calque->getAllCalques(), m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount());
+    m_saveModel->save_as(path,m_pileModel->getFileName(),m_gestion_calque->getAllCalques(),
+                         m_analyseModel->dataReady(),m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount(),m_gestion_calque->getCalqueForDisplay(RESULTAT_VIEW));
 }
 
 bool ScopyBio_Controller::save(){
-    return m_saveModel->save(m_gestion_calque->getAllCalques(), m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount());
+    return m_saveModel->save(m_gestion_calque->getAllCalques(),
+                             m_analyseModel->dataReady(),m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount(),
+                             m_gestion_calque->getCalqueForDisplay(RESULTAT_VIEW));
 }
 
 void ScopyBio_Controller::saveCurrentDisplay(std::string path)
@@ -75,6 +78,15 @@ void ScopyBio_Controller::openProject(std::string pathProject){
     }else{
         m_analyseModel->setLinesAmount(rowcol.front());
         m_analyseModel->setColumnAmount(rowcol.back());
+    }
+
+    std::string resCalque = m_loadModel->loadResultCalque(pathProject);
+
+    if(!resCalque.empty()){
+        CImg<float> resCal;
+        resCal.load_cimg(resCalque.c_str());
+        m_gestion_calque->addCalqueSpecial(resCal,RESULTAT_VIEW);
+        m_gestion_calque->setShowResultat(true);
     }
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());

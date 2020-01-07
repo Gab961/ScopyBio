@@ -35,6 +35,7 @@ public:
 
     int getCalqueIndex(int id);
     void addCalques(std::vector<calque> calques, int taille);
+    void addCalqueSpecial(CImg<float> cal, int id);
     void removeCalques(int idCalque);
     void calqueShowable(int idCalque, bool show);
     void dessineFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
