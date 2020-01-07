@@ -254,7 +254,10 @@ void ScopyBio_Controller::dessinerLignePerso(int imageIndex, QPoint origPoint, Q
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
-    m_gestion_calque->dessinLigne(min, max, origPoint, pos, labelWidth, labelHeight, isDrawing);
+    if (isDrawing)
+        m_gestion_calque->dessinLigne(min, max, origPoint, pos, m_dessinModel->getPenSize(), labelWidth, labelHeight, isDrawing);
+    else
+        m_gestion_calque->dessinLigne(min, max, origPoint, pos, m_dessinModel->getEraserSize(), labelWidth, labelHeight, isDrawing);
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }

@@ -2,7 +2,7 @@
 #include <iostream>
 #include "dessin_model.h"
 
-dessin_model::dessin_model() : zoomReady(false), baseColorGiven(false), listenPipetteClick(false), whiteColor(0), penSize(1), shapeSize(10), textSize(10), eraserSize(10), circleIsSelected(true)
+dessin_model::dessin_model() : zoomReady(false), baseColorGiven(false), listenPipetteClick(false), whiteColor(0), penSize(5), shapeSize(10), textSize(10), eraserSize(10), circleIsSelected(true)
 {}
 
 CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
@@ -171,11 +171,8 @@ CImg<float> dessin_model::dessinerRond(QPoint pos, int pertinence, CImg<float> &
 }
 
 
-CImg<float> dessin_model::dessinerLigne(QPoint pos1, QPoint pos2, bool isDrawing, int labelWidth, int labelHeight, CImg<float> & currentPicture)
+CImg<float> dessin_model::dessinerLigne(QPoint pos1, QPoint pos2, bool isDrawing, int brushSize, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
-    unsigned char color[] = { 255,0,0,255 };
-    unsigned char eraseColor[] = { 0,0,0,0 };
-
     int x1 = pos1.x() * currentPicture.width() / labelWidth;
     int y1 = pos1.y() * currentPicture.height() / labelHeight;
     int x2 = pos2.x() * currentPicture.width() / labelWidth;
@@ -191,9 +188,9 @@ CImg<float> dessin_model::dessinerLigne(QPoint pos1, QPoint pos2, bool isDrawing
         y2 = currentPicture.height();
 
     if (isDrawing)
-        currentPicture.draw_line(x1,y1,x2,y2,color,1,~0U);
+        drawThickLine(currentPicture,x1,y1,x2,y2,brushSize,true);
     else
-        currentPicture.draw_line(x1,y1,x2,y2,eraseColor,1,~0U);
+        drawThickLine(currentPicture,x1,y1,x2,y2,brushSize,false);
 
     return currentPicture;
 }
@@ -374,6 +371,41 @@ void dessin_model::shutdownAllListening()
     listenPipetteClick = false;
     listenShapeClick = false;
     listenTextClick = false;
+}
+
+/** Source: https://stackoverflow.com/questions/5673448/can-the-cimg-library-draw-thick-lines **/
+void dessin_model::drawThickLine(CImg<float>& image, const int x1, const int y1, const int x2, const int y2, const unsigned int line_width, bool isDrawing)
+{
+
+    unsigned char color[] = { 255,0,0,255 };
+    unsigned char eraseColor[] = { 0,0,0,0 };
+
+    if (x1 == x2 && y1 == y2) {
+        return;
+    }
+    // Convert line (p1, p2) to polygon (pa, pb, pc, pd)
+    const double x_diff = std::abs(x1 - x2);
+    const double y_diff = std::abs(y1 - y2);
+    const double w_diff = line_width / 2.0;
+
+    const int x_adj = y_diff * w_diff / std::sqrt(std::pow(x_diff, 2) + std::pow(y_diff, 2));
+    const int y_adj = x_diff * w_diff / std::sqrt(std::pow(x_diff, 2) + std::pow(y_diff, 2));
+
+    // Points are listed in clockwise order, starting from top-left
+    cimg_library::CImg<int> points(4, 2);
+    points(0, 0) = x1 - x_adj;
+    points(0, 1) = y1 + y_adj;
+    points(1, 0) = x1 + x_adj;
+    points(1, 1) = y1 - y_adj;
+    points(2, 0) = x2 + x_adj;
+    points(2, 1) = y2 - y_adj;
+    points(3, 0) = x2 - x_adj;
+    points(3, 1) = y2 + y_adj;
+
+    if (isDrawing)
+    image.draw_polygon(points, color);
+    else
+        image.draw_polygon(points, eraseColor);
 }
 
 void dessin_model::saveImageAsMainDisplay(CImg<float> pictureToShow) { pictureToShow.save_bmp(pathOfMainDisplay.c_str()); }

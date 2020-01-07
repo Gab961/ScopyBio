@@ -294,11 +294,11 @@ void gestionnaire_calque_model::dessineFaisceau(int min, int max, QPoint pos1, Q
  * @param labelWidth
  * @param labelHeight
  */
-void gestionnaire_calque_model::dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, bool isDrawing){
+void gestionnaire_calque_model::dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing){
 
     int search = getCalque(min,max);
     if(search != -1){
-        listOfCalque[search].dessinerLigne(pos1, pos2, labelWidth,labelHeight, isDrawing);
+        listOfCalque[search].dessinerLigne(pos1, pos2, brushSize, labelWidth,labelHeight, isDrawing);
     }
 }
 

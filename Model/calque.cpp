@@ -128,8 +128,8 @@ void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labe
  * @param labelWidth
  * @param labelHeight
  */
-void calque::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, bool isDrawing){
-    _calque = dessine.dessinerLigne(pos1,pos2,isDrawing,labelWidth,labelHeight,_calque);
+void calque::dessinerLigne(QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing){
+    _calque = dessine.dessinerLigne(pos1,pos2,isDrawing, brushSize, labelWidth,labelHeight,_calque);
 }
 
 /**

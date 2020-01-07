@@ -55,7 +55,7 @@ public:
     void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence);
-    void dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, bool isDrawing);
+    void dessinerLigne(QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing);
     void dessinerRond(QPoint pos, int pertinence);
     void dessinerCarre(QPoint posOrig, int diameter, int labelWidth, int labelHeight);
     void dessinerCercle(QPoint posOrig, int diameter, int labelWidth, int labelHeight);

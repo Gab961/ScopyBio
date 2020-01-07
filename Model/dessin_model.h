@@ -97,7 +97,7 @@ public:
      * @param currentPicture
      * @return
      */
-    CImg<float> dessinerLigne(QPoint pos1, QPoint pos2, bool isDrawing, int labelWidth, int labelHeight, CImg<float> & currentPicture);
+    CImg<float> dessinerLigne(QPoint pos1, QPoint pos2, bool isDrawing, int brushSize, int labelWidth, int labelHeight, CImg<float> & currentPicture);
 
     /**
      * @brief dessinerCarre
@@ -120,6 +120,18 @@ public:
      * @return
      */
     CImg<float> dessinerCercle(QPoint posOrig, int diameter, int labelWidth, int labelHeight, CImg<float> & currentPicture);
+
+    /**
+     * @brief drawThickLine
+     * @param image
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @param line_width
+     * @param isDrawing
+     */
+    void drawThickLine(CImg<float>& image, const int x1, const int y1, const int x2, const int y2, const unsigned int line_width, bool isDrawing);
 
     /**
      * @brief applyQuadrillageFilter
