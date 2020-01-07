@@ -589,4 +589,5 @@ void MainWindow::userAnalysisEnded()
 // Hide or show the grid on zoom view
 void MainWindow::changeStateGrid() {
     m_scopybioController->applyZoomResultatFilter();
+    emit changeZoomedPicture();
 }
