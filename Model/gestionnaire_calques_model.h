@@ -27,6 +27,7 @@ public:
     void initGlobalCalques(int _pileWidth, int _pileHeight);
 
     void saveTmpforDisplay(int min, int max);
+    void saveTmpforDisplay(int idCalque);
 
     bool existeCalque(int min, int max);
     bool existeCalque(int id);
@@ -36,7 +37,9 @@ public:
     int getCalqueIndex(int id);
     void addCalques(std::vector<calque> calques, int taille);
     void removeCalques(int min, int max);
+    void removeCalques(int idCalque);
     void calqueShowable(int min, int max, bool show);
+    void calqueShowable(int idCalque, bool show);
     void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void reinitPertinenceCalque();
     void reinitUserPertinenceCalque(int width, int height);
@@ -44,6 +47,7 @@ public:
     void manageNewUserAnalyse(int pertinence, QPoint pos1, QPoint pos2);
     void manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2);
     void dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void dessinLigne(int idCalque, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void updateCalqueVert();
     void updateHistogram();
     void updateResultat();

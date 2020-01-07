@@ -21,10 +21,8 @@ void ScopyBio_Controller::DisplayResultImage(int idImage){
 }
 
 void ScopyBio_Controller::afficherCalque(int id, bool aff) {
-    int min = m_gestion_calque->getCalqueForDisplay(id).getIntervalMin(),
-            max = m_gestion_calque->getCalqueForDisplay(id).getIntervalMax();
-    if(m_gestion_calque->existeCalque(min, max)){
-        m_gestion_calque->calqueShowable(min,max,aff);
+    if(m_gestion_calque->existeCalque(id)){
+        m_gestion_calque->calqueShowable(id,aff);
     }
 }
 
@@ -150,11 +148,10 @@ int ScopyBio_Controller::getCurrentImageIndex()
 //=======================
 
 void ScopyBio_Controller::removeCalque(int id){
+    int min = m_gestion_calque->getCalqueForDisplay(id).getIntervalMin(),
+            max = m_gestion_calque->getCalqueForDisplay(id).getIntervalMax();
     std::cout << "Control id = " << id << std::endl;
-    int min = m_gestion_calque->getCalqueForDisplay(id).getIntervalMin(), max=m_gestion_calque->getCalqueForDisplay(id).getIntervalMax();
-
-    std::cout << "min = " << min << " max = " << max << std::endl;
-    m_gestion_calque->removeCalques(min, max);
+    m_gestion_calque->removeCalques(id);
     m_gestion_calque->removeFromDict(min,max,id);
 }
 
@@ -271,7 +268,7 @@ void ScopyBio_Controller::dessinerLignePerso(QPoint origPoint, QPoint pos, int l
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
-    m_gestion_calque->dessinLigne(min, max, origPoint, pos, labelWidth, labelHeight);
+    m_gestion_calque->dessinLigne(m_gestion_calque->getCurrentCalqueId(), origPoint, pos, labelWidth, labelHeight);
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }

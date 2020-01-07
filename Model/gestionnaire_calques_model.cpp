@@ -69,6 +69,16 @@ void gestionnaire_calque_model::saveTmpforDisplay(int min, int max){
     calquetmp.save_png(path.c_str(),0);
 }
 
+void gestionnaire_calque_model::saveTmpforDisplay(int idCalque){
+    int search = getCalqueIndex(idCalque);
+
+    CImg<float> calquetmp = listOfCalque[search].getCalque();
+
+    std::string path = "./tmp/calque" + std::to_string(listOfCalque[search].getId()) + ".png";
+
+    calquetmp.save_png(path.c_str(),0);
+}
+
 /**
  * @brief gestionnaire_calque_model::existeCalque renvoie si le calque existe.
  * @param min connaitre à partir de quelle image s'applique le calque
@@ -147,8 +157,22 @@ void gestionnaire_calque_model::removeCalques(int min, int max){
     }
 }
 
+void gestionnaire_calque_model::removeCalques(int idCalque){
+    int search = getCalqueIndex(idCalque);
+    if(search != -1){
+         listOfCalque.erase(listOfCalque.begin()+search);
+    }
+}
+
 void gestionnaire_calque_model::calqueShowable(int min, int max, bool show){
     int search = getCalque(min,max);
+    if(search != -1){
+        listOfCalque[search].setCanShow(show);
+    }
+}
+
+void gestionnaire_calque_model::calqueShowable(int idCalque, bool show){
+    int search = getCalqueIndex(idCalque);
     if(search != -1){
         listOfCalque[search].setCanShow(show);
     }
@@ -302,6 +326,14 @@ void gestionnaire_calque_model::dessineFaisceau(int min, int max, QPoint pos1, Q
 void gestionnaire_calque_model::dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
 
     int search = getCalque(min,max);
+    if(search != -1){
+        listOfCalque[search].dessinerLigne(pos1, pos2, labelWidth,labelHeight);
+    }
+}
+
+void gestionnaire_calque_model::dessinLigne(int idCalque, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
+
+    int search = getCalqueIndex(idCalque);
     if(search != -1){
         listOfCalque[search].dessinerLigne(pos1, pos2, labelWidth,labelHeight);
     }
