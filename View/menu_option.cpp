@@ -480,6 +480,7 @@ void menu_option::onCreateLayer() {
     {
         QMessageBox::information(this, "", "Layer(s) created successfully");
         emit switchToIndex(m_firstLayer->text().toInt());
+        emit reloadLayers(m_firstLayer->text().toInt());
     }
     else
         QMessageBox::information(this, "", "Error, values must be non-negative or less than the number of images in the stack.");

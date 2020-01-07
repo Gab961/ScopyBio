@@ -198,6 +198,7 @@ void MainWindow::connections()
 
     // Met à jour les calques en fonction de l'image sélectionnée
     QObject::connect(m_pileView, &Pile_View::rowClicked, m_layerView, &LayerView::loadLayers);
+    QObject::connect(m_options, &menu_option::reloadLayers, m_layerView, &LayerView::loadLayers);
 
     // Met à jour l'affichage de l'image après chaque action effectuée dans le layer_view (suppression, création, affichage)
     QObject::connect(m_layerView, &LayerView::actionDoneWithLayer, this, &MainWindow::recreateMainDisplay);
