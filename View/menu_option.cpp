@@ -1,6 +1,8 @@
 #include <QMessageBox>
 #include "menu_option.h"
 #include <iostream>
+#include <QMessageBox>
+
 #include "scopybio_controller.h"
 
 menu_option::menu_option(QWidget *parent, ScopyBio_Controller *scopybioController): m_scopybioController(scopybioController), analysisPanelActive(false), activateUserAnalyse(false)
@@ -376,8 +378,11 @@ void menu_option::clearLayout(QLayout* layout, bool deleteWidgets)
 }
 
 void menu_option::onCreateLayer() {
-    // TODO Creer calque backend (m_firstLayer = min, m_lastLayer = max)
-    m_scopybioController->CreerNouveauCalque(m_firstLayer->text().toInt(), m_lastLayer->text().toInt());
+    //m_scopybioController->CreerNouveauCalque(m_firstLayer->text().toInt(), m_lastLayer->text().toInt());
+    if (m_scopybioController->CreerNouveauCalque(m_firstLayer->text().toInt(), m_lastLayer->text().toInt()))
+        QMessageBox::information(this, "", "Layer(s) created successfully");
+    else
+        QMessageBox::information(this, "", "Error, values must be non-negative or less than the number of images in the stack.");
 }
 
 
