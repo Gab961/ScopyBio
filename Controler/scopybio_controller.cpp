@@ -212,7 +212,7 @@ bool ScopyBio_Controller::CreerNouveauCalque(int min, int max){
 //    }else{
         if(min < 0 || max < 0 || min >= taille || max >= taille){
             return false;
-        }else{
+        } else {
             m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
 
             return true;
@@ -259,6 +259,9 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
  */
 bool ScopyBio_Controller::dessinerLignePerso(QPoint origPoint, QPoint pos, int labelWidth, int labelHeight, bool isDrawing)
 {
+    int min = imageIndex, max = imageIndex;
+    int taille = m_pileModel->getImages().size();
+
     //Verifier s'il existe dans le dico
     if(!m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
         return false;

@@ -324,7 +324,7 @@ void MainWindow::howToUse()
 {
     // TODO
     QMessageBox::about(this, tr("How to use ScopyBio"),
-                       tr("<p>Blibloup</p>"));
+                       tr("<p>TODO</p>"));
 }
 
 void MainWindow::createActions()
@@ -555,6 +555,8 @@ void MainWindow::recreateMainDisplay() {
 void MainWindow::fullAnalysisEnded()
 {
     QMessageBox::information(this, "", "Full analysis completed");
+
+    m_options->closeMessageBox();
     emit changeMainPicture();
 }
 
@@ -562,5 +564,7 @@ void MainWindow::userAnalysisEnded()
 {
     QMessageBox::information(this, "", "User analysis completed");
     m_scopybioController->saveZoomOfUserArea();
+
+    m_options->closeMessageBox();
     emit changeZoomedPicture();
 }
