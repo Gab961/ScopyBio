@@ -1,4 +1,5 @@
 #include "image_view.h"
+#include <QMessageBox>
 #include <iostream>
 #include <QMouseEvent>
 #include <QDateTime>
@@ -96,21 +97,23 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 
             emit pipetteClicked();
         }
-        if (m_scopybioController->getListenEraserClick())
-        {
-            //TODO
-            std::cout << "ON VEUT EFFACER" << std::endl;
-        }
         if (m_scopybioController->getListenShapeClick())
         {
             QPoint pos = ev->pos();
             pos.setX(pos.x()-m_image->x());
             pos.setY(pos.y()-m_image->y());
             setNewPicture();
+
+            bool succes;
+
             if (m_scopybioController->getCircleIsSelected())
-                m_scopybioController->dessinerCercle(m_scopybioController->getCurrentImageIndex(),pos,m_image->width(),m_image->height());
+                succes = m_scopybioController->dessinerCercle(pos,m_image->width(),m_image->height());
             else
-                m_scopybioController->dessinerCarre(m_scopybioController->getCurrentImageIndex(),pos,m_image->width(),m_image->height());
+                succes = m_scopybioController->dessinerCarre(pos,m_image->width(),m_image->height());
+
+            if (!succes)
+                QMessageBox::information(this, "", "No layer selected. Please create one.");
+
             setNewPicture();
         }
         if (m_scopybioController->getListenTextClick())
@@ -122,16 +125,18 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
             //On récupère le contenu du texte à écrire avant de dessiner le texte
             emit askTextContent();
 
-            m_scopybioController->dessinerText(m_scopybioController->getCurrentImageIndex(),textContent.toStdString(),pos,m_image->width(),m_image->height());
+            bool succes = m_scopybioController->dessinerText(textContent.toStdString(),pos,m_image->width(),m_image->height());
+
+            if (!succes)
+                QMessageBox::information(this, "", "No layer selected. Please create one.");
+
             setNewPicture();
         }
         //Si on était en train de dessiner
-            else
-            {
-                //TODO Gestion min max
-                //m_scopybioController->setCurrentCalqueId(m_scopybioController->get);
-                m_scopybioController->addMemento();
-            }
+        else
+        {
+            m_scopybioController->addMemento();
+        }
     }
 }
 
@@ -151,11 +156,15 @@ void Image_View::mouseMoveEvent(QMouseEvent* ev) {
             pos.setX(pos.x()-m_image->x());
             pos.setY(pos.y()-m_image->y());
 
-            if (m_scopybioController->getListenPenClick())
-                m_scopybioController->dessinerLignePerso(m_scopybioController->getCurrentImageIndex(),origPoint,pos,m_image->width(),m_image->height(), true);
-            else
-                m_scopybioController->dessinerLignePerso(m_scopybioController->getCurrentImageIndex(),origPoint,pos,m_image->width(),m_image->height(), false);
+            bool succes;
 
+            if (m_scopybioController->getListenPenClick())
+                succes = m_scopybioController->dessinerLignePerso(origPoint,pos,m_image->width(),m_image->height(), true);
+            else
+                succes = m_scopybioController->dessinerLignePerso(origPoint,pos,m_image->width(),m_image->height(), false);
+
+            if (!succes)
+                QMessageBox::information(this, "", "No layer selected. Please create one.");
 
             setNewPicture();
             origPoint = pos;

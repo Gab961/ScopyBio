@@ -41,9 +41,9 @@ public:
     void calqueShowable(int min, int max, bool show);
     void calqueShowable(int idCalque, bool show);
     void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
-    void dessinText(int min, int max, QPoint pos1, std::string text, int fontSize, int labelWidth, int labelHeight);
-    void dessinCercle(int min, int max, QPoint origPoint, int diameter, int labelWidth, int labelHeight);
-    void dessinCarre(int min, int max, QPoint origPoint, int diameter, int labelWidth, int labelHeight);
+    void dessinText(int idCalque, QPoint pos1, std::string text, int fontSize, int labelWidth, int labelHeight);
+    void dessinCercle(int idCalque, QPoint origPoint, int diameter, int labelWidth, int labelHeight);
+    void dessinCarre(int idCalque, QPoint origPoint, int diameter, int labelWidth, int labelHeight);
     void reinitPertinenceCalque();
     void reinitUserPertinenceCalque(int width, int height);
     void reinitFaisceauCalque();
@@ -54,7 +54,7 @@ public:
     void updateHistogram();
     void updateResultat();
     void updateZoomResultat(CImg<float> zoom, std::string zoomPath);
-    void dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing);
+    void dessinLigne(int idCalque, QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing);
     void updateQuadrillage(int columns, int lines);
     void updateUserQuadrillage(int columns, int lines);
     calque getCalqueForDisplay(int min, int max);

@@ -122,7 +122,7 @@ public:
      * @param labelWidth
      * @param labelHeight
      */
-    void dessinerCercle(int imageIndex, QPoint origPoint, int labelWidth, int labelHeight);
+    bool dessinerCercle(QPoint origPoint, int labelWidth, int labelHeight);
 
     /**
      * @brief dessinerCarre
@@ -131,16 +131,17 @@ public:
      * @param labelWidth
      * @param labelHeight
      */
-    void dessinerCarre(int imageIndex, QPoint origPoint, int labelWidth, int labelHeight);
+    bool dessinerCarre(QPoint origPoint, int labelWidth, int labelHeight);
 
     /**
      * @brief dessinerLignePerso
-     * @param imageIndex
+     * @param origPoint
      * @param pos
      * @param labelWidth
      * @param labelHeight
+     * @param isDrawing
      */
-    void dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight, bool isDrawing);
+    bool dessinerLignePerso(QPoint origPoint, QPoint pos, int labelWidth, int labelHeight, bool isDrawing);
 
     /**
      * @brief dessinerText
@@ -150,7 +151,7 @@ public:
      * @param labelWidth
      * @param labelHeight
      */
-    void dessinerText(int imageIndex, std::string text, QPoint origPoint, int labelWidth, int labelHeight);
+    bool dessinerText(std::string text, QPoint origPoint, int labelWidth, int labelHeight);
 
     /**
      * @brief saveZoom Enregistre l'image zoomée depuis la sélection

@@ -214,6 +214,7 @@ bool ScopyBio_Controller::CreerNouveauCalque(int min, int max){
             return false;
         }else{
             m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
+
             return true;
         }
 //    }
@@ -223,10 +224,6 @@ bool ScopyBio_Controller::CreerNouveauCalque(int min, int max){
 //=======================
 // Dessin_Modele
 //=======================
-
-void dessinerAnnotation(int min, int max,QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
-
-}
 
 /**
  * @brief ScopyBio_Controller::dessinerFaisceau dessine un rectangle dans un calque et le créer si besoin.
@@ -254,80 +251,73 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
 
 /**
  * @brief ScopyBio_Controller::dessinerLignePerso
- * @param imageIndex
  * @param origPoint
  * @param pos
  * @param labelWidth
  * @param labelHeight
  * @param isDrawing
  */
-void ScopyBio_Controller::dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight, bool isDrawing)
-void ScopyBio_Controller::dessinerLignePerso(QPoint origPoint, QPoint pos, int labelWidth, int labelHeight)
+bool ScopyBio_Controller::dessinerLignePerso(QPoint origPoint, QPoint pos, int labelWidth, int labelHeight, bool isDrawing)
 {
     //Verifier s'il existe dans le dico
     if(!m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
-        return ;
+        return false;
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
     if (isDrawing)
-        m_gestion_calque->dessinLigne(min, max, origPoint, pos, m_dessinModel->getPenSize(), labelWidth, labelHeight, isDrawing);
+        m_gestion_calque->dessinLigne(m_gestion_calque->getCurrentCalqueId(), origPoint, pos, m_dessinModel->getPenSize(), labelWidth, labelHeight, isDrawing);
     else
-        m_gestion_calque->dessinLigne(min, max, origPoint, pos, m_dessinModel->getEraserSize(), labelWidth, labelHeight, isDrawing);
-    m_gestion_calque->dessinLigne(m_gestion_calque->getCurrentCalqueId(), origPoint, pos, labelWidth, labelHeight);
+        m_gestion_calque->dessinLigne(m_gestion_calque->getCurrentCalqueId(), origPoint, pos, m_dessinModel->getEraserSize(), labelWidth, labelHeight, isDrawing);
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
+
+    return true;
 }
 
-void ScopyBio_Controller::dessinerCercle(int imageIndex, QPoint origPoint, int labelWidth, int labelHeight)
+bool ScopyBio_Controller::dessinerCercle(QPoint origPoint, int labelWidth, int labelHeight)
 {
-    int min = imageIndex, max = imageIndex;
-    int taille = m_pileModel->getImages().size();
-
     //Verifier s'il existe dans le dico
-    if(!m_gestion_calque->existeCalque(min,max)){
-        //Si n'existe pas Creer le calque et mettre à jour le dico
-        m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
+    if(!m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
+        return false;
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
-    m_gestion_calque->dessinCercle(min, max, origPoint, m_dessinModel->getShapeSize(), labelWidth, labelHeight);
+    m_gestion_calque->dessinCercle(m_gestion_calque->getCurrentCalqueId(), origPoint, m_dessinModel->getShapeSize(), labelWidth, labelHeight);
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
+
+    return true;
 }
 
-void ScopyBio_Controller::dessinerCarre(int imageIndex, QPoint origPoint, int labelWidth, int labelHeight)
+bool ScopyBio_Controller::dessinerCarre(QPoint origPoint, int labelWidth, int labelHeight)
 {
-    int min = imageIndex, max = imageIndex;
-    int taille = m_pileModel->getImages().size();
-
     //Verifier s'il existe dans le dico
-    if(!m_gestion_calque->existeCalque(min,max)){
-        //Si n'existe pas Creer le calque et mettre à jour le dico
-        m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
+    if(!m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
+        return false;
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
-    m_gestion_calque->dessinCarre(min, max, origPoint, m_dessinModel->getShapeSize(), labelWidth, labelHeight);
+    m_gestion_calque->dessinCarre(m_gestion_calque->getCurrentCalqueId(), origPoint, m_dessinModel->getShapeSize(), labelWidth, labelHeight);
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
+
+    return true;
 }
 
-void ScopyBio_Controller::dessinerText(int imageIndex, std::string text, QPoint origPoint, int labelWidth, int labelHeight)
+bool ScopyBio_Controller::dessinerText(std::string text, QPoint origPoint, int labelWidth, int labelHeight)
 {
-    int min = imageIndex, max = imageIndex;
-    int taille = m_pileModel->getImages().size();
-
     //Verifier s'il existe dans le dico
-    if(!m_gestion_calque->existeCalque(min,max)){
-        //Si n'existe pas Creer le calque et mettre à jour le dico
-        m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
+    if(!m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
+        return false;
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
-    m_gestion_calque->dessinText(min, max, origPoint, text, m_dessinModel->getTextSize(), labelWidth, labelHeight);
+    m_gestion_calque->dessinText(m_gestion_calque->getCurrentCalqueId(), origPoint, text, m_dessinModel->getTextSize(), labelWidth, labelHeight);
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
+
+    return true;
 }
 
 void ScopyBio_Controller::saveZoom(int labelWidth, int labelHeight)

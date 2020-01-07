@@ -222,6 +222,8 @@ void gestionnaire_calque_model::creerCalque(int width, int height, int min, int 
         addInDict(min,max,taille,id);
     }
 
+    setCurrentCalqueId(id);
+
     id++;
 }
 
@@ -322,9 +324,9 @@ void gestionnaire_calque_model::dessineFaisceau(int min, int max, QPoint pos1, Q
  * @param labelWidth
  * @param labelHeight
  */
-void gestionnaire_calque_model::dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing){
+void gestionnaire_calque_model::dessinLigne(int idCalque, QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing){
 
-    int search = getCalque(min,max);
+    int search = getCalqueIndex(idCalque);
     if(search != -1){
         listOfCalque[search].dessinerLigne(pos1, pos2, brushSize, labelWidth,labelHeight, isDrawing);
     }
@@ -338,8 +340,8 @@ void gestionnaire_calque_model::dessinLigne(int min, int max, QPoint pos1, QPoin
  * @param labelWidth
  * @param labelHeight
  */
-void gestionnaire_calque_model::dessinText(int min, int max, QPoint pos1, std::string text, int fontSize, int labelWidth, int labelHeight){
-    int search = getCalque(min,max);
+void gestionnaire_calque_model::dessinText(int idCalque, QPoint pos1, std::string text, int fontSize, int labelWidth, int labelHeight){
+    int search = getCalqueIndex(idCalque);
     if(search != -1){
         listOfCalque[search].ecrireText(pos1,text,fontSize,labelWidth,labelHeight);
     }
@@ -354,9 +356,9 @@ void gestionnaire_calque_model::dessinText(int min, int max, QPoint pos1, std::s
  * @param labelWidth
  * @param labelHeight
  */
-void gestionnaire_calque_model::dessinCercle(int min, int max, QPoint origPoint, int diameter, int labelWidth, int labelHeight)
+void gestionnaire_calque_model::dessinCercle(int idCalque, QPoint origPoint, int diameter, int labelWidth, int labelHeight)
 {
-    int search = getCalque(min,max);
+    int search = getCalqueIndex(idCalque);
     if(search != -1){
         listOfCalque[search].dessinerCercle(origPoint,diameter,labelWidth,labelHeight);
     }
@@ -371,19 +373,11 @@ void gestionnaire_calque_model::dessinCercle(int min, int max, QPoint origPoint,
  * @param labelWidth
  * @param labelHeight
  */
-void gestionnaire_calque_model::dessinCarre(int min, int max, QPoint origPoint, int diameter, int labelWidth, int labelHeight)
+void gestionnaire_calque_model::dessinCarre(int idCalque, QPoint origPoint, int diameter, int labelWidth, int labelHeight)
 {
-    int search = getCalque(min,max);
-    if(search != -1){
-        listOfCalque[search].dessinerCarre(origPoint,diameter,labelWidth,labelHeight);
-    }
-}
-
-void gestionnaire_calque_model::dessinLigne(int idCalque, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
-
     int search = getCalqueIndex(idCalque);
     if(search != -1){
-        listOfCalque[search].dessinerLigne(pos1, pos2, labelWidth,labelHeight);
+        listOfCalque[search].dessinerCarre(origPoint,diameter,labelWidth,labelHeight);
     }
 }
 
