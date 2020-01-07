@@ -240,8 +240,9 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
  * @param pos
  * @param labelWidth
  * @param labelHeight
+ * @param isDrawing
  */
-void ScopyBio_Controller::dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight)
+void ScopyBio_Controller::dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight, bool isDrawing)
 {
     int min = imageIndex, max = imageIndex;
     int taille = m_pileModel->getImages().size();
@@ -253,7 +254,7 @@ void ScopyBio_Controller::dessinerLignePerso(int imageIndex, QPoint origPoint, Q
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
-    m_gestion_calque->dessinLigne(min, max, origPoint, pos, labelWidth, labelHeight);
+    m_gestion_calque->dessinLigne(min, max, origPoint, pos, labelWidth, labelHeight, isDrawing);
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }

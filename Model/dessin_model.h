@@ -91,12 +91,13 @@ public:
      * @brief dessinerLigne
      * @param pos1
      * @param pos2
+     * @param isDrawing
      * @param labelWidth
      * @param labelHeight
      * @param currentPicture
      * @return
      */
-    CImg<float> dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture);
+    CImg<float> dessinerLigne(QPoint pos1, QPoint pos2, bool isDrawing, int labelWidth, int labelHeight, CImg<float> & currentPicture);
 
     /**
      * @brief dessinerCarre

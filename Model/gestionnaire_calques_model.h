@@ -46,7 +46,7 @@ public:
     void reinitFaisceauCalque();
     void manageNewUserAnalyse(int pertinence, QPoint pos1, QPoint pos2);
     void manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2);
-    void dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, bool isDrawing);
     void updateCalqueVert(int min, int max, int taille);
     void updateHistogram(int min, int max, int taille);
     void updateQuadrillage(int columns, int lines);

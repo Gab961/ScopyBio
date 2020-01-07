@@ -171,9 +171,10 @@ CImg<float> dessin_model::dessinerRond(QPoint pos, int pertinence, CImg<float> &
 }
 
 
-CImg<float> dessin_model::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
+CImg<float> dessin_model::dessinerLigne(QPoint pos1, QPoint pos2, bool isDrawing, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
-    const unsigned char color[] = { 255,0,0,255 };
+    unsigned char color[] = { 255,0,0,255 };
+    unsigned char eraseColor[] = { 0,0,0,0 };
 
     int x1 = pos1.x() * currentPicture.width() / labelWidth;
     int y1 = pos1.y() * currentPicture.height() / labelHeight;
@@ -189,7 +190,10 @@ CImg<float> dessin_model::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth
     if (y2 > currentPicture.height())
         y2 = currentPicture.height();
 
-    currentPicture.draw_line(x1,y1,x2,y2,color,1,~0U);
+    if (isDrawing)
+        currentPicture.draw_line(x1,y1,x2,y2,color,1,~0U);
+    else
+        currentPicture.draw_line(x1,y1,x2,y2,eraseColor,1,~0U);
 
     return currentPicture;
 }

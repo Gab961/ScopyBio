@@ -139,7 +139,7 @@ public:
      * @param labelWidth
      * @param labelHeight
      */
-    void dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight);
+    void dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight, bool isDrawing);
 
     /**
      * @brief dessinerText

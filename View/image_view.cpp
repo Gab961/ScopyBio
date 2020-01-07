@@ -51,7 +51,7 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
     origPoint.setX(origPoint.x()-m_image->x());
     origPoint.setY(origPoint.y()-m_image->y());
 
-    if (listenPenClick)
+    if (listenPenClick || m_scopybioController->getListenEraserClick())
         firstPenDraw = true;
 }
 
@@ -108,13 +108,9 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
             pos.setY(pos.y()-m_image->y());
             setNewPicture();
             if (m_scopybioController->getCircleIsSelected())
-            {
                 m_scopybioController->dessinerCercle(m_scopybioController->getCurrentImageIndex(),pos,m_image->width(),m_image->height());
-            }
             else
-            {
                 m_scopybioController->dessinerCarre(m_scopybioController->getCurrentImageIndex(),pos,m_image->width(),m_image->height());
-            }
             setNewPicture();
         }
         if (m_scopybioController->getListenTextClick())
@@ -140,7 +136,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 }
 
 void Image_View::mouseMoveEvent(QMouseEvent* ev) {
-    if (m_scopybioController->getListenPenClick())
+    if (m_scopybioController->getListenPenClick() || m_scopybioController->getListenEraserClick())
     {
         if (firstPenDraw)
         {
@@ -155,7 +151,12 @@ void Image_View::mouseMoveEvent(QMouseEvent* ev) {
             pos.setX(pos.x()-m_image->x());
             pos.setY(pos.y()-m_image->y());
 
-            m_scopybioController->dessinerLignePerso(m_scopybioController->getCurrentImageIndex(),origPoint,pos,m_image->width(),m_image->height());
+            if (m_scopybioController->getListenPenClick())
+                m_scopybioController->dessinerLignePerso(m_scopybioController->getCurrentImageIndex(),origPoint,pos,m_image->width(),m_image->height(), true);
+            else
+                m_scopybioController->dessinerLignePerso(m_scopybioController->getCurrentImageIndex(),origPoint,pos,m_image->width(),m_image->height(), false);
+
+
             setNewPicture();
             origPoint = pos;
         }
