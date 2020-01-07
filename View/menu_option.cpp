@@ -278,7 +278,11 @@ void menu_option::launchAnalysisFromSelection()
     m_scopybioController->setAnalysisTypeIsUser(true);
     emit askForUserAnalyse();
 
-    QMessageBox::information(this, "", "Local analysis processing");
+    m_processMsg = new QMessageBox();
+    m_processMsg->setText("Local analysis processing");
+    m_processMsg->setStandardButtons(QMessageBox::NoButton);
+    m_processMsg->exec();
+    m_processMsg->setEnabled(false);
 }
 
 void menu_option::launchAnalysis()
@@ -293,7 +297,11 @@ void menu_option::launchAnalysis()
     emit askFullAnalysis();
     // TODO set precision
 
-    QMessageBox::information(this, "", "Full analysis processing");
+    m_processMsg = new QMessageBox();
+    m_processMsg->setText("Full analysis processing");
+    m_processMsg->setStandardButtons(QMessageBox::NoButton);
+    m_processMsg->exec();
+    m_processMsg->setEnabled(false);
 }
 
 void menu_option::onPenSizeValueChanged(int value) {
@@ -383,6 +391,10 @@ void menu_option::onCreateLayer() {
         QMessageBox::information(this, "", "Layer(s) created successfully");
     else
         QMessageBox::information(this, "", "Error, values must be non-negative or less than the number of images in the stack.");
+}
+
+void menu_option::closeMessageBox() {
+    m_processMsg->hide();
 }
 
 

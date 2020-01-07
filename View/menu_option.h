@@ -7,6 +7,7 @@
 #include <QSlider>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QMessageBox>
 
 class ScopyBio_Controller;
 
@@ -18,6 +19,7 @@ class menu_option: public QGroupBox
         menu_option(QWidget *parent, ScopyBio_Controller *scopybioController);
         void createView();
         void clearLayout(QLayout* layout, bool deleteWidgets = true);
+        void closeMessageBox();
 
     signals:
         void refreshMainDisplay();
@@ -49,6 +51,8 @@ class menu_option: public QGroupBox
         void onCreateLayer();
 
     private:
+        QMessageBox *m_processMsg;
+
         QGridLayout *m_gridOptions;
         QLabel *m_message;
 

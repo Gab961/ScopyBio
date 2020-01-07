@@ -215,15 +215,12 @@ bool ScopyBio_Controller::CreerNouveauCalque(int min, int max){
 //        return false;
 //    } else {
         if (min < 0 || max < 0 || min >= taille || max >= taille) {
-            std::cout << "second false" << std::endl;
             return false;
         } else {
-            std::cout << "true" << std::endl;
             m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
             return true;
         }
 //    }
-    std::cout << "last false" << std::endl;
     return false;
 }
 
