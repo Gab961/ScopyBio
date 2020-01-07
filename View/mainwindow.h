@@ -45,6 +45,7 @@ public slots:
     void undo();
     void redo();
     void saveAs();
+    void saveCurrentDisplay();
     void aboutUs();
     void howToUse();
     void showFirstInPile();
@@ -53,7 +54,7 @@ public slots:
     void startFullAnalysis();
     void userAnalysisEnded();
     void fullAnalysisEnded();
-    void updateImageView();
+    void recreateMainDisplay();
 
 protected:
     void closeEvent(QCloseEvent* e) override;
@@ -90,6 +91,7 @@ private:
     QAction *m_loadFile;
     QAction *m_saveFile;
     QAction *m_saveAs;
+    QAction *m_saveCurrentDisplay;
     QAction *m_aboutUs;
     QAction *m_howToUse;
     QAction *m_compare;

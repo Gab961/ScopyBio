@@ -40,6 +40,11 @@ bool ScopyBio_Controller::save(){
     return m_saveModel->save(m_gestion_calque->getAllCalques(), m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount());
 }
 
+void ScopyBio_Controller::saveCurrentDisplay(std::string path)
+{
+    m_saveModel->saveCurrentDisplay(path,m_dessinModel->getMainDisplayPath());
+}
+
 
 void ScopyBio_Controller::changeSavePaths(std::string newSavePath)
 {
@@ -75,6 +80,11 @@ void ScopyBio_Controller::openProject(std::string pathProject){
     }
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
+}
+
+bool ScopyBio_Controller::is24Bits()
+{
+    return m_pileModel->is24Bits();
 }
 
 void ScopyBio_Controller::loadNewTiffFile(std::string filename)
@@ -152,6 +162,12 @@ void ScopyBio_Controller::setCurrentCalqueId(int newId){
     m_gestion_calque->setCurrentCalqueId(newId);
 }
 
+void ScopyBio_Controller::setCurrentCalqueIdMinMax(int min, int max){
+    int currentId = m_gestion_calque->getCalqueForDisplay(min,max).getId();
+
+    m_gestion_calque->setCurrentCalqueId(currentId);
+}
+
 std::vector<int> ScopyBio_Controller::getCalquesIdFromImage(int image) {
     return m_gestion_calque->getListOfCalqueFromImage(image);
 }
@@ -162,11 +178,8 @@ bool ScopyBio_Controller::isHidden(int id) {
 }
 
 void ScopyBio_Controller::undoAction(){
-    std::cout << "undoAction" << std::endl;
-    std::cout << "Id calque" << m_gestion_calque->getCurrentCalqueId() << std::endl;
     //Verifier s'il existe dans le dico
     if(m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
-        std::cout << "calque Existe -> undo" << std::endl;
         //Si n'existe pas Creer le calque et mettre à jour le dico
         m_gestion_calque->undo();
     }
@@ -186,6 +199,28 @@ void ScopyBio_Controller::redoAction(){
 void ScopyBio_Controller::addMemento()
 {
     m_gestion_calque->addMemento();
+}
+
+bool ScopyBio_Controller::CreerNouveauCalque(int min, int max){
+    int taille = m_pileModel->getImages().size();
+
+    if(min > max){
+        int tmp = min;
+        min = max;
+        max = tmp;
+    }
+
+    if(m_gestion_calque->existeCalque(min, max)){
+        return false;
+    }else{
+        if(min < 0 || max < 0 || min >= taille || max >= taille){
+            return false;
+        }else{
+            m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
+            return true;
+        }
+    }
+    return false;
 }
 
 //=======================
@@ -287,21 +322,7 @@ void ScopyBio_Controller::saveAsMainDisplay(int i)
  */
 void ScopyBio_Controller::applyGreenFilter()
 {
-    //m_gestion_calque->afficheCalques();
-    // -3 = filtre vert
-    // Normalement le calque vert est déjà créé, cette fonction met juste à jour le dictionnaire de calque. il doit y avoir une fonction qui met à jour la view.
-    // /!\ Bug parce que le remove est fait dans une autre fonction
-    int min = -3, max = -3;
-    int taille = m_pileModel->getImages().size();
-    if(!m_gestion_calque->existeCalque(min,max)){
-        //Si n'existe pas Creer le calque et mettre à jour le dico
-        std::cout << "Calque vert n'existe pas" << std::endl;
-        m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
-    }
-
-    m_gestion_calque->updateCalqueVert(min,max,taille);
-    //      gestion_calque.afficheDic();
-
+    m_gestion_calque->updateCalqueVert();
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
@@ -314,8 +335,19 @@ void ScopyBio_Controller::applyGreenFilter()
 
 void ScopyBio_Controller::applyHistogramFilter()
 {
-    m_gestion_calque->updateHistogram(-4,-4,m_pileModel->getImages().size());
+    m_gestion_calque->updateHistogram();
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
+}
+
+void ScopyBio_Controller::applyResultatFilter()
+{
+    m_gestion_calque->updateResultat();
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
+}
+
+void ScopyBio_Controller::applyZoomResultatFilter(){
+    CImg<float> zoom = m_dessinModel->saveZoomFromArea(m_analyseModel->getTopLeftPointOfCurrentArea(),m_analyseModel->getBottomRightPointOfCurrentArea(),m_pileModel->getCurrentImage());
+    m_gestion_calque->updateZoomResultat(zoom,m_dessinModel->getZoomDisplayPath());
 }
 
 void ScopyBio_Controller::manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView)

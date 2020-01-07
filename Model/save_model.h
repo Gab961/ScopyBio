@@ -20,6 +20,7 @@ public:
     void saveCalques(std::vector<calque> calques);
     void saveJsonFile(std::vector<calque> calques, const std::vector<Resultat> &resultats, int row, int col);
     bool save(std::vector<calque> _calques,const std::vector<Resultat> & resultats, int row, int col);
+    void saveCurrentDisplay(std::string savePath, std::string currentDisplayPath);
     void save_as(std::string path, std::string fileName, std::vector<calque> _calques, std::vector<Resultat> resultats, int row, int col);
     std::string getFileName(std::string filePath, bool withExtension, char seperator);
     void changeSavePaths(std::string newSavePath);

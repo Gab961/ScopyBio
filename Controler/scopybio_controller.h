@@ -53,6 +53,12 @@ public:
     CImg<float> getCurrentTiff();
 
     /**
+     * @brief is24Bits Retourne vrai si l'image est de type 24 bits
+     * @return
+     */
+    bool is24Bits();
+
+    /**
      * @brief getIconFilenames Récupère la liste des tous les fichiers enregistrés pour la pile
      * @return
      */
@@ -93,10 +99,11 @@ public:
     void removeCalque(int id);
     void removeCalque(int min, int max);
     void setCurrentCalqueId(int newId);
-
+    void setCurrentCalqueIdMinMax(int min, int max);
     std::vector<int> getCalquesIdFromImage(int image);
 
     bool isHidden(int id);
+    bool CreerNouveauCalque(int min, int max);
 
     /***********************************************************************************/
     /******************************* Partie dessin_model *******************************/
@@ -161,6 +168,10 @@ public:
      * @brief applyHistogramFilter Applique le contraste à l'ensemble des images
      */
     void applyHistogramFilter();
+
+    void applyResultatFilter();
+
+    void applyZoomResultatFilter();
 
     /**
      * @brief removeHistogramFilter Supprime le contraste à l'ensemble des images
@@ -346,6 +357,12 @@ public:
      * @param path
      */
     void save_as(std::string path);
+
+    /**
+     * @brief saveCurrentDisplay
+     * @param path
+     */
+    void saveCurrentDisplay(std::string path);
 
     /**
      * @brief save

@@ -63,7 +63,7 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
  */
 void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 {
-    if (m_scopybioController->fileReady())
+    if (m_scopybioController->fileReady() && m_scopybioController->is24Bits())
     {
         //Si on est pas en train de dessiner ni de choisir avec la pipette
         if (!listenPenClick && !m_scopybioController->getPipetteClick())
@@ -88,30 +88,27 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
                 emit getDataFromArea(origPoint, widthOfLabel, heightOfLabel);
             }
         }
-    }
+        //Si on sélectionnait une couleur avec la pipette
+        else if (m_scopybioController->getPipetteClick())
+            {
+                m_scopybioController->setPipetteClick(false);
+                m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
 
-    //Si on sélectionnait une couleur avec la pipette
-    if (m_scopybioController->getPipetteClick())
-    {
-        m_scopybioController->setPipetteClick(false);
-        m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
-
-        emit pipetteClicked();
+                emit pipetteClicked();
+            }
+        //Si on était en train de dessiner
+            else
+            {
+                //TODO Gestion min max
+                m_scopybioController->setCurrentCalqueIdMinMax(m_scopybioController->getCurrentImageIndex(),m_scopybioController->getCurrentImageIndex());
+                m_scopybioController->addMemento();
+            }
     }
-    //Si on était en train de dessiner
-    else
-    {
-        //TODO Gestion min max
-        m_scopybioController->setCurrentCalqueId(m_scopybioController->getCurrentImageIndex());
-        m_scopybioController->addMemento();
-    }
-
 }
 
 void Image_View::mouseMoveEvent(QMouseEvent* ev) {
     if (listenPenClick)
     {
-
         if (firstPenDraw)
         {
             firstPenDraw = false;

@@ -4,7 +4,7 @@
 #include "calque.h"
 
 
-calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id),canShow(true), numList(0), highWater(0)
+calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id),canShow(true), numList(-1), highWater(0)
 {
     addMemento();
 }
@@ -62,9 +62,7 @@ void calque::undo()
         return ;
     }
     numList--;
-    std::cout << "numList = " << numList << " Highwater = " << highWater << std::endl;
     reinstateMemento(numList);
-    _calque.save_png("./tmp/imageactuel.png");
 }
 
 void calque::redo()
@@ -76,7 +74,6 @@ void calque::redo()
     numList++;
     reinstateMemento(numList);
     std::cout << "numList = " << numList << " Highwater = " << highWater << std::endl;
-    _calque.save_png("./tmp/imageactuel.png");
 }
 
 void calque::addMemento(){
