@@ -60,57 +60,61 @@ void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Res
 
     Json::Value value;
 
-    Json::Value calquesValue;
 
-    for(calque i : calques){
-        if(i.getIntervalMin() >= -1){
-            Json::Value calqueValue;
-            calqueValue["min"] = i.getIntervalMin();
-            calqueValue["max"] = i.getIntervalMax();
-            calqueValue["id"] = i.getId();
-            std::string pathcalque = saveCalquesPath + separator + "calque" + std::to_string(i.getId());
-            calqueValue["path"] = pathcalque.c_str();
+    if(calques.size() != 0){
 
-            std::string nom = "calque" + std::to_string(i.getId());
-            calquesValue[nom.c_str()] = calqueValue;
+        Json::Value calquesValue;
+
+        for(calque i : calques){
+            if(i.getIntervalMin() >= -1){
+                Json::Value calqueValue;
+                calqueValue["min"] = i.getIntervalMin();
+                calqueValue["max"] = i.getIntervalMax();
+                calqueValue["id"] = i.getId();
+                std::string pathcalque = saveCalquesPath + separator + "calque" + std::to_string(i.getId());
+                calqueValue["path"] = pathcalque.c_str();
+
+                std::string nom = "calque" + std::to_string(i.getId());
+                calquesValue[nom.c_str()] = calqueValue;
+            }
         }
+
+        value["calques"] = calquesValue;
     }
 
-    value["calques"] = calquesValue;
+    if(resultats.size() != 0){
+        for(Resultat i : resultats){
+            //Pertinence
+            Json::Value resultValue;
+            resultValue["pertinence"] = i.getPertinence();
+
+            //Top left Point
+            Json::Value arrayTopPoint;
+            arrayTopPoint.append(i.getTopLeftPoint().x());
+            arrayTopPoint.append(i.getTopLeftPoint().y());
+            resultValue["topLeftPoint"] = arrayTopPoint;
+
+            //Bottom right Point
+            Json::Value arrayBotPoint;
+            arrayBotPoint.append(i.getBottomRightPoint().x());
+            arrayBotPoint.append(i.getBottomRightPoint().y());
+            resultValue["bottomRightPoint"] = arrayBotPoint;
+
+            //Array
+            Json::Value arrayV;
+            //int index = 0;
+            for (auto element: i.getResults()) {
+                arrayV.append(element);
+            }
+            resultValue["resultats"] = arrayV;
 
 
-    for(Resultat i : resultats){
-        //Pertinence
-        Json::Value resultValue;
-        resultValue["pertinence"] = i.getPertinence();
-
-        //Top left Point
-        Json::Value arrayTopPoint;
-        arrayTopPoint.append(i.getTopLeftPoint().x());
-        arrayTopPoint.append(i.getTopLeftPoint().y());
-        resultValue["topLeftPoint"] = arrayTopPoint;
-
-        //Bottom right Point
-        Json::Value arrayBotPoint;
-        arrayBotPoint.append(i.getBottomRightPoint().x());
-        arrayBotPoint.append(i.getBottomRightPoint().y());
-        resultValue["bottomRightPoint"] = arrayBotPoint;
-
-        //Array
-        Json::Value arrayV;
-        //int index = 0;
-        for (auto element: i.getResults()) {
-            arrayV.append(element);
+            value["results"]["data"].append(resultValue);
         }
-        resultValue["resultats"] = arrayV;
 
-
-        value["results"]["data"].append(resultValue);
+        value["results"]["rowAmount"] = row;
+        value["results"]["colAmount"] = col;
     }
-
-    value["results"]["rowAmount"] = row;
-    value["results"]["colAmount"] = col;
-
 
     std::ofstream outfile(_filename);
     //    outfile.open(_filename, std::ofstream::out | std::ofstream::trunc);
