@@ -47,10 +47,23 @@ CImg<float> dessin_model::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWi
     if (y2 > currentPicture.height())
         y2 = currentPicture.height();
 
+    std::cout << "Apres changement" << std::endl;
+    std::cout << "X1 = " << x1 << ", Y1 = " << y1 << std::endl;
+    std::cout << "X2 = " << x2 << ", Y2 = " << y2 << std::endl;
+
     //Masque gris pour la zone non sélectionnée
     cimg_forXY(currentPicture,x,y) {
-        //Si on est en dehors du rectangle du faisceau
-        if (x<x1 || x>x2 || y<y1 || y>y2)
+
+        if (
+                //Si on est à gauche
+                ((x1<x2 && x<x1) || (x2<x1) && (x<x2)) ||
+                //Si on est à droite
+                ((x1<x2 && x>x2) || (x2<x1) && (x>x1)) ||
+                //Si on est en haut
+                ((y1<y2 && y<y1) || (y2<y1) && (y<y2)) ||
+                //Si on est en bas
+                ((y1<y2 && y>y2) || (y2<y1) && (y>y1))
+                )
             currentPicture.draw_point(x,y,colorMasque,1);
     }
 
@@ -404,7 +417,7 @@ void dessin_model::drawThickLine(CImg<float>& image, const int x1, const int y1,
     points(3, 1) = y2 + y_adj;
 
     if (isDrawing)
-    image.draw_polygon(points, color);
+        image.draw_polygon(points, color);
     else
         image.draw_polygon(points, eraseColor);
 }
