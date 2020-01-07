@@ -21,10 +21,8 @@ void ScopyBio_Controller::DisplayResultImage(int idImage){
 }
 
 void ScopyBio_Controller::afficherCalque(int id, bool aff) {
-    int min = m_gestion_calque->getCalqueForDisplay(id).getIntervalMin(),
-            max = m_gestion_calque->getCalqueForDisplay(id).getIntervalMax();
-    if(m_gestion_calque->existeCalque(min, max)){
-        m_gestion_calque->calqueShowable(min,max,aff);
+    if(m_gestion_calque->existeCalque(id)){
+        m_gestion_calque->calqueShowable(id,aff);
     }
 }
 
@@ -150,11 +148,10 @@ int ScopyBio_Controller::getCurrentImageIndex()
 //=======================
 
 void ScopyBio_Controller::removeCalque(int id){
+    int min = m_gestion_calque->getCalqueForDisplay(id).getIntervalMin(),
+            max = m_gestion_calque->getCalqueForDisplay(id).getIntervalMax();
     std::cout << "Control id = " << id << std::endl;
-    int min = m_gestion_calque->getCalqueForDisplay(id).getIntervalMin(), max=m_gestion_calque->getCalqueForDisplay(id).getIntervalMax();
-
-    std::cout << "min = " << min << " max = " << max << std::endl;
-    m_gestion_calque->removeCalques(min, max);
+    m_gestion_calque->removeCalques(id);
     m_gestion_calque->removeFromDict(min,max,id);
 }
 
@@ -201,6 +198,28 @@ void ScopyBio_Controller::addMemento()
     m_gestion_calque->addMemento();
 }
 
+bool ScopyBio_Controller::CreerNouveauCalque(int min, int max){
+    int taille = m_pileModel->getImages().size();
+
+    if(min > max){
+        int tmp = min;
+        min = max;
+        max = tmp;
+    }
+
+//    if(m_gestion_calque->existeCalque(min, max)){
+//        return false;
+//    }else{
+        if(min < 0 || max < 0 || min >= taille || max >= taille){
+            return false;
+        }else{
+            m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
+            return true;
+        }
+//    }
+    return false;
+}
+
 //=======================
 // Dessin_Modele
 //=======================
@@ -243,14 +262,11 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
  * @param isDrawing
  */
 void ScopyBio_Controller::dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight, bool isDrawing)
+void ScopyBio_Controller::dessinerLignePerso(QPoint origPoint, QPoint pos, int labelWidth, int labelHeight)
 {
-    int min = imageIndex, max = imageIndex;
-    int taille = m_pileModel->getImages().size();
-
     //Verifier s'il existe dans le dico
-    if(!m_gestion_calque->existeCalque(min,max)){
-        //Si n'existe pas Creer le calque et mettre à jour le dico
-        m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
+    if(!m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
+        return ;
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
@@ -258,6 +274,7 @@ void ScopyBio_Controller::dessinerLignePerso(int imageIndex, QPoint origPoint, Q
         m_gestion_calque->dessinLigne(min, max, origPoint, pos, m_dessinModel->getPenSize(), labelWidth, labelHeight, isDrawing);
     else
         m_gestion_calque->dessinLigne(min, max, origPoint, pos, m_dessinModel->getEraserSize(), labelWidth, labelHeight, isDrawing);
+    m_gestion_calque->dessinLigne(m_gestion_calque->getCurrentCalqueId(), origPoint, pos, labelWidth, labelHeight);
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
@@ -355,21 +372,7 @@ void ScopyBio_Controller::saveAsMainDisplay(int i)
  */
 void ScopyBio_Controller::applyGreenFilter()
 {
-    //m_gestion_calque->afficheCalques();
-    // -3 = filtre vert
-    // Normalement le calque vert est déjà créé, cette fonction met juste à jour le dictionnaire de calque. il doit y avoir une fonction qui met à jour la view.
-    // /!\ Bug parce que le remove est fait dans une autre fonction
-    int min = -3, max = -3;
-    int taille = m_pileModel->getImages().size();
-    if(!m_gestion_calque->existeCalque(min,max)){
-        //Si n'existe pas Creer le calque et mettre à jour le dico
-        std::cout << "Calque vert n'existe pas" << std::endl;
-        m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
-    }
-
-    m_gestion_calque->updateCalqueVert(min,max,taille);
-    //      gestion_calque.afficheDic();
-
+    m_gestion_calque->updateCalqueVert();
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
@@ -382,8 +385,19 @@ void ScopyBio_Controller::applyGreenFilter()
 
 void ScopyBio_Controller::applyHistogramFilter()
 {
-    m_gestion_calque->updateHistogram(-4,-4,m_pileModel->getImages().size());
+    m_gestion_calque->updateHistogram();
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
+}
+
+void ScopyBio_Controller::applyResultatFilter()
+{
+    m_gestion_calque->updateResultat();
+    DisplayResultImage(m_pileModel->getCurrentImageIndex());
+}
+
+void ScopyBio_Controller::applyZoomResultatFilter(){
+    CImg<float> zoom = m_dessinModel->saveZoomFromArea(m_analyseModel->getTopLeftPointOfCurrentArea(),m_analyseModel->getBottomRightPointOfCurrentArea(),m_pileModel->getCurrentImage());
+    m_gestion_calque->updateZoomResultat(zoom,m_dessinModel->getZoomDisplayPath());
 }
 
 void ScopyBio_Controller::manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView)

@@ -126,12 +126,12 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
             setNewPicture();
         }
         //Si on était en train de dessiner
-        if (m_scopybioController->getListenPenClick())
-        {
-            //TODO Gestion min max
-            m_scopybioController->setCurrentCalqueIdMinMax(m_scopybioController->getCurrentImageIndex(),m_scopybioController->getCurrentImageIndex());
-            m_scopybioController->addMemento();
-        }
+            else
+            {
+                //TODO Gestion min max
+                //m_scopybioController->setCurrentCalqueId(m_scopybioController->get);
+                m_scopybioController->addMemento();
+            }
     }
 }
 

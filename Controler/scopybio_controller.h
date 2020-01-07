@@ -103,6 +103,7 @@ public:
     std::vector<int> getCalquesIdFromImage(int image);
 
     bool isHidden(int id);
+    bool CreerNouveauCalque(int min, int max);
 
     /***********************************************************************************/
     /******************************* Partie dessin_model *******************************/
@@ -195,6 +196,10 @@ public:
      * @brief applyHistogramFilter Applique le contraste à l'ensemble des images
      */
     void applyHistogramFilter();
+
+    void applyResultatFilter();
+
+    void applyZoomResultatFilter();
 
     /**
      * @brief removeHistogramFilter Supprime le contraste à l'ensemble des images

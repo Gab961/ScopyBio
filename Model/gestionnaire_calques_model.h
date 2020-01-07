@@ -27,6 +27,7 @@ public:
     void initGlobalCalques(int _pileWidth, int _pileHeight);
 
     void saveTmpforDisplay(int min, int max);
+    void saveTmpforDisplay(int idCalque);
 
     bool existeCalque(int min, int max);
     bool existeCalque(int id);
@@ -36,7 +37,9 @@ public:
     int getCalqueIndex(int id);
     void addCalques(std::vector<calque> calques, int taille);
     void removeCalques(int min, int max);
+    void removeCalques(int idCalque);
     void calqueShowable(int min, int max, bool show);
+    void calqueShowable(int idCalque, bool show);
     void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinText(int min, int max, QPoint pos1, std::string text, int fontSize, int labelWidth, int labelHeight);
     void dessinCercle(int min, int max, QPoint origPoint, int diameter, int labelWidth, int labelHeight);
@@ -46,9 +49,12 @@ public:
     void reinitFaisceauCalque();
     void manageNewUserAnalyse(int pertinence, QPoint pos1, QPoint pos2);
     void manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2);
+    void dessinLigne(int idCalque, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void updateCalqueVert();
+    void updateHistogram();
+    void updateResultat();
+    void updateZoomResultat(CImg<float> zoom, std::string zoomPath);
     void dessinLigne(int min, int max, QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing);
-    void updateCalqueVert(int min, int max, int taille);
-    void updateHistogram(int min, int max, int taille);
     void updateQuadrillage(int columns, int lines);
     void updateUserQuadrillage(int columns, int lines);
     calque getCalqueForDisplay(int min, int max);
@@ -92,6 +98,8 @@ protected:
     int id;//Permet de créer des calques avec un identifiant unique.
     bool isGreen; // Pour savoir s'il faut afficher le calque vert ou non
     bool isHistogram; //Pour savoir s'il faut afficher le calque contraste ou non
+    bool isResultat;
+    bool isZoomResultat;
     std::string pathOfHistogramSave = "tmp/histogram.bmp";
     int idPertinenceCalque;
     int idUserPertinenceCalque;
