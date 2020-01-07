@@ -20,6 +20,8 @@ signals:
 public:
     ScopyBio_Controller();
 
+    void reinitAllModels();
+
     /** Partie affichage **/
     void DisplayResultImage(int idImage);
     void afficherCalque(int id, bool);
