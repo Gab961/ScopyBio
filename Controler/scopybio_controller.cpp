@@ -267,15 +267,11 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
  * @param labelWidth
  * @param labelHeight
  */
-void ScopyBio_Controller::dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight)
+void ScopyBio_Controller::dessinerLignePerso(QPoint origPoint, QPoint pos, int labelWidth, int labelHeight)
 {
-    int min = imageIndex, max = imageIndex;
-    int taille = m_pileModel->getImages().size();
-
     //Verifier s'il existe dans le dico
-    if(!m_gestion_calque->existeCalque(min,max)){
-        //Si n'existe pas Creer le calque et mettre à jour le dico
-        m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
+    if(!m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
+        return ;
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
