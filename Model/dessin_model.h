@@ -217,6 +217,8 @@ public:
     void setListenShapeClick(bool newValue);
     bool getListenTextClick() const;
     void setListenTextClick(bool newValue);
+    bool getListenSelectionClick() const;
+    void setListenSelectionClick(bool newValue);
 
     /**
      * @brief getZoomReady Vrai si il existe une image dans le zoom display
@@ -258,6 +260,7 @@ private:
     bool listenPenClick;
     bool listenShapeClick;
     bool listenTextClick;
+    bool listenSelectionClick;
     int whiteColor;
 
     int penSize;

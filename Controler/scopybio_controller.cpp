@@ -414,6 +414,8 @@ bool ScopyBio_Controller::getPipetteClick()
     return m_dessinModel->getListenPipetteClick();
 }
 
+bool ScopyBio_Controller::getListenSelectionClick() const { return m_dessinModel->getListenSelectionClick(); }
+void ScopyBio_Controller::setListenSelectionClick(bool newValue) { m_dessinModel->setListenSelectionClick(newValue); }
 bool ScopyBio_Controller::getListenPenClick() const { return m_dessinModel->getListenPenClick(); }
 void ScopyBio_Controller::setListenPenClick(bool newValue) { m_dessinModel->setListenPenClick(newValue); }
 bool ScopyBio_Controller::getListenEraserClick() const { return  m_dessinModel->getListenEraserClick(); }

@@ -76,13 +76,17 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
             //Si c'est un clic long
             if (temps > TEMPS_CLIC_LONG)
             {
-                secondPoint = ev->pos();
+                //Si on veut faire une selection
+                if (m_scopybioController->getListenSelectionClick())
+                {
+                    secondPoint = ev->pos();
 
-                secondPoint.setX(secondPoint.x()-m_image->x());
-                secondPoint.setY(secondPoint.y()-m_image->y());
+                    secondPoint.setX(secondPoint.x()-m_image->x());
+                    secondPoint.setY(secondPoint.y()-m_image->y());
 
-                if (!(origPoint.x() == secondPoint.x() && origPoint.y() == secondPoint.y()))
-                    emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
+                    if (!(origPoint.x() == secondPoint.x() && origPoint.y() == secondPoint.y()))
+                        emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
+                }
             }
             else
             {
@@ -97,6 +101,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 
             emit pipetteClicked();
         }
+        //Si on veut dessiner une forme
         if (m_scopybioController->getListenShapeClick())
         {
             QPoint pos = ev->pos();
@@ -116,6 +121,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 
             setNewPicture();
         }
+        //Si on veut écrire un texte
         if (m_scopybioController->getListenTextClick())
         {
             QPoint pos = ev->pos();
@@ -132,8 +138,8 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 
             setNewPicture();
         }
-        //Si on était en train de dessiner
-        else
+        //Si on dessine au craton
+        if (m_scopybioController->getListenPenClick())
         {
             m_scopybioController->addMemento();
         }

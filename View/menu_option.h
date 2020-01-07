@@ -36,6 +36,7 @@ class menu_option: public QGroupBox
         void filters();
         void analysis();
         void newLayer();
+        void selection();
         void launchAnalysis();
         void onPenSizeValueChanged(int value);
         void onShapeSizeValueChanged(int value);
@@ -100,6 +101,9 @@ class menu_option: public QGroupBox
         // Pipette view
         QLabel *m_pipette;
 
+        // Select view
+        QLabel *m_select;
+
         // Filters view
         QGridLayout *m_gridFilter;
         QCheckBox *m_histogramEqualization;
@@ -142,4 +146,9 @@ class menu_option: public QGroupBox
 
         bool analysisPanelActive;
         bool activateUserAnalyse;
+        bool penIsActive;
+        bool eraserIsActive;
+        bool textIsActive;
+        bool shapesIsActive;
+        bool selectIsActive;
 };

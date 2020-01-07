@@ -5,7 +5,7 @@
 
 #include "scopybio_controller.h"
 
-menu_option::menu_option(QWidget *parent, ScopyBio_Controller *scopybioController): m_scopybioController(scopybioController), analysisPanelActive(false), activateUserAnalyse(false)
+menu_option::menu_option(QWidget *parent, ScopyBio_Controller *scopybioController): m_scopybioController(scopybioController), analysisPanelActive(false), activateUserAnalyse(false), penIsActive(false)
 {
     createView();
 
@@ -34,7 +34,17 @@ void menu_option::createView()
 }
 
 void menu_option::pen() {
-    m_scopybioController->setListenPenClick(true);
+    //Gestion de l'activation des boutons
+    shapesIsActive = false;
+    eraserIsActive = false;
+    selectIsActive = false;
+    textIsActive = false;
+    if (penIsActive)
+        penIsActive = false;
+    else
+        penIsActive = true;
+    m_scopybioController->setListenPenClick(penIsActive);
+
     clearLayout(m_gridOptions);
 
     // Pen view
@@ -57,7 +67,18 @@ void menu_option::pen() {
 }
 
 void menu_option::shapes() {
-    m_scopybioController->setListenShapeClick(true);
+    penIsActive = false;
+    eraserIsActive = false;
+    textIsActive = false;
+    selectIsActive = false;
+
+    if (shapesIsActive)
+        shapesIsActive = false;
+    else
+        shapesIsActive = true;
+
+    m_scopybioController->setListenShapeClick(shapesIsActive);
+
     clearLayout(m_gridOptions);
 
     // Shape view
@@ -100,7 +121,17 @@ void menu_option::shapes() {
 }
 
 void menu_option::text() {
-    m_scopybioController->setListenTextClick(true);
+    //Gestion de l'activation des boutons
+    penIsActive = false;
+    shapesIsActive = false;
+    eraserIsActive = false;
+    selectIsActive = false;
+    if (textIsActive)
+        textIsActive = false;
+    else
+        textIsActive = true;
+    m_scopybioController->setListenTextClick(textIsActive);
+
     clearLayout(m_gridOptions);
 
     //Text
@@ -129,7 +160,17 @@ void menu_option::text() {
 }
 
 void menu_option::eraser() {
-    m_scopybioController->setListenEraserClick(true);
+    //Gestion de l'activation des boutons
+    penIsActive = false;
+    shapesIsActive = false;
+    selectIsActive = false;
+    textIsActive = false;
+    if (eraserIsActive)
+        eraserIsActive = false;
+    else
+        eraserIsActive = true;
+    m_scopybioController->setListenEraserClick(eraserIsActive);
+
     clearLayout(m_gridOptions);
 
     // Eraser view
@@ -152,6 +193,11 @@ void menu_option::eraser() {
 }
 
 void menu_option::pipette() {
+    penIsActive = false;
+    shapesIsActive = false;
+    selectIsActive = false;
+    textIsActive = false;
+    eraserIsActive = false;
     clearLayout(m_gridOptions);
 
     m_pipette = new QLabel("There are no options for this tool.", this);
@@ -159,7 +205,31 @@ void menu_option::pipette() {
     m_gridOptions->addWidget(m_pipette, 0, 0);
 }
 
+void menu_option::selection() {
+    //Gestion de l'activation des boutons
+    penIsActive = false;
+    shapesIsActive = false;
+    eraserIsActive = false;
+    textIsActive = false;
+    if (selectIsActive)
+        selectIsActive = false;
+    else
+        selectIsActive = true;
+    m_scopybioController->setListenSelectionClick(selectIsActive);
+
+    clearLayout(m_gridOptions);
+
+    m_select = new QLabel("There are no options for this tool.", this);
+
+    m_gridOptions->addWidget(m_select, 0, 0);
+}
+
 void menu_option::filters() {
+    penIsActive = false;
+    shapesIsActive = false;
+    selectIsActive = false;
+    textIsActive = false;
+    eraserIsActive = false;
     clearLayout(m_gridOptions);
 
     // Filters view
@@ -183,6 +253,12 @@ void menu_option::filters() {
 }
 
 void menu_option::analysis() {
+    penIsActive = false;
+    shapesIsActive = false;
+    selectIsActive = false;
+    textIsActive = false;
+    eraserIsActive = false;
+
     analysisPanelActive = true;
     clearLayout(m_gridOptions);
 
@@ -241,6 +317,12 @@ void menu_option::analysis() {
 }
 
 void menu_option::newLayer() {
+    penIsActive = false;
+    shapesIsActive = false;
+    textIsActive = false;
+    selectIsActive = false;
+    eraserIsActive = false;
+
     clearLayout(m_gridOptions);
     // New layer view
     m_gridNewLayer = new QGridLayout();
@@ -265,7 +347,6 @@ void menu_option::newLayer() {
     QObject::connect(m_createLayer, &QPushButton::clicked, this, &menu_option::onCreateLayer);
 }
 
-//TODO METTRE A JOUR LE BOUTON
 void menu_option::activateLocalAnalyse()
 {
     activateUserAnalyse = true;
