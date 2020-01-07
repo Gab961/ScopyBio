@@ -253,6 +253,18 @@ public:
     void setListenPenClick(bool newValue);
 
     /**
+     * @brief getListenSelectionClick
+     * @return
+     */
+    bool getListenSelectionClick() const;
+
+    /**
+     * @brief setListenSelectionClick
+     * @param newValue
+     */
+    void setListenSelectionClick(bool newValue);
+
+    /**
      * @brief getListenEraserClick
      * @return
      */

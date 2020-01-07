@@ -374,9 +374,12 @@ void ScopyBio_Controller::applyResultatFilter()
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
-void ScopyBio_Controller::applyZoomResultatFilter(){
-    CImg<float> zoom = m_dessinModel->saveZoomFromArea(m_analyseModel->getTopLeftPointOfCurrentArea(),m_analyseModel->getBottomRightPointOfCurrentArea(),m_pileModel->getCurrentImage());
-    m_gestion_calque->updateZoomResultat(zoom,m_dessinModel->getZoomDisplayPath());
+void ScopyBio_Controller::applyZoomResultatFilter() {
+    if (m_analyseModel->dataReady())
+    {
+        CImg<float> zoom = m_dessinModel->saveZoomFromArea(m_faisceauModel->getScaledTopLeft(),m_faisceauModel->getScaledBotRight(),m_pileModel->getCurrentImage());
+        m_gestion_calque->updateZoomResultat(zoom,m_dessinModel->getZoomDisplayPath());
+    }
 }
 
 void ScopyBio_Controller::manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView)
@@ -403,6 +406,8 @@ bool ScopyBio_Controller::getPipetteClick()
     return m_dessinModel->getListenPipetteClick();
 }
 
+bool ScopyBio_Controller::getListenSelectionClick() const { return m_dessinModel->getListenSelectionClick(); }
+void ScopyBio_Controller::setListenSelectionClick(bool newValue) { m_dessinModel->setListenSelectionClick(newValue); }
 bool ScopyBio_Controller::getListenPenClick() const { return m_dessinModel->getListenPenClick(); }
 void ScopyBio_Controller::setListenPenClick(bool newValue) { m_dessinModel->setListenPenClick(newValue); }
 bool ScopyBio_Controller::getListenEraserClick() const { return  m_dessinModel->getListenEraserClick(); }
@@ -467,7 +472,7 @@ void ScopyBio_Controller::setCircleIsSelected(bool newValue)
 }
 
 //=======================
-// Aalyse_Modele
+// Analyse_Modele
 //=======================
 
 bool ScopyBio_Controller::areaIsSelected()

@@ -2,6 +2,7 @@
 #include <QLabel>
 #include <QGridLayout>
 #include <QGroupBox>
+#include <QPushButton>
 
 class ScopyBio_Controller;
 class QMouseEvent;
@@ -31,6 +32,7 @@ class Zoom_View : public QGroupBox
     private:
         QGridLayout *m_layout;
         QLabel *m_image;
+        QPushButton *m_hide;
         ScopyBio_Controller *m_scopybioController;
         bool readyToShow;
 };

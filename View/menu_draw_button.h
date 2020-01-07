@@ -20,7 +20,14 @@ class Menu_Draw_Button: public QGroupBox
 
     public slots:
         void activatePenAnnotation();
+        void activateShapesAnnotation();
+        void activateTextAnnotation();
+        void activateEraserAnnotation();
         void activatePipetteWaiting();
+        void activateAnalysisTool();
+        void activateFiltersTool();
+        void activateNewLayerTool();
+        void activateSelectionAnnotation();
         void pen();
         void shapes();
         void text();
@@ -28,6 +35,7 @@ class Menu_Draw_Button: public QGroupBox
         void pipette();
         void filters();
         void analysis();
+        void selectButton();
         void askForAnalysis();
         void newLayer();
 
@@ -46,12 +54,21 @@ class Menu_Draw_Button: public QGroupBox
         void filtersClicked();
         void analysisClicked();
         void newLayerClicked();
+        void selectClicked();
 
     private:
         QGridLayout *m_gridTools;
 
         bool isPipetteButtonActive = false;
         bool isPenButtonActive = false;
+        bool isEraserButtonActive = false;
+        bool isShapesButtonActive = false;
+        bool isTextButtonActive = false;
+        bool isAnalysisButtonActive = false;
+        bool isFiltersButtonActive = false;
+        bool isLayerButtonActive = false;
+        bool isSelectionButtonActive = false;
+
         QPushButton *m_eraser;
         QPushButton *m_pipette;
         QPushButton *m_pen;
@@ -60,6 +77,7 @@ class Menu_Draw_Button: public QGroupBox
         QPushButton *m_analysis;
         QPushButton *m_filters;
         QPushButton *m_newLayer;
+        QPushButton *m_select;
 
         ScopyBio_Controller *m_scopybioController;
 };
