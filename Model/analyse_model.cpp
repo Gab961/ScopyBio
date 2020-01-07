@@ -13,8 +13,12 @@ void analyse_model::init(){
     userAreaIsSelected = false;
     isDataReady = false;
     currentArea = 0;
+    columnAmount = 30;
+    linesAmount = 30;
+    errorMargin = 5;
 
     results.clear();
+    userResults.clear();
 }
 
 void analyse_model::setErrorMargin(int newValue) { errorMargin = newValue; }

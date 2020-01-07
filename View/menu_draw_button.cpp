@@ -275,6 +275,8 @@ void Menu_Draw_Button::activateSelectionAnnotation()
         m_select->setStyleSheet(buttonStylePressed);
 
         setPipetteActive(false);
+        emit penCanceled();
+
         isPenButtonActive = false;
         isEraserButtonActive = false;
         isShapesButtonActive = true;

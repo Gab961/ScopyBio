@@ -225,6 +225,8 @@ void MainWindow::closeEvent(QCloseEvent* e)
 
 void MainWindow::open()
 {
+    m_scopybioController->reinitAllModels();
+
     std::string path = "";
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
                                                     "../../Resources/Data",

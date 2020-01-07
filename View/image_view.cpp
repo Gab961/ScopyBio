@@ -64,11 +64,14 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
  */
 void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 {
+    std::cout << "Release" << std::endl;
     if (m_scopybioController->fileReady() && m_scopybioController->is24Bits())
     {
+        std::cout << "File ready et 24 bits" << std::endl;
         //Si on est pas en train de dessiner ni de choisir avec la pipette
         if (!listenPenClick && !m_scopybioController->getPipetteClick())
         {
+            std::cout << "On est pas en train de dessiner" << std::endl;
             quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
             int widthOfLabel = m_image->width();
             int heightOfLabel = m_image->height();
@@ -76,6 +79,12 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
             //Si c'est un clic long
             if (temps > TEMPS_CLIC_LONG)
             {
+                std::cout << "Clic long" << std::endl;
+                if (m_scopybioController->getListenSelectionClick())
+                    std::cout << "DEBUG >> ListenSelection = VRAI" << std::endl;
+                else
+                    std::cout << "DEBUG >> ListenSelection = FAUX" << std::endl;
+
                 //Si on veut faire une selection
                 if (m_scopybioController->getListenSelectionClick())
                 {

@@ -11,12 +11,8 @@ ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_de
 
 void ScopyBio_Controller::reinitAllModels()
 {
-    m_pileModel = new pile_model();
-    m_analyseModel = new analyse_model();
-    m_gestion_calque = new gestionnaire_calque_model();
-    m_faisceauModel = new faisceau_model();
-    m_saveModel = new save_model();
-    m_loadModel = new load_model();
+    m_analyseModel->init();
+    m_gestion_calque->init(m_pileModel->getCurrentImage().width(),m_pileModel->getCurrentImage().height());
 }
 
 //=======================

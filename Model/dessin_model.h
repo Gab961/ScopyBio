@@ -13,6 +13,11 @@ public:
     dessin_model();
 
     /**
+     * @brief init Réinitialise le modèle
+     */
+    void init();
+
+    /**
      * @brief getMainDisplayPath Renvoie le chemin de l'image s'affichant dans le display principal
      * @return
      */
