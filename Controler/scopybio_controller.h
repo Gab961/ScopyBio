@@ -122,7 +122,7 @@ public:
      * @param labelWidth
      * @param labelHeight
      */
-    void dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight);
+    void dessinerLignePerso(QPoint origPoint, QPoint pos, int labelWidth, int labelHeight);
 
     /**
      * @brief saveZoom Enregistre l'image zoomée depuis la sélection
