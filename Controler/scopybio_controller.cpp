@@ -259,9 +259,6 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
  */
 bool ScopyBio_Controller::dessinerLignePerso(QPoint origPoint, QPoint pos, int labelWidth, int labelHeight, bool isDrawing)
 {
-    int min = imageIndex, max = imageIndex;
-    int taille = m_pileModel->getImages().size();
-
     //Verifier s'il existe dans le dico
     if(!m_gestion_calque->existeCalque(m_gestion_calque->getCurrentCalqueId())){
         return false;
