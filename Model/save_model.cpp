@@ -59,7 +59,7 @@ void save_model::saveCalques(std::vector<calque> calques, bool dataReady, calque
     }
 }
 
-void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Resultat> &resultats, int row, int col){
+void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Resultat> &resultats, int row, int col, int whiteValue){
     std::string _filename = savePath;
     _filename += separator;
     _filename += std::string(filename);
@@ -123,6 +123,7 @@ void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Res
         calque_name += separator;
         calque_name += std::string("result.cimg");
         value["results"]["calque"] = calque_name.c_str();
+        value["results"]["white"] = whiteValue;
     }
 
     std::ofstream outfile(_filename);
@@ -139,7 +140,7 @@ void save_model::saveCurrentDisplay(std::string savePath, std::string currentDis
     img.save_bmp(savePath.c_str());
 }
 
-void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques, bool dataReady, std::vector<Resultat> resultats, int row, int col, calque res){
+void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques, bool dataReady, std::vector<Resultat> resultats, int row, int col, calque res,int whiteValue){
     //std::cout << "function save_as " << std::endl;
 
     auto first = fileName.find(".");
@@ -178,11 +179,11 @@ void save_model::save_as(std::string path, std::string fileName, std::vector<cal
 
     saveTiff(fileName);
 
-    save(_calques,dataReady,resultats,row,col,res);
+    save(_calques,dataReady,resultats,row,col,res,whiteValue);
 }
 
 
-bool save_model::save(std::vector<calque> _calques, bool dataReady, const std::vector<Resultat> &resultats, int row, int col, calque res){
+bool save_model::save(std::vector<calque> _calques, bool dataReady, const std::vector<Resultat> &resultats, int row, int col, calque res,int whiteValue){
     if(savePath.empty()){
         return false;
     }else{
@@ -190,7 +191,7 @@ bool save_model::save(std::vector<calque> _calques, bool dataReady, const std::v
             return false;
         }else{
             saveCalques(_calques,dataReady,res);
-            saveJsonFile(_calques,resultats,row,col);
+            saveJsonFile(_calques,resultats,row,col,whiteValue);
             return true;
         }
     }

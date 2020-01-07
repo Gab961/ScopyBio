@@ -20,4 +20,5 @@ public:
     std::vector<Resultat> loadResults(std::string path);
     std::vector<int> loadColRowAmounts(std::string path);
     std::string loadResultCalque(std::string path);
+    int loadWhiteValue(std::string path);
 };

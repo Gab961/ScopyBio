@@ -150,3 +150,25 @@ std::string load_model::loadResultCalque(std::string path){
 
     return res;
 }
+
+int load_model::loadWhiteValue(std::string path){
+    Json::Value sauvegarde;
+
+    std::ifstream sauvegarde_file(path, std::ifstream::binary);
+    sauvegarde_file >> sauvegarde;
+
+
+    Json::Value result_json;
+
+    if(sauvegarde["results"] != Json::Value::null){
+        result_json = sauvegarde["results"];
+    }else{
+        return -1;
+    }
+
+    if(result_json["white"] != Json::Value::null){
+        return result_json["white"].asInt();
+    }
+
+    return -1;
+}
