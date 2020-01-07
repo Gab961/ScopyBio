@@ -108,13 +108,14 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
         }
         if (m_scopybioController->getListenTextClick())
         {
-            //TODO
-            std::cout << "ON VEUT TEXT" << std::endl;
             QPoint pos = ev->pos();
             pos.setX(pos.x()-m_image->x());
             pos.setY(pos.y()-m_image->y());
 
-            m_scopybioController->dessinerText(m_scopybioController->getCurrentImageIndex(),"COUCOU TEST",pos,m_image->width(),m_image->height());
+            //On récupère le contenu du texte à écrire avant de dessiner le texte
+            emit askTextContent();
+
+            m_scopybioController->dessinerText(m_scopybioController->getCurrentImageIndex(),textContent.toStdString(),pos,m_image->width(),m_image->height());
             setNewPicture();
         }
         //Si on était en train de dessiner
@@ -260,4 +261,10 @@ void Image_View::getData(QPoint area, int labelWidth, int labelHeight) {
 
         update();
     }
+}
+
+
+void Image_View::receiveTextContent(QString content)
+{
+    textContent = content;
 }

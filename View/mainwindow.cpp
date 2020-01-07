@@ -204,6 +204,10 @@ void MainWindow::connections()
     //Mise à jour de l'interface lorsque les thread d'analyse ont terminé leurs actions
     QObject::connect(m_scopybioController, &ScopyBio_Controller::userAnalysisEnded, this, &MainWindow::userAnalysisEnded);
     QObject::connect(m_scopybioController, &ScopyBio_Controller::fullAnalysisEnded, this, &MainWindow::fullAnalysisEnded);
+
+    //Gestion du dessin de text
+    QObject::connect(m_imageView, &Image_View::askTextContent, m_options, &menu_option::askForTextContent);
+    QObject::connect(m_options, &menu_option::sendTextBack, m_imageView, &Image_View::receiveTextContent);
 }
 
 void MainWindow::closeEvent(QCloseEvent* e)

@@ -101,6 +101,10 @@ void menu_option::text() {
     m_scopybioController->setListenTextClick(true);
     clearLayout(m_gridOptions);
 
+    //Text
+    m_textTitle = new QLabel("Text content : ", this);
+    m_textContent = new QLineEdit(this);
+
     // Text view
     m_gridTextSize = new QGridLayout();
     m_textSize = new QLabel("Text size : ", this);
@@ -111,11 +115,13 @@ void menu_option::text() {
     m_textSizeSlider->setMaximum(50);
     m_textSizeSlider->setValue(m_textSizeValue);
 
-    m_gridOptions->addWidget(m_textSize, 0, 0);
+    m_gridOptions->addWidget(m_textTitle, 0, 0);
+    m_gridOptions->addWidget(m_textContent, 1, 0);
+    m_gridOptions->addWidget(m_textSize, 2, 0);
     m_gridTextSize->addWidget(m_textSizeSlider, 0, 1, 1, 7);
     m_gridTextSize->addWidget(m_textSizeMin, 0, 0);
     m_gridTextSize->addWidget(m_textSizeMax, 0, 8);
-    m_gridOptions->addLayout(m_gridTextSize, 1, 0);
+    m_gridOptions->addLayout(m_gridTextSize, 3, 0);
 
     QObject::connect(m_textSizeSlider, &QSlider::valueChanged, this, &menu_option::onTextSizeValueChanged);
 }
@@ -379,4 +385,9 @@ void menu_option::clearLayout(QLayout* layout, bool deleteWidgets)
 
 void menu_option::onCreateLayer() {
     // TODO Creer calque backend (m_firstLayer = min, m_lastLayer = max)
+}
+
+void menu_option::askForTextContent()
+{
+    emit sendTextBack(m_textContent->text());
 }

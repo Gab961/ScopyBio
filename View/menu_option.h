@@ -23,6 +23,7 @@ class menu_option: public QGroupBox
         void refreshMainDisplay();
         void askFullAnalysis();
         void askForUserAnalyse();
+        void sendTextBack(QString content);
 
     public slots:
         void pen();
@@ -47,6 +48,7 @@ class menu_option: public QGroupBox
         void activateLocalAnalyse();
         void desactivateLocalAnalyse();
         void onCreateLayer();
+        void askForTextContent();
 
     private:
         QGridLayout *m_gridOptions;
@@ -74,6 +76,8 @@ class menu_option: public QGroupBox
         bool m_isCircle;
 
         // Text view
+        QLabel *m_textTitle;
+        QLineEdit *m_textContent;
         QGridLayout *m_gridTextSize;
         QLabel *m_textSize;
         QLabel *m_textSizeMin;

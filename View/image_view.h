@@ -39,6 +39,7 @@ signals:
     void activateLocalAnalyse();
     void desactivateLocalAnalyse();
     void clearDataView();
+    void askTextContent();
 
 public slots:
     void setNewPicture();
@@ -49,8 +50,10 @@ public slots:
     void nouvelleSelectionUtilisateur(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void startUserAnalysis();
     void getData(QPoint area, int labelWidth, int labelHeight);
+    void receiveTextContent(QString content);
 
 private:
+    QString textContent;
     QPoint origPoint;
     QPoint secondPoint;
     quint64 TEMPS_CLIC_LONG;
