@@ -20,6 +20,7 @@ void gestionnaire_calque_model::init(int newPileWidth, int newPileHeight){
     listOfCalque.clear();
     dictionnaireImgMap.clear();
     initGlobalCalques(pileWidth,pileHeight);
+    id = 0;
 }
 
 /**
@@ -29,29 +30,19 @@ void gestionnaire_calque_model::init(int newPileWidth, int newPileHeight){
  */
 void gestionnaire_calque_model::initGlobalCalques(int pileWidth, int pileHeight)
 {
-    //    std::cout << "cc :" << std::endl;
-    //    afficheCalques();
-    id = 0;
-    calque _calqueHisto(pileWidth, pileHeight, HISTOGRAM,HISTOGRAM,id);
-    id++;
-    listOfCalque.push_back(_calqueHisto);
 
-    calque _calqueVert(pileWidth, pileHeight, CALQUEVERT,CALQUEVERT,id);
-    id++;
+    creerCalqueSpecial(pileWidth, pileHeight, HISTOGRAM,HISTOGRAM,HISTOGRAM);
+
+    calque _calqueVert(pileWidth, pileHeight, CALQUEVERT,CALQUEVERT,CALQUEVERT);
     _calqueVert.filtreVert();
     listOfCalque.push_back(_calqueVert);
 
-    calque _calquePertinence(pileWidth, pileHeight, RESULTAT_VIEW,RESULTAT_VIEW,id);
-    //addInDict(RESULTAT_VIEW,RESULTAT_VIEW,30,id);
-    idPertinenceCalque = id;
-    listOfCalque.push_back(_calquePertinence);
-    id++;
+    creerCalqueSpecial(pileWidth, pileHeight, RESULTAT_VIEW,RESULTAT_VIEW,RESULTAT_VIEW);
+    idPertinenceCalque = 2;
 
     //Calque de pertinence dans le cas d'une analyse utilisateur
-    calque _calquePertinenceUser(pileWidth, pileHeight, CALQUEPERTINENCE,CALQUEPERTINENCE,id);
-    idUserPertinenceCalque = id;
-    listOfCalque.push_back(_calquePertinenceUser);
-    id++;
+    creerCalqueSpecial(pileWidth, pileHeight, CALQUEPERTINENCE,CALQUEPERTINENCE,CALQUEPERTINENCE);
+    idUserPertinenceCalque = 3;
 }
 
 /**
@@ -218,16 +209,14 @@ void gestionnaire_calque_model::creerCalque(int width, int height, int min, int 
 
     listOfCalque.push_back(_calque);
 
-    if(min != -2){
-        addInDict(min,max,taille,id);
-    }
+    addInDict(min,max,taille,id);
 
     setCurrentCalqueId(id);
 
     id++;
 }
 
-void gestionnaire_calque_model::creerCalqueSpecial(int width, int height, int min, int max, int taille,int idCalque){
+void gestionnaire_calque_model::creerCalqueSpecial(int width, int height, int min, int max,int idCalque){
     calque _calque(width, height, min,max,idCalque);
 
     listOfCalque.push_back(_calque);
@@ -240,7 +229,7 @@ void gestionnaire_calque_model::creerCalqueSpecial(int width, int height, int mi
  */
 void gestionnaire_calque_model::reinitUserPertinenceCalque(int width, int height)
 {
-    calque newCalque = getCalqueForDisplay(CALQUEPERTINENCE,CALQUEPERTINENCE);
+    calque newCalque = getCalqueForDisplay(CALQUEPERTINENCE);
 
     CImg<float> newImage(width,height,1,4,0);
     newCalque.setCalque(newImage);
@@ -255,7 +244,7 @@ void gestionnaire_calque_model::reinitUserPertinenceCalque(int width, int height
  */
 void gestionnaire_calque_model::reinitPertinenceCalque()
 {
-    calque newCalque = getCalqueForDisplay(-5,-5);
+    calque newCalque = getCalqueForDisplay(RESULTAT_VIEW);
 
     CImg<float> newImage(pileWidth,pileHeight,1,4,0);
     newCalque.setCalque(newImage);
@@ -268,7 +257,7 @@ void gestionnaire_calque_model::reinitPertinenceCalque()
  */
 void gestionnaire_calque_model::reinitFaisceauCalque()
 {
-    calque newCalque = getCalqueForDisplay(FAISCEAU,FAISCEAU);
+    calque newCalque = getCalqueForDisplay(FAISCEAU);
 
     CImg<float> newImage(pileWidth,pileHeight,1,4,0);
     newCalque.setCalque(newImage);
@@ -314,9 +303,9 @@ void gestionnaire_calque_model::manageNewUserAnalyse(int pertinence, QPoint pos1
  * @param labelWidth
  * @param labelHeight
  */
-void gestionnaire_calque_model::dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
+void gestionnaire_calque_model::dessineFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
 
-    int search = getCalque(min,max);
+    int search = getCalqueIndex(FAISCEAU);
     if(search != -1){
         listOfCalque[search].dessinerFaisceau(pos1,pos2,labelWidth,labelHeight);
     }
@@ -443,8 +432,7 @@ void gestionnaire_calque_model::updateUserQuadrillage(int columns, int lines){
 
 void gestionnaire_calque_model::mergeUserAnalysis(CImg<float> zoom, std::string zoomPath)
 {
-    int idCalque = getCalque(CALQUEPERTINENCE,CALQUEPERTINENCE);
-    calque overlay = getCalqueForDisplay(idCalque);
+    calque overlay = getCalqueForDisplay(CALQUEPERTINENCE);
     zoom.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
     zoom.save_bmp(zoomPath.c_str());
 }
@@ -453,7 +441,7 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     //Contraste en premier
     if (isHistogram)
     {
-        calque overlay = getCalqueForDisplay(0);
+        calque overlay = getCalqueForDisplay(HISTOGRAM);
         overlay.setCalque(currentDisplayedImage);
         overlay.filtreHistogram();
         //On enregistre au format bmp le calque qui a perdu ses
@@ -467,7 +455,7 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     //Filtre vert en deuxieme
     if (isGreen)
     {
-        calque overlay = getCalqueForDisplay(1);
+        calque overlay = getCalqueForDisplay(CALQUEVERT);
         //std::cout << overlay.getId() << std::endl;
         currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
     }
@@ -476,7 +464,7 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     //    std::cout << "*********************************************" << std::endl;
 
     if(isResultat){
-        calque overlay = getCalqueForDisplay(idPertinenceCalque);
+        calque overlay = getCalqueForDisplay(RESULTAT_VIEW);
         currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
     }
 
@@ -503,7 +491,7 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
 
     //Selection en dernier
 
-    auto search = getCalque(FAISCEAU,FAISCEAU);
+    auto search = getCalqueIndex(FAISCEAU);
     if(search != -1){
         calque overlay = listOfCalque[search];
         currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);

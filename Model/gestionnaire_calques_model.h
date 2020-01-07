@@ -33,7 +33,7 @@ public:
     bool existeCalque(int id);
 
     void creerCalque(int width, int height, int min, int max, int taille);
-    void creerCalqueSpecial(int width, int height, int min, int max, int taille,int idCalque);
+    void creerCalqueSpecial(int width, int height, int min, int max, int idCalque);
 
     int getCalque(int min, int max);
     int getCalqueIndex(int id);
@@ -42,7 +42,7 @@ public:
     void removeCalques(int idCalque);
     void calqueShowable(int min, int max, bool show);
     void calqueShowable(int idCalque, bool show);
-    void dessineFaisceau(int min, int max, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void dessineFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinText(int idCalque, QPoint pos1, std::string text, int fontSize, int labelWidth, int labelHeight);
     void dessinCercle(int idCalque, QPoint origPoint, int diameter, int labelWidth, int labelHeight);
     void dessinCarre(int idCalque, QPoint origPoint, int diameter, int labelWidth, int labelHeight);

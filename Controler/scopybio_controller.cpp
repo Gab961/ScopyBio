@@ -207,17 +207,14 @@ bool ScopyBio_Controller::CreerNouveauCalque(int min, int max){
         max = tmp;
     }
 
-//    if(m_gestion_calque->existeCalque(min, max)){
-//        return false;
-//    }else{
-        if(min < 0 || max < 0 || min >= taille || max >= taille){
-            return false;
-        } else {
-            m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
 
-            return true;
-        }
-//    }
+    if(min < 0 || max < 0 || min >= taille || max >= taille){
+        return false;
+    } else {
+        m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(),min,max,taille);
+
+        return true;
+    }
     return false;
 }
 
@@ -232,17 +229,14 @@ bool ScopyBio_Controller::CreerNouveauCalque(int min, int max){
  */
 void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
 {
-    int min = -2, max = -2;
-    int taille = m_pileModel->getImages().size();
-
     //Verifier s'il existe dans le dico
-    if(!m_gestion_calque->existeCalque(min,max)){
+    if(!m_gestion_calque->existeCalque(FAISCEAU)){
         //Si n'existe pas Creer le calque et mettre à jour le dico
-        m_gestion_calque->creerCalque(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(), min,max,taille);
+        m_gestion_calque->creerCalqueSpecial(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height(), FAISCEAU,FAISCEAU,FAISCEAU);
     }
 
     //On est sur que le calque existe, on dessine le rectangle.
-    m_gestion_calque->dessineFaisceau(min,max,m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(), labelWidth, labelHeight);
+    m_gestion_calque->dessineFaisceau(m_faisceauModel->getTopLeft(),m_faisceauModel->getBotRight(), labelWidth, labelHeight);
 
     saveZoom(labelWidth, labelHeight);
 
