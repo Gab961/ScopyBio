@@ -374,9 +374,12 @@ void ScopyBio_Controller::applyResultatFilter()
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
-void ScopyBio_Controller::applyZoomResultatFilter(){
-    CImg<float> zoom = m_dessinModel->saveZoomFromArea(m_analyseModel->getTopLeftPointOfCurrentArea(),m_analyseModel->getBottomRightPointOfCurrentArea(),m_pileModel->getCurrentImage());
-    m_gestion_calque->updateZoomResultat(zoom,m_dessinModel->getZoomDisplayPath());
+void ScopyBio_Controller::applyZoomResultatFilter() {
+    if (m_analyseModel->dataReady())
+    {
+        CImg<float> zoom = m_dessinModel->saveZoomFromArea(m_faisceauModel->getScaledTopLeft(),m_faisceauModel->getScaledBotRight(),m_pileModel->getCurrentImage());
+        m_gestion_calque->updateZoomResultat(zoom,m_dessinModel->getZoomDisplayPath());
+    }
 }
 
 void ScopyBio_Controller::manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView)
@@ -469,7 +472,7 @@ void ScopyBio_Controller::setCircleIsSelected(bool newValue)
 }
 
 //=======================
-// Aalyse_Modele
+// Analyse_Modele
 //=======================
 
 bool ScopyBio_Controller::areaIsSelected()

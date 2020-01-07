@@ -7,7 +7,7 @@
 /**
  * @brief gestionnaire_calque_model::gestionnaire_calque_model construit un modèle et dès le départ crée un calque vert qui pourra être utilisé.
  */
-gestionnaire_calque_model::gestionnaire_calque_model(): id(0),isGreen(false),isHistogram(false),isResultat(false),isZoomResultat(false){
+gestionnaire_calque_model::gestionnaire_calque_model(): id(0),isGreen(false),isHistogram(false),isResultat(false),isZoomResultat(true){
 }
 
 void gestionnaire_calque_model::init(int newPileWidth, int newPileHeight){
@@ -16,7 +16,7 @@ void gestionnaire_calque_model::init(int newPileWidth, int newPileHeight){
     isGreen = false;
     isHistogram = false;
     isResultat = false;
-    isZoomResultat = false;
+    isZoomResultat = true;
     listOfCalque.clear();
     dictionnaireImgMap.clear();
     initGlobalCalques(pileWidth,pileHeight);
@@ -326,9 +326,10 @@ void gestionnaire_calque_model::updateResultat(){
 void gestionnaire_calque_model::updateZoomResultat(CImg<float> zoom, std::string zoomPath){
     isZoomResultat = !isZoomResultat;
 
-    if(isZoomResultat){
+    if(isZoomResultat)
         mergeUserAnalysis(zoom,zoomPath);
-    }
+    else
+        zoom.save_bmp(zoomPath.c_str());
 }
 
 /**
