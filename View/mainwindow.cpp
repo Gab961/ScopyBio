@@ -51,6 +51,15 @@ void MainWindow::createView()
     m_zoomView = new Zoom_View(this, m_scopybioController);
     m_zoomView->setFixedSize(screenWidth*0.20, screenHeight*0.45);
 
+    //QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+    QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+
+    m_hide = new QPushButton(QIcon("../../Resources/Icons/visibility.svg"), "", this);
+    m_hide->setIconSize(QSize(20,20));
+    m_hide->setMinimumSize(25,25);
+    m_hide->setMaximumSize(25,25);
+    m_hide->setStyleSheet(buttonStyle);
+
     m_tools = new Menu_Draw_Button(this, m_scopybioController);
     m_tools->setFixedSize(screenWidth*0.20, 100);
 
@@ -58,8 +67,9 @@ void MainWindow::createView()
     m_options->setFixedSize(screenWidth*0.20, screenHeight*0.47 - 100);
 
     m_leftLayout->addWidget(m_zoomView, 0, 0);
-    m_leftLayout->addWidget(m_tools, 1, 0);
-    m_leftLayout->addWidget(m_options, 2, 0);
+    m_leftLayout->addWidget(m_hide, 1, 1);
+    m_leftLayout->addWidget(m_tools, 2, 0);
+    m_leftLayout->addWidget(m_options, 3, 0);
 
     m_imageView = new Image_View(this, m_scopybioController);
     m_imageView->setFixedSize(screenWidth*0.50, screenHeight*0.95);
@@ -208,6 +218,9 @@ void MainWindow::connections()
     //Gestion du dessin de text
     QObject::connect(m_imageView, &Image_View::askTextContent, m_options, &menu_option::askForTextContent);
     QObject::connect(m_options, &menu_option::sendTextBack, m_imageView, &Image_View::receiveTextContent);
+
+    //Cache ou affiche la grille issue de l'analyse sur la zoom view
+    QObject::connect(m_hide, &QPushButton::pressed, this, &MainWindow::changeStateGrid);
 }
 
 void MainWindow::closeEvent(QCloseEvent* e)
@@ -567,4 +580,9 @@ void MainWindow::userAnalysisEnded()
 
     m_options->closeMessageBox();
     emit changeZoomedPicture();
+}
+
+// Hide or show the grid on zoom view
+void MainWindow::changeStateGrid() {
+
 }

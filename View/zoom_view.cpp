@@ -15,11 +15,10 @@ void Zoom_View::createView()
     m_layout = new QGridLayout(this);
     m_image = new QLabel(this);
 
-    m_layout->addWidget(m_image);
+    m_layout->addWidget(m_image, 0, 0);
     m_layout->setMargin(0);
     m_image->setAlignment(Qt::AlignCenter);
     m_image->setText("No data to show");
-
 
     setLayout(m_layout);
 }
