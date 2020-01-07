@@ -133,6 +133,28 @@ void calque::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHe
 }
 
 /**
+ * @brief calque::dessinerCarre
+ * @param posOrig
+ * @param diameter
+ * @param labelWidth
+ * @param labelHeight
+ */
+void calque::dessinerCarre(QPoint posOrig, int diameter, int labelWidth, int labelHeight){
+    _calque = dessine.dessinerCarre(posOrig,diameter,labelWidth,labelHeight,_calque);
+}
+
+/**
+ * @brief calque::dessinerCercle
+ * @param posOrig
+ * @param diameter
+ * @param labelWidth
+ * @param labelHeight
+ */
+void calque::dessinerCercle(QPoint posOrig, int diameter, int labelWidth, int labelHeight){
+    _calque = dessine.dessinerCercle(posOrig,diameter,labelWidth,labelHeight,_calque);
+}
+
+/**
  * @brief calque::filtreVert pour créer le calque vert, sert juste au début du programme.
  */
 void calque::filtreVert(){

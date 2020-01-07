@@ -103,8 +103,19 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
         }
         if (m_scopybioController->getListenShapeClick())
         {
-            //TODO
-            std::cout << "ON VEUT SHAPE" << std::endl;
+            QPoint pos = ev->pos();
+            pos.setX(pos.x()-m_image->x());
+            pos.setY(pos.y()-m_image->y());
+            setNewPicture();
+            if (m_scopybioController->getCircleIsSelected())
+            {
+                m_scopybioController->dessinerCercle(m_scopybioController->getCurrentImageIndex(),pos,m_image->width(),m_image->height());
+            }
+            else
+            {
+                m_scopybioController->dessinerCarre(m_scopybioController->getCurrentImageIndex(),pos,m_image->width(),m_image->height());
+            }
+            setNewPicture();
         }
         if (m_scopybioController->getListenTextClick())
         {

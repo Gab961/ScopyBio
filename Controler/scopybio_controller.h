@@ -115,6 +115,24 @@ public:
     void dessinerFaisceau(int labelWidth, int labelHeight);
 
     /**
+     * @brief dessinerCercle
+     * @param imageIndex
+     * @param origPoint
+     * @param labelWidth
+     * @param labelHeight
+     */
+    void dessinerCercle(int imageIndex, QPoint origPoint, int labelWidth, int labelHeight);
+
+    /**
+     * @brief dessinerCarre
+     * @param imageIndex
+     * @param origPoint
+     * @param labelWidth
+     * @param labelHeight
+     */
+    void dessinerCarre(int imageIndex, QPoint origPoint, int labelWidth, int labelHeight);
+
+    /**
      * @brief dessinerLignePerso
      * @param imageIndex
      * @param pos

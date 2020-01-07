@@ -109,6 +109,35 @@ CImg<float> dessin_model::dessinerRond(QPoint pos1, int labelWidth, int labelHei
     return currentPicture;
 }
 
+CImg<float> dessin_model::dessinerCarre(QPoint posOrig, int diameter, int labelWidth, int labelHeight, CImg<float> & currentPicture)
+{
+    const unsigned char color[] = { 255,174,0,255 };
+
+    int origX = posOrig.x() * currentPicture.width() / labelWidth;
+    int origY = posOrig.y() * currentPicture.height() / labelHeight;
+
+    int x1 = origX-diameter/2;
+    int y1 = origY-diameter/2;
+    int x2 = origX+diameter/2;
+    int y2 = origY+diameter/2;
+
+    currentPicture.draw_rectangle(x1,y1,x2,y2,color,1,~0U);
+
+    return currentPicture;
+}
+
+CImg<float> dessin_model::dessinerCercle(QPoint posOrig, int diameter, int labelWidth, int labelHeight, CImg<float> & currentPicture)
+{
+    const unsigned char color[] = { 255,174,0,255 };
+
+    int x1 = posOrig.x() * currentPicture.width() / labelWidth;
+    int y1 = posOrig.y() * currentPicture.height() / labelHeight;
+
+    currentPicture.draw_circle(x1,y1,diameter/2,color,1,~0U);
+
+    return currentPicture;
+}
+
 CImg<float> dessin_model::dessinerRond(QPoint pos, int pertinence, CImg<float> & currentPicture)
 {
     const unsigned char color1[] = { 255,0,0,255 };

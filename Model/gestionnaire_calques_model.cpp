@@ -318,6 +318,40 @@ void gestionnaire_calque_model::dessinText(int min, int max, QPoint pos1, std::s
 }
 
 /**
+ * @brief gestionnaire_calque_model::dessinCercle
+ * @param min
+ * @param max
+ * @param origPoint
+ * @param diameter
+ * @param labelWidth
+ * @param labelHeight
+ */
+void gestionnaire_calque_model::dessinCercle(int min, int max, QPoint origPoint, int diameter, int labelWidth, int labelHeight)
+{
+    int search = getCalque(min,max);
+    if(search != -1){
+        listOfCalque[search].dessinerCercle(origPoint,diameter,labelWidth,labelHeight);
+    }
+}
+
+/**
+ * @brief gestionnaire_calque_model::dessinCercle
+ * @param min
+ * @param max
+ * @param origPoint
+ * @param diameter
+ * @param labelWidth
+ * @param labelHeight
+ */
+void gestionnaire_calque_model::dessinCarre(int min, int max, QPoint origPoint, int diameter, int labelWidth, int labelHeight)
+{
+    int search = getCalque(min,max);
+    if(search != -1){
+        listOfCalque[search].dessinerCarre(origPoint,diameter,labelWidth,labelHeight);
+    }
+}
+
+/**
  * @brief gestionnaire_calque_model::updateCalqueVert met juste à jour le dictionnaire, l'ajoute dans le dico s'il est actif, le supprime sinon.
  * @param min
  * @param max

@@ -99,6 +99,28 @@ public:
     CImg<float> dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture);
 
     /**
+     * @brief dessinerCarre
+     * @param posOrig
+     * @param diameter
+     * @param labelWidth
+     * @param labelHeight
+     * @param currentPicture
+     * @return
+     */
+    CImg<float> dessinerCarre(QPoint posOrig, int diameter, int labelWidth, int labelHeight, CImg<float> & currentPicture);
+
+    /**
+     * @brief dessinerCercle
+     * @param posOrig
+     * @param diameter
+     * @param labelWidth
+     * @param labelHeight
+     * @param currentPicture
+     * @return
+     */
+    CImg<float> dessinerCercle(QPoint posOrig, int diameter, int labelWidth, int labelHeight, CImg<float> & currentPicture);
+
+    /**
      * @brief applyQuadrillageFilter
      * @param columns
      * @param lines
