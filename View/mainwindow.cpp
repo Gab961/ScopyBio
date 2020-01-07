@@ -209,6 +209,9 @@ void MainWindow::connections()
     //Gestion du dessin de text
     QObject::connect(m_imageView, &Image_View::askTextContent, m_options, &menu_option::askForTextContent);
     QObject::connect(m_options, &menu_option::sendTextBack, m_imageView, &Image_View::receiveTextContent);
+
+    //Mise à jour de l'interface quand on créé un nouveau calque
+    QObject::connect(m_options, &menu_option::switchToIndex, m_pileView, &Pile_View::changeToElement);
 }
 
 void MainWindow::closeEvent(QCloseEvent* e)

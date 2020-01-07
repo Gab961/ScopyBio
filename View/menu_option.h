@@ -26,6 +26,7 @@ class menu_option: public QGroupBox
         void askFullAnalysis();
         void askForUserAnalyse();
         void sendTextBack(QString content);
+        void switchToIndex(int newIndex);
 
     public slots:
         void pen();

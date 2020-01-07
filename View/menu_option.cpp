@@ -475,9 +475,12 @@ void menu_option::clearLayout(QLayout* layout, bool deleteWidgets)
 }
 
 void menu_option::onCreateLayer() {
-    //m_scopybioController->CreerNouveauCalque(m_firstLayer->text().toInt(), m_lastLayer->text().toInt());
-    if (m_scopybioController->CreerNouveauCalque(m_firstLayer->text().toInt(), m_lastLayer->text().toInt()))
+    bool succes = m_scopybioController->CreerNouveauCalque(m_firstLayer->text().toInt(), m_lastLayer->text().toInt());
+    if (succes)
+    {
         QMessageBox::information(this, "", "Layer(s) created successfully");
+        emit switchToIndex(m_firstLayer->text().toInt());
+    }
     else
         QMessageBox::information(this, "", "Error, values must be non-negative or less than the number of images in the stack.");
 }
