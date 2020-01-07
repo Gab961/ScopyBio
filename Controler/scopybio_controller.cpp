@@ -374,9 +374,16 @@ void ScopyBio_Controller::applyResultatFilter()
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
-void ScopyBio_Controller::applyZoomResultatFilter(){
-    CImg<float> zoom = m_dessinModel->saveZoomFromArea(m_analyseModel->getTopLeftPointOfCurrentArea(),m_analyseModel->getBottomRightPointOfCurrentArea(),m_pileModel->getCurrentImage());
+void ScopyBio_Controller::applyZoomResultatFilter() {
+//    std::cout << "truc" << std::endl;
+//    std::cout << m_analyseModel->getTopLeftPointOfCurrentArea().x() << "x" << m_analyseModel->getTopLeftPointOfCurrentArea().y() << std::endl;
+//    std::cout << m_analyseModel->getBottomRightPointOfCurrentArea().x() << "x" << m_analyseModel->getBottomRightPointOfCurrentArea().y() << std::endl;
+    CImg<float> zoom = m_dessinModel->saveZoomFromArea(m_analyseModel->getTopLeftPointOfCurrentArea(),
+                                                       m_analyseModel->getBottomRightPointOfCurrentArea(),
+                                                       m_pileModel->getCurrentImage());
+    std::cout << "là" << std::endl;
     m_gestion_calque->updateZoomResultat(zoom,m_dessinModel->getZoomDisplayPath());
+    std::cout << "ici" << std::endl;
 }
 
 void ScopyBio_Controller::manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView)
@@ -469,7 +476,7 @@ void ScopyBio_Controller::setCircleIsSelected(bool newValue)
 }
 
 //=======================
-// Aalyse_Modele
+// Analyse_Modele
 //=======================
 
 bool ScopyBio_Controller::areaIsSelected()

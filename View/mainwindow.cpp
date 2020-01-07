@@ -67,7 +67,7 @@ void MainWindow::createView()
     m_options->setFixedSize(screenWidth*0.20, screenHeight*0.47 - 100);
 
     m_leftLayout->addWidget(m_zoomView, 0, 0);
-    m_leftLayout->addWidget(m_hide, 1, 1);
+    m_leftLayout->addWidget(m_hide, 1, 0);
     m_leftLayout->addWidget(m_tools, 2, 0);
     m_leftLayout->addWidget(m_options, 3, 0);
 
@@ -588,5 +588,5 @@ void MainWindow::userAnalysisEnded()
 
 // Hide or show the grid on zoom view
 void MainWindow::changeStateGrid() {
-
+    m_scopybioController->applyZoomResultatFilter();
 }
