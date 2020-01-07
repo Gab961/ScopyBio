@@ -26,32 +26,27 @@ public:
 
     void initGlobalCalques(int _pileWidth, int _pileHeight);
 
-    void saveTmpforDisplay(int min, int max);
     void saveTmpforDisplay(int idCalque);
 
-    bool existeCalque(int min, int max);
     bool existeCalque(int id);
 
     void creerCalque(int width, int height, int min, int max, int taille);
     void creerCalqueSpecial(int width, int height, int min, int max, int idCalque);
 
-    int getCalque(int min, int max);
     int getCalqueIndex(int id);
     void addCalques(std::vector<calque> calques, int taille);
-    void removeCalques(int min, int max);
     void removeCalques(int idCalque);
-    void calqueShowable(int min, int max, bool show);
     void calqueShowable(int idCalque, bool show);
     void dessineFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
-    void dessinText(int idCalque, QPoint pos1, std::string text, int fontSize, int labelWidth, int labelHeight);
-    void dessinCercle(int idCalque, QPoint origPoint, int diameter, int labelWidth, int labelHeight);
-    void dessinCarre(int idCalque, QPoint origPoint, int diameter, int labelWidth, int labelHeight);
+    void dessinText(QPoint pos1, std::string text, int fontSize, int labelWidth, int labelHeight);
+    void dessinCercle(QPoint origPoint, int diameter, int labelWidth, int labelHeight);
+    void dessinCarre(QPoint origPoint, int diameter, int labelWidth, int labelHeight);
     void reinitPertinenceCalque();
     void reinitUserPertinenceCalque(int width, int height);
     void reinitFaisceauCalque();
     void manageNewUserAnalyse(int pertinence, QPoint pos1, QPoint pos2);
     void manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2);
-    void dessinLigne(int idCalque, QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void dessinLigne(QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing);
     void updateCalqueVert();
     void updateHistogram();
     void updateResultat();
@@ -59,11 +54,9 @@ public:
     void dessinLigne(int idCalque, QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing);
     void updateQuadrillage(int columns, int lines);
     void updateUserQuadrillage(int columns, int lines);
-    calque getCalqueForDisplay(int min, int max);
     calque getCalqueForDisplay(int id);
     calque getPertinenceCalque();
     std::vector<calque> getAllCalques() const;
-    void setCalque(int min, int max, calque cal);
     int getCurrentCalqueId();
     void setCurrentCalqueId(int newId);
     void setShowResultat(bool newValue);
