@@ -33,6 +33,8 @@ public:
     bool existeCalque(int id);
 
     void creerCalque(int width, int height, int min, int max, int taille);
+    void creerCalqueSpecial(int width, int height, int min, int max, int taille,int idCalque);
+
     int getCalque(int min, int max);
     int getCalqueIndex(int id);
     void addCalques(std::vector<calque> calques, int taille);
@@ -64,6 +66,7 @@ public:
     void setCalque(int min, int max, calque cal);
     int getCurrentCalqueId();
     void setCurrentCalqueId(int newId);
+    void setShowResultat(bool newValue);
 
     void mergeUserAnalysis(CImg<float> zoom, std::string zoomPath);
     void mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay);

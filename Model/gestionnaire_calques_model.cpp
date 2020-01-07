@@ -227,6 +227,12 @@ void gestionnaire_calque_model::creerCalque(int width, int height, int min, int 
     id++;
 }
 
+void gestionnaire_calque_model::creerCalqueSpecial(int width, int height, int min, int max, int taille,int idCalque){
+    calque _calque(width, height, min,max,idCalque);
+
+    listOfCalque.push_back(_calque);
+}
+
 /**
  * @brief gestionnaire_calque_model::reinitUserPertinenceCalque
  * @param width
@@ -630,3 +636,5 @@ void gestionnaire_calque_model::afficheCalques(){
 int gestionnaire_calque_model::getCurrentCalqueId() { return idCurrentCalque; }
 void gestionnaire_calque_model::setCurrentCalqueId(int newId) { idCurrentCalque = newId;
                                                               std::cout << "Nouveau calque courant = " << idCurrentCalque << std::endl;}
+
+void gestionnaire_calque_model::setShowResultat(bool newValue) { isResultat = newValue; }

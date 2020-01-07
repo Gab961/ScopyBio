@@ -633,6 +633,8 @@ void ScopyBio_Controller::listenFullAnalysis(){
         background_task.join();
     }
 
+    m_gestion_calque->setShowResultat(true);
+
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 
     emit fullAnalysisEnded();
