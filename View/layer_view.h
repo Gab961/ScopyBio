@@ -23,6 +23,7 @@ class LayerView: public QListWidget
         void hoverMove(QHoverEvent * event);
         bool event(QEvent * e);
         void rowChanged(int row);
+        void hoverRowChanged(int row);
 
     signals:
         void actionDoneWithLayer();
@@ -34,6 +35,7 @@ class LayerView: public QListWidget
 
     private:
         int currentLayerRow;
+        int currentLayerRowHover;
         QWidget *m_line;
         QGridLayout *m_itemLayout;
         QPushButton *m_delete;
