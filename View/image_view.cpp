@@ -125,6 +125,8 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
             else
                 succes = m_scopybioController->dessinerCarre(pos,m_image->width(),m_image->height());
 
+            m_scopybioController->addMemento();
+
             if (!succes)
                 QMessageBox::information(this, "", "No layer selected. Please create one.");
 
@@ -142,12 +144,14 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 
             bool succes = m_scopybioController->dessinerText(textContent.toStdString(),pos,m_image->width(),m_image->height());
 
+            m_scopybioController->addMemento();
+
             if (!succes)
                 QMessageBox::information(this, "", "No layer selected. Please create one.");
 
             setNewPicture();
         }
-        //Si on dessine au craton
+        //Si on dessine au crayon
         if (m_scopybioController->getListenPenClick())
         {
             m_scopybioController->addMemento();
