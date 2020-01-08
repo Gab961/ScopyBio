@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include <QDateTime>
 #include "scopybio_controller.h"
+#include <cstdlib>
 
 #define cimg_use_tiff
 #include "CImg.h"
@@ -92,6 +93,8 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 
                     secondPoint.setX(secondPoint.x()-m_image->x());
                     secondPoint.setY(secondPoint.y()-m_image->y());
+
+                    m_scopybioController->reinitUserPertinenceCalque(1,1);
 
                     if (!(origPoint.x() == secondPoint.x() && origPoint.y() == secondPoint.y()))
                         emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);

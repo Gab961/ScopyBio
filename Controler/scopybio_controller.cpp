@@ -367,6 +367,11 @@ void ScopyBio_Controller::applyGreenFilter()
  *
  * */
 
+void ScopyBio_Controller::reinitUserPertinenceCalque(int width, int height)
+{
+    m_gestion_calque->reinitUserPertinenceCalque(width, height);
+}
+
 void ScopyBio_Controller::applyHistogramFilter()
 {
     m_gestion_calque->updateHistogram();

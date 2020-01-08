@@ -95,6 +95,7 @@ public:
     /******************************** Partie Calque ************************************/
     /***********************************************************************************/
 
+    void reinitUserPertinenceCalque(int width, int height);
     void undoAction();
     void redoAction();
     void addMemento();
