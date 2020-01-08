@@ -61,6 +61,11 @@ void LayerView::loadLayers(int currentRow)
         this->insertItem(0, item);
     }
 
+    if (layerIdList.size() == 0)
+        m_scopybioController->setCurrentCalqueId(-1);
+    else
+        m_scopybioController->setCurrentCalqueId(layerIdList[0]);
+
     this->update();
 }
 
@@ -111,6 +116,7 @@ void LayerView::removeLayer()
     this->removeItemWidget(item(currentLayerRow));
 
     emit actionDoneWithLayer();
+    loadLayers(m_scopybioController->getCurrentImageIndex());
     this->update();
 }
 
