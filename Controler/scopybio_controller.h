@@ -20,6 +20,8 @@ signals:
 public:
     ScopyBio_Controller();
 
+    void reinitAllModels();
+
     /** Partie affichage **/
     void DisplayResultImage(int idImage);
     void afficherCalque(int id, bool);
@@ -93,6 +95,7 @@ public:
     /******************************** Partie Calque ************************************/
     /***********************************************************************************/
 
+    void reinitUserPertinenceCalque(int width, int height);
     void undoAction();
     void redoAction();
     void addMemento();

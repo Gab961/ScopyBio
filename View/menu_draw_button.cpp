@@ -215,6 +215,8 @@ void Menu_Draw_Button::activateEraserAnnotation()
         m_newLayer->setStyleSheet(buttonStyleUnpressed);
         m_select->setStyleSheet(buttonStyleUnpressed);
 
+        emit penCanceled();
+
         setPipetteActive(false);
         isPenButtonActive = false;
         isEraserButtonActive = true;
@@ -243,6 +245,8 @@ void Menu_Draw_Button::activateShapesAnnotation()
         m_filters->setStyleSheet(buttonStyleUnpressed);
         m_newLayer->setStyleSheet(buttonStyleUnpressed);
         m_select->setStyleSheet(buttonStyleUnpressed);
+
+        emit penCanceled();
 
         setPipetteActive(false);
         isPenButtonActive = false;
@@ -275,6 +279,8 @@ void Menu_Draw_Button::activateSelectionAnnotation()
         m_select->setStyleSheet(buttonStylePressed);
 
         setPipetteActive(false);
+        emit penCanceled();
+
         isPenButtonActive = false;
         isEraserButtonActive = false;
         isShapesButtonActive = true;

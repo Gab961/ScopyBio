@@ -12,7 +12,6 @@ private:
     QPoint scaledTopLeft;
     QPoint scaledBotRight;
 
-    analyse_model Data;
     pile_model *p_Piles;
 
     bool faisceauActive;
