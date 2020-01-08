@@ -80,6 +80,14 @@ void Menu_Draw_Button::createView()
     m_newLayer->setMaximumSize(25,25);
     m_gridTools->addWidget(m_newLayer, 1, 3);
 
+    m_hide = new QPushButton(QIcon("../../Resources/Icons/visibility.svg"), "", this);
+    m_hide->setIconSize(QSize(20,20));
+    m_hide->setMinimumSize(25,25);
+    m_hide->setMaximumSize(25,25);
+    m_hide->setStyleSheet(buttonStyle);
+    //m_hide->setEnabled(false);
+    m_gridTools->addWidget(m_hide, 1, 4);
+
     setLayout(m_gridTools);
 }
 
@@ -107,6 +115,7 @@ void Menu_Draw_Button::connections()
     QObject::connect(m_analysis, &QPushButton::clicked, this, &Menu_Draw_Button::analysis);
     QObject::connect(m_newLayer, &QPushButton::clicked, this, &Menu_Draw_Button::newLayer);
     QObject::connect(m_select, &QPushButton::clicked, this, &Menu_Draw_Button::selectButton);
+    QObject::connect(m_hide, &QPushButton::clicked, this, &Menu_Draw_Button::hideButton);
 }
 
 
@@ -206,6 +215,8 @@ void Menu_Draw_Button::activateEraserAnnotation()
         m_newLayer->setStyleSheet(buttonStyleUnpressed);
         m_select->setStyleSheet(buttonStyleUnpressed);
 
+        emit penCanceled();
+
         setPipetteActive(false);
         isPenButtonActive = false;
         isEraserButtonActive = true;
@@ -234,6 +245,8 @@ void Menu_Draw_Button::activateShapesAnnotation()
         m_filters->setStyleSheet(buttonStyleUnpressed);
         m_newLayer->setStyleSheet(buttonStyleUnpressed);
         m_select->setStyleSheet(buttonStyleUnpressed);
+
+        emit penCanceled();
 
         setPipetteActive(false);
         isPenButtonActive = false;
@@ -266,6 +279,8 @@ void Menu_Draw_Button::activateSelectionAnnotation()
         m_select->setStyleSheet(buttonStylePressed);
 
         setPipetteActive(false);
+        emit penCanceled();
+
         isPenButtonActive = false;
         isEraserButtonActive = false;
         isShapesButtonActive = true;
@@ -432,6 +447,8 @@ void Menu_Draw_Button::analysis() {emit analysisClicked();}
 void Menu_Draw_Button::newLayer() {emit newLayerClicked();}
 
 void Menu_Draw_Button::selectButton() {emit selectClicked();}
+
+void Menu_Draw_Button::hideButton() {emit hideClicked();}
 
 void Menu_Draw_Button::changePipetteStyleWhenUsed() {
     QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";

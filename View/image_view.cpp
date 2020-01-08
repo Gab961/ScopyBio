@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include <QDateTime>
 #include "scopybio_controller.h"
+#include <cstdlib>
 
 #define cimg_use_tiff
 #include "CImg.h"
@@ -64,11 +65,14 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
  */
 void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 {
+    std::cout << "Release" << std::endl;
     if (m_scopybioController->fileReady() && m_scopybioController->is24Bits())
     {
+        std::cout << "File ready et 24 bits" << std::endl;
         //Si on est pas en train de dessiner ni de choisir avec la pipette
         if (!listenPenClick && !m_scopybioController->getPipetteClick())
         {
+            std::cout << "On est pas en train de dessiner" << std::endl;
             quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
             int widthOfLabel = m_image->width();
             int heightOfLabel = m_image->height();
@@ -76,6 +80,12 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
             //Si c'est un clic long
             if (temps > TEMPS_CLIC_LONG)
             {
+                std::cout << "Clic long" << std::endl;
+                if (m_scopybioController->getListenSelectionClick())
+                    std::cout << "DEBUG >> ListenSelection = VRAI" << std::endl;
+                else
+                    std::cout << "DEBUG >> ListenSelection = FAUX" << std::endl;
+
                 //Si on veut faire une selection
                 if (m_scopybioController->getListenSelectionClick())
                 {
@@ -83,6 +93,8 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 
                     secondPoint.setX(secondPoint.x()-m_image->x());
                     secondPoint.setY(secondPoint.y()-m_image->y());
+
+                    m_scopybioController->reinitUserPertinenceCalque(1,1);
 
                     if (!(origPoint.x() == secondPoint.x() && origPoint.y() == secondPoint.y()))
                         emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
@@ -116,6 +128,8 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
             else
                 succes = m_scopybioController->dessinerCarre(pos,m_image->width(),m_image->height());
 
+            m_scopybioController->addMemento();
+
             if (!succes)
                 QMessageBox::information(this, "", "No layer selected. Please create one.");
 
@@ -133,12 +147,14 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 
             bool succes = m_scopybioController->dessinerText(textContent.toStdString(),pos,m_image->width(),m_image->height());
 
+            m_scopybioController->addMemento();
+
             if (!succes)
                 QMessageBox::information(this, "", "No layer selected. Please create one.");
 
             setNewPicture();
         }
-        //Si on dessine au craton
+        //Si on dessine au crayon
         if (m_scopybioController->getListenPenClick())
         {
             m_scopybioController->addMemento();

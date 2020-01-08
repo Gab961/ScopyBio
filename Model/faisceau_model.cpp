@@ -30,11 +30,6 @@ void faisceau_model::setP_Piles(pile_model *value)
     p_Piles = value;
 }
 
-void faisceau_model::fillData()
-{
-
-}
-
 QPoint faisceau_model::getScaledTopLeft() const { return scaledTopLeft; }
 QPoint faisceau_model::getScaledBotRight() const { return scaledBotRight; }
 void faisceau_model::setScaledTopLeft(int tl, int br)

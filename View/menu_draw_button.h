@@ -38,6 +38,7 @@ class Menu_Draw_Button: public QGroupBox
         void selectButton();
         void askForAnalysis();
         void newLayer();
+        void hideButton();
 
     signals:
         void waitingForZoomClick();
@@ -55,6 +56,7 @@ class Menu_Draw_Button: public QGroupBox
         void analysisClicked();
         void newLayerClicked();
         void selectClicked();
+        void hideClicked();
 
     private:
         QGridLayout *m_gridTools;
@@ -78,6 +80,7 @@ class Menu_Draw_Button: public QGroupBox
         QPushButton *m_filters;
         QPushButton *m_newLayer;
         QPushButton *m_select;
+        QPushButton *m_hide;
 
         ScopyBio_Controller *m_scopybioController;
 };

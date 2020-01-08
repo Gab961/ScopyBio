@@ -9,6 +9,11 @@
 ScopyBio_Controller::ScopyBio_Controller() : m_pileModel(new pile_model()), m_dessinModel(new dessin_model()), m_analyseModel(new analyse_model()), m_gestion_calque(new gestionnaire_calque_model), m_faisceauModel(new faisceau_model), m_saveModel(new save_model), m_loadModel(new load_model)
 {}
 
+void ScopyBio_Controller::reinitAllModels()
+{
+    m_analyseModel->init();
+    m_gestion_calque->init(m_pileModel->getCurrentImage().width(),m_pileModel->getCurrentImage().height());
+}
 
 //=======================
 // AFFICHAGE
@@ -385,6 +390,11 @@ void ScopyBio_Controller::applyGreenFilter()
  * appelle une fonction dans le gestionnaire qui retourne la liste de calque s'appliquant à l'image genre vector : { 0,2,6 } c'est à dire que les images calques calque0, calque2 et calque6 doivent etre affichés
  *
  * */
+
+void ScopyBio_Controller::reinitUserPertinenceCalque(int width, int height)
+{
+    m_gestion_calque->reinitUserPertinenceCalque(width, height);
+}
 
 void ScopyBio_Controller::applyHistogramFilter()
 {

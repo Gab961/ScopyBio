@@ -71,7 +71,6 @@ private:
 
     QGridLayout *m_leftLayout;
     Zoom_View *m_zoomView;
-    QPushButton *m_hide;
     Menu_Draw_Button *m_tools;
     menu_option *m_options;
 

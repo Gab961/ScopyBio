@@ -5,6 +5,20 @@
 dessin_model::dessin_model() : zoomReady(false), baseColorGiven(false), listenPipetteClick(false), whiteColor(0), penSize(5), shapeSize(10), textSize(10), eraserSize(10), circleIsSelected(true)
 {}
 
+void dessin_model::init()
+{
+    shutdownAllListening();
+
+    zoomReady = false;
+    baseColorGiven = false;
+    whiteColor = 0;
+    penSize = 5;
+    shapeSize = 10;
+    textSize = 10;
+    eraserSize = 10;
+    circleIsSelected = true;
+}
+
 CImg<float> dessin_model::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
     const unsigned char color[] = { 255,174,0,255 };
@@ -49,8 +63,17 @@ CImg<float> dessin_model::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWi
 
     //Masque gris pour la zone non sélectionnée
     cimg_forXY(currentPicture,x,y) {
-        //Si on est en dehors du rectangle du faisceau
-        if (x<x1 || x>x2 || y<y1 || y>y2)
+
+        if (
+                //Si on est à gauche
+                ((x1<x2 && x<x1) || (x2<x1 && x<x2)) ||
+                //Si on est à droite
+                ((x1<x2 && x>x2) || (x2<x1 && x>x1)) ||
+                //Si on est en haut
+                ((y1<y2 && y<y1) || (y2<y1 && y<y2)) ||
+                //Si on est en bas
+                ((y1<y2 && y>y2) || (y2<y1 && y>y1))
+                )
             currentPicture.draw_point(x,y,colorMasque,1);
     }
 
@@ -372,6 +395,7 @@ void dessin_model::shutdownAllListening()
     listenPipetteClick = false;
     listenShapeClick = false;
     listenTextClick = false;
+    listenSelectionClick = false;
 }
 
 /** Source: https://stackoverflow.com/questions/5673448/can-the-cimg-library-draw-thick-lines **/
@@ -404,7 +428,7 @@ void dessin_model::drawThickLine(CImg<float>& image, const int x1, const int y1,
     points(3, 1) = y2 + y_adj;
 
     if (isDrawing)
-    image.draw_polygon(points, color);
+        image.draw_polygon(points, color);
     else
         image.draw_polygon(points, eraseColor);
 }
