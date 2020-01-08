@@ -33,11 +33,6 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
 {
     std::cout << "DEBUT ANALYSE TOTALE" << std::endl;
 
-    ///DEBUG TESTS
-    //    columnAmount = 5;
-    //    linesAmount = 5;
-    /////////////////
-
     results.clear();
     gestionnaire->reinitPertinenceCalque();
 
@@ -547,6 +542,12 @@ void analyse_model::getDataFromZoomArea(QPoint area, int labelWidth, int labelHe
     }
 }
 
+void analyse_model::createAllResultsDisplay(int size, int whiteValue)
+{
+    for(unsigned int index=0; index<results.size(); index++){
+        createResultsDisplay(index,size,whiteValue,false);
+    }
+}
 
 bool analyse_model::dataReady() { return isDataReady; }
 void analyse_model::setColumnAmount(int newColumn) { columnAmount = newColumn; }

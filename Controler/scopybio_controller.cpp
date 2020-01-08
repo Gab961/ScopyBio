@@ -77,15 +77,11 @@ void ScopyBio_Controller::openProject(std::string pathProject){
     std::vector<Resultat> res;
     res = m_loadModel->loadResults(pathProject);
 
+    std::cout << "TAILLE RES = " << res.size() << std::endl;
+
     if(res.size() != 0){
         m_analyseModel->setResults(res);
-
-        int index = 0;
-        for(Resultat i : res){
-            //int index, int imagesSize, int whiteValue, bool isUserAnalysis
-            m_analyseModel->createResultsDisplay(index,m_pileModel->getImages().size(),m_dessinModel->getWhiteValue(),false);
-            index++;
-        }
+        m_analyseModel->createAllResultsDisplay(m_pileModel->getImages().size(),m_dessinModel->getWhiteValue());
 
         std::vector<int> rowcol = m_loadModel->loadColRowAmounts(pathProject);
         if(rowcol.empty()){

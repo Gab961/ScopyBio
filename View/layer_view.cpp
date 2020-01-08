@@ -64,7 +64,10 @@ void LayerView::loadLayers(int currentRow)
     if (layerIdList.size() == 0)
         m_scopybioController->setCurrentCalqueId(-1);
     else
+    {
+        setCurrentRow(0);
         m_scopybioController->setCurrentCalqueId(layerIdList[0]);
+    }
 
     this->update();
 }
@@ -112,13 +115,11 @@ void LayerView::rowChanged(int row)
 {
     currentLayerRow = row;
     m_scopybioController->setCurrentCalqueId(layerIdList[currentLayerRow]);
-    std::cout << "Nouveau clic id = " << currentLayerRow << std::endl;
 }
 
 void LayerView::hoverRowChanged(int row)
 {
     currentLayerRowHover = row;
-    std::cout << "Nouveau hover id = " << currentLayerRowHover << std::endl;
 }
 
 void LayerView::removeLayer()

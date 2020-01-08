@@ -395,12 +395,8 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     if (isGreen)
     {
         calque overlay = getCalqueForDisplay(CALQUEVERT);
-        //std::cout << overlay.getId() << std::endl;
         currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
     }
-
-    //    afficheCalques();
-    //    std::cout << "*********************************************" << std::endl;
 
     if(isResultat){
         calque overlay = getCalqueForDisplay(RESULTAT_VIEW);
@@ -408,16 +404,7 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     }
 
     if(ids.size() != 0)
-    {//Sinon on merge et on affiche
-
-        //        std::cout << "plusieurs images à merge" << std::endl;
-
-        //        for(auto i : ids){
-        //            std::cout << i << " | ";
-        //        }
-
-        //        std::cout << "cc" << std::endl;
-
+    {
         //Et tous les autres ensuite
         for(auto i : ids){
             //std::cout << "I = " << i << std::endl;
@@ -437,14 +424,9 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
 
     }
 
-
     //On sauvegarde l'ensemble
     currentDisplayedImage.save_bmp(pathOfMainDisplay.c_str());
 }
-
-//void gestionnaire_calque_model::merge2Images(calque &a, calque b){
-//    a.getCalque().draw_image(0,0,0,0,b.getCalque(),b.getCalque().get_channel(3),1,255);
-//}
 
 //MEMENTO
 void gestionnaire_calque_model::undo(){
@@ -561,7 +543,5 @@ void gestionnaire_calque_model::afficheCalques(){
 }
 
 int gestionnaire_calque_model::getCurrentCalqueId() { return idCurrentCalque; }
-void gestionnaire_calque_model::setCurrentCalqueId(int newId) { idCurrentCalque = newId;
-                                                                std::cout << "Nouveau calque courant = " << idCurrentCalque << std::endl;}
-
+void gestionnaire_calque_model::setCurrentCalqueId(int newId) { idCurrentCalque = newId;}
 void gestionnaire_calque_model::setShowResultat(bool newValue) { isResultat = newValue; }
