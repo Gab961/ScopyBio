@@ -222,7 +222,6 @@ public:
      */
     int getErrorMargin();
 
-
 private:
     bool areaIsSelected;
     bool userAreaIsSelected;

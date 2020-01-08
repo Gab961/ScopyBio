@@ -102,6 +102,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
             }
             else
             {
+                m_scopybioController->reinitUserPertinenceCalque(1,1);
                 emit getDataFromArea(origPoint, widthOfLabel, heightOfLabel);
             }
         }

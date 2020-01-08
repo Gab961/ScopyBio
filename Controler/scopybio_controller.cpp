@@ -411,7 +411,11 @@ void ScopyBio_Controller::applyResultatFilter()
 void ScopyBio_Controller::applyZoomResultatFilter() {
     if (m_analyseModel->dataReady())
     {
-        CImg<float> zoom = m_dessinModel->saveZoomFromArea(m_faisceauModel->getScaledTopLeft(),m_faisceauModel->getScaledBotRight(),m_pileModel->getCurrentImage());
+        CImg<float> zoom;
+        if (userAreaIsSelected())
+            zoom = m_dessinModel->saveZoomFromArea(m_faisceauModel->getScaledTopLeft(),m_faisceauModel->getScaledBotRight(),m_pileModel->getCurrentImage());
+        else
+            zoom = m_dessinModel->saveZoomFromArea(m_analyseModel->getTopLeftPointOfCurrentArea(),m_analyseModel->getBottomRightPointOfCurrentArea(),m_pileModel->getCurrentImage());
         m_gestion_calque->updateZoomResultat();
         m_gestion_calque->mergeUserAnalysis(zoom,m_dessinModel->getZoomDisplayPath());
     }
