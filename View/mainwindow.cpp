@@ -200,7 +200,8 @@ void MainWindow::connections()
     QObject::connect(m_tools, &Menu_Draw_Button::hideClicked, this, &MainWindow::changeStateGrid);
 
     // Met à jour les calques en fonction de l'image sélectionnée
-    QObject::connect(m_pileView, &Pile_View::rowClicked, m_layerView, &LayerView::loadLayers);
+    QObject::connect(m_pileView, &Pile_View::rowClicked, m_layerView, &LayerView::loadLayers);    
+    QObject::connect(m_options, &menu_option::reloadLayers, m_layerView, &LayerView::loadLayers);
 
     // Met à jour l'affichage de l'image après chaque action effectuée dans le layer_view (suppression, création, affichage)
     QObject::connect(m_layerView, &LayerView::actionDoneWithLayer, this, &MainWindow::recreateMainDisplay);
@@ -278,6 +279,7 @@ void MainWindow::open()
             m_loop->setEnabled(false);
             m_compare->setEnabled(false);
             m_saveAs->setEnabled(false);
+            m_saveFile->setEnabled(false);
             m_saveCurrentDisplay->setEnabled(false);
         }
     }
@@ -296,6 +298,8 @@ void MainWindow::saveAs()
 
         m_scopybioController->save_as(path);
     }
+
+    m_saveFile->setEnabled(true);
 }
 
 void MainWindow::saveCurrentDisplay()

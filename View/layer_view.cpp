@@ -22,49 +22,60 @@ void LayerView::loadLayers(int currentRow)
     layerIdList = m_scopybioController->getCalquesIdFromImage(currentRow);
 
     for (unsigned int i = 0; i < layerIdList.size(); i++) {
-        if (layerIdList[i] != 2)
-        {
-            m_itemLayout = new QGridLayout(this);
+        m_itemLayout = new QGridLayout(this);
 
-            m_layerId = new QLabel(QString::number(layerIdList[i]));
-            m_itemLayout->addWidget(m_layerId, 0, 0);
+        m_layerId = new QLabel(QString::number(layerIdList[i]));
+        m_itemLayout->addWidget(m_layerId, 0, 0);
 
-            m_delete = new QPushButton(QIcon("../../Resources/Icons/delete-cross.svg"), "", this);
-            m_delete->setStyleSheet(buttonStyle);
-            m_delete->setIconSize(QSize(20,20));
-            m_delete->setMinimumSize(25,25);
-            m_delete->setMaximumSize(25,25);
-            m_itemLayout->addWidget(m_delete, 0, 1);
+        m_delete = new QPushButton(QIcon("../../Resources/Icons/delete-cross.svg"), "", this);
+        m_delete->setStyleSheet(buttonStyle);
+        m_delete->setIconSize(QSize(20,20));
+        m_delete->setMinimumSize(25,25);
+        m_delete->setMaximumSize(25,25);
+        m_itemLayout->addWidget(m_delete, 0, 1);
 
-            QObject::connect(m_delete, &QPushButton::clicked, this, &LayerView::removeLayer);
+        QObject::connect(m_delete, &QPushButton::clicked, this, &LayerView::removeLayer);
 
-            m_hide = new QPushButton(QIcon("../../Resources/Icons/visibility.svg"), "", this);
+        m_hide = new QPushButton(QIcon("../../Resources/Icons/visibility.svg"), "", this);
 
-            if(m_scopybioController->isHidden(layerIdList[i]))
-                m_hide->setStyleSheet(buttonStylePressed);
-            else
-                m_hide->setStyleSheet(buttonStyle);
+        if(m_scopybioController->isHidden(layerIdList[i]))
+            m_hide->setStyleSheet(buttonStylePressed);
+        else
+            m_hide->setStyleSheet(buttonStyle);
 
-            m_hide->setIconSize(QSize(20,20));
-            m_hide->setMinimumSize(25,25);
-            m_hide->setMaximumSize(25,25);
-            m_itemLayout->addWidget(m_hide, 0, 2);
+        m_hide->setIconSize(QSize(20,20));
+        m_hide->setMinimumSize(25,25);
+        m_hide->setMaximumSize(25,25);
+        m_itemLayout->addWidget(m_hide, 0, 2);
 
-            QObject::connect(m_hide, &QPushButton::clicked, this, &LayerView::hideLayer);
+        QObject::connect(m_hide, &QPushButton::clicked, this, &LayerView::hideLayer);
 
-            m_line = new QWidget();
-            m_line->setLayout(m_itemLayout);
+        m_line = new QWidget();
+        m_line->setLayout(m_itemLayout);
 
-            QListWidgetItem *item = new QListWidgetItem(this);
-            this->setItemWidget(item, m_line);
-            QSize itemSize(this->size().width() - 2, 50);
-            item->setSizeHint(itemSize);
+        QListWidgetItem *item = new QListWidgetItem(this);
+        this->setItemWidget(item, m_line);
+        QSize itemSize(this->size().width() - 2, 50);
+        item->setSizeHint(itemSize);
 
-            this->insertItem(0, item);
-        }
+        this->insertItem(0, item);
     }
 
+    if (layerIdList.size() == 0)
+        m_scopybioController->setCurrentCalqueId(-1);
+    else
+        m_scopybioController->setCurrentCalqueId(layerIdList[0]);
+
     this->update();
+}
+
+void LayerView::mousePressEvent( QMouseEvent* ev ) {
+    QPoint pos = ev->pos();
+    QModelIndex index = this->indexAt(pos);
+    if (index.row() >= 0)
+        rowChanged(index.row());
+
+    QListWidget::mousePressEvent(ev);
 }
 
 void LayerView::hoverEnter(QHoverEvent * event) { }
@@ -73,7 +84,7 @@ void LayerView::hoverMove(QHoverEvent * event) {
     QPoint pos = event->pos();
     QModelIndex index = this->indexAt(pos);
     if (index.row() >= 0)
-        rowChanged(index.row());
+        hoverRowChanged(index.row());
 }
 bool LayerView::event(QEvent * e)
 {
@@ -101,14 +112,22 @@ void LayerView::rowChanged(int row)
 {
     currentLayerRow = row;
     m_scopybioController->setCurrentCalqueId(layerIdList[currentLayerRow]);
+    std::cout << "Nouveau clic id = " << currentLayerRow << std::endl;
+}
+
+void LayerView::hoverRowChanged(int row)
+{
+    currentLayerRowHover = row;
+    std::cout << "Nouveau hover id = " << currentLayerRowHover << std::endl;
 }
 
 void LayerView::removeLayer()
 {
-    m_scopybioController->removeCalque(layerIdList[currentLayerRow]);
-    this->removeItemWidget(item(currentLayerRow));
+    m_scopybioController->removeCalque(layerIdList[currentLayerRowHover]);
+    this->removeItemWidget(item(currentLayerRowHover));
 
     emit actionDoneWithLayer();
+    loadLayers(m_scopybioController->getCurrentImageIndex());
     this->update();
 }
 
@@ -117,13 +136,13 @@ void LayerView::hideLayer()
     QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
     QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
     // Si le calques est caché on l'affiche
-    if(m_scopybioController->isHidden(layerIdList[currentLayerRow])) {
+    if(m_scopybioController->isHidden(layerIdList[currentLayerRowHover])) {
         m_hide->setStyleSheet(buttonStyle);
-        m_scopybioController->afficherCalque(layerIdList[currentLayerRow], true);
+        m_scopybioController->afficherCalque(layerIdList[currentLayerRowHover], true);
     }
     else {
         m_hide->setStyleSheet(buttonStylePressed);
-        m_scopybioController->afficherCalque(layerIdList[currentLayerRow], false);
+        m_scopybioController->afficherCalque(layerIdList[currentLayerRowHover], false);
     }
 
     emit actionDoneWithLayer();

@@ -18,11 +18,13 @@ class LayerView: public QListWidget
         LayerView(QWidget *parent, ScopyBio_Controller *scopybioController);
         void createView();
         void connections();
+        void mousePressEvent( QMouseEvent* ev );
         void hoverEnter(QHoverEvent * event);
         void hoverLeave(QHoverEvent * event);
         void hoverMove(QHoverEvent * event);
         bool event(QEvent * e);
         void rowChanged(int row);
+        void hoverRowChanged(int row);
 
     signals:
         void actionDoneWithLayer();
@@ -34,6 +36,7 @@ class LayerView: public QListWidget
 
     private:
         int currentLayerRow;
+        int currentLayerRowHover;
         QWidget *m_line;
         QGridLayout *m_itemLayout;
         QPushButton *m_delete;

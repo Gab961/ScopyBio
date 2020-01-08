@@ -40,7 +40,7 @@ void save_model::saveTiff(std::string pathSource){
     }
 }
 
-void save_model::saveCalques(std::vector<calque> calques){
+void save_model::saveCalques(std::vector<calque> calques, bool dataReady, calque res){
     for(auto i : calques){
         if(i.getIntervalMin() >= -1){
             std::string calque_name = saveCalquesPath;
@@ -50,9 +50,16 @@ void save_model::saveCalques(std::vector<calque> calques){
             i.saveCalque(calque_name);
         }
     }
+
+    if(dataReady){
+        std::string calque_name = saveCalquesPath;
+        calque_name += separator;
+        calque_name += std::string("result");
+        res.saveCalque(calque_name);
+    }
 }
 
-void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Resultat> &resultats, int row, int col){
+void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Resultat> &resultats, int row, int col, int whiteValue){
     std::string _filename = savePath;
     _filename += separator;
     _filename += std::string(filename);
@@ -60,57 +67,64 @@ void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Res
 
     Json::Value value;
 
-    Json::Value calquesValue;
 
-    for(calque i : calques){
-        if(i.getIntervalMin() >= -1){
-            Json::Value calqueValue;
-            calqueValue["min"] = i.getIntervalMin();
-            calqueValue["max"] = i.getIntervalMax();
-            calqueValue["id"] = i.getId();
-            std::string pathcalque = saveCalquesPath + separator + "calque" + std::to_string(i.getId());
-            calqueValue["path"] = pathcalque.c_str();
+    if(calques.size() != 0){
+        Json::Value calquesValue;
+        for(calque i : calques){
+            if(i.getIntervalMin() >= -1){
+                Json::Value calqueValue;
+                calqueValue["min"] = i.getIntervalMin();
+                calqueValue["max"] = i.getIntervalMax();
+                calqueValue["id"] = i.getId();
+                std::string pathcalque = saveCalquesPath + separator + "calque" + std::to_string(i.getId()) + ".cimg";
+                calqueValue["path"] = pathcalque.c_str();
 
-            std::string nom = "calque" + std::to_string(i.getId());
-            calquesValue[nom.c_str()] = calqueValue;
+                std::string nom = "calque" + std::to_string(i.getId());
+                calquesValue[nom.c_str()] = calqueValue;
+            }
         }
+
+        value["calques"] = calquesValue;
     }
 
-    value["calques"] = calquesValue;
+    if(resultats.size() != 0 ){
+        for(Resultat i : resultats){
+            //Pertinence
+            Json::Value resultValue;
+            resultValue["pertinence"] = i.getPertinence();
+
+            //Top left Point
+            Json::Value arrayTopPoint;
+            arrayTopPoint.append(i.getTopLeftPoint().x());
+            arrayTopPoint.append(i.getTopLeftPoint().y());
+            resultValue["topLeftPoint"] = arrayTopPoint;
+
+            //Bottom right Point
+            Json::Value arrayBotPoint;
+            arrayBotPoint.append(i.getBottomRightPoint().x());
+            arrayBotPoint.append(i.getBottomRightPoint().y());
+            resultValue["bottomRightPoint"] = arrayBotPoint;
+
+            //Array
+            Json::Value arrayV;
+            //int index = 0;
+            for (auto element: i.getResults()) {
+                arrayV.append(element);
+            }
+            resultValue["resultats"] = arrayV;
 
 
-    for(Resultat i : resultats){
-        //Pertinence
-        Json::Value resultValue;
-        resultValue["pertinence"] = i.getPertinence();
-
-        //Top left Point
-        Json::Value arrayTopPoint;
-        arrayTopPoint.append(i.getTopLeftPoint().x());
-        arrayTopPoint.append(i.getTopLeftPoint().y());
-        resultValue["topLeftPoint"] = arrayTopPoint;
-
-        //Bottom right Point
-        Json::Value arrayBotPoint;
-        arrayBotPoint.append(i.getBottomRightPoint().x());
-        arrayBotPoint.append(i.getBottomRightPoint().y());
-        resultValue["bottomRightPoint"] = arrayBotPoint;
-
-        //Array
-        Json::Value arrayV;
-        //int index = 0;
-        for (auto element: i.getResults()) {
-            arrayV.append(element);
+            value["results"]["data"].append(resultValue);
         }
-        resultValue["resultats"] = arrayV;
 
-
-        value["results"]["data"].append(resultValue);
+        value["results"]["rowAmount"] = row;
+        value["results"]["colAmount"] = col;
+        std::string calque_name = saveCalquesPath;
+        calque_name += separator;
+        calque_name += std::string("result.cimg");
+        value["results"]["calque"] = calque_name.c_str();
+        value["results"]["white"] = whiteValue;
     }
-
-    value["results"]["rowAmount"] = row;
-    value["results"]["colAmount"] = col;
-
 
     std::ofstream outfile(_filename);
     //    outfile.open(_filename, std::ofstream::out | std::ofstream::trunc);
@@ -126,7 +140,7 @@ void save_model::saveCurrentDisplay(std::string savePath, std::string currentDis
     img.save_bmp(savePath.c_str());
 }
 
-void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques,std::vector<Resultat> resultats,int row, int col){
+void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques, bool dataReady, std::vector<Resultat> resultats, int row, int col, calque res,int whiteValue){
     //std::cout << "function save_as " << std::endl;
 
     auto first = fileName.find(".");
@@ -165,19 +179,19 @@ void save_model::save_as(std::string path, std::string fileName, std::vector<cal
 
     saveTiff(fileName);
 
-    save(_calques,resultats,row,col);
+    save(_calques,dataReady,resultats,row,col,res,whiteValue);
 }
 
 
-bool save_model::save(std::vector<calque> _calques, const std::vector<Resultat> &resultats, int row, int col){
+bool save_model::save(std::vector<calque> _calques, bool dataReady, const std::vector<Resultat> &resultats, int row, int col, calque res,int whiteValue){
     if(savePath.empty()){
         return false;
     }else{
         if(!std::filesystem::exists(savePath.c_str())){
             return false;
         }else{
-            saveCalques(_calques);
-            saveJsonFile(_calques,resultats,row,col);
+            saveCalques(_calques,dataReady,res);
+            saveJsonFile(_calques,resultats,row,col,whiteValue);
             return true;
         }
     }
