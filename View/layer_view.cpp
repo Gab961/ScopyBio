@@ -134,18 +134,15 @@ void LayerView::removeLayer()
 
 void LayerView::hideLayer()
 {
-    QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
-    QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
     // Si le calques est caché on l'affiche
     if(m_scopybioController->isHidden(layerIdList[currentLayerRowHover])) {
-        m_hide->setStyleSheet(buttonStyle);
         m_scopybioController->afficherCalque(layerIdList[currentLayerRowHover], true);
     }
     else {
-        m_hide->setStyleSheet(buttonStylePressed);
         m_scopybioController->afficherCalque(layerIdList[currentLayerRowHover], false);
     }
 
+    loadLayers(m_scopybioController->getCurrentImageIndex());
+
     emit actionDoneWithLayer();
-    this->update();
 }

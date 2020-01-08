@@ -543,5 +543,5 @@ void gestionnaire_calque_model::afficheCalques(){
 }
 
 int gestionnaire_calque_model::getCurrentCalqueId() { return idCurrentCalque; }
-void gestionnaire_calque_model::setCurrentCalqueId(int newId) { idCurrentCalque = newId;}
+void gestionnaire_calque_model::setCurrentCalqueId(int newId) { idCurrentCalque = newId; }
 void gestionnaire_calque_model::setShowResultat(bool newValue) { isResultat = newValue; }
