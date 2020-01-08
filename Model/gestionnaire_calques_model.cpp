@@ -328,13 +328,8 @@ void gestionnaire_calque_model::updateResultat(){
     isResultat = !isResultat;
 }
 
-void gestionnaire_calque_model::updateZoomResultat(CImg<float> zoom, std::string zoomPath){
+void gestionnaire_calque_model::updateZoomResultat(){
     isZoomResultat = !isZoomResultat;
-
-    if(isZoomResultat)
-        mergeUserAnalysis(zoom,zoomPath);
-    else
-        zoom.save_bmp(zoomPath.c_str());
 }
 
 /**
@@ -371,9 +366,13 @@ void gestionnaire_calque_model::updateUserQuadrillage(int columns, int lines){
 
 void gestionnaire_calque_model::mergeUserAnalysis(CImg<float> zoom, std::string zoomPath)
 {
-    calque overlay = getCalqueForDisplay(CALQUEPERTINENCE);
-    zoom.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
-    zoom.save_bmp(zoomPath.c_str());
+    if(isZoomResultat){
+        calque overlay = getCalqueForDisplay(CALQUEPERTINENCE);
+        zoom.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
+        zoom.save_bmp(zoomPath.c_str());
+    }
+    else
+        zoom.save_bmp(zoomPath.c_str());
 }
 
 void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> currentDisplayedImage, std::string pathOfMainDisplay){

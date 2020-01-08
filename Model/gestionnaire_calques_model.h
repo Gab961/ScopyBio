@@ -51,7 +51,7 @@ public:
     void updateCalqueVert();
     void updateHistogram();
     void updateResultat();
-    void updateZoomResultat(CImg<float> zoom, std::string zoomPath);
+    void updateZoomResultat();
     void dessinLigne(int idCalque, QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing);
     void updateQuadrillage(int columns, int lines);
     void updateUserQuadrillage(int columns, int lines);
