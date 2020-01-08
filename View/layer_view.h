@@ -18,6 +18,7 @@ class LayerView: public QListWidget
         LayerView(QWidget *parent, ScopyBio_Controller *scopybioController);
         void createView();
         void connections();
+        void mousePressEvent( QMouseEvent* ev );
         void hoverEnter(QHoverEvent * event);
         void hoverLeave(QHoverEvent * event);
         void hoverMove(QHoverEvent * event);

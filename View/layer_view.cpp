@@ -69,13 +69,22 @@ void LayerView::loadLayers(int currentRow)
     this->update();
 }
 
+void LayerView::mousePressEvent( QMouseEvent* ev ) {
+    QPoint pos = ev->pos();
+    QModelIndex index = this->indexAt(pos);
+    if (index.row() >= 0)
+        rowChanged(index.row());
+
+    QListWidget::mousePressEvent(ev);
+}
+
 void LayerView::hoverEnter(QHoverEvent * event) { }
 void LayerView::hoverLeave(QHoverEvent * event) { }
 void LayerView::hoverMove(QHoverEvent * event) {
     QPoint pos = event->pos();
     QModelIndex index = this->indexAt(pos);
     if (index.row() >= 0)
-        rowChanged(index.row());
+        hoverRowChanged(index.row());
 }
 bool LayerView::event(QEvent * e)
 {
@@ -103,17 +112,19 @@ void LayerView::rowChanged(int row)
 {
     currentLayerRow = row;
     m_scopybioController->setCurrentCalqueId(layerIdList[currentLayerRow]);
+    std::cout << "Nouveau clic id = " << currentLayerRow << std::endl;
 }
 
 void LayerView::hoverRowChanged(int row)
 {
     currentLayerRowHover = row;
+    std::cout << "Nouveau hover id = " << currentLayerRowHover << std::endl;
 }
 
 void LayerView::removeLayer()
 {
     m_scopybioController->removeCalque(layerIdList[currentLayerRowHover]);
-    this->removeItemWidget(item(currentLayerRow));
+    this->removeItemWidget(item(currentLayerRowHover));
 
     emit actionDoneWithLayer();
     loadLayers(m_scopybioController->getCurrentImageIndex());
@@ -125,7 +136,7 @@ void LayerView::hideLayer()
     QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
     QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
     // Si le calques est caché on l'affiche
-    if(m_scopybioController->isHidden(layerIdList[currentLayerRow])) {
+    if(m_scopybioController->isHidden(layerIdList[currentLayerRowHover])) {
         m_hide->setStyleSheet(buttonStyle);
         m_scopybioController->afficherCalque(layerIdList[currentLayerRowHover], true);
     }
