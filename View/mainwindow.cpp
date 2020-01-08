@@ -566,6 +566,8 @@ void MainWindow::fullAnalysisEnded()
     QMessageBox::information(this, "", "Full analysis completed");
 
     m_options->closeMessageBox();
+    m_tools->activateSelectionAnnotation();
+    m_options->selection();
     emit changeMainPicture();
 }
 
@@ -575,6 +577,8 @@ void MainWindow::userAnalysisEnded()
     m_scopybioController->saveZoomOfUserArea();
 
     m_options->closeMessageBox();
+    m_tools->activateSelectionAnnotation();
+    m_options->selection();
     emit changeZoomedPicture();
 }
 
