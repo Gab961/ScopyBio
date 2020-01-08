@@ -39,6 +39,7 @@ signals:
     void changeZoomedPicture();
     void clearZoomView();
     void clearDataView();
+    void initAtFirstItemInPile(int i);
 
 public slots:
     void open();

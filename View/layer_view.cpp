@@ -64,7 +64,10 @@ void LayerView::loadLayers(int currentRow)
     if (layerIdList.size() == 0)
         m_scopybioController->setCurrentCalqueId(-1);
     else
+    {
+        setCurrentRow(0);
         m_scopybioController->setCurrentCalqueId(layerIdList[0]);
+    }
 
     this->update();
 }
@@ -112,13 +115,11 @@ void LayerView::rowChanged(int row)
 {
     currentLayerRow = row;
     m_scopybioController->setCurrentCalqueId(layerIdList[currentLayerRow]);
-    std::cout << "Nouveau clic id = " << currentLayerRow << std::endl;
 }
 
 void LayerView::hoverRowChanged(int row)
 {
     currentLayerRowHover = row;
-    std::cout << "Nouveau hover id = " << currentLayerRowHover << std::endl;
 }
 
 void LayerView::removeLayer()
@@ -133,18 +134,15 @@ void LayerView::removeLayer()
 
 void LayerView::hideLayer()
 {
-    QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
-    QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
     // Si le calques est caché on l'affiche
     if(m_scopybioController->isHidden(layerIdList[currentLayerRowHover])) {
-        m_hide->setStyleSheet(buttonStyle);
         m_scopybioController->afficherCalque(layerIdList[currentLayerRowHover], true);
     }
     else {
-        m_hide->setStyleSheet(buttonStylePressed);
         m_scopybioController->afficherCalque(layerIdList[currentLayerRowHover], false);
     }
 
+    loadLayers(m_scopybioController->getCurrentImageIndex());
+
     emit actionDoneWithLayer();
-    this->update();
 }

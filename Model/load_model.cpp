@@ -71,8 +71,9 @@ std::vector<Resultat> load_model::loadResults(std::string path){
             tmp.setPertinence(json["pertinence"].asInt());
             std::vector<float> tmpvec;
             for(auto elt : json["resultats"]){
-                tmpvec.push_back(elt.asInt());
+                tmpvec.push_back(elt.asFloat());
             }
+            tmp.setResults(tmpvec);
 
             int topX = json["topLeftPoint"][0].asInt();
             int topY = json["topLeftPoint"][1].asInt();
@@ -85,7 +86,6 @@ std::vector<Resultat> load_model::loadResults(std::string path){
 
             tmp.setTopLeftPoint(top);
             tmp.setBottomRightPoint(bot);
-
 
             vecteur.push_back(tmp);
         }

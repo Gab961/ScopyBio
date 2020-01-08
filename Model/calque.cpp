@@ -75,7 +75,6 @@ void calque::redo()
     }
     numList++;
     reinstateMemento(numList);
-    std::cout << "numList = " << numList << " Highwater = " << highWater << std::endl;
 }
 
 void calque::addMemento(){

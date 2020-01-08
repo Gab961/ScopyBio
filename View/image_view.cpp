@@ -262,7 +262,6 @@ void Image_View::nouvelleSelectionUtilisateur(QPoint pos1, QPoint pos2, int labe
     m_scopybioController->setUserAreaIsSelected();
     setNewPicture();
 
-
     emit activateLocalAnalyse();
     emit clearDataView();
 

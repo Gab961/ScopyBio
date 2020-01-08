@@ -141,8 +141,6 @@ void save_model::saveCurrentDisplay(std::string savePath, std::string currentDis
 }
 
 void save_model::save_as(std::string path, std::string fileName, std::vector<calque> _calques, bool dataReady, std::vector<Resultat> resultats, int row, int col, calque res,int whiteValue){
-    //std::cout << "function save_as " << std::endl;
-
     auto first = fileName.find(".");
     std::string f = fileName.substr(0, first);
     filename = getFileName(f,true,separator);
@@ -156,14 +154,9 @@ void save_model::save_as(std::string path, std::string fileName, std::vector<cal
     if(!std::filesystem::is_empty(std::filesystem::path(savePath))){
 
         if(std::filesystem::exists(saveCalquesPath.c_str())){
-            //std::cout << saveCalquesPath << " Found" << std::endl;
-
             std::filesystem::remove_all(std::filesystem::path(saveCalquesPath));
 
             std::filesystem::remove_all(std::filesystem::path(savePath));
-
-            //std::cout << saveCalquesPath << " Removed" << std::endl;
-
         }else{
             savePath = path + separator + filename;
 

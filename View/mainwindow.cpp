@@ -216,6 +216,9 @@ void MainWindow::connections()
 
     //Mise à jour de l'interface quand on créé un nouveau calque
     QObject::connect(m_options, &menu_option::switchToIndex, m_pileView, &Pile_View::changeToElement);
+
+    //Sélectionne le premier élément après le chargement de la pile
+    QObject::connect(this, &MainWindow::initAtFirstItemInPile, m_pileView, &Pile_View::changeToElement);
 }
 
 void MainWindow::closeEvent(QCloseEvent* e)
@@ -253,6 +256,8 @@ void MainWindow::open()
         }
         else
             emit sendPath(path);
+
+        emit initAtFirstItemInPile(0);
 
         if (m_scopybioController->is24Bits())
         {
