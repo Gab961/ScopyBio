@@ -36,11 +36,15 @@ void ScopyBio_Controller::afficherCalque(int id, bool aff) {
 //=======================
 
 void ScopyBio_Controller::save_as(std::string path){
-    m_saveModel->save_as(path,m_pileModel->getFileName(),m_gestion_calque->getAllCalques(), m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount());
+    m_saveModel->save_as(path,m_pileModel->getFileName(),m_gestion_calque->getAllCalques(),
+                         m_analyseModel->dataReady(),m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount(),
+                         m_gestion_calque->getCalqueForDisplay(RESULTAT_VIEW), m_dessinModel->getWhiteValue());
 }
 
 bool ScopyBio_Controller::save(){
-    return m_saveModel->save(m_gestion_calque->getAllCalques(), m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount());
+    return m_saveModel->save(m_gestion_calque->getAllCalques(),
+                             m_analyseModel->dataReady(),m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount(),
+                             m_gestion_calque->getCalqueForDisplay(RESULTAT_VIEW), m_dessinModel->getWhiteValue());
 }
 
 void ScopyBio_Controller::saveCurrentDisplay(std::string path)
@@ -66,20 +70,40 @@ void ScopyBio_Controller::openProject(std::string pathProject){
 
     m_gestion_calque->addCalques(calques,m_pileModel->getImages().size());
 
+    m_dessinModel->setWhiteValue(m_loadModel->loadWhiteValue(pathProject));
+
     //Resultat
     m_analyseModel->init();
     std::vector<Resultat> res;
     res = m_loadModel->loadResults(pathProject);
 
-    m_analyseModel->setResults(res);
+    if(res.size() != 0){
+        m_analyseModel->setResults(res);
 
-    std::vector<int> rowcol = m_loadModel->loadColRowAmounts(pathProject);
-    if(rowcol.empty()){
-        m_analyseModel->setLinesAmount(0);
-        m_analyseModel->setColumnAmount(0);
-    }else{
-        m_analyseModel->setLinesAmount(rowcol.front());
-        m_analyseModel->setColumnAmount(rowcol.back());
+        int index = 0;
+        for(Resultat i : res){
+            //int index, int imagesSize, int whiteValue, bool isUserAnalysis
+            m_analyseModel->createResultsDisplay(index,m_pileModel->getImages().size(),m_dessinModel->getWhiteValue(),false);
+            index++;
+        }
+
+        std::vector<int> rowcol = m_loadModel->loadColRowAmounts(pathProject);
+        if(rowcol.empty()){
+            m_analyseModel->setLinesAmount(0);
+            m_analyseModel->setColumnAmount(0);
+        }else{
+            m_analyseModel->setLinesAmount(rowcol.front());
+            m_analyseModel->setColumnAmount(rowcol.back());
+        }
+
+        std::string resCalque = m_loadModel->loadResultCalque(pathProject);
+
+        if(!resCalque.empty()){
+            CImg<float> resCal;
+            resCal.load_cimg(resCalque.c_str());
+            m_gestion_calque->addCalqueSpecial(resCal,RESULTAT_VIEW);
+            m_gestion_calque->setShowResultat(true);
+        }
     }
 
     DisplayResultImage(m_pileModel->getCurrentImageIndex());

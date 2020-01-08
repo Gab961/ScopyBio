@@ -279,6 +279,7 @@ void MainWindow::open()
             m_loop->setEnabled(false);
             m_compare->setEnabled(false);
             m_saveAs->setEnabled(false);
+            m_saveFile->setEnabled(false);
             m_saveCurrentDisplay->setEnabled(false);
         }
     }
@@ -297,6 +298,8 @@ void MainWindow::saveAs()
 
         m_scopybioController->save_as(path);
     }
+
+    m_saveFile->setEnabled(true);
 }
 
 void MainWindow::saveCurrentDisplay()

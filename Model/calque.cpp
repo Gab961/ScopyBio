@@ -46,6 +46,7 @@ CImg<float> calque::getCalque() const
 
 void calque::saveCalque(std::string path)
 {
+    path += ".cimg";
     _calque.save_cimg(path.c_str());
 }
 
