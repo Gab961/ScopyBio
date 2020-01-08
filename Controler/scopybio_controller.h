@@ -1,4 +1,5 @@
 #pragma once
+#include <QWidget>
 #include "Model/pile_model.h"
 #include "Model/dessin_model.h"
 #include "Model/analyse_model.h"
@@ -6,15 +7,24 @@
 #include "Model/save_model.h"
 #include "Model/load_model.h"
 
+#include <thread>
 
-class ScopyBio_Controller
-{
+
+class ScopyBio_Controller : public QWidget
+{    
+    Q_OBJECT
+signals:
+    void fullAnalysisEnded();
+    void userAnalysisEnded();
 
 public:
     ScopyBio_Controller();
 
+    void reinitAllModels();
+
     /** Partie affichage **/
     void DisplayResultImage(int idImage);
+    void afficherCalque(int id, bool);
 
     /***********************************************************************************/
     /******************************** Partie pile_model ********************************/
@@ -43,6 +53,12 @@ public:
      * @return
      */
     CImg<float> getCurrentTiff();
+
+    /**
+     * @brief is24Bits Retourne vrai si l'image est de type 24 bits
+     * @return
+     */
+    bool is24Bits();
 
     /**
      * @brief getIconFilenames Récupère la liste des tous les fichiers enregistrés pour la pile
@@ -76,6 +92,22 @@ public:
     int getCurrentImageIndex();
 
     /***********************************************************************************/
+    /******************************** Partie Calque ************************************/
+    /***********************************************************************************/
+
+    void undoAction();
+    void redoAction();
+    void addMemento();
+    void removeCalque(int id);
+    void removeCalque(int min, int max);
+    void setCurrentCalqueId(int newId);
+    void setCurrentCalqueIdMinMax(int min, int max);
+    std::vector<int> getCalquesIdFromImage(int image);
+
+    bool isHidden(int id);
+    bool CreerNouveauCalque(int min, int max);
+
+    /***********************************************************************************/
     /******************************* Partie dessin_model *******************************/
     /***********************************************************************************/
     /**
@@ -86,13 +118,42 @@ public:
     void dessinerFaisceau(int labelWidth, int labelHeight);
 
     /**
-     * @brief dessinerLignePerso
+     * @brief dessinerCercle
      * @param imageIndex
-     * @param pos
+     * @param origPoint
      * @param labelWidth
      * @param labelHeight
      */
-    void dessinerLignePerso(int imageIndex, QPoint origPoint, QPoint pos, int labelWidth, int labelHeight);
+    bool dessinerCercle(QPoint origPoint, int labelWidth, int labelHeight);
+
+    /**
+     * @brief dessinerCarre
+     * @param imageIndex
+     * @param origPoint
+     * @param labelWidth
+     * @param labelHeight
+     */
+    bool dessinerCarre(QPoint origPoint, int labelWidth, int labelHeight);
+
+    /**
+     * @brief dessinerLignePerso
+     * @param origPoint
+     * @param pos
+     * @param labelWidth
+     * @param labelHeight
+     * @param isDrawing
+     */
+    bool dessinerLignePerso(QPoint origPoint, QPoint pos, int labelWidth, int labelHeight, bool isDrawing);
+
+    /**
+     * @brief dessinerText
+     * @param imageIndex
+     * @param text
+     * @param origPoint
+     * @param labelWidth
+     * @param labelHeight
+     */
+    bool dessinerText(std::string text, QPoint origPoint, int labelWidth, int labelHeight);
 
     /**
      * @brief saveZoom Enregistre l'image zoomée depuis la sélection
@@ -139,6 +200,10 @@ public:
      */
     void applyHistogramFilter();
 
+    void applyResultatFilter();
+
+    void applyZoomResultatFilter();
+
     /**
      * @brief removeHistogramFilter Supprime le contraste à l'ensemble des images
      */
@@ -160,6 +225,12 @@ public:
     int getWhiteColor();
 
     /**
+     * @brief setWhiteColor
+     * @param value
+     */
+    void setWhiteColor(int value);
+
+    /**
      * @brief setPipetteClick Pour indiquer qu'un clic de pipette est attendu
      * @param pipetteClick
      */
@@ -170,6 +241,66 @@ public:
      * @return
      */
     bool getPipetteClick();
+
+    /**
+     * @brief getListenPenClick
+     * @return
+     */
+    bool getListenPenClick() const;
+
+    /**
+     * @brief setListenPenClick
+     * @param newValue
+     */
+    void setListenPenClick(bool newValue);
+
+    /**
+     * @brief getListenSelectionClick
+     * @return
+     */
+    bool getListenSelectionClick() const;
+
+    /**
+     * @brief setListenSelectionClick
+     * @param newValue
+     */
+    void setListenSelectionClick(bool newValue);
+
+    /**
+     * @brief getListenEraserClick
+     * @return
+     */
+    bool getListenEraserClick() const;
+
+    /**
+     * @brief setListenEraserClick
+     * @param newValue
+     */
+    void setListenEraserClick(bool newValue);
+
+    /**
+     * @brief getListenShapeClick
+     * @return
+     */
+    bool getListenShapeClick() const;
+
+    /**
+     * @brief setListenShapeClick
+     * @param newValue
+     */
+    void setListenShapeClick(bool newValue);
+
+    /**
+     * @brief getListenTextClick
+     * @return
+     */
+    bool getListenTextClick() const;
+
+    /**
+     * @brief setListenTextClick
+     * @param newValue
+     */
+    void setListenTextClick(bool newValue);
 
     /**
      * @brief getZoomReady Récupère si il existe une image dans la fenêtre de zoom
@@ -183,8 +314,68 @@ public:
      */
     bool getBaseColorGiven();
 
+    /**
+     * @brief getPenSize
+     * @return
+     */
+    int getPenSize();
+
+    /**
+     * @brief setPenSize
+     * @param newValue
+     */
+    void setPenSize(int newValue);
+
+    /**
+     * @brief getShapeSize
+     * @return
+     */
+    int getShapeSize();
+
+    /**
+     * @brief setShapeSize
+     * @param newValue
+     */
+    void setShapeSize(int newValue);
+
+    /**
+     * @brief getTextSize
+     * @return
+     */
+    int getTextSize();
+
+    /**
+     * @brief setTextSize
+     * @param newValue
+     */
+    void setTextSize(int newValue);
+
+    /**
+     * @brief getEraserSize
+     * @return
+     */
+    int getEraserSize();
+
+    /**
+     * @brief setEraserSize
+     * @param newValue
+     */
+    void setEraserSize(int newValue) ;
+
+    /**
+     * @brief getCircleIsSelected
+     * @return
+     */
+    bool getCircleIsSelected();
+
+    /**
+     * @brief setCircleIsSelected
+     * @param newValue
+     */
+    void setCircleIsSelected(bool newValue);
+
     /***********************************************************************************/
-    /******************************** Partie analyse_model ********************************/
+    /******************************** Partie analyse_model *****************************/
     /***********************************************************************************/
     /**
      * @brief areaIsSelected
@@ -196,6 +387,17 @@ public:
      * @brief setAreaIsSelected
      */
     void setAreaIsSelected();
+
+    /**
+     * @brief setAnalysisErrorMargin
+     * @param newValue
+     */
+    void setAnalysisErrorMargin(int newValue);
+
+    /**
+     * @brief getAnalysisErrorMargin
+     */
+    int getAnalysisErrorMargin();
 
     /**
      * @brief userAreaIsSelected
@@ -251,6 +453,51 @@ public:
      */
     void getDataFromArea(QPoint area, int labelWidth, int labelHeight);
 
+    /**
+     * @brief getDataFromZoomArea
+     * @param area
+     * @param labelWidth
+     * @param labelHeight
+     */
+    void getDataFromZoomArea(QPoint area, int labelWidth, int labelHeight);
+
+    /**
+     * @brief getLineAmount
+     * @return
+     */
+    int getLineAmount();
+
+    /**
+     * @brief getColumnAmount
+     * @return
+     */
+    int getColumnAmount();
+
+    /**
+     * @brief setLineAmount
+     * @param value
+     */
+    void setLineAmount(int value);
+
+    /**
+     * @brief setColumnAmount
+     * @param value
+     */
+    void setColumnAmount(int value);
+
+    /**
+     * @brief getAnalysisType
+     * @return
+     */
+    bool getAnalysisType();
+
+    /**
+     * @brief setAnalysisTypeIsUser
+     * @param type
+     * @return
+     */
+    void setAnalysisTypeIsUser(bool type);
+
 
     /***********************************************************************************/
     /****************************** Partie faisceau_model ******************************/
@@ -259,8 +506,10 @@ public:
      * @brief setFaisceau
      * @param pos1
      * @param pos2
+     * @param labelWidth
+     * @param labelHeight
      */
-    void setFaisceau(QPoint pos1, QPoint pos2);
+    void setFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
     /***********************************************************************************/
     /******************************** Partie save_model ********************************/
@@ -270,6 +519,12 @@ public:
      * @param path
      */
     void save_as(std::string path);
+
+    /**
+     * @brief saveCurrentDisplay
+     * @param path
+     */
+    void saveCurrentDisplay(std::string path);
 
     /**
      * @brief save
@@ -283,6 +538,19 @@ public:
      */
     void changeSavePaths(std::string newSavePath);
 
+    /***********************************************************************************/
+    /******************************** Partie THREAD ************************************/
+    /*************************************************************************************/
+    /**
+     * @brief listenFullAnalysis
+     */
+    void listenFullAnalysis();
+
+    /**
+     * @brief listenUserAnalysis
+     */
+    void listenUserAnalysis();
+
 private:
     pile_model *m_pileModel;
     dessin_model *m_dessinModel;
@@ -291,4 +559,6 @@ private:
     faisceau_model *m_faisceauModel;
     save_model *m_saveModel;
     load_model * m_loadModel;
+    std::thread listener;
+    std::thread background_task;
 };

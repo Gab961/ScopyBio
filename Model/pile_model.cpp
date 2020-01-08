@@ -3,7 +3,7 @@
 #include <iostream>
 #include <filesystem>
 
-#define PATH "../../Config/config.json"
+#define PATH "../../Resources/Config/config.json"
 
 //=======================================================
 
@@ -103,15 +103,18 @@ void pile_model::load(string path)
     {
         CImg<float> img = images[i];
 
-        std::string chemin = "tmp/" + std::to_string(i) + ".bpm";
+        std::string chemin = "tmp/pileDisplay/" + std::to_string(i) + ".bpm";
         img.save_bmp(chemin.c_str());         // problem here
         images_icons_filename.push_back(chemin);
     }
 
     currentImage = images[0];
+}
 
-    //Obtention de l'image aplatie
-    //TODO LE MULTIPLATFORME
-    std::string command = "convert " + path + " -flatten tmp/flatten.bmp";
-    system(command.c_str());
+bool pile_model::is24Bits()
+{
+    if (currentImage.spectrum() == 3)
+        return true;
+    else
+        return false;
 }

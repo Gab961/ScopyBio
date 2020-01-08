@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 
 #include <iostream>
+#include <filesystem>
 
 #include <QDesktopWidget>
 #include <QFileDialog>
@@ -37,6 +38,9 @@ void MainWindow::createView()
     int screenHeight = dw.height()*0.7;
     setMinimumSize(screenWidth, screenHeight);
 
+    m_loopWindow = new LoopView(this, m_scopybioController);
+    m_comparePopup = new ComparePopup(this, m_scopybioController);
+
     m_mainLayout = new QGridLayout();
     m_leftLayout = new QGridLayout();
     m_centerLayout = new QGridLayout();
@@ -48,10 +52,10 @@ void MainWindow::createView()
     m_zoomView->setFixedSize(screenWidth*0.20, screenHeight*0.45);
 
     m_tools = new Menu_Draw_Button(this, m_scopybioController);
-    m_tools->setFixedSize(screenWidth*0.20, screenHeight*0.17);
+    m_tools->setFixedSize(screenWidth*0.20, 100);
 
     m_options = new menu_option(this, m_scopybioController);
-    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.30);
+    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.47 - 100);
 
     m_leftLayout->addWidget(m_zoomView, 0, 0);
     m_leftLayout->addWidget(m_tools, 1, 0);
@@ -60,20 +64,7 @@ void MainWindow::createView()
     m_imageView = new Image_View(this, m_scopybioController);
     m_imageView->setFixedSize(screenWidth*0.50, screenHeight*0.95);
 
-
-    m_loopWindow = new LoopView(this, m_scopybioController);
-    m_openLoop = new QPushButton("Open loop", this);
-    m_openLoop->setMaximumWidth(screenWidth*0.15);
-
-    m_comparePopup = new ComparePopup(this, m_scopybioController);
-    m_openCompare = new QPushButton("Compare", this);
-    m_openCompare->setMaximumWidth(screenWidth*0.15);
-
-    m_buttonLayout->addWidget(m_openLoop, 0, 0);
-    m_buttonLayout->addWidget(m_openCompare, 0, 1);
-
     m_centerLayout->addWidget(m_imageView, 0, 0);
-    m_centerLayout->addLayout(m_buttonLayout, 1, 0);
 
     m_dataView = new Data_View(this, m_scopybioController);
     m_dataView->setFixedSize(screenWidth*0.25, screenHeight*0.45);
@@ -107,8 +98,6 @@ void MainWindow::createView()
     m_zoomView->setEnabled(false);
     m_dataView->setEnabled(false);
     m_layer->setEnabled(false);
-    m_openLoop->setEnabled(false);
-    m_openCompare->setEnabled(false);
 }
 
 void MainWindow::connections()
@@ -127,6 +116,7 @@ void MainWindow::connections()
 
     //Demande d'affichage dans la fenêtre de zoom
     QObject::connect(m_imageView, &Image_View::changeZoomedPicture, m_zoomView, &Zoom_View::setNewPicture);
+    QObject::connect(this, &MainWindow::changeZoomedPicture, m_zoomView, &Zoom_View::setPictureFromFile);
 
     //Gestion du changement dans la liste
     QObject::connect(m_pileView, &Pile_View::currentRowChanged, this, &MainWindow::changeActualItem);
@@ -167,29 +157,79 @@ void MainWindow::connections()
     //Changement curseur quand clic pipette
     QObject::connect(m_zoomView, &Zoom_View::pipetteClicked, this, &MainWindow::setCursorPipetteDisabled);
 
-    //Open Loop window
-    QObject::connect(m_openLoop, &QPushButton::clicked, m_loopWindow, &LoopView::createLoopView);
-
-    //Open Compare popup
-    QObject::connect(m_openCompare, &QPushButton::clicked, m_comparePopup, &ComparePopup::createComparePopup);
+    //Refresh du zoom sans sélection par l'utilisateur
+    QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_zoomView, &Zoom_View::enableDisplay);
+    QObject::connect(m_imageView, &Image_View::userAnalyseReady, m_dataView, &Data_View::enableDisplay);
 
     //Gestion premier clic
-    QObject::connect(m_imageView, &Image_View::firstClickDone, m_dataView, &Data_View::enableDisplay);
-    QObject::connect(m_imageView, &Image_View::firstClickDone, m_zoomView, &Zoom_View::enableDisplay);
-
-    //Refresh du zoom sans sélection par l'utilisateur
     QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_zoomView, &Zoom_View::setPictureFromFile);
-    QObject::connect(m_imageView, &Image_View::changeZoomPicture, m_dataView, &Data_View::setGraphFromFile);
+    QObject::connect(m_imageView, &Image_View::changeGraphPicture, m_dataView, &Data_View::setGraphFromFile);
 
-    //Refresh du zoom sans sélection par l'utilisateur
-    QObject::connect(m_tools, &Menu_Draw_Button::startFullAnalysis, this, &MainWindow::startFullAnalysis);
+    //Mise a jour graph au clic sur le zoom
+    QObject::connect(m_zoomView, &Zoom_View::changeGraphPicture, m_dataView, &Data_View::setGraphFromFile);
+
+    //Clear de la vue du Zoom
+    QObject::connect(this, &MainWindow::clearZoomView, m_zoomView, &Zoom_View::resetZoomView);
+
+    //Clear de la vue du Data
+    QObject::connect(this, &MainWindow::clearDataView, m_dataView, &Data_View::resetDataView);
+    QObject::connect(m_imageView, &Image_View::clearDataView, m_zoomView, &Zoom_View::resetZoomView);
+
+    //Démarrage d'une analyse complete
+    QObject::connect(m_options, &menu_option::askFullAnalysis, this, &MainWindow::startFullAnalysis);
+
+    //Démarrage d'une analyse de selection
+    QObject::connect(m_options, &menu_option::askForUserAnalyse, m_imageView, &Image_View::startUserAnalysis);
+
+    //Mise à jour du bouton d'analyse locale
+    QObject::connect(m_imageView, &Image_View::activateLocalAnalyse, m_options, &menu_option::activateLocalAnalyse);
+    QObject::connect(m_imageView, &Image_View::desactivateLocalAnalyse, m_options, &menu_option::desactivateLocalAnalyse);
+
+    // Met à jour la vue des options en fonction de l'outil sélectionné
+    QObject::connect(m_tools, &Menu_Draw_Button::penClicked, m_options, &menu_option::pen);
+    QObject::connect(m_tools, &Menu_Draw_Button::shapesClicked, m_options, &menu_option::shapes);
+    QObject::connect(m_tools, &Menu_Draw_Button::textClicked, m_options, &menu_option::text);
+    QObject::connect(m_tools, &Menu_Draw_Button::eraserClicked, m_options, &menu_option::eraser);
+    QObject::connect(m_tools, &Menu_Draw_Button::pipetteClicked, m_options, &menu_option::pipette);
+    QObject::connect(m_tools, &Menu_Draw_Button::filtersClicked, m_options, &menu_option::filters);
+    QObject::connect(m_tools, &Menu_Draw_Button::analysisClicked, m_options, &menu_option::analysis);
+    QObject::connect(m_tools, &Menu_Draw_Button::newLayerClicked, m_options, &menu_option::newLayer);
+    QObject::connect(m_tools, &Menu_Draw_Button::selectClicked, m_options, &menu_option::selection);
+
+    // Cache ou affiche la grille sur la zoom view
+    QObject::connect(m_tools, &Menu_Draw_Button::hideClicked, this, &MainWindow::changeStateGrid);
+
+    // Met à jour les calques en fonction de l'image sélectionnée
+    QObject::connect(m_pileView, &Pile_View::rowClicked, m_layerView, &LayerView::loadLayers);
+
+    // Met à jour l'affichage de l'image après chaque action effectuée dans le layer_view (suppression, création, affichage)
+    QObject::connect(m_layerView, &LayerView::actionDoneWithLayer, this, &MainWindow::recreateMainDisplay);
+
+    //Mise à jour de l'interface lorsque les thread d'analyse ont terminé leurs actions
+    QObject::connect(m_scopybioController, &ScopyBio_Controller::userAnalysisEnded, this, &MainWindow::userAnalysisEnded);
+    QObject::connect(m_scopybioController, &ScopyBio_Controller::fullAnalysisEnded, this, &MainWindow::fullAnalysisEnded);
+
+    //Gestion du dessin de text
+    QObject::connect(m_imageView, &Image_View::askTextContent, m_options, &menu_option::askForTextContent);
+    QObject::connect(m_options, &menu_option::sendTextBack, m_imageView, &Image_View::receiveTextContent);
+
+    //Mise à jour de l'interface quand on créé un nouveau calque
+    QObject::connect(m_options, &menu_option::switchToIndex, m_pileView, &Pile_View::changeToElement);
+}
+
+void MainWindow::closeEvent(QCloseEvent* e)
+{
+    std::filesystem::remove_all(std::filesystem::path("tmp"));
+    QMainWindow::closeEvent(e);
 }
 
 void MainWindow::open()
 {
+    m_scopybioController->reinitAllModels();
+
     std::string path = "";
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                    "../../Data",
+                                                    "../../Resources/Data",
                                                     tr("Images (*.tiff *.tif *.scb)"));
     path = fileName.toLocal8Bit().constData();
 
@@ -213,15 +253,33 @@ void MainWindow::open()
         else
             emit sendPath(path);
 
-        m_options->setEnabled(true);
-        m_tools->setEnabled(true);
-        m_imageView->setEnabled(true);
-        m_zoomView->setEnabled(true);
-        m_dataView->setEnabled(true);
-        m_layer->setEnabled(true);
-        m_openLoop->setEnabled(true);
-        m_openCompare->setEnabled(true);
-        m_saveAs->setEnabled(true);
+        if (m_scopybioController->is24Bits())
+        {
+            m_options->setEnabled(true);
+            m_tools->setEnabled(true);
+            m_imageView->setEnabled(true);
+            m_zoomView->setEnabled(true);
+            m_dataView->setEnabled(true);
+            m_layer->setEnabled(true);
+            m_loop->setEnabled(true);
+            m_compare->setEnabled(true);
+            m_saveAs->setEnabled(true);
+            m_saveCurrentDisplay->setEnabled(true);
+        }
+        else
+        {
+            QMessageBox::information(this, "", "This picture is a 16-bits image, and is not yet supported. You can only go through the differents images from the tiff pile.");
+            m_options->setEnabled(false);
+            m_tools->setEnabled(false);
+            m_imageView->setEnabled(true);
+            m_zoomView->setEnabled(false);
+            m_dataView->setEnabled(false);
+            m_layer->setEnabled(true);
+            m_loop->setEnabled(false);
+            m_compare->setEnabled(false);
+            m_saveAs->setEnabled(false);
+            m_saveCurrentDisplay->setEnabled(false);
+        }
     }
 }
 
@@ -229,7 +287,7 @@ void MainWindow::saveAs()
 {
     std::string path = "";
     QString directoryName = QFileDialog::getExistingDirectory(this, tr("Save Directory"),
-                                                              "../../Data",
+                                                              "../../Resources/Data",
                                                               QFileDialog::ShowDirsOnly
                                                               | QFileDialog::DontResolveSymlinks);
     if (directoryName != "")
@@ -237,6 +295,20 @@ void MainWindow::saveAs()
         path = directoryName.toLocal8Bit().constData();
 
         m_scopybioController->save_as(path);
+    }
+}
+
+void MainWindow::saveCurrentDisplay()
+{
+    std::string path = "";
+    QString directoryName = QFileDialog::getSaveFileName(this, tr("Save file"),
+                                                              "../../Resources/Data",
+                                                              ".bmp");
+    if (directoryName != "")
+    {
+        path = directoryName.toLocal8Bit().constData();
+
+        m_scopybioController->saveCurrentDisplay(path);
     }
 }
 
@@ -252,14 +324,16 @@ void MainWindow::aboutUs()
                           " Pigache Bastien and Mohr Anaïs from the UFR des Sciences, Angers."
                           " It allows to do some operations on .tiff files to compare the different"
                           " images with some options."
-                          " This program was developed with Qt and C++ language.</p>"));
+                          " This program was developed with Qt and C++ language."
+                          ""
+                          "Icons made by Freepik, Pixel Perfect from www.flaticon.com.</p>"));
 }
 
 void MainWindow::howToUse()
 {
     // TODO
     QMessageBox::about(this, tr("How to use ScopyBio"),
-                       tr("<p>Blibloup</p>"));
+                       tr("<p>TODO</p>"));
 }
 
 void MainWindow::createActions()
@@ -267,31 +341,64 @@ void MainWindow::createActions()
     QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
 
     m_loadFile = new QAction(tr("&Open..."), this);
-    m_loadFile->setShortcut(tr("&Ctrl+N"));
+    m_loadFile->setShortcut(Qt::Key_O | Qt::CTRL);
     QObject::connect(m_loadFile, &QAction::triggered, this, &MainWindow::open);
     fileMenu->addAction(m_loadFile);
 
-    // TODO
-    m_saveFile = new QAction(tr("&Save"), this);
+    m_saveFile = new QAction(tr("Save"), this);
     QObject::connect(m_saveFile, &QAction::triggered, this, &MainWindow::save);
     m_saveFile->setEnabled(false);
-    m_saveFile->setShortcut(tr("&Ctrl+S"));
+    m_saveFile->setShortcut(Qt::Key_S | Qt::CTRL);
     fileMenu->addAction(m_saveFile);
 
-    m_saveAs = new QAction(tr("&Save as..."), this);
+    m_saveAs = new QAction(tr("Save as..."), this);
     QObject::connect(m_saveAs, &QAction::triggered, this, &MainWindow::saveAs);
+    m_saveAs->setShortcut(Qt::Key_S | Qt::CTRL| Qt::SHIFT);
     m_saveAs->setEnabled(false);
     fileMenu->addAction(m_saveAs);
 
+    m_saveCurrentDisplay = new QAction(tr("Save current display..."), this);
+    m_saveCurrentDisplay->setShortcut(Qt::Key_D | Qt::CTRL);
+    QObject::connect(m_saveCurrentDisplay, &QAction::triggered, this, &MainWindow::saveCurrentDisplay);
+    m_saveCurrentDisplay->setEnabled(false);
+    fileMenu->addAction(m_saveCurrentDisplay);
+
+    //TODO faire attention si y a plus d'action faut griser
+    QMenu *editMenu = menuBar()->addMenu(tr("&Edit"));
+
+    m_undo = new QAction(tr("Undo..."), this);
+    QObject::connect(m_undo, &QAction::triggered, this, &MainWindow::undo);
+    m_undo->setShortcut(Qt::Key_Z | Qt::CTRL);
+    editMenu->addAction(m_undo);
+
+    m_redo = new QAction(tr("Redo"), this);
+    QObject::connect(m_redo, &QAction::triggered, this, &MainWindow::redo);
+    m_redo->setShortcut(Qt::Key_Y | Qt::CTRL);
+    editMenu->addAction(m_redo);
+
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
 
-    m_aboutUs = new QAction(tr("&About us..."), this);
+    m_aboutUs = new QAction(tr("About us..."), this);
     QObject::connect(m_aboutUs, &QAction::triggered, this, &MainWindow::aboutUs);
     helpMenu->addAction(m_aboutUs);
 
-    m_howToUse = new QAction(tr("&How to use..."), this);
+    m_howToUse = new QAction(tr("How to use..."), this);
     QObject::connect(m_howToUse, &QAction::triggered, this, &MainWindow::howToUse);
     helpMenu->addAction(m_howToUse);
+
+    QMenu *imageMenu = menuBar()->addMenu(tr("&Image"));
+
+    m_compare = new QAction(tr("Compare"), this);
+    QObject::connect(m_compare, &QAction::triggered, m_comparePopup, &ComparePopup::createComparePopup);
+    imageMenu->addAction(m_compare);
+    m_compare->setShortcut(Qt::Key_C | Qt::CTRL| Qt::SHIFT);
+    m_compare->setEnabled(false);
+
+    m_loop = new QAction(tr("Loop"), this);
+    QObject::connect(m_loop, &QAction::triggered, m_loopWindow, &LoopView::createLoopView);
+    imageMenu->addAction(m_loop);
+    m_loop->setShortcut(Qt::Key_L | Qt::CTRL| Qt::SHIFT);
+    m_loop->setEnabled(false);
 }
 
 void MainWindow::updateSaveAs()
@@ -304,6 +411,20 @@ void MainWindow::updateSave()
     m_saveFile->setEnabled(true);
 }
 
+
+void MainWindow::undo()
+{
+    m_scopybioController->undoAction();
+    recreateMainDisplay();
+}
+
+
+void MainWindow::redo()
+{
+    m_scopybioController->redoAction();
+    recreateMainDisplay();
+}
+
 void MainWindow::openProject(std::string path)
 {
     m_scopybioController->openProject(path);
@@ -312,6 +433,7 @@ void MainWindow::openProject(std::string path)
 void MainWindow::showFirstInPile()
 {
     m_scopybioController->saveAsMainDisplay(0);
+    m_layerView->loadLayers(0);
     emit changeMainPicture();
 
     update();
@@ -321,11 +443,17 @@ void MainWindow::changeActualItem()
 {
     int indiceEnCours = m_pileView->currentRow();
     m_scopybioController->saveCurrent(indiceEnCours);
+
     if (m_scopybioController->areaIsSelected())
+    {
         m_scopybioController->saveZoomOfCurrentArea();
+        m_imageView->updateZoomOnly();
+    }
     if (m_scopybioController->userAreaIsSelected())
+    {
         m_scopybioController->saveZoomOfUserArea();
-    m_imageView->updateZoomOnly();
+        m_imageView->updateZoomOnly();
+    }
     m_scopybioController->DisplayResultImage(indiceEnCours);
     emit changeMainPicture();
 }
@@ -339,9 +467,9 @@ void MainWindow::resizeEvent(QResizeEvent* event)
 
     m_zoomView->setFixedSize(screenWidth*0.20, screenHeight*0.45);
 
-    m_tools->setFixedSize(screenWidth*0.20, screenHeight*0.17);
+    m_tools->setFixedSize(screenWidth*0.20, 100);
 
-    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.30);
+    m_options->setFixedSize(screenWidth*0.20, screenHeight*0.47 - 100);
 
     m_imageView->setFixedSize(screenWidth*0.50, screenHeight*0.95);
 
@@ -369,12 +497,11 @@ void MainWindow::setCursorPipetteActive()
     m_options->setEnabled(false);
     m_dataView->setEnabled(false);
     m_layer->setEnabled(false);
-    m_openLoop->setEnabled(false);
-    m_openCompare->setEnabled(false);
 }
 
 void MainWindow::setCursorPipetteDisabled()
 {
+    m_tools->changePipetteStyleWhenUsed();
     m_tools->setPipetteActive(false);
     m_zoomView->setCursor(Qt::ArrowCursor);
     m_imageView->setCursor(Qt::CrossCursor);
@@ -382,13 +509,13 @@ void MainWindow::setCursorPipetteDisabled()
     m_options->setEnabled(true);
     m_dataView->setEnabled(true);
     m_layer->setEnabled(true);
-    m_openLoop->setEnabled(true);
-    m_openCompare->setEnabled(true);
 }
 
 void MainWindow::startFullAnalysis()
 {
-    std::cout << "Debut d'analyse" << std::endl;
+    emit clearZoomView();
+    emit clearDataView();
+
     m_scopybioController->processResults();
     emit changeMainPicture();
 }
@@ -420,6 +547,39 @@ void MainWindow::wheelEvent(QWheelEvent *ev)
         }
     }
 
-
     ev->accept();
+}
+
+void MainWindow::recreateMainDisplay() {
+    int indiceEnCours = m_pileView->currentRow();
+
+    //Si aucune image n'a déjà été sélectionnée, alors ça signifie qu'on est toujours sur la première image
+    if (indiceEnCours == -1)
+        indiceEnCours = 0;
+
+    m_scopybioController->DisplayResultImage(indiceEnCours);
+    emit changeMainPicture();
+}
+
+void MainWindow::fullAnalysisEnded()
+{
+    QMessageBox::information(this, "", "Full analysis completed");
+
+    m_options->closeMessageBox();
+    emit changeMainPicture();
+}
+
+void MainWindow::userAnalysisEnded()
+{
+    QMessageBox::information(this, "", "User analysis completed");
+    m_scopybioController->saveZoomOfUserArea();
+
+    m_options->closeMessageBox();
+    emit changeZoomedPicture();
+}
+
+// Hide or show the grid on zoom view
+void MainWindow::changeStateGrid() {
+    m_scopybioController->applyZoomResultatFilter();
+    emit changeZoomedPicture();
 }

@@ -1,4 +1,5 @@
 #include "image_view.h"
+#include <QMessageBox>
 #include <iostream>
 #include <QMouseEvent>
 #include <QDateTime>
@@ -36,7 +37,7 @@ void Image_View::createView()
 void Image_View::connections()
 {
     //Affichage du rectangle
-    QObject::connect(this, &Image_View::drawRectOnMouse, this, &Image_View::nouvelleAnalyseUtiliser);
+    QObject::connect(this, &Image_View::drawRectOnMouse, this, &Image_View::nouvelleSelectionUtilisateur);
 
     // récupère la courbe et la zoom view de la zone sélectionnée issue de l'analyse automatique
     QObject::connect(this, &Image_View::getDataFromArea, this, &Image_View::getData);
@@ -51,18 +52,7 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
     origPoint.setX(origPoint.x()-m_image->x());
     origPoint.setY(origPoint.y()-m_image->y());
 
-    if (m_scopybioController->getPipetteClick())
-    {
-        m_scopybioController->setPipetteClick(false);
-        m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
-
-        emit pipetteClicked();
-        //Si une zone a déjà été sélectionnée
-        if (m_scopybioController->getBaseColorGiven() && m_scopybioController->getZoomReady())
-            emit processResults(m_image->width(),m_image->height());
-    }
-
-    if (listenPenClick)
+    if (listenPenClick || m_scopybioController->getListenEraserClick())
         firstPenDraw = true;
 }
 
@@ -74,14 +64,14 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
  */
 void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 {
-    if (m_scopybioController->fileReady())
+    std::cout << "Release" << std::endl;
+    if (m_scopybioController->fileReady() && m_scopybioController->is24Bits())
     {
-        //On indique qu'un clic a été fait, donc on va pouvoir afficher les zoom et la data
-        emit firstClickDone();
-
-        //Si on est pas en train de dessiner
-        if (!listenPenClick)
+        std::cout << "File ready et 24 bits" << std::endl;
+        //Si on est pas en train de dessiner ni de choisir avec la pipette
+        if (!listenPenClick && !m_scopybioController->getPipetteClick())
         {
+            std::cout << "On est pas en train de dessiner" << std::endl;
             quint64 temps = QDateTime::currentMSecsSinceEpoch() - temps_pression_orig;
             int widthOfLabel = m_image->width();
             int heightOfLabel = m_image->height();
@@ -89,26 +79,89 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
             //Si c'est un clic long
             if (temps > TEMPS_CLIC_LONG)
             {
-                secondPoint = ev->pos();
+                std::cout << "Clic long" << std::endl;
+                if (m_scopybioController->getListenSelectionClick())
+                    std::cout << "DEBUG >> ListenSelection = VRAI" << std::endl;
+                else
+                    std::cout << "DEBUG >> ListenSelection = FAUX" << std::endl;
 
-                secondPoint.setX(secondPoint.x()-m_image->x());
-                secondPoint.setY(secondPoint.y()-m_image->y());
+                //Si on veut faire une selection
+                if (m_scopybioController->getListenSelectionClick())
+                {
+                    secondPoint = ev->pos();
 
-                if (!(origPoint.x() == secondPoint.x() && origPoint.y() == secondPoint.y()))
-                    emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
+                    secondPoint.setX(secondPoint.x()-m_image->x());
+                    secondPoint.setY(secondPoint.y()-m_image->y());
+
+                    if (!(origPoint.x() == secondPoint.x() && origPoint.y() == secondPoint.y()))
+                        emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
+                }
             }
             else
             {
                 emit getDataFromArea(origPoint, widthOfLabel, heightOfLabel);
             }
         }
+        //Si on sélectionnait une couleur avec la pipette
+        if (m_scopybioController->getPipetteClick())
+        {
+            m_scopybioController->setPipetteClick(false);
+            m_scopybioController->manageNewWhite(origPoint, m_image->width(), m_image->height(), false);
+
+            emit pipetteClicked();
+        }
+        //Si on veut dessiner une forme
+        if (m_scopybioController->getListenShapeClick())
+        {
+            QPoint pos = ev->pos();
+            pos.setX(pos.x()-m_image->x());
+            pos.setY(pos.y()-m_image->y());
+            setNewPicture();
+
+            bool succes;
+
+            if (m_scopybioController->getCircleIsSelected())
+                succes = m_scopybioController->dessinerCercle(pos,m_image->width(),m_image->height());
+            else
+                succes = m_scopybioController->dessinerCarre(pos,m_image->width(),m_image->height());
+
+            m_scopybioController->addMemento();
+
+            if (!succes)
+                QMessageBox::information(this, "", "No layer selected. Please create one.");
+
+            setNewPicture();
+        }
+        //Si on veut écrire un texte
+        if (m_scopybioController->getListenTextClick())
+        {
+            QPoint pos = ev->pos();
+            pos.setX(pos.x()-m_image->x());
+            pos.setY(pos.y()-m_image->y());
+
+            //On récupère le contenu du texte à écrire avant de dessiner le texte
+            emit askTextContent();
+
+            bool succes = m_scopybioController->dessinerText(textContent.toStdString(),pos,m_image->width(),m_image->height());
+
+            m_scopybioController->addMemento();
+
+            if (!succes)
+                QMessageBox::information(this, "", "No layer selected. Please create one.");
+
+            setNewPicture();
+        }
+        //Si on dessine au crayon
+        if (m_scopybioController->getListenPenClick())
+        {
+            m_scopybioController->addMemento();
+        }
     }
 }
 
 void Image_View::mouseMoveEvent(QMouseEvent* ev) {
-    if (listenPenClick)
+    if (m_scopybioController->getListenPenClick() || m_scopybioController->getListenEraserClick())
     {
-
         if (firstPenDraw)
         {
             firstPenDraw = false;
@@ -121,7 +174,17 @@ void Image_View::mouseMoveEvent(QMouseEvent* ev) {
             QPoint pos = ev->pos();
             pos.setX(pos.x()-m_image->x());
             pos.setY(pos.y()-m_image->y());
-            m_scopybioController->dessinerLignePerso(m_scopybioController->getCurrentImageIndex(),origPoint,pos,m_image->width(),m_image->height());
+
+            bool succes;
+
+            if (m_scopybioController->getListenPenClick())
+                succes = m_scopybioController->dessinerLignePerso(origPoint,pos,m_image->width(),m_image->height(), true);
+            else
+                succes = m_scopybioController->dessinerLignePerso(origPoint,pos,m_image->width(),m_image->height(), false);
+
+            if (!succes)
+                QMessageBox::information(this, "", "No layer selected. Please create one.");
+
             setNewPicture();
             origPoint = pos;
         }
@@ -175,24 +238,36 @@ void Image_View::setNewPicture()
     update();
 }
 
-void Image_View::nouvelleAnalyseUtiliser(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
+void Image_View::startUserAnalysis()
+{
+    emit processResults(m_image->width(),m_image->height());
+
+    //MAJ des interfaces
+    emit userAnalyseReady();
+    emit changeGraphPicture();
+    emit changeZoomPicture();
+
+    update();
+}
+
+void Image_View::nouvelleSelectionUtilisateur(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight)
 {
     //Dessine le rectangle sur l'image et créer l'image zoomée
-    m_scopybioController->setFaisceau(pos1, pos2);
+    m_scopybioController->setFaisceau(pos1, pos2, labelWidth, labelHeight);
     m_scopybioController->dessinerFaisceau(labelWidth, labelHeight);
     m_scopybioController->setUserAreaIsSelected();
     setNewPicture();
+
+
+    emit activateLocalAnalyse();
+    emit clearDataView();
 
     //Demande de rafraichir le zoom
     m_zoneWidth = pos1.x() - pos2.x();
     if (m_zoneWidth < 0) m_zoneWidth = m_zoneWidth * -1;
     m_zoneHeight = pos1.y() - pos2.y();
     if (m_zoneHeight < 0) m_zoneHeight = m_zoneHeight * -1;
-    emit changeZoomedPicture(m_zoneWidth, m_zoneHeight);
-
-    //Demande de calculer les résultats pour la zone si une couleur de base a été donnée
-    if (m_scopybioController->getBaseColorGiven())
-        emit processResults(m_image->width(),m_image->height());
+    emit changeZoomPicture();
 
     update();
 }
@@ -211,11 +286,25 @@ void Image_View::askProcessFromZoom()
 }
 
 void Image_View::getData(QPoint area, int labelWidth, int labelHeight) {
-    m_scopybioController->setAreaIsSelected();
-    m_scopybioController->getDataFromArea(area, labelWidth, labelHeight);
+    if (m_scopybioController->dataReady())
+    {
+        m_scopybioController->setAreaIsSelected();
+        m_scopybioController->getDataFromArea(area, labelWidth, labelHeight);
 
-    emit changeZoomPicture();
-    emit changeGraphPicture();
+        setNewPicture();
+        emit desactivateLocalAnalyse();
 
-    update();
+        //MAJ des interfaces
+        emit userAnalyseReady();
+        emit changeZoomPicture();
+        emit changeGraphPicture();
+
+        update();
+    }
+}
+
+
+void Image_View::receiveTextContent(QString content)
+{
+    textContent = content;
 }

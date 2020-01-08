@@ -31,6 +31,13 @@ public:
     std::vector<Resultat> getResults() const;
 
     /**
+     * @brief analyse_model::calculPertinence
+     * @param data
+     * @return
+     */
+    int calculPertinence(std::vector<float> data, int whiteValue);
+
+    /**
      * @brief processResultsWithCrops Calcul les résultats depuis la fenêtre de sélection
      * @param allPictures
      * @param pos1
@@ -40,6 +47,9 @@ public:
      * @param labelHeight
      */
     void processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight);
+
+    //TODO
+    void processResultsWithCropsVERSIONDEUX(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire);
 
     /**
      * @brief processResults Calcul les résultats dans toute la fenêtre partie par partie
@@ -60,12 +70,16 @@ public:
     int processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue);
 
     /**
-     * @brief createCropResultsDisplay
-     * @param result
-     * @param imagesSize
+     * @brief processLocalUserResults
+     * @param allPictures
+     * @param pos1
+     * @param pos2
      * @param whiteValue
+     * @param pos1Scaled
+     * @param pos2Scaled
+     * @return
      */
-    void createCropResultsDisplay(Resultat result, unsigned int imagesSize, int whiteValue);
+    int processLocalUserResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, QPoint pos1Scaled, QPoint pos2Scaled);
 
     /**
      * @brief createResultsDisplay
@@ -73,7 +87,7 @@ public:
      * @param imagesSize
      * @param whiteValue
      */
-    void createResultsDisplay(int index, int imagesSize, int whiteValue);
+    void createResultsDisplay(int index, int imagesSize, int whiteValue, bool isUserAnalysis);
 
     /**
      * @brief calculPlacementY Calcul le placement d'un point précis pour le positionner correctement sur le graph de données
@@ -98,7 +112,7 @@ public:
      * @brief analyseForWhiteValue
      * @return
      */
-    int analyseForWhiteValue();
+    int analyseForWhiteValue(CImg<float> middleImage);
 
     /**
      * @brief dataReady Renvoie vrai si une image existe dans la fenêtre de données
@@ -139,6 +153,15 @@ public:
     void getDataFromArea(QPoint area, int labelWidth, int labelHeight, int imageWidth, int imageHeight, CImg<float> currentImage, dessin_model *dessin);
 
     /**
+     * @brief getDataFromZoomArea
+     * @param area
+     * @param labelWidth
+     * @param labelHeight
+     * @param zoomPath
+     */
+    void getDataFromZoomArea(QPoint area, int labelWidth, int labelHeight, std::string zoomPath);
+
+    /**
      * @brief getTopLeftPointOfCurrentArea
      * @return
      */
@@ -176,10 +199,35 @@ public:
 
     void setResults(const std::vector<Resultat> &value);
 
+    /**
+     * @brief setCurrentAnalysisType
+     * @param type
+     */
+    void setCurrentAnalysisType(bool type);
+
+    /**
+     * @brief getCurrentAnalysisType
+     * @return
+     */
+    bool getCurrentAnalysisType();
+
+    /**
+     * @brief setErrorMargin
+     * @param newValue
+     */
+    void setErrorMargin(int newValue);
+
+    /**
+     * @brief getErrorMargin
+     */
+    int getErrorMargin();
+
+
 private:
     bool areaIsSelected;
     bool userAreaIsSelected;
     bool isDataReady;
+    bool currentAnalysisIsAUserOne;
     int columnAmount;
     int linesAmount;
     int currentArea;
@@ -188,5 +236,6 @@ private:
     std::string pathOfResultsStorage = "tmp/saveAnalyse/resultDisplay";
     std::string pathOfResultsDisplay = "tmp/resultDisplay.tmp";
     std::vector<Resultat> results;
+    std::vector<Resultat> userResults;
 };
 

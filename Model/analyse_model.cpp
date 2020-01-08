@@ -11,11 +11,19 @@ analyse_model::analyse_model() : areaIsSelected(false), userAreaIsSelected(false
 void analyse_model::init(){
     areaIsSelected = false;
     userAreaIsSelected = false;
-    isDataReady = true;
+    isDataReady = false;
     currentArea = 0;
+    columnAmount = 30;
+    linesAmount = 30;
+    errorMargin = 5;
 
     results.clear();
+    userResults.clear();
 }
+
+void analyse_model::setErrorMargin(int newValue) { errorMargin = newValue; }
+
+int analyse_model::getErrorMargin() { return errorMargin; }
 
 std::string analyse_model::getResultDisplayPath() const { return pathOfResultsDisplay; }
 
@@ -23,12 +31,15 @@ std::vector<Resultat> analyse_model::getResults() const { return results; }
 
 void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, gestionnaire_calque_model * gestionnaire)
 {
+    std::cout << "DEBUT ANALYSE TOTALE" << std::endl;
+
     ///DEBUG TESTS
-    columnAmount = 8;
-    linesAmount = 8;
+    //    columnAmount = 5;
+    //    linesAmount = 5;
     /////////////////
 
     results.clear();
+    gestionnaire->reinitPertinenceCalque();
 
     int largeurImage = allPictures[0].width();
     int hauteurImage = allPictures[0].height();
@@ -64,19 +75,6 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
             if (pertinence>1)
                 gestionnaire->manageNewAnalyse(pertinence, pos1, pos2);
 
-            //DEBUG
-//            if (pertinence>1)
-//            {
-//                Resultat r = results.back();
-//                std::cout << "%%%%%%% PERTINENCE " << pertinence << "%%%%%%%" << std::endl;
-//                for (unsigned int i=0; i<r.getResults().size(); i++)
-//                {
-//                    std::cout << r.getResults()[i] << " | ";
-//                }
-//                std::cout << std::endl;
-//                std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl;
-//            }
-
             oldY = nextY;
         }
 
@@ -84,8 +82,96 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
         oldX = nextX;
     }
 
+    //Dans le cas de l'analyse global, on part de tout en haut à gauche
+    QPoint posInit(0,0);
     //Dessin du quadrillage à la fin pour recouvrir l'ensemble après qu'on ai fait des carrés verts de pertinence
     gestionnaire->updateQuadrillage(columnAmount,linesAmount);
+
+    isDataReady = true;
+
+    std::cout << "ANALYSE TOTALE TERMINEE" << std::endl;
+}
+
+void analyse_model::processResultsWithCropsVERSIONDEUX(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire)
+{    
+    std::cout << "DEBUT ANALYSE UTILISATEUR" << std::endl;
+
+    int x1 = pos1.x() * allPictures[0].width() / labelWidth;
+    int y1 = pos1.y() * allPictures[0].height() / labelHeight;
+    int x2 = pos2.x() * allPictures[0].width() / labelWidth;
+    int y2 = pos2.y() * allPictures[0].height() / labelHeight;
+
+    //Positions de l'analyse en haut à gauche et en bas à droite
+    QPoint departAnalyseHautGauche(x1,y1);
+    QPoint finAnalyseBasDroite(x2,y2);
+
+    /////DEBUG
+    //    columnAmount = 5;
+    //    linesAmount = 5;
+    //////
+
+    userResults.clear();
+
+    int largeurImage = abs(departAnalyseHautGauche.x()-finAnalyseBasDroite.x());
+    int hauteurImage = abs(departAnalyseHautGauche.y()-finAnalyseBasDroite.y());
+    gestionnaire->reinitUserPertinenceCalque(largeurImage,hauteurImage);
+
+    //Calcul de la taille de chaque ligne et colonne
+    float xSeparateurFloat = (float)largeurImage / (float)columnAmount;
+    float ySeparateurFloat = (float)hauteurImage / (float)linesAmount;
+
+    int xSeparation = (int)xSeparateurFloat;
+    int ySeparation = (int)ySeparateurFloat;
+
+    int oldX = departAnalyseHautGauche.x();
+    int oldY = departAnalyseHautGauche.y();
+
+    for (int i=1; i<=columnAmount; i++)
+    {
+        int nextX = oldX + xSeparation;
+        if (i == columnAmount)
+            nextX = departAnalyseHautGauche.x()+largeurImage;
+
+        for (int j=1; j<=linesAmount; j++)
+        {
+            int nextY = oldY + ySeparation;
+            if (j == linesAmount)
+                nextY = departAnalyseHautGauche.y()+hauteurImage;
+
+            QPoint pos1(oldX,oldY);
+            QPoint pos2(nextX,nextY);
+
+            //Les valeurs de point sont celles de l'image complète. Celles du calque commencent à zéro.
+            //Il faut donc modifier les points pour les adapter au calque.
+            QPoint pos1Scaled;
+            QPoint pos2Scaled;
+            pos1Scaled.setX(pos1.x()-departAnalyseHautGauche.x());
+            pos1Scaled.setY(pos1.y()-departAnalyseHautGauche.y());
+            pos2Scaled.setX(pos2.x()-departAnalyseHautGauche.x());
+            pos2Scaled.setY(pos2.y()-departAnalyseHautGauche.y());
+
+            int pertinence = processLocalUserResults(allPictures,pos1,pos2,whiteValue,pos1Scaled,pos2Scaled);
+
+            //On créer un rond en fonction de l'analyse
+            if (pertinence>1)
+            {
+                gestionnaire->manageNewUserAnalyse(pertinence, pos1Scaled, pos2Scaled);
+            }
+
+            oldY = nextY;
+        }
+
+        oldY = departAnalyseHautGauche.y();
+        oldX = nextX;
+    }
+
+    //Dessin du quadrillage à la fin pour recouvrir l'ensemble après qu'on a fait des carrés verts de pertinence
+    gestionnaire->updateUserQuadrillage(columnAmount,linesAmount);
+
+    isDataReady = true;
+
+
+    std::cout << "ANALYSE UTILISATEUR TERMINEE" << std::endl;
 }
 
 int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue)
@@ -128,13 +214,77 @@ int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1,
         localResult.addResult(totalNuance/nombrePixels);
     }
 
+    int pertinence = calculPertinence(localResult.getResults(), whiteValue);
+
+    localResult.setPertinence(pertinence);
+
+    results.push_back(localResult);
+    //Génération du graphique associé au résultat
+    createResultsDisplay(results.size()-1,allPictures.size(),whiteValue,false);
+
+    return pertinence;
+}
+
+int analyse_model::processLocalUserResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, QPoint pos1Scaled, QPoint pos2Scaled)
+{
+    Resultat localResult;
+
+    //Gestion si les points ne sont pas bien positionnés (ne devrait pas arriver)
+    if (pos1.x() < pos2.x())
+    {
+        localResult.setTopLeftPoint(pos1Scaled);
+        localResult.setBottomRightPoint(pos2Scaled);
+    }
+    else
+    {
+        localResult.setTopLeftPoint(pos2Scaled);
+        localResult.setBottomRightPoint(pos1Scaled);
+    }
+
+    for(CImg<float> image : allPictures)
+    {
+        CImg<float> zoom = image.get_crop(pos1.x(),pos1.y(),0,pos2.x(),pos2.y(),0);
+        float nombrePixels = zoom.width() * zoom.height();
+        float totalNuance = 0;
+        int niveauDeBlancMaximal = 0;
+        int niveauDeNoirMaximal = 255;
+
+        //Pour chaque pixel de l'image
+        cimg_forXY(zoom,x,y) {
+            //Niveau de gris du pixel en cours
+            int niveauNuance = (float)zoom(x,y,0,0);
+
+            totalNuance += niveauNuance;
+
+            if (niveauDeBlancMaximal < niveauNuance)
+                niveauDeBlancMaximal = niveauNuance;
+
+            if (niveauDeNoirMaximal > niveauNuance)
+                niveauDeNoirMaximal = niveauNuance;
+        }
+        localResult.addResult(totalNuance/nombrePixels);
+    }
+
+    int pertinence = calculPertinence(localResult.getResults(), whiteValue);
+
+    localResult.setPertinence(pertinence);
+
+    userResults.push_back(localResult);
+    //Génération du graphique associé au résultat
+    createResultsDisplay(userResults.size()-1,allPictures.size(),whiteValue,true);
+
+    return pertinence;
+}
+
+int analyse_model::calculPertinence(std::vector<float> data, int whiteValue)
+{
     //Calcul de la pertinence de la zone
     int pertinence = 0;
     int origineVariation;
     bool graphMontant = false;
-    for (unsigned int i=0; i<localResult.getResults().size(); i++)
+    for (unsigned int i=0; i<data.size(); i++)
     {
-        int currentValue = localResult.getResults()[i];
+        int currentValue = data[i];
 
         //Enregistrement de la valeur initiale du graph
         if (i==0)
@@ -158,7 +308,7 @@ int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1,
                 }
                 else
                 {
-                    int previousValue = localResult.getResults()[i-1];
+                    int previousValue = data[i-1];
                     //Le graph montait et ça change de sens
                     if (graphMontant && currentValue<previousValue)
                     {
@@ -176,7 +326,7 @@ int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1,
                         origineVariation = previousValue;
                         graphMontant = true;
                     }
-                    if (i == localResult.getResults().size()-1 || currentValue == whiteValue)
+                    if (i == data.size()-1 || currentValue == whiteValue)
                     {
                         int diff = abs(origineVariation-currentValue);
                         if (diff > errorMargin)
@@ -187,64 +337,11 @@ int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1,
         }
     }
 
-    localResult.setPertinence(pertinence);
-
-    results.push_back(localResult);
-
-    //Génération du graphique associé au résultat
-    createResultsDisplay(results.size()-1,allPictures.size(),whiteValue);
-
     return pertinence;
 }
 
-void analyse_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight)
+int analyse_model::analyseForWhiteValue(CImg<float> middleImage)
 {
-    Resultat localResult;
-
-    int x1 = pos1.x() * allPictures[0].width() / labelWidth;
-    int y1 = pos1.y() * allPictures[0].height() / labelHeight;
-    int x2 = pos2.x() * allPictures[0].width() / labelWidth;
-    int y2 = pos2.y() * allPictures[0].height() / labelHeight;
-
-    QPoint picturePos1(x1,y1);
-    QPoint picturePos2(x2,y2);
-    localResult.setTopLeftPoint(picturePos1);
-    localResult.setBottomRightPoint(picturePos2);
-
-    for(CImg<float> image : allPictures)
-    {
-        CImg<float> zoom = image.get_crop(x1+1,y1+1,0,x2-1,y2-1,0);
-        float nombrePixels = zoom.width() * zoom.height();
-        float totalNuance = 0;
-        int niveauDeBlancMaximal = 0;
-        int niveauDeNoirMaximal = 255;
-
-        //Pour chaque pixel de l'image
-        cimg_forXY(zoom,x,y) {
-            //Niveau de gris du pixel en cours
-            int niveauNuance = (float)zoom(x,y,0,0);
-
-            totalNuance += niveauNuance;
-
-            if (niveauDeBlancMaximal < niveauNuance)
-                niveauDeBlancMaximal = niveauNuance;
-
-            if (niveauDeNoirMaximal > niveauNuance)
-                niveauDeNoirMaximal = niveauNuance;
-        }
-
-        localResult.addResult(totalNuance/nombrePixels);
-    }
-
-    createCropResultsDisplay(localResult, allPictures.size(), whiteValue);
-}
-
-//TODO DETERMINER LA MEILLEURE APPROCHE POUR LE BLANC
-int analyse_model::analyseForWhiteValue()
-{
-    CImg<float> flattenImage;
-    flattenImage.load_bmp("tmp/flatten.bmp");
-
     /** MOYENNE
     float totalNuance = 0;
     float nombrePixel = flattenImage.width() * flattenImage.height();
@@ -258,9 +355,9 @@ int analyse_model::analyseForWhiteValue()
     int blancMax = 0;
     int noirMax = 255;
 
-    cimg_forXY(flattenImage,x,y) {
+    cimg_forXY(middleImage,x,y) {
         //Niveau de gris du pixel en cours
-        int niveauNuance = (float)flattenImage(x,y,0,0);
+        int niveauNuance = (float)middleImage(x,y,0,0);
 
         /** CALCUL DE LA MOYENNE
         totalNuance += niveauNuance;
@@ -293,11 +390,10 @@ int analyse_model::analyseForWhiteValue()
 
     /** Mediane */
     int mediane = (blancMax + noirMax) / 2;
-    //Test random pour trouver une valeur bien
-    return mediane + 30;
+    return mediane;
 }
 
-void analyse_model::createResultsDisplay(int index, int imagesSize, int whiteValue)
+void analyse_model::createResultsDisplay(int index, int imagesSize, int whiteValue, bool isUserAnalysis)
 {
     int black[] = { 0,0,0 };
     int white[] = { 255,255,255 };
@@ -333,91 +429,59 @@ void analyse_model::createResultsDisplay(int index, int imagesSize, int whiteVal
     bool firstIteration = true;
 
 
-    for (int y : results[index].getResults())
+    if (isUserAnalysis)
     {
-        if (firstIteration)
+        for (int y : userResults[index].getResults())
         {
-            oldY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
-            image.draw_point(oldX,oldY,red,1);
-            firstIteration = false;
-        }
-        else
-        {
-            int newX = oldX+decalageX;
-            int newY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
+            if (firstIteration)
+            {
+                oldY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
+                image.draw_point(oldX,oldY,red,1);
+                firstIteration = false;
+            }
+            else
+            {
+                int newX = oldX+decalageX;
+                int newY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
 
-            image.draw_line(oldX,oldY,newX,newY,red);
-            oldX = newX;
-            oldY = newY;
+                image.draw_line(oldX,oldY,newX,newY,red);
+                oldX = newX;
+                oldY = newY;
+            }
+        }
+    }
+    else
+    {
+        for (int y : results[index].getResults())
+        {
+            if (firstIteration)
+            {
+                oldY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
+                image.draw_point(oldX,oldY,red,1);
+                firstIteration = false;
+            }
+            else
+            {
+                int newX = oldX+decalageX;
+                int newY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
+
+                image.draw_line(oldX,oldY,newX,newY,red);
+                oldX = newX;
+                oldY = newY;
+            }
         }
     }
 
     image.draw_text(10,hauteurAbscisse-15,abscisseText.c_str(),blue,white,1);
 
-    std::string chemin = pathOfResultsStorage + std::to_string(index) + ".bmp";
+    //TODO Separator
+    std::string chemin;
+    if (isUserAnalysis)
+        chemin = pathOfResultsStorage + "/user/" + std::to_string(index) + ".bmp";
+    else
+        chemin = pathOfResultsStorage + std::to_string(index) + ".bmp";
 
     image.save_bmp(chemin.c_str());
-    isDataReady = true;
-}
-
-void analyse_model::createCropResultsDisplay(Resultat result, unsigned int imagesSize, int whiteValue)
-{
-    int black[] = { 0,0,0 };
-    int white[] = { 255,255,255 };
-    int blue[] = { 0,0,255 };
-    int red[] = { 255,0,0 };
-    float valeurMediane = whiteValue * 100 / 255;
-    float valMaxGraph = 100-valeurMediane;
-    float valMinGraph = (100-valMaxGraph) * -1;
-
-    CImg<float> image;
-    image.assign(300,200,1,3);
-    image.fill(255);
-
-
-    int hauteurAbscisse = image.height() - image.height() * valeurMediane/100;
-    std::string val = std::to_string(valeurMediane);
-    std::string abscisseText;
-    if (valeurMediane < 10)
-        abscisseText = val.substr(0,1);
-    else
-        abscisseText = val.substr(0,2) + "%";
-    abscisseText.append("%");
-
-    std::string ordonnee = " Variation % Nuance";
-    image.draw_text(20,0,ordonnee.c_str(),black,white,1);
-    image.draw_axes(0,imagesSize-1,valMaxGraph,valMinGraph,black,1,-60,-60,1);
-
-    //Calculs pour placer les points correctement
-    int decalageX = image.width()/imagesSize;
-
-    int oldX = 0;
-    int oldY = 0;
-    bool firstIteration = true;
-
-
-    for (int y : result.getResults())
-    {
-        if (firstIteration)
-        {
-            oldY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
-            image.draw_point(oldX,oldY,red,1);
-            firstIteration = false;
-        }
-        else
-        {
-            int newX = oldX+decalageX;
-            int newY = calculPlacementY(image.height(),y, valeurMediane, hauteurAbscisse);
-
-            image.draw_line(oldX,oldY,newX,newY,red);
-            oldX = newX;
-            oldY = newY;
-        }
-    }
-
-    image.draw_text(10,hauteurAbscisse-15,abscisseText.c_str(),blue,white,1);
-
-    image.save_bmp(pathOfResultsDisplay.c_str());
     isDataReady = true;
 }
 
@@ -450,8 +514,32 @@ void analyse_model::getDataFromArea(QPoint area, int labelWidth, int labelHeight
 
             currentArea = i;
             areaIsSelected = true;
-            dessin->saveZoomFromArea(results[currentArea].getTopLeftPoint(), results[currentArea].getBottomRightPoint(), currentImage);
             std::string graphFromArea = pathOfResultsStorage + std::to_string(i) + ".bmp";
+            CImg<float> graphImg;
+            graphImg.load_bmp(graphFromArea.c_str());
+            graphImg.save_bmp(pathOfResultsDisplay.c_str());
+        }
+    }
+}
+
+//TODO ICI
+void analyse_model::getDataFromZoomArea(QPoint area, int labelWidth, int labelHeight, std::string zoomPath) {
+
+    CImg<float> zoomPicture;
+    zoomPicture.load_bmp(zoomPath.c_str());
+
+    int x = area.x() * zoomPicture.width() / labelWidth;
+    int y = area.y() * zoomPicture.height() / labelHeight;
+
+    for(unsigned int i = 0; i < userResults.size(); i++) {
+        if (userResults[i].getTopLeftPoint().x() <= x
+                && userResults[i].getTopLeftPoint().y() <= y
+                && userResults[i].getBottomRightPoint().x() > x
+                && userResults[i].getBottomRightPoint().y() > y) {
+
+            currentArea = i;
+            //TODO Separator
+            std::string graphFromArea = pathOfResultsStorage + "/user/" + std::to_string(i) + ".bmp";
             CImg<float> graphImg;
             graphImg.load_bmp(graphFromArea.c_str());
             graphImg.save_bmp(pathOfResultsDisplay.c_str());
@@ -469,8 +557,6 @@ bool analyse_model::getAreaIsSelected() { return areaIsSelected; }
 void analyse_model::setAreaIsSelected(bool newValue) { areaIsSelected = newValue; }
 bool analyse_model::getUserAreaIsSelected() { return userAreaIsSelected; }
 void analyse_model::setUserAreaIsSelected(bool newValue) { userAreaIsSelected = newValue; }
-
-void analyse_model::setResults(const std::vector<Resultat> &value)
-{
-    results = value;
-}
+void analyse_model::setCurrentAnalysisType(bool type) { currentAnalysisIsAUserOne = type; }
+bool analyse_model::getCurrentAnalysisType() { return currentAnalysisIsAUserOne; }
+void analyse_model::setResults(const std::vector<Resultat> &value) { results = value; }

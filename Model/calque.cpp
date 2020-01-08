@@ -2,11 +2,12 @@
 #include <iostream>
 
 #include "calque.h"
-#include "annotation_user_memento.h"
 
 
-calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id),canShow(true)
-{}
+calque::calque(int width, int height, int min, int max, int _id): _calque(width,height,1,4,0), intervalMin(min), intervalMax(max), id(_id),canShow(true), numList(-1), highWater(0)
+{
+    addMemento();
+}
 
 int calque::getId() const
 {
@@ -48,12 +49,45 @@ void calque::saveCalque(std::string path)
     _calque.save_cimg(path.c_str());
 }
 
-annotation_user_memento *calque::createMemento(){
-    return new annotation_user_memento(_calque);
+//MEMENTO
+
+void calque::reinstateMemento(int mem){
+    _calque = mementoList[mem];
 }
 
-void calque::reinstateMemento(annotation_user_memento *mem){
-    _calque = mem->_calque;
+void calque::undo()
+{
+    if (numList == 0)
+    {
+        return ;
+    }
+    numList--;
+    reinstateMemento(numList);
+}
+
+void calque::redo()
+{
+    if (numList >= highWater-1)
+    {
+        return ;
+    }
+    numList++;
+    reinstateMemento(numList);
+    std::cout << "numList = " << numList << " Highwater = " << highWater << std::endl;
+}
+
+void calque::addMemento(){
+    if(numList < highWater-1){
+        mementoList.erase(mementoList.begin()+numList,mementoList.end());
+    }
+
+    mementoList.push_back(_calque);
+    numList++;
+    highWater++;
+}
+
+void calque::clearMemento(){
+    mementoList.clear();
 }
 
 //                               ACTION !
@@ -83,7 +117,7 @@ void calque::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinenc
  */
 void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
     CImg<float> tmp(_calque.width(),_calque.height(),1,4,0);
-    _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,tmp);
+    _calque = dessine.dessinerFaisceau(pos1,pos2,labelWidth,labelHeight,tmp);
 }
 
 /**
@@ -93,8 +127,30 @@ void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labe
  * @param labelWidth
  * @param labelHeight
  */
-void calque::dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
-    _calque = dessine.dessinerLigne(pos1,pos2,labelWidth,labelHeight,_calque);
+void calque::dessinerLigne(QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing){
+    _calque = dessine.dessinerLigne(pos1,pos2,isDrawing, brushSize, labelWidth,labelHeight,_calque);
+}
+
+/**
+ * @brief calque::dessinerCarre
+ * @param posOrig
+ * @param diameter
+ * @param labelWidth
+ * @param labelHeight
+ */
+void calque::dessinerCarre(QPoint posOrig, int diameter, int labelWidth, int labelHeight){
+    _calque = dessine.dessinerCarre(posOrig,diameter,labelWidth,labelHeight,_calque);
+}
+
+/**
+ * @brief calque::dessinerCercle
+ * @param posOrig
+ * @param diameter
+ * @param labelWidth
+ * @param labelHeight
+ */
+void calque::dessinerCercle(QPoint posOrig, int diameter, int labelWidth, int labelHeight){
+    _calque = dessine.dessinerCercle(posOrig,diameter,labelWidth,labelHeight,_calque);
 }
 
 /**
@@ -113,4 +169,8 @@ void calque::filtreQuadrillage(int columns, int lines){
  */
 void calque::filtreHistogram(){
     _calque = dessine.applyHistogramFilter(_calque);
+}
+
+void calque::ecrireText(QPoint pos1, std::string text_a_ecrire, int fontSize, int labelWidth, int labelHeight){
+    _calque = dessine.ecrireText(pos1,text_a_ecrire,fontSize,labelWidth,labelHeight, _calque);
 }

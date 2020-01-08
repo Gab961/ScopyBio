@@ -1,5 +1,7 @@
 #pragma once
 
+#include<vector>
+
 #include "CImg.h"
 #include "dessin_model.h"
 
@@ -20,14 +22,16 @@ private:
     int intervalMax;
     int id;
     bool canShow;
+    //MEMENTO
+    int numList;
+    int highWater;
+    std::vector<CImg<float>> mementoList;
 
 
 
 public:
     calque(int width, int height, int min, int max, int _id);
-
-    annotation_user_memento *createMemento();
-    void reinstateMemento(annotation_user_memento *mem);
+    ~calque(){mementoList.clear();}
 
     CImg<float> getCalque() const;
     void saveCalque(std::string path);
@@ -39,15 +43,26 @@ public:
     bool getCanShow() const;
     void setCanShow(bool value);
 
+    //MEMENTO
+    void undo();
+    void redo();
+    void addMemento();
+    void reinstateMemento(int mem);
+    void clearMemento();
+
+
     //          ACTIONS !
     void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
     void dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence);
-    void dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
+    void dessinerLigne(QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing);
     void dessinerRond(QPoint pos, int pertinence);
+    void dessinerCarre(QPoint posOrig, int diameter, int labelWidth, int labelHeight);
+    void dessinerCercle(QPoint posOrig, int diameter, int labelWidth, int labelHeight);
     void filtreVert();
     void filtreHistogram();
     void filtreQuadrillage(int columns, int lines);
+    void ecrireText(QPoint pos1, std::string text_a_ecrire, int fontSize, int labelWidth, int labelHeight);
 
 };
 

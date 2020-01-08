@@ -29,6 +29,20 @@ int main(int argc, char* argv[])
     analysePath += "saveAnalyse";
     filesystem::create_directories(analysePath);
 
+    string pileDisplayPath = "tmp";
+    pileDisplayPath += separator;
+    pileDisplayPath += "pileDisplay";
+    filesystem::create_directories(pileDisplayPath);
+
+    string userAnalysePath = "tmp";
+    userAnalysePath += separator;
+    userAnalysePath += "saveAnalyse";
+    userAnalysePath += separator;
+    userAnalysePath += "resultDisplay";
+    userAnalysePath += separator;
+    userAnalysePath += "user";
+    filesystem::create_directories(userAnalysePath);
+
     QApplication scopyBio(argc, argv);
 
     MainWindow mainWindow;
@@ -39,6 +53,8 @@ int main(int argc, char* argv[])
     mainWindow.move(x, y);
 
     mainWindow.show();
+
+    //TODO Supprimer /tmp à la fin
 
     return scopyBio.exec();
 }

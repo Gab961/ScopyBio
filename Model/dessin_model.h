@@ -13,6 +13,11 @@ public:
     dessin_model();
 
     /**
+     * @brief init Réinitialise le modèle
+     */
+    void init();
+
+    /**
      * @brief getMainDisplayPath Renvoie le chemin de l'image s'affichant dans le display principal
      * @return
      */
@@ -25,6 +30,17 @@ public:
     std::string getZoomDisplayPath() const;
 
     /**
+     * @brief ecrireText
+     * @param pos1
+     * @param text_a_ecrire
+     * @param labelWidth
+     * @param labelHeight
+     * @param currentPicture
+     * @return
+     */
+    CImg<float> ecrireText(QPoint pos1, std::string text_a_ecrire, int fontSize, int labelWidth, int labelHeight, CImg<float> & currentPicture);
+
+    /**
      * @brief dessinerRectangle Dessine un rectangle sur une image en paramètre (calque)
      * @param pos1
      * @param pos2
@@ -34,6 +50,17 @@ public:
      * @return
      */
     CImg<float> dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> &currentPicture);
+
+    /**
+     * @brief dessinerFaisceau
+     * @param pos1
+     * @param pos2
+     * @param labelWidth
+     * @param labelHeight
+     * @param currentPicture
+     * @return
+     */
+    CImg<float> dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture);
 
     /**
      * @brief dessinerRond
@@ -69,15 +96,52 @@ public:
      * @brief dessinerLigne
      * @param pos1
      * @param pos2
+     * @param isDrawing
      * @param labelWidth
      * @param labelHeight
      * @param currentPicture
      * @return
      */
-    CImg<float> dessinerLigne(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> & currentPicture);
+    CImg<float> dessinerLigne(QPoint pos1, QPoint pos2, bool isDrawing, int brushSize, int labelWidth, int labelHeight, CImg<float> & currentPicture);
+
+    /**
+     * @brief dessinerCarre
+     * @param posOrig
+     * @param diameter
+     * @param labelWidth
+     * @param labelHeight
+     * @param currentPicture
+     * @return
+     */
+    CImg<float> dessinerCarre(QPoint posOrig, int diameter, int labelWidth, int labelHeight, CImg<float> & currentPicture);
+
+    /**
+     * @brief dessinerCercle
+     * @param posOrig
+     * @param diameter
+     * @param labelWidth
+     * @param labelHeight
+     * @param currentPicture
+     * @return
+     */
+    CImg<float> dessinerCercle(QPoint posOrig, int diameter, int labelWidth, int labelHeight, CImg<float> & currentPicture);
+
+    /**
+     * @brief drawThickLine
+     * @param image
+     * @param x1
+     * @param y1
+     * @param x2
+     * @param y2
+     * @param line_width
+     * @param isDrawing
+     */
+    void drawThickLine(CImg<float>& image, const int x1, const int y1, const int x2, const int y2, const unsigned int line_width, bool isDrawing);
 
     /**
      * @brief applyQuadrillageFilter
+     * @param columns
+     * @param lines
      * @param picture
      * @return
      */
@@ -99,7 +163,7 @@ public:
      * @param pos2
      * @param currentPicture
      */
-    void saveZoomFromArea(QPoint pos1, QPoint pos2, CImg<float> currentPicture);
+    CImg<float> saveZoomFromArea(QPoint pos1, QPoint pos2, CImg<float> currentPicture);
 
     /**
      * @brief savePics Je sais pas
@@ -131,7 +195,7 @@ public:
      * @param labelHeight
      * @param zoomView
      */
-    void manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView);
+    void manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView, CImg<float> currentImage);
 
     /**
      * @brief manageNewWhiteColor Met une nouvelle couleur de blanc
@@ -142,9 +206,24 @@ public:
     int getWhiteValue() const;
     void setWhiteValue(int color);
 
+    /**
+     * @brief shutdownAllListening Annule toutes les écoutes de clic
+     */
+    void shutdownAllListening();
+
     //Vrai si on attend un clic
     bool getListenPipetteClick() const;
-    void setListenPipetteClick(bool pipetteClick);
+    void setListenPipetteClick(bool newValue);
+    bool getListenPenClick() const;
+    void setListenPenClick(bool newValue);
+    bool getListenEraserClick() const;
+    void setListenEraserClick(bool newValue);
+    bool getListenShapeClick() const;
+    void setListenShapeClick(bool newValue);
+    bool getListenTextClick() const;
+    void setListenTextClick(bool newValue);
+    bool getListenSelectionClick() const;
+    void setListenSelectionClick(bool newValue);
 
     /**
      * @brief getZoomReady Vrai si il existe une image dans le zoom display
@@ -161,6 +240,18 @@ public:
 
     void switchSaveLocation();
 
+    int getPenSize();
+    void setPenSize(int newValue);
+    int getShapeSize();
+    void setShapeSize(int newValue);
+    int getTextSize();
+    void setTextSize(int newValue);
+    int getEraserSize();
+    void setEraserSize(int newValue);
+    bool getCircleIsSelected();
+    void setCircleIsSelected(bool newValue);
+
+
 private:
     int pathOfMainDisplayIndex = 0;
     std::string pathOfMainDisplay = "tmp/mainDisplay/mainDisplay0.bmp";
@@ -170,5 +261,16 @@ private:
 
     bool baseColorGiven;
     bool listenPipetteClick;
+    bool listenEraserClick;
+    bool listenPenClick;
+    bool listenShapeClick;
+    bool listenTextClick;
+    bool listenSelectionClick;
     int whiteColor;
+
+    int penSize;
+    int shapeSize;
+    int textSize;
+    int eraserSize;
+    bool circleIsSelected;
 };

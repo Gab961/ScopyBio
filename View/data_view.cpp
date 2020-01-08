@@ -22,9 +22,16 @@ void Data_View::createView()
     m_layout->addWidget(m_image);
     m_layout->setMargin(0);
     m_image->setAlignment(Qt::AlignCenter);
-    m_image->setText("No base color selected.");
+    m_image->setText("No data to show");
 
     setLayout(m_layout);
+}
+
+void Data_View::resetDataView()
+{
+    m_image->clear();
+    m_image->setAlignment(Qt::AlignCenter);
+    m_image->setText("No data to show");
 }
 
 void Data_View::drawResults()
