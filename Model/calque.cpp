@@ -64,6 +64,7 @@ void calque::undo()
     }
     numList--;
     reinstateMemento(numList);
+    std::cout << "numList = " << numList << " Highwater = " << highWater << std::endl;
 }
 
 void calque::redo()
@@ -79,12 +80,16 @@ void calque::redo()
 
 void calque::addMemento(){
     if(numList < highWater-1){
-        mementoList.erase(mementoList.begin()+numList,mementoList.end());
+        mementoList.erase(mementoList.begin()+numList+1,mementoList.end());
+        highWater = numList+1;
     }
+    std::cout << "numList = " << numList << " Highwater = " << highWater << std::endl;
 
     mementoList.push_back(_calque);
     numList++;
     highWater++;
+    std::cout << "numList = " << numList << " Highwater = " << highWater << std::endl;
+    std::cout << "memento.size = " << mementoList.size() << std::endl;
 }
 
 void calque::clearMemento(){
