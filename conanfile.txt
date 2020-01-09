@@ -9,17 +9,14 @@
  zlib/1.2.11@conan/stable
  libgit2/0.26.3@arsen-studio/stable
  OpenSSL/1.1.1c@conan/stable
+ libx11/1.6.8@bincrafters/stable
 
  [generators]
  cmake
 
  [options]
  *:shared=False
- qt:shared=False
- qt:qtmultimedia=True
- qt:qtsvg=True
- qt:qttools=True
- qt:with_glib=False
+ qt:*=True
 
  [imports]
  bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder

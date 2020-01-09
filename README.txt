@@ -12,14 +12,11 @@ after you are succefuly install all previous tools, you need to execute some com
 	* $ conan remote add arsen-deps https://api.bintray.com/conan/arsen-studio/arsen-deps
 	* $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
 	* go on build repesitory in /ScopyBio
-	* $ conan install .. --build gtest --build protobuf --build jasper --build openexr --build opencv --build OpenSSL --build libcurl --build libssh2 --build libgit2
+	* $ conan install .. --build=missing
 	get ready for a long time of wait
 	
 Forcing compilation with gcc = 9.2 :
 	* $ conan install .. -s compiler.version=9.2 --build=missing
-
-*********************************** On Windows ***********************************************
-
 	* $ cmake ..
 	* $ cmake --build .
 

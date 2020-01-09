@@ -15,7 +15,6 @@ add_compile_options(-Wall -Wpedantic -std=c++17)
 endif()
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-
 conan_basic_setup()
 
 # Prevent compilation in-source
