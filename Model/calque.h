@@ -53,7 +53,7 @@ public:
 
     //          ACTIONS !
     /**
-     * @brief dessinerFaisceau draw in the _calque a beam
+     * @brief dessinerFaisceau draw on the layer a beam
      * @param pos1 point of origin
      * @param pos2 opposite point
      * @param labelWidth width of the layer
@@ -62,7 +62,7 @@ public:
     void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
     /**
-     * @brief dessinerRectangle draw in the _calque a rectangle
+     * @brief dessinerRectangle draw on the layer a rectangle
      * @param pos1 point of origin
      * @param pos2 opposite point
      * @param labelWidth width of the layer
@@ -71,29 +71,28 @@ public:
     void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
     /**
-     * @brief dessinerRectanglePertinence draw in the _calque a rectangle for displaying user results
+     * @brief dessinerRectanglePertinence draw on the layer a rectangle for displaying user results
      * @param pos1 point of origin
      * @param pos2 opposite point
-     * @param pertinence
+     * @param pertinence Level of pertinence
      */
     void dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence);
 
     /**
-     * @brief dessinerLigne draw a line in the layer between 2 positions of the mouse
+     * @brief dessinerLigne draw a line on the layer between 2 positions of the mouse
      * @param pos1 begin of the line
      * @param pos2 end of the line
      * @param brushSize width of the line
      * @param labelWidth width of the layer
      * @param labelHeight height of the layer
-     * @param isDrawing TODO
+     * @param isDrawing To know if we draw (true) or erase (false)
      */
     void dessinerLigne(QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing);
 
-    //TODO
     /**
      * @brief dessinerRond draw a circle at the position of the mouse
      * @param pos position of the mouse
-     * @param pertinence Color of the circle
+     * @param pertinence level of pertinence
      */
     void dessinerRond(QPoint pos, int pertinence);
 

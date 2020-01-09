@@ -3,18 +3,13 @@
 #include <iostream>
 #include <filesystem>
 
-#define PATH "../../Resources/Config/config.json"
+//#define PATH "../../Resources/Config/config.json"
 
 //=======================================================
 
 //                  CONSTRUCTOR
 
 //=======================================================
-
-std::string pile_model::getFileName() const
-{
-    return fileName;
-}
 
 pile_model::pile_model()
 {
@@ -28,6 +23,25 @@ pile_model::pile_model()
 
 //=======================================================
 
+std::string pile_model::getFileName() const{return fileName;}
+CImg<float> pile_model::getImageAtIndex(int i) { return images[i]; }
+int pile_model::getCurrentImageIndex() { return currentImageIndex; }
+void pile_model::setCurrentImageIndex(int index) { currentImageIndex  = index; }
+//void pile_model::setPercentageOfBlack(float value) { percentageOfBlack = value; }
+CImgList<float> pile_model::getImages() const { return images; }
+CImg<float> pile_model::getCurrentImage() const { return currentImage; }
+void pile_model::setCurrentImage(int position){ currentImage = images[position]; }
+std::vector<string> pile_model::getIconFilenames() { return images_icons_filename; }
+bool pile_model::fileReady() { return fileIsLoaded; }
+
+//=======================================================
+
+//                  METHODS
+
+//=======================================================
+
+
+//TODO Remove configuration of project?
 void pile_model::loadNewFilename(std::string filename)
 {
     fileName = filename;
@@ -41,52 +55,36 @@ void pile_model::loadNewFilename(std::string filename)
     //    read_json_config();
 }
 
-CImg<float> pile_model::getImageAtIndex(int i) { return images[i]; }
-int pile_model::getCurrentImageIndex() { return currentImageIndex; }
-void pile_model::setCurrentImageIndex(int index) { currentImageIndex  = index; }
-void pile_model::setPercentageOfBlack(float value) { percentageOfBlack = value; }
-CImgList<float> pile_model::getImages() const { return images; }
-CImg<float> pile_model::getCurrentImage() const { return currentImage; }
-void pile_model::setCurrentImage(int position){ currentImage = images[position]; }
-std::vector<string> pile_model::getIconFilenames() { return images_icons_filename; }
-bool pile_model::fileReady() { return fileIsLoaded; }
+//void pile_model::read_json_config(){
+//    Json::Value config;
 
-//=======================================================
+//    std::ifstream config_file(PATH, std::ifstream::binary);
+//    config_file >> config;
 
-//                  METHODS
+//    if(config["black"] != Json::Value::null){
+//        percentageOfBlack = config["black"].asFloat();
+//    }else{
+//        percentageOfBlack = 100.0;
+//    }
 
-//=======================================================
+//    if(config["green"] != Json::Value::null){
+//        isGreen = config["green"].asBool();
+//    }else{
+//        isGreen = false;
+//    }
 
-void pile_model::read_json_config(){
-    Json::Value config;
+//    if(config["annotation"] != Json::Value::null){
+//        isDisplayingAnnotation = config["annotation"].asBool();
+//    }else{
+//        isDisplayingAnnotation = true;
+//    }
 
-    std::ifstream config_file(PATH, std::ifstream::binary);
-    config_file >> config;
-
-    if(config["black"] != Json::Value::null){
-        percentageOfBlack = config["black"].asFloat();
-    }else{
-        percentageOfBlack = 100.0;
-    }
-
-    if(config["green"] != Json::Value::null){
-        isGreen = config["green"].asBool();
-    }else{
-        isGreen = false;
-    }
-
-    if(config["annotation"] != Json::Value::null){
-        isDisplayingAnnotation = config["annotation"].asBool();
-    }else{
-        isDisplayingAnnotation = true;
-    }
-
-    if(config["contour"] != Json::Value::null){
-        isDisplayingContour = config["contour"].asBool();
-    }else{
-        isDisplayingContour = false;
-    }
-}
+//    if(config["contour"] != Json::Value::null){
+//        isDisplayingContour = config["contour"].asBool();
+//    }else{
+//        isDisplayingContour = false;
+//    }
+//}
 
 void pile_model::load(string path)
 {
