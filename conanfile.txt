@@ -16,7 +16,11 @@
 
  [options]
  *:shared=False
- qt:*=True
+ qt:shared=True
+ qt:qtmultimedia=True
+ qt:qtsvg=True
+ qt:qttools=True
+ qt:qtx11extras=True
 
  [imports]
  bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder
