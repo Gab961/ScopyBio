@@ -2,6 +2,10 @@ project(ScopyBio)
 
 cmake_minimum_required(VERSION 3.8.0)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
+"${CMAKE_SOURCE_DIR}/CMakeModules")
+
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 set(CMAKE_CXX_EXTENSIONS off)
@@ -11,11 +15,18 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-add_compile_options(-Wall -Wpedantic -std=c++17)
+add_compile_options(-Wall -Wpedantic)
 endif()
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
+
+
+find_package(Filesystem REQUIRED)
+set(CONAN_LIBS ${CONAN_LIBS} std::filesystem)
+if (_CXX_FILESYSTEM_HAVE_EXPERIMENTAL_HEADER)
+add_definitions(-DFILESYSTEMISEXPERIMENTAL)
+endif()
 
 # Prevent compilation in-source
 if( ${CMAKE_BINARY_DIR} STREQUAL ${PROJECT_SOURCE_DIR} )
