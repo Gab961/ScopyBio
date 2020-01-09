@@ -14,74 +14,94 @@ class ScopyBio_Controller : public QWidget
 {    
     Q_OBJECT
 signals:
+    /**
+     * @brief fullAnalysisEnded Signal emitted when the full analysis thread terminated
+     */
     void fullAnalysisEnded();
+
+    /**
+     * @brief userAnalysisEnded Signal emitted when the local analysis thread terminated
+     */
     void userAnalysisEnded();
 
 public:
     ScopyBio_Controller();
 
+    /**
+     * @brief reinitAllModels Reinit models to initial state
+     */
     void reinitAllModels();
 
     /** Partie affichage **/
+    /**
+     * @brief DisplayResultImage Load a image and apply all its layers
+     * @param idImage Id of the image to show
+     */
     void DisplayResultImage(int idImage);
-    void afficherCalque(int id, bool);
+
+    /**
+     * @brief afficherCalque Show/hide a layer
+     * @param id Id of the layer to show/hide
+     * @param aff True to show, false to hide
+     */
+    void afficherCalque(int id, bool aff);
 
     /***********************************************************************************/
     /******************************** Partie pile_model ********************************/
     /***********************************************************************************/
 
     /**
-     * @brief openProject Charge un projet
-     * @param pathProject Le chemin du projet
+     * @brief openProject Load a project file
+     * @param pathProject Path of the project file
      */
     void openProject(std::string pathProject);
 
     /**
-     * @brief loadNewTiffFile Charge un tif multi-image
-     * @param filename
+     * @brief loadNewTiffFile Load a multi-images tiff file
+     * @param filename Path of the file
      */
     void loadNewTiffFile(std::string filename);
 
     /**
-     * @brief getLoadedTiffList Récupère la liste CImgList du tif
+     * @brief getLoadedTiffList Getter for the CImgList of the tiff file
      * @return
      */
     CImgList<float> getLoadedTiffList();
 
     /**
-     * @brief getCurrentTiff Récupère l'image affichée dans le mainDisplay
+     * @brief getCurrentTiff Getter for the currently selected image
      * @return
      */
     CImg<float> getCurrentTiff();
 
     /**
-     * @brief is24Bits Retourne vrai si l'image est de type 24 bits
+     * @brief is24Bits True if the tiff file is 24 bits
      * @return
      */
     bool is24Bits();
 
     /**
-     * @brief getIconFilenames Récupère la liste des tous les fichiers enregistrés pour la pile
+     * @brief getIconFilenames Getter to get all icons filename
      * @return
      */
     std::vector<std::string> getIconFilenames();
 
     /**
-     * @brief getImageAtIndex Récupère l'image CImg à l'emplacement i du CImgList
-     * @param i
+     * @brief getImageAtIndex Getter of the image of the CImgList at a precise index
+     * @param i Index of the image
      * @return
      */
     CImg<float> getImageAtIndex(int i) const;
 
     /**
-     * @brief fileReady Vrai si un fichier tif ou un projet est ouvert
+     * @brief fileReady True if a file or a project finished to initialize
      * @return
      */
     bool fileReady();
 
     /**
-     * @brief saveCurrent Sauvegarde l'image en cours je suppose :)
-     * @param indiceEnCours
+     * @brief saveCurrent Set the current image as the one at the given index
+     * @param indiceEnCours Index of the new current image
      */
     void saveCurrent(int indiceEnCours);
 
@@ -95,283 +115,333 @@ public:
     /******************************** Partie Calque ************************************/
     /***********************************************************************************/
 
+    /**
+     * @brief reinitUserPertinenceCalque Reinit the layer of pertinence over the zoom
+     * @param width New width of layer
+     * @param height New height of layer
+     */
     void reinitUserPertinenceCalque(int width, int height);
+
+    /**
+     * @brief undoAction Undo the last action on current layer
+     */
     void undoAction();
+
+    /**
+     * @brief redoAction Redo the last action on current layer
+     */
     void redoAction();
+
+    /**
+     * @brief addMemento Add an action in the memento of the current layer
+     */
     void addMemento();
+
+    /**
+     * @brief removeCalque Remove the layer with the given id
+     * @param id Id of the layer to remove
+     */
     void removeCalque(int id);
-    void removeCalque(int min, int max);
+
+    /**
+     * @brief setCurrentCalqueId Change the current layer id
+     * @param newId New id of the layer
+     */
     void setCurrentCalqueId(int newId);
-    void setCurrentCalqueIdMinMax(int min, int max);
+
+    /**
+     * @brief getCalquesIdFromImage Getter to get the layer ids for the given image id
+     * @param image Image id
+     * @return
+     */
     std::vector<int> getCalquesIdFromImage(int image);
 
+    /**
+     * @brief isHidden Getter to know if the layer with the given id is hide or not
+     * @param id Id of the layer
+     * @return
+     */
     bool isHidden(int id);
+
+    /**
+     * @brief CreerNouveauCalque Create a new layer from the min image to the max image
+     * @param min Id of the first image covered by the layer
+     * @param max Id of the last image covered by the layer
+     * @return
+     */
     bool CreerNouveauCalque(int min, int max);
 
     /***********************************************************************************/
     /******************************* Partie dessin_model *******************************/
     /***********************************************************************************/
     /**
-     * @brief dessinerFaisceau Dessine le faisceau sur un calque
-     * @param labelWidth
-     * @param labelHeight
+     * @brief dessinerFaisceau Draw a beam on a layer
+     * @param labelWidth Width of the label from which the clic came
+     * @param labelHeight Height of the label from which the clic came
      */
     void dessinerFaisceau(int labelWidth, int labelHeight);
 
     /**
-     * @brief dessinerCercle
-     * @param imageIndex
-     * @param origPoint
-     * @param labelWidth
-     * @param labelHeight
+     * @brief dessinerCercle Draw a circle on a layer
+     * @param origPoint Center point of the circle
+     * @param labelWidth Width of the label from which the clic came
+     * @param labelHeight Height of the label from which the clic came
+     * @return
      */
     bool dessinerCercle(QPoint origPoint, int labelWidth, int labelHeight);
 
     /**
-     * @brief dessinerCarre
-     * @param imageIndex
-     * @param origPoint
-     * @param labelWidth
-     * @param labelHeight
+     * @brief dessinerCarre Draw a square on a layer
+     * @param origPoint Center point of the square
+     * @param labelWidth Width of the label from which the clic came
+     * @param labelHeight Height of the label from which the clic came
+     * @return
      */
     bool dessinerCarre(QPoint origPoint, int labelWidth, int labelHeight);
 
     /**
-     * @brief dessinerLignePerso
-     * @param origPoint
-     * @param pos
-     * @param labelWidth
-     * @param labelHeight
-     * @param isDrawing
+     * @brief dessinerLignePerso Draw a line between two points
+     * @param origPoint Point of the start of the line
+     * @param pos Point of the end of the line
+     * @param labelWidth Width of the label from which the clic came
+     * @param labelHeight Height of the label from which the clic came
+     * @param isDrawing True if drawing with color, false if it's the eraser
+     * @return
      */
     bool dessinerLignePerso(QPoint origPoint, QPoint pos, int labelWidth, int labelHeight, bool isDrawing);
 
     /**
-     * @brief dessinerText
-     * @param imageIndex
-     * @param text
-     * @param origPoint
-     * @param labelWidth
-     * @param labelHeight
+     * @brief dessinerText Draw a text on a layer
+     * @param text Data which must be drawn
+     * @param origPoint Point where the text must be placed
+     * @param labelWidth Width of the label from which the clic came
+     * @param labelHeight Height of the label from which the clic came
+     * @return
      */
     bool dessinerText(std::string text, QPoint origPoint, int labelWidth, int labelHeight);
 
     /**
-     * @brief saveZoom Enregistre l'image zoomée depuis la sélection
-     * @param labelWidth
-     * @param labelHeight
+     * @brief saveZoom Save zoom from the user selected area
+     * @param labelWidth Width of the label from which the clic came
+     * @param labelHeight Height of the label from which the clic came
      */
     void saveZoom(int labelWidth, int labelHeight);
 
     /**
-     * @brief saveZoomOfCurrentArea Enregistre le zoom de la zone actuellement sélectionnée
-     */
-    void saveZoomOfCurrentArea();
-
-    /**
-     * @brief saveZoomOfUserArea Enregistre le zoom de la zone sélectionnée par l'utilisateur
+     * @brief saveZoomOfUserArea Save the zoom from the user selected area
      */
     void saveZoomOfUserArea();
 
     /**
-     * @brief getMainDisplayPath Renvoie le chemin de l'image du display principal
+     * @brief saveZoomOfCurrentArea Save the zoom from the area where the user clicked (predefined area)
+     */
+    void saveZoomOfCurrentArea();
+
+    /**
+     * @brief getMainDisplayPath Get the main display path
      * @return
      */
     std::string getMainDisplayPath();
 
     /**
-     * @brief getZoomDisplayPath Renvoie le chemin de l'image du display zoom
+     * @brief getZoomDisplayPath Get the zoom display path
      * @return
      */
     std::string getZoomDisplayPath();
 
     /**
-     * @brief saveAsMainDisplay Enregistre l'image i du CImgList en tant qu'affichage principal
-     * @param i
+     * @brief saveAsMainDisplay Save the image of index i from the CImgList as main display image
+     * @param i Index of the new image
      */
     void saveAsMainDisplay(int i);
 
     /**
-     * @brief applyGreenFilter Applique le filtre vert sur l'ensemble des images
+     * @brief applyGreenFilter Apply green filter over every image
      */
     void applyGreenFilter();
 
     /**
-     * @brief applyHistogramFilter Applique le contraste à l'ensemble des images
+     * @brief applyHistogramFilter Apply histogram filter over every image
      */
     void applyHistogramFilter();
 
+    /**
+     * @brief applyResultatFilter Apply results filter over every image
+     */
     void applyResultatFilter();
 
+    /**
+     * @brief applyZoomResultatFilter Apply results filter over zoom image
+     */
     void applyZoomResultatFilter();
 
     /**
-     * @brief removeHistogramFilter Supprime le contraste à l'ensemble des images
+     * @brief removeHistogramFilter Remove histogram filter over every image
      */
     void removeHistogramFilter();
 
     /**
-     * @brief manageNewWhite Modifie le blanc par défaut (après clic sur pipette)
-     * @param pos
-     * @param labelWidth
-     * @param labelHeight
-     * @param isZoomView
+     * @brief manageNewWhite Change the white value
+     * @param pos Position of where the clic is done
+     * @param labelWidth Width of the label from where the clic was done
+     * @param labelHeight Height of the label from where the clic was done
+     * @param isZoomView True if if comes from the zoom, false otherwise
      */
     void manageNewWhite(QPoint pos, int labelWidth, int labelHeight, bool isZoomView);
 
     /**
-     * @brief getWhiteColor Récupère le blanc actuel
+     * @brief getWhiteColor Get the white value from model
      * @return
      */
     int getWhiteColor();
 
     /**
-     * @brief setWhiteColor
-     * @param value
+     * @brief setWhiteColor Set the white value to model
+     * @param value New whiteValue value
      */
     void setWhiteColor(int value);
 
     /**
-     * @brief setPipetteClick Pour indiquer qu'un clic de pipette est attendu
-     * @param pipetteClick
+     * @brief setPipetteClick Set that a pipette clic is waited to the model
+     * @param pipetteClick True is a clic is waited, false otherwise
      */
     void setPipetteClick(bool pipetteClick);
 
     /**
-     * @brief getPipetteClick Récupère si un clic de pipette est attendu ou non
+     * @brief getPipetteClick Set if a pipette clic is waited from the model
      * @return
      */
     bool getPipetteClick();
 
     /**
-     * @brief getListenPenClick
+     * @brief getListenPenClick Get if a pen clic is waited from the model
      * @return
      */
     bool getListenPenClick() const;
 
     /**
-     * @brief setListenPenClick
-     * @param newValue
+     * @brief setListenPenClick Set that a pen clic is waited to the model
+     * @param newValue True if a pen clic is waited, false otherwise
      */
     void setListenPenClick(bool newValue);
 
     /**
-     * @brief getListenSelectionClick
+     * @brief getListenSelectionClick Get if a selection clic is waited from the model
      * @return
      */
     bool getListenSelectionClick() const;
 
     /**
-     * @brief setListenSelectionClick
-     * @param newValue
+     * @brief setListenSelectionClick Set that a selection clic is waited to the model
+     * @param newValue True if a selection clic is waited, false otherwise
      */
     void setListenSelectionClick(bool newValue);
 
     /**
-     * @brief getListenEraserClick
+     * @brief getListenEraserClick Get if a eraser clic is waited from the model
      * @return
      */
     bool getListenEraserClick() const;
 
     /**
-     * @brief setListenEraserClick
-     * @param newValue
+     * @brief setListenEraserClick Set that a eraser clic is waited to the model
+     * @param newValue True if a eraser clic is waited, false otherwise
      */
     void setListenEraserClick(bool newValue);
 
     /**
-     * @brief getListenShapeClick
+     * @brief getListenShapeClick Get if a shape clic is waited from the model
      * @return
      */
     bool getListenShapeClick() const;
 
     /**
-     * @brief setListenShapeClick
-     * @param newValue
+     * @brief setListenShapeClick Set that a shape clic is waited to the model
+     * @param newValue True if a shape clic is waited, false otherwise
      */
     void setListenShapeClick(bool newValue);
 
     /**
-     * @brief getListenTextClick
+     * @brief getListenTextClick Get if a text clic is waited from the model
      * @return
      */
     bool getListenTextClick() const;
 
     /**
-     * @brief setListenTextClick
-     * @param newValue
+     * @brief setListenTextClick Set that a text clic is waited to the model
+     * @param newValue True if a text clic is waited, false otherwise
      */
     void setListenTextClick(bool newValue);
 
     /**
-     * @brief getZoomReady Récupère si il existe une image dans la fenêtre de zoom
+     * @brief getZoomReady Get if a picture is ready to be shown in zoom area
      * @return
      */
     bool getZoomReady();
 
     /**
-     * @brief getBaseColorGiven Récupère si une couleur de blanc a été donnée
+     * @brief getBaseColorGiven Get if a whiteValue has been given to the model
      * @return
      */
     bool getBaseColorGiven();
 
     /**
-     * @brief getPenSize
+     * @brief getPenSize Get the pen size from the model
      * @return
      */
     int getPenSize();
 
     /**
-     * @brief setPenSize
-     * @param newValue
+     * @brief setPenSize Set the pen size to the model
+     * @param newValue New value of pen size
      */
     void setPenSize(int newValue);
 
     /**
-     * @brief getShapeSize
+     * @brief getShapeSize Get the shape size from the model
      * @return
      */
     int getShapeSize();
 
     /**
-     * @brief setShapeSize
-     * @param newValue
+     * @brief setShapeSize Set the shape size to the model
+     * @param newValue New value of shape size
      */
     void setShapeSize(int newValue);
 
     /**
-     * @brief getTextSize
+     * @brief getTextSize Get the text size from the model
      * @return
      */
     int getTextSize();
 
     /**
-     * @brief setTextSize
-     * @param newValue
+     * @brief setTextSize Set the text size to the model
+     * @param newValue New value of text size
      */
     void setTextSize(int newValue);
 
     /**
-     * @brief getEraserSize
+     * @brief getEraserSize Get the eraser size from the model
      * @return
      */
     int getEraserSize();
 
     /**
-     * @brief setEraserSize
-     * @param newValue
+     * @brief setEraserSize Set the eraser size to the model
+     * @param newValue New value of eraser size
      */
     void setEraserSize(int newValue) ;
 
     /**
-     * @brief getCircleIsSelected
-     * @return
+     * @brief getCircleIsSelected Get if the circle is selected from the model
+     * @return True if circle, false if square
      */
     bool getCircleIsSelected();
 
     /**
-     * @brief setCircleIsSelected
-     * @param newValue
+     * @brief setCircleIsSelected Set if the circle is selected in the panel to the model
+     * @param newValue True if circle is selected, false if square is selected
      */
     void setCircleIsSelected(bool newValue);
 
@@ -379,121 +449,118 @@ public:
     /******************************** Partie analyse_model *****************************/
     /***********************************************************************************/
     /**
-     * @brief areaIsSelected
+     * @brief areaIsSelected True if an area is selected by the user (predefined area)
      * @return
      */
     bool areaIsSelected();
 
     /**
-     * @brief setAreaIsSelected
+     * @brief setAreaIsSelected Set if an area has been selected by the user (predefined area)
      */
     void setAreaIsSelected();
 
     /**
-     * @brief setAnalysisErrorMargin
-     * @param newValue
+     * @brief setAnalysisErrorMargin Change the error margin of the analysis
+     * @param newValue New margin error
      */
     void setAnalysisErrorMargin(int newValue);
 
     /**
-     * @brief getAnalysisErrorMargin
+     * @brief getAnalysisErrorMargin Get the error margin from the model
      */
     int getAnalysisErrorMargin();
 
     /**
-     * @brief userAreaIsSelected
-     * @return
+     * @brief userAreaIsSelected Get if the user made a user selection
+     * @return True if user selection made, false otherwise
      */
     bool userAreaIsSelected();
 
     /**
-     * @brief setUserAreaIsSelected
-     * @return
+     * @brief setUserAreaIsSelected Set if the user made a user selection
      */
     void setUserAreaIsSelected();
 
     /**
-     * @brief getResultDisplayPath Récupère le chemin de l'image s'affichant dans le data display
+     * @brief getResultDisplayPath Get the path the the data display image
      * @return
      */
     std::string getResultDisplayPath();
 
     /**
-     * @brief processResultsWithCrop Calcul et produit le résultat pour la zone sélectionnée
-     * @param labelWidth
-     * @param labelHeight
+     * @brief processResultsWithCrop Calculate the results for the user selected area
+     * @param labelWidth Width of the label from which the selection has been made
+     * @param labelHeight Height of the label from which the selection has been made
      */
     void processResultsWithCrop(int labelWidth, int labelHeight);
 
     /**
-     * @brief processResults Calcul et produit tous les résultats de l'image
-     * @param labelWidth
-     * @param lavelHeight
+     * @brief processResults Calculate the results for the entire area
      */
     void processResults();
 
     /**
-     * @brief getItemAtPoint Renvoie l'item correspondant à l'axe des abscisses sur le graph de données
-     * @param posX
-     * @param labelWidth
+     * @brief getItemAtPoint Get the item index corresponding to the data image abscisse
+     * @param posX Position clicked on the data image
+     * @param labelWidth Width of the data label
      * @return
      */
     int getItemAtPoint(int posX, int labelWidth);
 
     /**
-     * @brief dataReady Renvoie vrai si il existe une image dans le data display
+     * @brief dataReady True if an image can be shown in the data view
      * @return
      */
     bool dataReady();
 
     /**
-     * @brief getDataFromArea Lors d'un clic sur une zone de l'image, affiche le graphe data et le zoom associés
-     * @param area
-     * @param labelWidth
-     * @param labelHeight
+     * @brief getDataFromArea Show the data and zoom from the area where the user clicked (main display view)
+     * @param area Position where the user clicked
+     * @param labelWidth Width of the label from where the user clicked
+     * @param labelHeight Height of the label from where the user clicked
      */
     void getDataFromArea(QPoint area, int labelWidth, int labelHeight);
 
     /**
-     * @brief getDataFromZoomArea
-     * @param area
-     * @param labelWidth
-     * @param labelHeight
+     * @brief getDataFromZoomArea Show the data and zoom from the area where the user clicked (zoom display view)
+     * @param area Position where the user clicked
+     * @param labelWidth Width of the label from where the user clicked
+     * @param labelHeight Height of the label from where the user clicked
      */
     void getDataFromZoomArea(QPoint area, int labelWidth, int labelHeight);
 
     /**
-     * @brief getLineAmount
+     * @brief getLineAmount Get the number of lines for the analysis from the model
      * @return
      */
     int getLineAmount();
 
     /**
-     * @brief getColumnAmount
+     * @brief getColumnAmount Get the number of columns for the analysis from the model
      * @return
      */
     int getColumnAmount();
 
     /**
-     * @brief setLineAmount
+     * @brief setLineAmount Set the number of lines for the analysis to the model
      * @param value
      */
     void setLineAmount(int value);
 
     /**
-     * @brief setColumnAmount
+     * @brief setColumnAmount Set the number of columns for the analysis to the model
      * @param value
      */
     void setColumnAmount(int value);
 
     /**
-     * @brief getAnalysisType
+     * @brief getAnalysisType Get if the analysis is a user one or a predefined one
      * @return
      */
     bool getAnalysisType();
 
     /**
-     * @brief setAnalysisTypeIsUser
+     * @brief setAnalysisTypeIsUser Set if the analysis is a user one or a predefined one
      * @param type
      * @return
      */
@@ -504,11 +571,11 @@ public:
     /****************************** Partie faisceau_model ******************************/
     /***********************************************************************************/
     /**
-     * @brief setFaisceau
-     * @param pos1
-     * @param pos2
-     * @param labelWidth
-     * @param labelHeight
+     * @brief setFaisceau Set the data of the beam to the model
+     * @param pos1 First point of the beam
+     * @param pos2 Second point of the beam
+     * @param labelWidth Width of the label from which the beam has been selected
+     * @param labelHeight Height of the label from which the beam has been selected
      */
     void setFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
@@ -516,26 +583,26 @@ public:
     /******************************** Partie save_model ********************************/
     /***********************************************************************************/
     /**
-     * @brief save_as
-     * @param path
+     * @brief save_as Save the project in a folder defined by the user
+     * @param path Save location
      */
     void save_as(std::string path);
 
     /**
-     * @brief saveCurrentDisplay
-     * @param path
+     * @brief saveCurrentDisplay Save the current displayed image with its layers in a folder defined by the user
+     * @param path Save location
      */
     void saveCurrentDisplay(std::string path);
 
     /**
-     * @brief save
+     * @brief save Save the project in the folder of the project
      * @return
      */
     bool save();
 
     /**
-     * @brief changeSavePath
-     * @param newSavePath
+     * @brief changeSavePath Change the save locations to the model
+     * @param newSavePath Save location
      */
     void changeSavePaths(std::string newSavePath);
 
@@ -543,12 +610,12 @@ public:
     /******************************** Partie THREAD ************************************/
     /*************************************************************************************/
     /**
-     * @brief listenFullAnalysis
+     * @brief listenFullAnalysis Thread doing the full analysis
      */
     void listenFullAnalysis();
 
     /**
-     * @brief listenUserAnalysis
+     * @brief listenUserAnalysis Thread doing the user analysis
      */
     void listenUserAnalysis();
 
