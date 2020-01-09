@@ -19,43 +19,46 @@ public:
     void init();
 
     /**
-     * @brief getResultDisplayPath Renvoie le chemin de l'image contenant les résultats
+     * @brief getResultDisplayPath Get the display path for results
      * @return
      */
     std::string getResultDisplayPath() const;
 
     /**
-     * @brief getResults
+     * @brief getResults Get the list of results from the full analysis
      * @return
      */
     std::vector<Resultat> getResults() const;
 
     /**
-     * @brief analyse_model::calculPertinence
-     * @param data
+     * @brief calculPertinence Calculate the pertinence from a set of greyscale values and a minium white value
+     *        All greyscale data under the whitevalue are not used
+     * @param data Set of number corresponding to the greyscale values of each image in an area
+     * @param whiteValue Minimum value, each data value under it is not used
      * @return
      */
     int calculPertinence(std::vector<float> data, int whiteValue);
 
-    /**
-     * @brief processResultsWithCrops Calcul les résultats depuis la fenêtre de sélection
-     * @param allPictures
-     * @param pos1
-     * @param pos2
-     * @param whiteValue
-     * @param labelWidth
-     * @param labelHeight
-     */
+    //TODO SUPPRIMER CELLE CI ET RENOMMER LA VERSION DEUX
     void processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight);
 
-    //TODO
+    /**
+     * @brief processResultsWithCrops Process an analysis on a specific area
+     * @param allPictures List of all pictures
+     * @param pos1 Top left point of the area
+     * @param pos2 Bottom right point of the area
+     * @param whiteValue Minimum value used for the analysis
+     * @param labelWidth Width of the label from which the area has been taken
+     * @param labelHeight Height of the label from which the area has been taken
+     * @param gestionnaire Manager of layers
+     */
     void processResultsWithCropsVERSIONDEUX(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire);
 
     /**
-     * @brief processResults Calcul les résultats dans toute la fenêtre partie par partie
-     * @param allPictures
-     * @param labelWidth
-     * @param labelHeight
+     * @brief processResults Process an analysis on all the area
+     * @param allPictures List of all pictures
+     * @param whiteValue Minimum value used for the analysis
+     * @param gestionnaire Manager of layers
      */
     void processResults(CImgList<float> allPictures, int whiteValue, gestionnaire_calque_model * gestionnaire);
 

@@ -77,8 +77,6 @@ void ScopyBio_Controller::openProject(std::string pathProject){
     std::vector<Resultat> res;
     res = m_loadModel->loadResults(pathProject);
 
-    std::cout << "TAILLE RES = " << res.size() << std::endl;
-
     if(res.size() != 0){
         m_analyseModel->setResults(res);
         m_analyseModel->createAllResultsDisplay(m_pileModel->getImages().size(),m_dessinModel->getWhiteValue());
@@ -115,8 +113,7 @@ void ScopyBio_Controller::loadNewTiffFile(std::string filename)
     if (filename.length()>0)
     {
         m_pileModel->loadNewFilename(filename);
-        //TODO SAUVEGARDE NOUVEAU TIFF
-        std::cout << "Tiff = " << filename << std::endl;
+
         m_saveModel->saveInLocal(filename);
 
         m_gestion_calque->init(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
@@ -126,19 +123,12 @@ void ScopyBio_Controller::loadNewTiffFile(std::string filename)
     }
 }
 
-/**
- * @brief ScopyBio_Controller::getLoadedTiffList
- * @return
- */
+
 CImgList<float> ScopyBio_Controller::getLoadedTiffList()
 {
     return m_pileModel->getImages();
 }
 
-/**
- * @brief ScopyBio_Controller::getCurrentTiff
- * @return
- */
 CImg<float> ScopyBio_Controller::getCurrentTiff()
 {
     return m_pileModel->getCurrentImage();
@@ -179,7 +169,6 @@ int ScopyBio_Controller::getCurrentImageIndex()
 void ScopyBio_Controller::removeCalque(int id){
     int min = m_gestion_calque->getCalqueForDisplay(id).getIntervalMin(),
             max = m_gestion_calque->getCalqueForDisplay(id).getIntervalMax();
-    std::cout << "Control id = " << id << std::endl;
     m_gestion_calque->removeCalques(id);
     m_gestion_calque->removeFromDict(min,max,id);
 }
@@ -246,11 +235,6 @@ bool ScopyBio_Controller::CreerNouveauCalque(int min, int max){
 // Dessin_Modele
 //=======================
 
-/**
- * @brief ScopyBio_Controller::dessinerFaisceau dessine un rectangle dans un calque et le créer si besoin.
- * @param labelWidth largeur de la fenetre
- * @param labelHeight longueur de la fenetre
- */
 void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
 {
     //Verifier s'il existe dans le dico
@@ -267,14 +251,6 @@ void ScopyBio_Controller::dessinerFaisceau(int labelWidth, int labelHeight)
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 }
 
-/**
- * @brief ScopyBio_Controller::dessinerLignePerso
- * @param origPoint
- * @param pos
- * @param labelWidth
- * @param labelHeight
- * @param isDrawing
- */
 bool ScopyBio_Controller::dessinerLignePerso(QPoint origPoint, QPoint pos, int labelWidth, int labelHeight, bool isDrawing)
 {
     //Verifier s'il existe dans le dico
@@ -375,9 +351,6 @@ void ScopyBio_Controller::saveAsMainDisplay(int i)
     m_dessinModel->saveImageAsMainDisplay(m_pileModel->getImageAtIndex(i));
 }
 
-/**
- * @brief ScopyBio_Controller::applyGreenFilter active le filtre vert
- */
 void ScopyBio_Controller::applyGreenFilter()
 {
     m_gestion_calque->updateCalqueVert();
@@ -555,12 +528,10 @@ void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight
 {
     try{
         background_task = std::thread(&analyse_model::processResultsWithCropsVERSIONDEUX,m_analyseModel,m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
-        //background_task.detach();
 
         listener = std::thread(&ScopyBio_Controller::listenUserAnalysis,this);
         listener.detach();
     }catch(...){
-        std::cout << "fini dans controleur" << std::endl;
         background_task.join();
         listener.join();
     }
@@ -576,12 +547,10 @@ void ScopyBio_Controller::processResults()
 
     try{
         background_task = std::thread(&analyse_model::processResults,m_analyseModel,m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
-        //background_task.detach();
 
         listener = std::thread(&ScopyBio_Controller::listenFullAnalysis,this);
         listener.detach();
     }catch(...){
-        std::cout << "fini dans controleur" << std::endl;
         background_task.join();
         listener.join();
     }
@@ -671,8 +640,6 @@ void ScopyBio_Controller::listenFullAnalysis(){
     DisplayResultImage(m_pileModel->getCurrentImageIndex());
 
     emit fullAnalysisEnded();
-    std::cout << "Thread total fini" << std::endl;
-
 }
 
 void ScopyBio_Controller::listenUserAnalysis(){
@@ -682,6 +649,4 @@ void ScopyBio_Controller::listenUserAnalysis(){
     }
 
     emit userAnalysisEnded();
-    std::cout << "Thread user fini" << std::endl;
-
 }
