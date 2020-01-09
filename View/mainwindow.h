@@ -168,13 +168,6 @@ private:
     void updateSave();
 
     /**
-     * @brief nouveauClicCreerRectangle
-     * @param pos1
-     * @param pos2
-     */
-    void nouveauClicCreerRectangle(QPoint pos1, QPoint pos2);
-
-    /**
      * @brief resizeEvent : Update the view when the window is resized to keep the proportions
      * @param event
      */
