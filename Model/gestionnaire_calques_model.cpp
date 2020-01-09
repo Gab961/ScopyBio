@@ -4,9 +4,6 @@
 
 #include "gestionnaire_calques_model.h"
 
-/**
- * @brief gestionnaire_calque_model::gestionnaire_calque_model construit un modèle et dès le départ crée un calque vert qui pourra être utilisé.
- */
 gestionnaire_calque_model::gestionnaire_calque_model(): id(0),isGreen(false),isHistogram(false),isResultat(false),isZoomResultat(true){
 }
 
@@ -23,11 +20,6 @@ void gestionnaire_calque_model::init(int newPileWidth, int newPileHeight){
     id = 0;
 }
 
-/**
- * @brief gestionnaire_calque_model::initGlobalCalques Initialise les calques histogramme et vert
- * @param _pileWidth
- * @param _pileHeight
- */
 void gestionnaire_calque_model::initGlobalCalques(int pileWidth, int pileHeight)
 {
 
@@ -124,7 +116,7 @@ calque gestionnaire_calque_model::getCalqueForDisplay(int id){
 }
 
 calque gestionnaire_calque_model::getPertinenceCalque(){
-    int id = -5;
+    int id = RESULTAT_VIEW;
     auto res = std::find_if(listOfCalque.begin(), listOfCalque.end(), [&id](calque &a)->bool { return a.getId() == id ; } );
     return *res;
 }
@@ -135,12 +127,6 @@ std::vector<calque> gestionnaire_calque_model::getAllCalques() const
 }
 
 
-/**
- * @brief gestionnaire_calque_model::creerCalque creer un calque et met à jour le dictionnaire puisqu'on sait quelle image va l'utiliser. Si l'image n'existe pas dans le dictionnaire, cette fonction la crée
- * @param min connaitre à partir de quelle image s'applique le calque
- * @param max connaitre jusqu'à quelle image s'appliquer le calque
- * @param taille taille de la pile d'image
- */
 void gestionnaire_calque_model::creerCalque(int width, int height, int min, int max, int taille){
     calque _calque(width, height, min,max,id);
 
@@ -160,11 +146,7 @@ void gestionnaire_calque_model::creerCalqueSpecial(int width, int height, int mi
     listOfCalque.push_back(_calque);
 }
 
-/**
- * @brief gestionnaire_calque_model::reinitUserPertinenceCalque
- * @param width
- * @param height
- */
+
 void gestionnaire_calque_model::reinitUserPertinenceCalque(int width, int height)
 {
     calque newCalque = getCalqueForDisplay(CALQUEPERTINENCE);
@@ -177,9 +159,7 @@ void gestionnaire_calque_model::reinitUserPertinenceCalque(int width, int height
     listOfCalque[idUserPertinenceCalque] = newCalque;
 }
 
-/**
- * @brief gestionnaire_calque_model::reinitPertinenceCalque
- */
+
 void gestionnaire_calque_model::reinitPertinenceCalque()
 {
     calque newCalque = getCalqueForDisplay(RESULTAT_VIEW);
@@ -190,9 +170,7 @@ void gestionnaire_calque_model::reinitPertinenceCalque()
     listOfCalque[idPertinenceCalque] = newCalque;
 }
 
-/**
- * @brief gestionnaire_calque_model::reinitFaisceauCalque
- */
+
 void gestionnaire_calque_model::reinitFaisceauCalque()
 {
     calque newCalque = getCalqueForDisplay(FAISCEAU);
@@ -205,10 +183,7 @@ void gestionnaire_calque_model::reinitFaisceauCalque()
     listOfCalque[indexFaisceau] = newCalque;
 }
 
-/**
- * @brief gestionnaire_calque_model::manageNewAnalyse
- * @param results
- */
+
 void gestionnaire_calque_model::manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2){
     calque newCalque = getCalqueForDisplay(RESULTAT_VIEW);
 
@@ -217,13 +192,8 @@ void gestionnaire_calque_model::manageNewAnalyse(int pertinence, QPoint pos1, QP
     listOfCalque[idPertinenceCalque] = newCalque;
 }
 
-/**
- * @brief gestionnaire_calque_model::manageNewUserAnalyse
- * @param pertinence
- * @param pos1
- * @param pos2
- */
-//TODO ICI
+
+
 void gestionnaire_calque_model::manageNewUserAnalyse(int pertinence, QPoint pos1, QPoint pos2){
     calque newCalque = getCalqueForDisplay(CALQUEPERTINENCE);
 
@@ -232,15 +202,7 @@ void gestionnaire_calque_model::manageNewUserAnalyse(int pertinence, QPoint pos1
     listOfCalque[idUserPertinenceCalque] = newCalque;
 }
 
-/**
- * @brief gestionnaire_calque_model::dessineFaisceau dessine un faisceau. Cette fonction est spéciale puisqu'il doit tout effacer à chaque fois qu'un nouveau faisceau est créé
- * @param min connaitre à partir de quelle image s'applique le calque
- * @param max connaitre jusqu'à quelle image s'appliquer le calque
- * @param pos1
- * @param pos2
- * @param labelWidth
- * @param labelHeight
- */
+
 void gestionnaire_calque_model::dessineFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
 
     int search = getCalqueIndex(FAISCEAU);
@@ -249,14 +211,7 @@ void gestionnaire_calque_model::dessineFaisceau(QPoint pos1, QPoint pos2, int la
     }
 }
 
-/**
- * @brief gestionnaire_calque_model::dessinPoint
- * @param min
- * @param max
- * @param pos1
- * @param labelWidth
- * @param labelHeight
- */
+
 void gestionnaire_calque_model::dessinLigne(QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing){
 
     int search = getCalqueIndex(idCurrentCalque);
@@ -265,14 +220,7 @@ void gestionnaire_calque_model::dessinLigne(QPoint pos1, QPoint pos2, int brushS
     }
 }
 
-/**
- * @brief gestionnaire_calque_model::dessinText
- * @param min
- * @param max
- * @param pos1
- * @param labelWidth
- * @param labelHeight
- */
+
 void gestionnaire_calque_model::dessinText(QPoint pos1, std::string text, int fontSize, int labelWidth, int labelHeight){
     int search = getCalqueIndex(idCurrentCalque);
     if(search != -1){
@@ -280,15 +228,7 @@ void gestionnaire_calque_model::dessinText(QPoint pos1, std::string text, int fo
     }
 }
 
-/**
- * @brief gestionnaire_calque_model::dessinCercle
- * @param min
- * @param max
- * @param origPoint
- * @param diameter
- * @param labelWidth
- * @param labelHeight
- */
+
 void gestionnaire_calque_model::dessinCercle(QPoint origPoint, int diameter, int labelWidth, int labelHeight)
 {
     int search = getCalqueIndex(idCurrentCalque);
@@ -297,15 +237,7 @@ void gestionnaire_calque_model::dessinCercle(QPoint origPoint, int diameter, int
     }
 }
 
-/**
- * @brief gestionnaire_calque_model::dessinCercle
- * @param min
- * @param max
- * @param origPoint
- * @param diameter
- * @param labelWidth
- * @param labelHeight
- */
+
 void gestionnaire_calque_model::dessinCarre(QPoint origPoint, int diameter, int labelWidth, int labelHeight)
 {
     int search = getCalqueIndex(idCurrentCalque);
@@ -314,12 +246,7 @@ void gestionnaire_calque_model::dessinCarre(QPoint origPoint, int diameter, int 
     }
 }
 
-/**
- * @brief gestionnaire_calque_model::updateCalqueVert met juste à jour le dictionnaire, l'ajoute dans le dico s'il est actif, le supprime sinon.
- * @param min
- * @param max
- * @param taille
- */
+
 void gestionnaire_calque_model::updateCalqueVert(){
     isGreen = !isGreen;
 }
@@ -332,22 +259,12 @@ void gestionnaire_calque_model::updateZoomResultat(){
     isZoomResultat = !isZoomResultat;
 }
 
-/**
- * @brief gestionnaire_calque_model::updateHistogram
- * @param min
- * @param max
- * @param taille
- */
+
 void gestionnaire_calque_model::updateHistogram(){
     isHistogram = !isHistogram;
 }
 
-/**
- * @brief gestionnaire_calque_model::updateQuadrillage
- * @param posInitiale
- * @param columns
- * @param lines
- */
+
 void gestionnaire_calque_model::updateQuadrillage(int columns, int lines){
     calque newCalque = getCalqueForDisplay(RESULTAT_VIEW);
 
