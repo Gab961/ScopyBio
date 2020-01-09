@@ -15,7 +15,18 @@ class Pile_View: public QListWidget
     Q_OBJECT
 
     public:
+        /**
+         * @brief Pile_View
+         * @param parent
+         * @param scopybioController
+         */
         Pile_View(QWidget *parent, ScopyBio_Controller *scopybioController);
+
+        /**
+         * @brief getImage
+         * @param i
+         * @return
+         */
         CImg<float> getImage(int i);
         void connections();
 
