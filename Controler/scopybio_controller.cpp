@@ -115,6 +115,10 @@ void ScopyBio_Controller::loadNewTiffFile(std::string filename)
     if (filename.length()>0)
     {
         m_pileModel->loadNewFilename(filename);
+        //TODO SAUVEGARDE NOUVEAU TIFF
+        std::cout << "Tiff = " << filename << std::endl;
+        m_saveModel->saveInLocal(filename);
+
         m_gestion_calque->init(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
 
         int middleIndex = m_pileModel->getImages().size() / 2;

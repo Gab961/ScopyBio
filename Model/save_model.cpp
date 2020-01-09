@@ -33,10 +33,10 @@ void save_model::changeSavePaths(std::string newSavePath)
 }
 
 
-void save_model::saveTiff(std::string pathSource){
+void save_model::saveTiff(){
     std::string name = savePath + separator + filename + ".tiff";
     if(!std::filesystem::exists(name.c_str())){
-        std::filesystem::copy(pathSource, name.c_str());
+        std::filesystem::copy(localTiffSave, name.c_str());
     }
 }
 
@@ -133,6 +133,14 @@ void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Res
     outfile.close();
 }
 
+void save_model::saveInLocal(std::string sourcePath)
+{
+    localTiffSave = "tmp";
+    localTiffSave += separator;
+    localTiffSave += getFileName(sourcePath,true,separator);
+    std::filesystem::copy(sourcePath, localTiffSave.c_str());
+}
+
 void save_model::saveCurrentDisplay(std::string savePath, std::string currentDisplayPath)
 {
     CImg<float> img;
@@ -170,7 +178,7 @@ void save_model::save_as(std::string path, std::string fileName, std::vector<cal
 
     std::filesystem::create_directories(saveCalquesPath.c_str());
 
-    saveTiff(fileName);
+    saveTiff();
 
     save(_calques,dataReady,resultats,row,col,res,whiteValue);
 }

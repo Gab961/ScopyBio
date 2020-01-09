@@ -248,7 +248,7 @@ void MainWindow::open()
             m_saveFile->setEnabled(true);
 
 
-            std::string tifPath = path.substr(0, path.size()-3) + "tif";
+            std::string tifPath = path.substr(0, path.size()-3) + "tiff";
             emit sendPath(tifPath);
 
             //TODO Gerer séparator multi os

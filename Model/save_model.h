@@ -16,7 +16,8 @@ public:
     save_model();
 
 
-    void saveTiff(std::string pathSource);
+    void saveTiff();
+    void saveInLocal(std::string sourcePath);
     void saveCalques(std::vector<calque> calques, bool dataReady, calque res);
     void saveJsonFile(std::vector<calque> calques, const std::vector<Resultat> &resultats, int row, int col, int whiteValue);
     bool save(std::vector<calque> _calques, bool dataReady, const std::vector<Resultat> & resultats, int row, int col, calque res, int whiteValue);
@@ -30,5 +31,6 @@ private:
     std::string savePath;
     std::string saveCalquesPath;
     std::string filename;
+    std::string localTiffSave;
 };
 
