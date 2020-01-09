@@ -28,6 +28,10 @@ class Pile_View: public QListWidget
          * @return
          */
         CImg<float> getImage(int i);
+
+        /**
+         * @brief connections
+         */
         void connections();
 
     signals:
@@ -35,8 +39,24 @@ class Pile_View: public QListWidget
         void rowClicked(int row);
 
     public slots:
+        /**
+         * @brief openFile : Load tiff file and for each picture,
+         *                   create items of the list widget
+         *                   with a preview of the picture as icon
+         * @param path
+         */
         void openFile(std::string path);
+
+        /**
+         * @brief changeToElement : Show the correct picture when an item is triggered
+         * @param i
+         */
         void changeToElement(int i);
+
+        /**
+         * @brief rowChanged
+         * @param row
+         */
         void rowChanged(int row);
 
     private:

@@ -420,6 +420,9 @@ void Menu_Draw_Button::setPipetteActive(bool state)
         m_pipette->setEnabled(true);
         m_filters->setEnabled(true);
         m_analysis->setEnabled(true);
+        m_newLayer->setEnabled(true);
+        m_hide->setEnabled(true);
+        m_select->setEnabled(true);
     } else {
         m_pen->setEnabled(false);
         m_shapes->setEnabled(false);
@@ -427,6 +430,9 @@ void Menu_Draw_Button::setPipetteActive(bool state)
         m_eraser->setEnabled(false);
         m_filters->setEnabled(false);
         m_analysis->setEnabled(false);
+        m_newLayer->setEnabled(false);
+        m_hide->setEnabled(false);
+        m_select->setEnabled(false);
     }
 }
 
