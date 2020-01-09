@@ -13,16 +13,44 @@ class LoopView: public QWidget
     Q_OBJECT
 
     public:
-        LoopView(QWidget *parent, ScopyBio_Controller *scopybioController);    
+        /**
+         * @brief LoopView
+         * @param parent
+         * @param scopybioController
+         */
+        LoopView(QWidget *parent, ScopyBio_Controller *scopybioController);
+
+        /**
+         * @brief createView
+         */
         void createView();
+
+        /**
+         * @brief connections : Launch the loop
+         */
         void connections();
+
+        /**
+         * @brief launchTimer
+         */
         void launchTimer();
+
+        /**
+         * @brief loop : Construct the loop
+         */
         void loop();
 
     public slots:
+        /**
+         * @brief createLoopView : Launch the timer and show the loop
+         */
         void createLoopView();
 
     private:
+        /**
+         * @brief closeEvent : Stop the timer
+         * @param ev
+         */
         void closeEvent(QCloseEvent *ev);
 
         QGridLayout *m_mainLayout;
