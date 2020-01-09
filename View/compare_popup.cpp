@@ -3,6 +3,7 @@
 #include "compare_view.h"
 
 #include <QDesktopWidget>
+#include <QMessageBox>
 
 ComparePopup::ComparePopup(QWidget *parent, ScopyBio_Controller *scopybioController) : m_scopybioController(scopybioController)
 {
@@ -80,6 +81,5 @@ void ComparePopup::openCompareView()
         close();
     }
     else
-        //TODO retour user que problème (popup info)
-        std::cout << "2 fois même image" << std::endl;
+        QMessageBox::information(this, "", "The two same pictures are selected.");
 }

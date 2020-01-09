@@ -385,16 +385,6 @@ void MainWindow::createActions()
     m_redo->setShortcut(Qt::Key_Y | Qt::CTRL);
     editMenu->addAction(m_redo);
 
-    QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
-
-    m_aboutUs = new QAction(tr("About us..."), this);
-    QObject::connect(m_aboutUs, &QAction::triggered, this, &MainWindow::aboutUs);
-    helpMenu->addAction(m_aboutUs);
-
-    m_howToUse = new QAction(tr("How to use..."), this);
-    QObject::connect(m_howToUse, &QAction::triggered, this, &MainWindow::howToUse);
-    helpMenu->addAction(m_howToUse);
-
     QMenu *imageMenu = menuBar()->addMenu(tr("&Image"));
 
     m_compare = new QAction(tr("Compare"), this);
@@ -408,6 +398,16 @@ void MainWindow::createActions()
     imageMenu->addAction(m_loop);
     m_loop->setShortcut(Qt::Key_L | Qt::CTRL| Qt::SHIFT);
     m_loop->setEnabled(false);
+
+    QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
+
+    m_aboutUs = new QAction(tr("About us..."), this);
+    QObject::connect(m_aboutUs, &QAction::triggered, this, &MainWindow::aboutUs);
+    helpMenu->addAction(m_aboutUs);
+
+    m_howToUse = new QAction(tr("How to use..."), this);
+    QObject::connect(m_howToUse, &QAction::triggered, this, &MainWindow::howToUse);
+    helpMenu->addAction(m_howToUse);
 }
 
 void MainWindow::updateSaveAs()
@@ -591,7 +591,6 @@ void MainWindow::userAnalysisEnded()
     emit changeZoomedPicture();
 }
 
-// Hide or show the grid on zoom view
 void MainWindow::changeStateGrid() {
     m_scopybioController->applyZoomResultatFilter();
     emit changeZoomedPicture();

@@ -26,7 +26,6 @@ void Image_View::createView()
     m_image = new QLabel(this);
 
     m_layout->addWidget(m_image);
-    //m_layout->setMargin(0);
     m_image->setAlignment(Qt::AlignCenter);
 
     TEMPS_CLIC_LONG=100;
@@ -57,12 +56,6 @@ void Image_View::mousePressEvent( QMouseEvent* ev )
         firstPenDraw = true;
 }
 
-/**
- * @brief Image_View::mouseReleaseEvent
- * Dans le cas d'un clic court, on demande l'affichage d'un point
- * Dans le cas d'un clic long, on demande l'affichage d'un rectangle entre le point de début et le point de fin
- * @param ev
- */
 void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 {
     std::cout << "Release" << std::endl;
@@ -166,6 +159,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
 void Image_View::mouseMoveEvent(QMouseEvent* ev) {
     if (m_scopybioController->getListenPenClick() || m_scopybioController->getListenEraserClick())
     {
+        // TODO Sert peut être à rien donc à voir (modifier doc dans le .h en conséquence)
         if (firstPenDraw)
         {
             firstPenDraw = false;
@@ -198,11 +192,6 @@ void Image_View::mouseMoveEvent(QMouseEvent* ev) {
 void Image_View::readyForPenDraw() { listenPenClick = true; }
 void Image_View::cancelPenDraw() { listenPenClick = false; }
 void Image_View::readyForPipetteClick() { m_scopybioController->setPipetteClick(true); }
-
-/**
- * @brief Image_View::setNewPicture Modifie l'image affichée dans le label par l'image située au chemin donné
- * @param path
- */
 
 void Image_View::setNewPicture()
 {
@@ -282,7 +271,6 @@ void Image_View::updateZoomOnly()
 
 void Image_View::askProcessFromZoom()
 {
-    //Demande de calculer les résultats pour la zone si une couleur de base a été donnée
     if (m_scopybioController->getBaseColorGiven())
         emit processResults(m_image->width(),m_image->height());
 
