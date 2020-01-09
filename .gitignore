@@ -3,7 +3,7 @@ Build/*
 .vs/*
 CMakeFiles/*
 out/*
-
+conaninfo.txt
 
 main.cpp.autosave
 

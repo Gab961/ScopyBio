@@ -15,8 +15,10 @@ after you are succefuly install all previous tools, you need to execute some com
 	* $ conan install .. --build=missing
 	get ready for a long time of wait
 	
-Forcing compilation with gcc = 9.2 :
-	* $ conan install .. -s compiler.version=9.2 --build=missing
+Forcing compilation with gcc = 8  :
+	* $ conan install .. -s compiler.version=8 --build=missing
+
+Make exe :
 	* $ cmake ..
 	* $ cmake --build .
 
