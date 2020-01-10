@@ -138,7 +138,8 @@ void save_model::saveInLocal(std::string sourcePath)
     localTiffSave = "tmp";
     localTiffSave += separator;
     localTiffSave += getFileName(sourcePath,true,separator);
-    std::filesystem::copy(sourcePath, localTiffSave.c_str());
+    if (!std::filesystem::exists(localTiffSave.c_str()))
+        std::filesystem::copy(sourcePath, localTiffSave.c_str());
 }
 
 void save_model::saveCurrentDisplay(std::string savePath, std::string currentDisplayPath)
