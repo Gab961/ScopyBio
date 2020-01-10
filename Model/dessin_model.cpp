@@ -437,7 +437,7 @@ void dessin_model::saveImageAsMainDisplay(CImg<float> pictureToShow) { pictureTo
 std::string dessin_model::getMainDisplayPath() const { return pathOfMainDisplay; }
 std::string dessin_model::getZoomDisplayPath() const { return pathOfZoomedDisplay; }
 int dessin_model::getWhiteValue() const { return whiteColor; }
-void dessin_model::setWhiteValue(int color) { whiteColor = color; }
+//void dessin_model::setWhiteValue(int color) { whiteColor = color; }
 bool dessin_model::getListenPipetteClick() const { return listenPipetteClick; }
 void dessin_model::setListenPipetteClick(bool newValue) { shutdownAllListening(); listenPipetteClick = newValue; }
 bool dessin_model::getListenPenClick() const { return listenPenClick; }

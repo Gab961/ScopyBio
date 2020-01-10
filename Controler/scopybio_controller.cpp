@@ -70,7 +70,7 @@ void ScopyBio_Controller::openProject(std::string pathProject){
 
     m_gestion_calque->addCalques(calques,m_pileModel->getImages().size());
 
-    m_dessinModel->setWhiteValue(m_loadModel->loadWhiteValue(pathProject));
+    m_dessinModel->manageNewWhiteColor(m_loadModel->loadWhiteValue(pathProject));
 
     //Resultat
     m_analyseModel->init();
@@ -405,7 +405,7 @@ int ScopyBio_Controller::getWhiteColor()
 }
 
 void ScopyBio_Controller::setWhiteColor(int value) {
-    m_dessinModel->setWhiteValue(value);
+    m_dessinModel->manageNewWhiteColor(value);
 }
 
 void ScopyBio_Controller::setPipetteClick(bool pipetteClick)

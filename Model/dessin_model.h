@@ -160,12 +160,11 @@ public:
      */
     void saveZoomFromPicture(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> currentPicture);
 
-    //TODO
     /**
-     * @brief saveZoomFromArea
+     * @brief saveZoomFromArea Save the selected area (from a full analysis) as the new zoom display
      * @param pos1 point of origin
      * @param pos2 opposite point
-     * @param currentPicture
+     * @param currentPicture Picture which will be cropped for the zoom
      */
     CImg<float> saveZoomFromArea(QPoint pos1, QPoint pos2, CImg<float> currentPicture);
 
@@ -181,8 +180,8 @@ public:
 //    void savePics(int x1, int y1, int x2, int y2, unsigned char color, CImg<float> currentPicture);
 
     /**
-     * @brief saveImageAsMainDisplay Enregistre l'image en paramètre en tant que main display
-     * @param pictureToShow
+     * @brief saveImageAsMainDisplay Save the image given in parameter as the main display
+     * @param pictureToShow Image to save
      */
     void saveImageAsMainDisplay(CImg<float> pictureToShow);
 
@@ -202,29 +201,38 @@ public:
     CImg<float> applyHistogramFilter(CImg<float> picture);
 
     /**
-     * @brief manageNewWhiteColor Calcul la position du clic et extrait la couleur du pixel
-     * @param pos
-     * @param labelWidth
-     * @param labelHeight
-     * @param zoomView
+     * @brief manageNewWhiteColor Calculate the position of the click and get the grayscale value of the pixel
+     * @param pos Position of the click
+     * @param labelWidth Width of the label from which the click came
+     * @param labelHeight Height of the label from which the click came
+     * @param zoomView True if the click came from the zoom view
      */
     void manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeight, bool zoomView, CImg<float> currentImage);
 
     /**
-     * @brief manageNewWhiteColor Met une nouvelle couleur de blanc
+     * @brief manageNewWhiteColor Set a new white value
      * @param newWhite
      */
     void manageNewWhiteColor(int newWhite);
 
+    /**
+     * @brief getWhiteValue Get the white value from the model
+     * @return
+     */
     int getWhiteValue() const;
-    void setWhiteValue(int color);
+
+//    /**
+//     * @brief setWhiteValue
+//     * @param color
+//     */
+//    void setWhiteValue(int color);
 
     /**
-     * @brief shutdownAllListening Annule toutes les écoutes de clic
+     * @brief shutdownAllListening Cancel every click listening
      */
     void shutdownAllListening();
 
-    //Vrai si on attend un clic
+    /********** Setters & Getters for click listening  **********/
     bool getListenPipetteClick() const;
     void setListenPipetteClick(bool newValue);
     bool getListenPenClick() const;
@@ -239,13 +247,13 @@ public:
     void setListenSelectionClick(bool newValue);
 
     /**
-     * @brief getZoomReady Vrai si il existe une image dans le zoom display
+     * @brief getZoomReady True if there is an existing zoom to display in the view
      * @return
      */
     bool getZoomReady() const;
 
     /**
-     * @brief getBaseColorGiven Vrai si une couleur de base a déjà été donnée
+     * @brief getBaseColorGiven True if a white value has been already given
      * @return
      */
     bool getBaseColorGiven() const;
@@ -253,6 +261,8 @@ public:
 
     void switchSaveLocation();
 
+
+    /********** Setters & Getters for tools size **********/
     int getPenSize();
     void setPenSize(int newValue);
     int getShapeSize();
@@ -261,7 +271,17 @@ public:
     void setTextSize(int newValue);
     int getEraserSize();
     void setEraserSize(int newValue);
+
+    /**
+     * @brief Return true if the currently selected shape is a circle, false if it's a square
+     * @return
+     */
     bool getCircleIsSelected();
+
+    /**
+     * @brief setCircleIsSelected Set if the selected shape is a circle or a square
+     * @param newValue True for circle, false for square
+     */
     void setCircleIsSelected(bool newValue);
 
 
