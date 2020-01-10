@@ -5,9 +5,30 @@ cmake_minimum_required(VERSION 3.8.0)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
 "${CMAKE_SOURCE_DIR}/CMakeModules")
 
-SET(CMAKE_BUILD_TYPE "Release")
-ADD_DEFINITIONS(-D_SECURE_SCL=0)
-ADD_DEFINITIONS(-D_HAS_ITERATOR_DEBUGGING=0)
+if (WIN32)
+	SET(CMAKE_BUILD_TYPE "Release")
+	ADD_DEFINITIONS(-D_SECURE_SCL=0)
+	ADD_DEFINITIONS(-D_HAS_ITERATOR_DEBUGGING=0)
+	
+	Message("Transformation de tous les flags")
+	set(CompilerFlags
+        CMAKE_CXX_FLAGS
+        CMAKE_CXX_FLAGS_DEBUG
+        CMAKE_CXX_FLAGS_RELEASE
+        CMAKE_CXX_FLAGS_MINSIZEREL
+        CMAKE_CXX_FLAGS_RELWITHDEBINFO
+        CMAKE_C_FLAGS
+        CMAKE_C_FLAGS_DEBUG
+        CMAKE_C_FLAGS_RELEASE
+        CMAKE_C_FLAGS_MINSIZEREL
+        CMAKE_C_FLAGS_RELWITHDEBINFO
+        )
+	foreach(CompilerFlag ${CompilerFlags})
+		string(REPLACE "/MDd" "/MD" ${CompilerFlag} "${${CompilerFlag}}")
+		set(${CompilerFlag} "${${CompilerFlag}}" CACHE STRING "msvc compiler flags" FORCE)
+		message("MSVC flags: ${CompilerFlag}:${${CompilerFlag}}")
+	endforeach()	
+endif()
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MD")
 
