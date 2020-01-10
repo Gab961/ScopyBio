@@ -529,9 +529,6 @@ std::string ScopyBio_Controller::getResultDisplayPath()
 
 void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight)
 {
-	//Si c'est sur UNIX
-	if (getenv("windir") == NULL)
-	{
     try{
         background_task = std::thread(&analyse_model::processResultsWithCrops,m_analyseModel,m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
 
@@ -542,9 +539,6 @@ void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight
         listener.join();
     }
 	}
-	else
-		std::cout << "This is windows" << std::endl;
-}
 
 void ScopyBio_Controller::processResults()
 {
@@ -554,9 +548,6 @@ void ScopyBio_Controller::processResults()
         m_faisceauModel->setFaisceauInactive();
     }
 
-	//Si c'est sur UNIX
-	if (getenv("windir") == NULL)
-	{
     try{
         background_task = std::thread(&analyse_model::processResults,m_analyseModel,m_pileModel->getImages(),m_dessinModel->getWhiteValue(), m_gestion_calque);
 
@@ -566,9 +557,6 @@ void ScopyBio_Controller::processResults()
         background_task.join();
         listener.join();
     }
-	}
-	else
-		std::cout << "This is windows" << std::endl;
 }
 
 int ScopyBio_Controller::getItemAtPoint(int posX, int labelWidth)

@@ -42,8 +42,6 @@ std::vector<Resultat> analyse_model::getResults() const { return results; }
 
 void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, gestionnaire_calque_model * gestionnaire)
 {
-    std::cout << "DEBUT ANALYSE TOTALE" << std::endl;
-
     results.clear();
     gestionnaire->reinitPertinenceCalque();
 
@@ -94,14 +92,10 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
     gestionnaire->updateQuadrillage(columnAmount,linesAmount);
 
     isDataReady = true;
-
-    std::cout << "ANALYSE TOTALE TERMINEE" << std::endl;
 }
 
 void analyse_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire)
-{    
-    std::cout << "DEBUT ANALYSE UTILISATEUR" << std::endl;
-
+{
     int x1 = pos1.x() * allPictures[0].width() / labelWidth;
     int y1 = pos1.y() * allPictures[0].height() / labelHeight;
     int x2 = pos2.x() * allPictures[0].width() / labelWidth;
@@ -175,9 +169,6 @@ void analyse_model::processResultsWithCrops(CImgList<float> allPictures, QPoint 
     gestionnaire->updateUserQuadrillage(columnAmount,linesAmount);
 
     isDataReady = true;
-
-
-    std::cout << "ANALYSE UTILISATEUR TERMINEE" << std::endl;
 }
 
 int analyse_model::processLocalResults(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue)
@@ -423,8 +414,13 @@ void analyse_model::createResultsDisplay(int index, int imagesSize, int whiteVal
         abscisseText = val.substr(0,2) + "%";
     abscisseText.append("%");
 
-    std::string ordonnee = " Variation % Nuance";
-    image.draw_text(20,0,ordonnee.c_str(),black,white,1);
+    //Si on est sur Windows, cette ligne fait tout planter pour une raison inconnue.
+    //Ce serait un problème à corriger, mais absoluement pas bloquant
+    if (getenv("windir") == NULL)
+    {
+      std::string ordonnee = " Variation % Nuance";
+      image.draw_text(20,0,ordonnee.c_str(),black,white,1);
+   }
     image.draw_axes(0,imagesSize-1,valMaxGraph,valMinGraph,black,1,-60,-60,1);
 
     //Calculs pour placer les points correctement
