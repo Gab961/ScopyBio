@@ -51,7 +51,5 @@ public:
 
     pile_model *getP_Piles() const;
     void setP_Piles(pile_model *value);
-
-    void fillData();
 };
 

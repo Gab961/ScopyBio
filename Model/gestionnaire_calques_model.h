@@ -213,12 +213,12 @@ public:
     void updateUserQuadrillage(int columns, int lines);
 
     /**
-     * @brief getCalqueForDisplay return the layer to display the image containing in it
+     * @brief getCalqueOfId return the layer to display the image containing in it
      * @param id
      * @return the calque class
      */
-    calque getCalqueForDisplay(int id);
-    calque getPertinenceCalque();
+    calque getCalqueOfId(int id);
+
     std::vector<calque> getAllCalques() const;
     int getCurrentCalqueId();
     void setCurrentCalqueId(int newId);
@@ -266,13 +266,6 @@ public:
      * @param id id of the layer
      */
     void addInDict(int min, int max, int taille, int id);
-
-    /**
-     * @brief addInDict Add into the dict the id of the layer to know which image should show the layer /!\ USED ONLY BY LOAD_MODEL !
-     * @param cal the layer class (calque)
-     * @param taille size of the layer
-     */
-    void addInDict(calque cal, int taille);
 
     /**
      * @brief removeFromDict remove from the dict the layer (after the user delete it)

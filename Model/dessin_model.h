@@ -85,15 +85,6 @@ public:
     CImg<float> dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence, CImg<float> & currentPicture);
 
     /**
-     * @brief dessinerRond draw a circle at the position of the mouse
-     * @param pos position of the mouse
-     * @param pertinence level of pertinence
-     * @param currentPicture the layer to draw in
-     * @return the layer with the new draw
-     */
-    CImg<float> dessinerRond(QPoint pos1, int pertinence, CImg<float> & currentPicture);
-
-    /**
      * @brief dessinerLigne draw a line on the layer between 2 positions of the mouse
      * @param pos1 begin of the line
      * @param pos2 end of the line
@@ -168,17 +159,6 @@ public:
      */
     CImg<float> saveZoomFromArea(QPoint pos1, QPoint pos2, CImg<float> currentPicture);
 
-//    /**
-//     * @brief savePics Je sais pas
-//     * @param x1
-//     * @param y1
-//     * @param x2
-//     * @param y2
-//     * @param color
-//     * @param currentPicture
-//     */
-//    void savePics(int x1, int y1, int x2, int y2, unsigned char color, CImg<float> currentPicture);
-
     /**
      * @brief saveImageAsMainDisplay Save the image given in parameter as the main display
      * @param pictureToShow Image to save
@@ -221,12 +201,6 @@ public:
      */
     int getWhiteValue() const;
 
-//    /**
-//     * @brief setWhiteValue
-//     * @param color
-//     */
-//    void setWhiteValue(int color);
-
     /**
      * @brief shutdownAllListening Cancel every click listening
      */
@@ -259,6 +233,9 @@ public:
     bool getBaseColorGiven() const;
     void setBaseColorGiven();
 
+    /**
+     * @brief switchSaveLocation Change the save location to make multiple save for image display
+     */
     void switchSaveLocation();
 
 

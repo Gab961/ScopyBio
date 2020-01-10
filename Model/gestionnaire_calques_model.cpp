@@ -101,13 +101,7 @@ void gestionnaire_calque_model::setCalqueShowable(int idCalque, bool show){
 }
 
 
-calque gestionnaire_calque_model::getCalqueForDisplay(int id){
-    auto res = std::find_if(listOfCalque.begin(), listOfCalque.end(), [&id](calque &a)->bool { return a.getId() == id ; } );
-    return *res;
-}
-
-calque gestionnaire_calque_model::getPertinenceCalque(){
-    int id = RESULTAT_VIEW;
+calque gestionnaire_calque_model::getCalqueOfId(int id){
     auto res = std::find_if(listOfCalque.begin(), listOfCalque.end(), [&id](calque &a)->bool { return a.getId() == id ; } );
     return *res;
 }
@@ -140,7 +134,7 @@ void gestionnaire_calque_model::creerCalqueSpecial(int width, int height, int mi
 
 void gestionnaire_calque_model::reinitUserPertinenceCalque(int width, int height)
 {
-    calque newCalque = getCalqueForDisplay(CALQUEPERTINENCE);
+    calque newCalque = getCalqueOfId(CALQUEPERTINENCE);
 
     CImg<float> newImage(width,height,1,4,0);
     newCalque.setCalque(newImage);
@@ -151,7 +145,7 @@ void gestionnaire_calque_model::reinitUserPertinenceCalque(int width, int height
 
 void gestionnaire_calque_model::reinitPertinenceCalque()
 {
-    calque newCalque = getCalqueForDisplay(RESULTAT_VIEW);
+    calque newCalque = getCalqueOfId(RESULTAT_VIEW);
 
     CImg<float> newImage(pileWidth,pileHeight,1,4,0);
     newCalque.setCalque(newImage);
@@ -162,7 +156,7 @@ void gestionnaire_calque_model::reinitPertinenceCalque()
 
 void gestionnaire_calque_model::reinitFaisceauCalque()
 {
-    calque newCalque = getCalqueForDisplay(FAISCEAU);
+    calque newCalque = getCalqueOfId(FAISCEAU);
 
     CImg<float> newImage(pileWidth,pileHeight,1,4,0);
     newCalque.setCalque(newImage);
@@ -174,7 +168,7 @@ void gestionnaire_calque_model::reinitFaisceauCalque()
 
 
 void gestionnaire_calque_model::manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2){
-    calque newCalque = getCalqueForDisplay(RESULTAT_VIEW);
+    calque newCalque = getCalqueOfId(RESULTAT_VIEW);
 
     newCalque.dessinerRectanglePertinence(pos1,pos2,pertinence);
 
@@ -184,7 +178,7 @@ void gestionnaire_calque_model::manageNewAnalyse(int pertinence, QPoint pos1, QP
 
 
 void gestionnaire_calque_model::manageNewUserAnalyse(int pertinence, QPoint pos1, QPoint pos2){
-    calque newCalque = getCalqueForDisplay(CALQUEPERTINENCE);
+    calque newCalque = getCalqueOfId(CALQUEPERTINENCE);
 
     newCalque.dessinerRectanglePertinence(pos1,pos2,pertinence);
 
@@ -255,7 +249,7 @@ void gestionnaire_calque_model::updateHistogram(){
 
 
 void gestionnaire_calque_model::updateQuadrillage(int columns, int lines){
-    calque newCalque = getCalqueForDisplay(RESULTAT_VIEW);
+    calque newCalque = getCalqueOfId(RESULTAT_VIEW);
 
     newCalque.filtreQuadrillage(columns, lines);
 
@@ -263,7 +257,7 @@ void gestionnaire_calque_model::updateQuadrillage(int columns, int lines){
 }
 
 void gestionnaire_calque_model::updateUserQuadrillage(int columns, int lines){
-    calque newCalque = getCalqueForDisplay(CALQUEPERTINENCE);
+    calque newCalque = getCalqueOfId(CALQUEPERTINENCE);
 
     newCalque.filtreQuadrillage(columns, lines);
 
@@ -273,7 +267,7 @@ void gestionnaire_calque_model::updateUserQuadrillage(int columns, int lines){
 void gestionnaire_calque_model::mergeUserAnalysis(CImg<float> zoom, std::string zoomPath)
 {
     if(isZoomResultat){
-        calque overlay = getCalqueForDisplay(CALQUEPERTINENCE);
+        calque overlay = getCalqueOfId(CALQUEPERTINENCE);
         zoom.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
         zoom.save_bmp(zoomPath.c_str());
     }
@@ -285,7 +279,7 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     //Contraste en premier
     if (isHistogram)
     {
-        calque overlay = getCalqueForDisplay(HISTOGRAM);
+        calque overlay = getCalqueOfId(HISTOGRAM);
         overlay.setCalque(currentDisplayedImage);
         overlay.filtreHistogram();
         //On enregistre au format bmp le calque qui a perdu ses
@@ -299,12 +293,12 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     //Filtre vert en deuxieme
     if (isGreen)
     {
-        calque overlay = getCalqueForDisplay(CALQUEVERT);
+        calque overlay = getCalqueOfId(CALQUEVERT);
         currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
     }
 
     if(isResultat){
-        calque overlay = getCalqueForDisplay(RESULTAT_VIEW);
+        calque overlay = getCalqueOfId(RESULTAT_VIEW);
         currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
     }
 
@@ -313,7 +307,7 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
         //Et tous les autres ensuite
         for(auto i : ids){
             //std::cout << "I = " << i << std::endl;
-            calque overlay = getCalqueForDisplay(i);
+            calque overlay = getCalqueOfId(i);
             if(overlay.getCanShow()){
                 currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);
             }
@@ -386,10 +380,6 @@ void gestionnaire_calque_model::addInDict(int min, int max, int taille, int id){
         }
 
     }
-}
-
-void gestionnaire_calque_model::addInDict(calque cal,int taille){
-    addInDict(cal.getIntervalMin(),cal.getIntervalMax(),taille,cal.getId());
 }
 
 void gestionnaire_calque_model::removeFromDict(int min, int max, int id){

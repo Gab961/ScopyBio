@@ -49,7 +49,7 @@ public:
      * @param labelHeight Height of the label from which the area has been taken
      * @param gestionnaire Manager of layers
      */
-    void processResultsWithCropsVERSIONDEUX(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire);
+    void processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire);
 
     /**
      * @brief processResults Process an analysis on all the area

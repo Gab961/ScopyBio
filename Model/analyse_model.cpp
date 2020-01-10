@@ -98,7 +98,7 @@ void analyse_model::processResults(CImgList<float> allPictures, int whiteValue, 
     std::cout << "ANALYSE TOTALE TERMINEE" << std::endl;
 }
 
-void analyse_model::processResultsWithCropsVERSIONDEUX(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire)
+void analyse_model::processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight, gestionnaire_calque_model * gestionnaire)
 {    
     std::cout << "DEBUT ANALYSE UTILISATEUR" << std::endl;
 

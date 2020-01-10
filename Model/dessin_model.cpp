@@ -172,39 +172,6 @@ CImg<float> dessin_model::dessinerCercle(QPoint posOrig, int diameter, int label
     return currentPicture;
 }
 
-CImg<float> dessin_model::dessinerRond(QPoint pos, int pertinence, CImg<float> & currentPicture)
-{
-    const unsigned char color1[] = { 255,0,0,255 };
-    const unsigned char color2[] = { 255,39,39,255 };
-    const unsigned char color3[] = { 255,71,71,255 };
-    const unsigned char color4[] = { 255,102,102,255 };
-    const unsigned char color5[] = { 255,136,136,255 };
-
-
-    switch (pertinence) {
-    case 1:
-        currentPicture.draw_circle(pos.x(),pos.y(),10,color5,1);
-        break;
-    case 2:
-        currentPicture.draw_circle(pos.x(),pos.y(),10,color4,1);
-        break;
-    case 3:
-        currentPicture.draw_circle(pos.x(),pos.y(),10,color3,1);
-        break;
-    case 4:
-        currentPicture.draw_circle(pos.x(),pos.y(),10,color2,1);
-        break;
-    case 5:
-        currentPicture.draw_circle(pos.x(),pos.y(),10,color1,1);
-        break;
-    default:
-        break;
-    }
-
-    return currentPicture;
-}
-
-
 CImg<float> dessin_model::dessinerLigne(QPoint pos1, QPoint pos2, bool isDrawing, int brushSize, int labelWidth, int labelHeight, CImg<float> & currentPicture)
 {
     int x1 = pos1.x() * currentPicture.width() / labelWidth;
@@ -276,13 +243,6 @@ CImg<float> dessin_model::saveZoomFromArea(QPoint posTopLeft, QPoint posBottomRi
 
     return zoom;
 }
-
-//void dessin_model::savePics(int x1, int y1, int x2, int y2, unsigned char color, CImg<float> currentPicture){
-
-//    //Dessin du rectangle et affichage sur l'image principale
-//    //currentPicture.draw_rectangle(x1,y1,x2,y2,color,1,~0U);
-//    currentPicture.save_bmp(pathOfMainDisplay.c_str());
-//}
 
 CImg<float> dessin_model::applyGreenFilter(CImg<float> picture)
 {
@@ -453,7 +413,6 @@ void dessin_model::saveImageAsMainDisplay(CImg<float> pictureToShow) { pictureTo
 std::string dessin_model::getMainDisplayPath() const { return pathOfMainDisplay; }
 std::string dessin_model::getZoomDisplayPath() const { return pathOfZoomedDisplay; }
 int dessin_model::getWhiteValue() const { return whiteColor; }
-//void dessin_model::setWhiteValue(int color) { whiteColor = color; }
 bool dessin_model::getListenPipetteClick() const { return listenPipetteClick; }
 void dessin_model::setListenPipetteClick(bool newValue) { shutdownAllListening(); listenPipetteClick = newValue; }
 bool dessin_model::getListenPenClick() const { return listenPenClick; }

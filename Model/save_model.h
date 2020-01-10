@@ -57,7 +57,7 @@ public:
      */
     bool save(std::vector<calque> _calques, bool dataReady, const std::vector<Resultat> & resultats, int row, int col, calque res, int whiteValue);
 
-    //TODO Convert the bmp image into pdf ?
+    //TODO Add feature : Convert the bmp image into pdf
     /**
      * @brief saveCurrentDisplay Save the current image with layer the user wants to store it
      * @param savePath the path of where the user wants to store it

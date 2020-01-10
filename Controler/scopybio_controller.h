@@ -265,6 +265,7 @@ public:
      */
     void applyHistogramFilter();
 
+    //TODO Connecter pour l'affichage sur le main display
     /**
      * @brief applyResultatFilter Apply results filter over every image
      */
@@ -274,11 +275,6 @@ public:
      * @brief applyZoomResultatFilter Apply results filter over zoom image
      */
     void applyZoomResultatFilter();
-
-    /**
-     * @brief removeHistogramFilter Remove histogram filter over every image
-     */
-    void removeHistogramFilter();
 
     /**
      * @brief manageNewWhite Change the white value

@@ -90,13 +90,6 @@ public:
     void dessinerLigne(QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing);
 
     /**
-     * @brief dessinerRond draw a circle at the position of the mouse
-     * @param pos position of the mouse
-     * @param pertinence level of pertinence
-     */
-    void dessinerRond(QPoint pos, int pertinence);
-
-    /**
      * @brief dessinerCarre draw a square in the layer at the position of the mouse
      * @param posOrig position of the mouse
      * @param diameter size of the square
@@ -140,6 +133,5 @@ public:
      * @param labelHeight height of the label
      */
     void ecrireText(QPoint pos1, std::string text_a_ecrire, int fontSize, int labelWidth, int labelHeight);
-
 };
 

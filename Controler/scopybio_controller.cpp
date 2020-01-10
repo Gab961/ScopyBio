@@ -38,13 +38,13 @@ void ScopyBio_Controller::afficherCalque(int id, bool aff) {
 void ScopyBio_Controller::save_as(std::string path){
     m_saveModel->save_as(path,m_pileModel->getFileName(),m_gestion_calque->getAllCalques(),
                          m_analyseModel->dataReady(),m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount(),
-                         m_gestion_calque->getCalqueForDisplay(RESULTAT_VIEW), m_dessinModel->getWhiteValue());
+                         m_gestion_calque->getCalqueOfId(RESULTAT_VIEW), m_dessinModel->getWhiteValue());
 }
 
 bool ScopyBio_Controller::save(){
     return m_saveModel->save(m_gestion_calque->getAllCalques(),
                              m_analyseModel->dataReady(),m_analyseModel->getResults(),m_analyseModel->getLinesAmount(),m_analyseModel->getColumnAmount(),
-                             m_gestion_calque->getCalqueForDisplay(RESULTAT_VIEW), m_dessinModel->getWhiteValue());
+                             m_gestion_calque->getCalqueOfId(RESULTAT_VIEW), m_dessinModel->getWhiteValue());
 }
 
 void ScopyBio_Controller::saveCurrentDisplay(std::string path)
@@ -167,8 +167,8 @@ int ScopyBio_Controller::getCurrentImageIndex()
 //=======================
 
 void ScopyBio_Controller::removeCalque(int id){
-    int min = m_gestion_calque->getCalqueForDisplay(id).getIntervalMin(),
-            max = m_gestion_calque->getCalqueForDisplay(id).getIntervalMax();
+    int min = m_gestion_calque->getCalqueOfId(id).getIntervalMin(),
+            max = m_gestion_calque->getCalqueOfId(id).getIntervalMax();
     m_gestion_calque->removeCalques(id);
     m_gestion_calque->removeFromDict(min,max,id);
 }
@@ -184,7 +184,7 @@ std::vector<int> ScopyBio_Controller::getCalquesIdFromImage(int image) {
 
 
 bool ScopyBio_Controller::isHidden(int id) {
-    return !m_gestion_calque->getCalqueForDisplay(id).getCanShow();
+    return !m_gestion_calque->getCalqueOfId(id).getCanShow();
 }
 
 void ScopyBio_Controller::undoAction(){
@@ -527,7 +527,7 @@ std::string ScopyBio_Controller::getResultDisplayPath()
 void ScopyBio_Controller::processResultsWithCrop(int labelWidth, int labelHeight)
 {
     try{
-        background_task = std::thread(&analyse_model::processResultsWithCropsVERSIONDEUX,m_analyseModel,m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
+        background_task = std::thread(&analyse_model::processResultsWithCrops,m_analyseModel,m_pileModel->getImages(), m_faisceauModel->getTopLeft(), m_faisceauModel->getBotRight(), m_dessinModel->getWhiteValue(), labelWidth, labelHeight,m_gestion_calque);
 
         listener = std::thread(&ScopyBio_Controller::listenUserAnalysis,this);
         listener.detach();
