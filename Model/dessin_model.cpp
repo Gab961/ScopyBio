@@ -343,7 +343,8 @@ void dessin_model::manageNewWhiteColor(QPoint pos, int labelWidth, int labelHeig
 
 void dessin_model::manageNewWhiteColor(int newWhite)
 {
-    whiteColor = newWhite;
+    if (newWhite != -1)
+        whiteColor = newWhite;
     baseColorGiven = true;
 }
 

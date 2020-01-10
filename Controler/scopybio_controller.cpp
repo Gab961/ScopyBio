@@ -62,26 +62,29 @@ void ScopyBio_Controller::changeSavePaths(std::string newSavePath)
 // Pile_Modele
 //=======================
 void ScopyBio_Controller::openProject(std::string pathProject){
+    m_loadModel->loadJsonValue(pathProject);
+
     //Calques !
     m_gestion_calque->init(m_pileModel->getCurrentImage().width(), m_pileModel->getCurrentImage().height());
     std::vector<calque> calques;
 
-    calques = m_loadModel->loadCalques(pathProject);
+    calques = m_loadModel->loadCalques();
 
     m_gestion_calque->addCalques(calques,m_pileModel->getImages().size());
-
-    m_dessinModel->manageNewWhiteColor(m_loadModel->loadWhiteValue(pathProject));
 
     //Resultat
     m_analyseModel->init();
     std::vector<Resultat> res;
-    res = m_loadModel->loadResults(pathProject);
+    res = m_loadModel->loadResults();
 
     if(res.size() != 0){
+        //On met d'abord la whiteValue sauvegardée
+        m_dessinModel->manageNewWhiteColor(m_loadModel->loadWhiteValue());
+
         m_analyseModel->setResults(res);
         m_analyseModel->createAllResultsDisplay(m_pileModel->getImages().size(),m_dessinModel->getWhiteValue());
 
-        std::vector<int> rowcol = m_loadModel->loadColRowAmounts(pathProject);
+        std::vector<int> rowcol = m_loadModel->loadColRowAmounts();
         if(rowcol.empty()){
             m_analyseModel->setLinesAmount(0);
             m_analyseModel->setColumnAmount(0);
@@ -90,7 +93,7 @@ void ScopyBio_Controller::openProject(std::string pathProject){
             m_analyseModel->setColumnAmount(rowcol.back());
         }
 
-        std::string resCalque = m_loadModel->loadResultCalque(pathProject);
+        std::string resCalque = m_loadModel->loadResultCalque();
 
         if(!resCalque.empty()){
             CImg<float> resCal;

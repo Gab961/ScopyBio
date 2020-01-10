@@ -10,14 +10,14 @@ using namespace cimg_library;
 
 load_model::load_model(){}
 
-std::vector<calque> load_model::loadCalques(std::string path){
-    std::vector<calque> vecteur;
-
-    Json::Value sauvegarde;
-
+void load_model::loadJsonValue(std::string path){
     std::ifstream sauvegarde_file(path, std::ifstream::binary);
     sauvegarde_file >> sauvegarde;
+    sauvegarde_file.close();
+}
 
+std::vector<calque> load_model::loadCalques(){
+    std::vector<calque> vecteur;
 
     Json::Value calques_json;
 
@@ -48,14 +48,8 @@ std::vector<calque> load_model::loadCalques(std::string path){
 }
 
 
-std::vector<Resultat> load_model::loadResults(std::string path){
+std::vector<Resultat> load_model::loadResults(){
     std::vector<Resultat> vecteur;
-
-    Json::Value sauvegarde;
-
-    std::ifstream sauvegarde_file(path, std::ifstream::binary);
-    sauvegarde_file >> sauvegarde;
-
 
     Json::Value result_json;
 
@@ -97,14 +91,8 @@ std::vector<Resultat> load_model::loadResults(std::string path){
 }
 
 
-std::vector<int> load_model::loadColRowAmounts(std::string path){
+std::vector<int> load_model::loadColRowAmounts(){
     std::vector<int> vecteur;
-
-    Json::Value sauvegarde;
-
-    std::ifstream sauvegarde_file(path, std::ifstream::binary);
-    sauvegarde_file >> sauvegarde;
-
 
     Json::Value result_json;
 
@@ -127,14 +115,8 @@ std::vector<int> load_model::loadColRowAmounts(std::string path){
     return vecteur;
 }
 
-std::string load_model::loadResultCalque(std::string path){
+std::string load_model::loadResultCalque(){
     std::string res = "";
-
-    Json::Value sauvegarde;
-
-    std::ifstream sauvegarde_file(path, std::ifstream::binary);
-    sauvegarde_file >> sauvegarde;
-
 
     Json::Value result_json;
 
@@ -151,13 +133,7 @@ std::string load_model::loadResultCalque(std::string path){
     return res;
 }
 
-int load_model::loadWhiteValue(std::string path){
-    Json::Value sauvegarde;
-
-    std::ifstream sauvegarde_file(path, std::ifstream::binary);
-    sauvegarde_file >> sauvegarde;
-
-
+int load_model::loadWhiteValue(){
     Json::Value result_json;
 
     if(sauvegarde["results"] != Json::Value::null){
