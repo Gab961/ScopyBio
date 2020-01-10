@@ -85,7 +85,7 @@ void Menu_Draw_Button::createView()
     m_hide->setMinimumSize(25,25);
     m_hide->setMaximumSize(25,25);
     m_hide->setStyleSheet(buttonStyle);
-    //m_hide->setEnabled(false);
+    m_hide->setEnabled(false);
     m_gridTools->addWidget(m_hide, 1, 4);
 
     setLayout(m_gridTools);
@@ -103,6 +103,7 @@ void Menu_Draw_Button::connections()
     QObject::connect(m_filters, &QPushButton::clicked, this, &Menu_Draw_Button::activateFiltersTool);
     QObject::connect(m_newLayer, &QPushButton::clicked, this, &Menu_Draw_Button::activateNewLayerTool);
     QObject::connect(m_pipette, &QPushButton::clicked, this, &Menu_Draw_Button::activatePipetteWaiting);
+    QObject::connect(m_hide, &QPushButton::clicked, this, &Menu_Draw_Button::changeHideStyleWhenUsed);
 
 
     // Met à jour la vue des options en fonction de l'outil sélectionné
@@ -420,6 +421,9 @@ void Menu_Draw_Button::setPipetteActive(bool state)
         m_pipette->setEnabled(true);
         m_filters->setEnabled(true);
         m_analysis->setEnabled(true);
+        m_newLayer->setEnabled(true);
+        m_hide->setEnabled(true);
+        m_select->setEnabled(true);
     } else {
         m_pen->setEnabled(false);
         m_shapes->setEnabled(false);
@@ -427,6 +431,9 @@ void Menu_Draw_Button::setPipetteActive(bool state)
         m_eraser->setEnabled(false);
         m_filters->setEnabled(false);
         m_analysis->setEnabled(false);
+        m_newLayer->setEnabled(false);
+        m_hide->setEnabled(false);
+        m_select->setEnabled(false);
     }
 }
 
@@ -453,4 +460,22 @@ void Menu_Draw_Button::hideButton() {emit hideClicked();}
 void Menu_Draw_Button::changePipetteStyleWhenUsed() {
     QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
     m_pipette->setStyleSheet(buttonStyle);
+}
+
+void Menu_Draw_Button::enableHideButton() {
+    m_hide->setEnabled(true);
+}
+
+void Menu_Draw_Button::changeHideStyleWhenUsed() {
+    QString buttonStylePressed = "QPushButton{border:none;background-color:rgba(0, 255, 0,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+    QString buttonStyleUnpressed = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
+
+    if(!isHideButtonActive) {
+        isHideButtonActive = true;
+        m_hide->setStyleSheet(buttonStylePressed);
+    }
+    else {
+        isHideButtonActive = false;
+        m_hide->setStyleSheet(buttonStyleUnpressed);
+    }
 }

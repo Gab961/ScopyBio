@@ -219,6 +219,10 @@ void MainWindow::connections()
 
     //Sélectionne le premier élément après le chargement de la pile
     QObject::connect(this, &MainWindow::initAtFirstItemInPile, m_pileView, &Pile_View::changeToElement);
+
+    // Permet l'utilisation du bouton hide
+    QObject::connect(m_options, &menu_option::askFullAnalysis, m_tools, &Menu_Draw_Button::enableHideButton);
+    QObject::connect(m_options, &menu_option::askForUserAnalyse, m_tools, &Menu_Draw_Button::enableHideButton);
 }
 
 void MainWindow::closeEvent(QCloseEvent* e)
@@ -241,17 +245,12 @@ void MainWindow::open()
         //Ouverture d'un fichier projet
         if (path.substr(path.size()-3, path.size()) == "scb")
         {
-            //TODO Adapter pour séparateur
-            //std::string directoryPath = path.substr(0,path.find_last_of('/'));
-
             m_scopybioController->changeSavePaths(path.substr(0,path.find_last_of(separator)));
             m_saveFile->setEnabled(true);
-
 
             std::string tifPath = path.substr(0, path.size()-3) + "tiff";
             emit sendPath(tifPath);
 
-            //TODO Gerer séparator multi os
             emit sendPathProjet(path);
         }
         else
@@ -372,7 +371,7 @@ void MainWindow::createActions()
     m_saveCurrentDisplay->setEnabled(false);
     fileMenu->addAction(m_saveCurrentDisplay);
 
-    //TODO faire attention si y a plus d'action faut griser
+    //TODO Il faut griser les actions si nécessaire (undo/redo à faire notamment)
     QMenu *editMenu = menuBar()->addMenu(tr("&Edit"));
 
     m_undo = new QAction(tr("Undo..."), this);
@@ -384,16 +383,6 @@ void MainWindow::createActions()
     QObject::connect(m_redo, &QAction::triggered, this, &MainWindow::redo);
     m_redo->setShortcut(Qt::Key_Y | Qt::CTRL);
     editMenu->addAction(m_redo);
-
-    QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
-
-    m_aboutUs = new QAction(tr("About us..."), this);
-    QObject::connect(m_aboutUs, &QAction::triggered, this, &MainWindow::aboutUs);
-    helpMenu->addAction(m_aboutUs);
-
-    m_howToUse = new QAction(tr("How to use..."), this);
-    QObject::connect(m_howToUse, &QAction::triggered, this, &MainWindow::howToUse);
-    helpMenu->addAction(m_howToUse);
 
     QMenu *imageMenu = menuBar()->addMenu(tr("&Image"));
 
@@ -408,6 +397,16 @@ void MainWindow::createActions()
     imageMenu->addAction(m_loop);
     m_loop->setShortcut(Qt::Key_L | Qt::CTRL| Qt::SHIFT);
     m_loop->setEnabled(false);
+
+    QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
+
+    m_aboutUs = new QAction(tr("About us..."), this);
+    QObject::connect(m_aboutUs, &QAction::triggered, this, &MainWindow::aboutUs);
+    helpMenu->addAction(m_aboutUs);
+
+    m_howToUse = new QAction(tr("How to use..."), this);
+    QObject::connect(m_howToUse, &QAction::triggered, this, &MainWindow::howToUse);
+    helpMenu->addAction(m_howToUse);
 }
 
 void MainWindow::updateSaveAs()
@@ -419,7 +418,6 @@ void MainWindow::updateSave()
 {
     m_saveFile->setEnabled(true);
 }
-
 
 void MainWindow::undo()
 {
@@ -591,7 +589,6 @@ void MainWindow::userAnalysisEnded()
     emit changeZoomedPicture();
 }
 
-// Hide or show the grid on zoom view
 void MainWindow::changeStateGrid() {
     m_scopybioController->applyZoomResultatFilter();
     emit changeZoomedPicture();

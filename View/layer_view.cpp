@@ -65,14 +65,14 @@ void LayerView::loadLayers(int currentRow)
         m_scopybioController->setCurrentCalqueId(-1);
     else
     {
-        setCurrentRow(0);
-        m_scopybioController->setCurrentCalqueId(layerIdList[0]);
+        setCurrentRow(layerIdList.size()-1);
+        m_scopybioController->setCurrentCalqueId(layerIdList[layerIdList.size()-1]);
     }
 
     this->update();
 }
 
-void LayerView::mousePressEvent( QMouseEvent* ev ) {
+void LayerView::mousePressEvent(QMouseEvent* ev) {
     QPoint pos = ev->pos();
     QModelIndex index = this->indexAt(pos);
     if (index.row() >= 0)
@@ -81,14 +81,17 @@ void LayerView::mousePressEvent( QMouseEvent* ev ) {
     QListWidget::mousePressEvent(ev);
 }
 
-void LayerView::hoverEnter(QHoverEvent * event) { }
-void LayerView::hoverLeave(QHoverEvent * event) { }
+void LayerView::hoverEnter(QHoverEvent * event) {}
+
+void LayerView::hoverLeave(QHoverEvent * event) {}
+
 void LayerView::hoverMove(QHoverEvent * event) {
     QPoint pos = event->pos();
     QModelIndex index = this->indexAt(pos);
     if (index.row() >= 0)
         hoverRowChanged(index.row());
 }
+
 bool LayerView::event(QEvent * e)
 {
     switch(e->type())
@@ -134,7 +137,6 @@ void LayerView::removeLayer()
 
 void LayerView::hideLayer()
 {
-    // Si le calques est caché on l'affiche
     if(m_scopybioController->isHidden(layerIdList[currentLayerRowHover])) {
         m_scopybioController->afficherCalque(layerIdList[currentLayerRowHover], true);
     }

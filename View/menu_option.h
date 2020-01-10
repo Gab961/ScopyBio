@@ -16,9 +16,28 @@ class menu_option: public QGroupBox
     Q_OBJECT
 
     public:
+        /**
+         * @brief menu_option
+         * @param parent
+         * @param scopybioController
+         */
         menu_option(QWidget *parent, ScopyBio_Controller *scopybioController);
+
+        /**
+         * @brief createView : Create the empty view.
+         */
         void createView();
+
+        /**
+         * @brief clearLayout : Remove all the element of the view
+         * @param layout
+         * @param deleteWidgets
+         */
         void clearLayout(QLayout* layout, bool deleteWidgets = true);
+
+        /**
+         * @brief closeMessageBox
+         */
         void closeMessageBox();
 
     signals:
@@ -30,29 +49,135 @@ class menu_option: public QGroupBox
         void reloadLayers(int newIndex);
 
     public slots:
+        /**
+         * @brief pen : Create the pen view and manage buttons activation
+         */
         void pen();
+
+        /**
+         * @brief shapes : Create the shapes view and manage buttons activation
+         */
         void shapes();
+
+        /**
+         * @brief text : Create the text view and manage buttons activation
+         */
         void text();
+
+        /**
+         * @brief eraser : Create the eraser view and manage buttons activation
+         */
         void eraser();
+
+        /**
+         * @brief pipette : Create the pipette view and manage buttons activation
+         */
         void pipette();
+
+        /**
+         * @brief filters : Create the filters view and manage buttons activation
+         */
         void filters();
+
+        /**
+         * @brief analysis : Create the analysis view and manage buttons activation
+         */
         void analysis();
+
+        /**
+         * @brief newLayer : Create the new layer view and manage buttons activation
+         */
         void newLayer();
+
+        /**
+         * @brief selection : Create the selection and manage buttons activation
+         */
         void selection();
+
+        /**
+         * @brief launchAnalysis : Send the datas to the controller and ask for full analysis
+         */
         void launchAnalysis();
+
+        /**
+         * @brief onPenSizeValueChanged : Set the pen size
+         * @param value : Value from the QSlider
+         */
         void onPenSizeValueChanged(int value);
+
+        /**
+         * @brief onShapeSizeValueChanged : Set the shapes size
+         * @param value : Value from the QSlider
+         */
         void onShapeSizeValueChanged(int value);
+
+        /**
+         * @brief onTextSizeValueChanged : Set the text size
+         * @param value : Value from the QSlider
+         */
         void onTextSizeValueChanged(int value);
+
+        /**
+         * @brief onEraserSizeValueChanged : Set the eraser size
+         * @param value : Value from the QSlider
+         */
         void onEraserSizeValueChanged(int value);
+
+        /**
+         * @brief onAccuracyValueChanged : Set the accuracy value
+         * @param value : Value from the QSlider
+         */
         void onAccuracyValueChanged(int value);
+
+        /**
+         * @brief onFilterToggled : Set the green filter on the image view
+         * @param checked
+         */
         void onFilterToggled(bool checked);
+
+        /**
+         * @brief onHistoToggled : Set the histogram equalization filter on the image view
+         * @param checked
+         */
         void onHistoToggled(bool checked);
+
+        /**
+         * @brief onCircleToggled : Manage the checkbox state and send to the controller
+         *                          the circle is selected
+         * @param checked
+         */
         void onCircleToggled(bool checked);
+
+        /**
+         * @brief onSquareToggled : Manage the checkbox state and send to the controller
+         *                          the circle is not selected ( = the square is selected)
+         * @param checked
+         */
         void onSquareToggled(bool checked);
+
+        /**
+         * @brief launchAnalysisFromSelection : Send the datas to the controller and ask for local analysis
+         */
         void launchAnalysisFromSelection();
+
+        /**
+         * @brief activateLocalAnalyse : Enable local analysis
+         */
         void activateLocalAnalyse();
+
+        /**
+         * @brief desactivateLocalAnalyse : Disable local analysis
+         */
         void desactivateLocalAnalyse();
+
+        /**
+         * @brief onCreateLayer : Create a new layer on the first to last pictures specified
+         */
         void onCreateLayer();
+
+        /**
+         * @brief askForTextContent : Send the text to write
+         */
         void askForTextContent();
 
     private:

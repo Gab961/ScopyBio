@@ -101,66 +101,32 @@ void calque::dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int lab
     _calque = dessine.dessinerRectangle(pos1,pos2,labelWidth,labelHeight,_calque);
 }
 
-/**
- * Plus utilisé, remplacé par dessinerRectangle
- */
-void calque::dessinerRond(QPoint pos, int pertinence){
-    _calque = dessine.dessinerRond(pos, pertinence, _calque);
-}
-
 void calque::dessinerRectanglePertinence(QPoint pos1, QPoint pos2, int pertinence){
     _calque = dessine.dessinerRectanglePertinence(pos1,pos2,pertinence,_calque);
 }
 
 
-/**
- * @brief calque::dessinerFaisceau supprimer le calque actuel et redessine le rectangle.
- * @param pos1
- * @param pos2
- * @param labelWidth
- * @param labelHeight
- */
+
 void calque::dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight){
     CImg<float> tmp(_calque.width(),_calque.height(),1,4,0);
     _calque = dessine.dessinerFaisceau(pos1,pos2,labelWidth,labelHeight,tmp);
 }
 
-/**
- * @brief calque::dessinerLigne
- * @param pos1
- * @param pos2
- * @param labelWidth
- * @param labelHeight
- */
 void calque::dessinerLigne(QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing){
     _calque = dessine.dessinerLigne(pos1,pos2,isDrawing, brushSize, labelWidth,labelHeight,_calque);
 }
 
-/**
- * @brief calque::dessinerCarre
- * @param posOrig
- * @param diameter
- * @param labelWidth
- * @param labelHeight
- */
+
 void calque::dessinerCarre(QPoint posOrig, int diameter, int labelWidth, int labelHeight){
     _calque = dessine.dessinerCarre(posOrig,diameter,labelWidth,labelHeight,_calque);
 }
 
-/**
- * @brief calque::dessinerCercle
- * @param posOrig
- * @param diameter
- * @param labelWidth
- * @param labelHeight
- */
+
 void calque::dessinerCercle(QPoint posOrig, int diameter, int labelWidth, int labelHeight){
     _calque = dessine.dessinerCercle(posOrig,diameter,labelWidth,labelHeight,_calque);
 }
 
-/**
- * @brief calque::filtreVert pour créer le calque vert, sert juste au début du programme.
- */
+
 void calque::filtreVert(){
     _calque = dessine.applyGreenFilter(_calque);
 }
@@ -169,9 +135,6 @@ void calque::filtreQuadrillage(int columns, int lines){
     _calque = dessine.applyQuadrillageFilter(columns, lines, _calque);
 }
 
-/**
- * @brief calque::filtreVert pour créer le calque vert, sert juste au début du programme.
- */
 void calque::filtreHistogram(){
     _calque = dessine.applyHistogramFilter(_calque);
 }

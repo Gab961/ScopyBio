@@ -28,20 +28,34 @@ private:
     std::vector<std::string> images_icons_filename; //Le nom des fichiers utilisés pour affichage dans la pile
 
     std::string fileName;
-    float percentageOfBlack;        //Put the limit of percentage of black for treatment.
-    bool isGreen;                   //To display the image with white or green
-    bool isDisplayingAnnotation;    //To display or hide annotation on the image
-    bool isDisplayingContour;       //To display or hide Contour on the image
+
     bool fileIsLoaded;
 
 
 public:
     pile_model();
 
+
+    //===================
+    //      Methods
+    //===================
+
+    /**
+     * @brief loadNewFilename load a tiff file and configure the project
+     * @param filename path of the tiff file
+     */
     void loadNewFilename(std::string filename);
+
+    /**
+     * @brief load load the tiff file
+     * @param path path of the tiff file
+     */
     void load(string path);
-    void save(string path);
-    void read_json_config();
+
+    /**
+     * @brief is24Bits to know if the tif file is in 16 or 24 bits
+     * @return true if 24 bits, false if 16 bits.
+     */
     bool is24Bits();
 
     //===================
@@ -63,15 +77,7 @@ public:
     //===================
     //      Setter
     //===================
-
-    void setPercentageOfBlack(float value);
     void setCurrentImage(int position);
     void setCurrentImageIndex(int index);
-
-    //===================
-    //      Methods
-    //===================
-
-
 
 };

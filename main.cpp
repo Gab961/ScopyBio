@@ -66,7 +66,5 @@ int main(int argc, char* argv[])
 
     mainWindow.show();
 
-    //TODO Supprimer /tmp à la fin
-
     return scopyBio.exec();
 }
