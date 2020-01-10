@@ -85,8 +85,6 @@ void calque::addMemento(){
     mementoList.push_back(_calque);
     numList++;
     highWater++;
-	
-	//RIEN
 }
 
 void calque::clearMemento(){
