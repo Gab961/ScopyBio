@@ -1,7 +1,7 @@
 
  [requires]
- icu/59.1@bincrafters/stable
- qt/5.9.8@bincrafters/stable
+ #icu/59.1@bincrafters/stable
+ #qt/5.9.8@bincrafters/stable
  opencv/4.1.1@conan/stable
  libtiff/4.0.9@bincrafters/stable
  jsoncpp/1.9.0@theirix/stable
@@ -9,7 +9,7 @@
  zlib/1.2.11@conan/stable
  libgit2/0.26.3@arsen-studio/stable
  OpenSSL/1.1.1c@conan/stable
- libx11/1.6.8@bincrafters/stable
+ #libx11/1.6.8@bincrafters/stable
 
  [generators]
  cmake

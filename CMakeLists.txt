@@ -21,13 +21,6 @@ endif()
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-
-find_package(Filesystem REQUIRED)
-set(CONAN_LIBS ${CONAN_LIBS} std::filesystem)
-if (_CXX_FILESYSTEM_HAVE_EXPERIMENTAL_HEADER)
-add_definitions(-DFILESYSTEMISEXPERIMENTAL)
-endif()
-
 # Prevent compilation in-source
 if( ${CMAKE_BINARY_DIR} STREQUAL ${PROJECT_SOURCE_DIR} )
   Message( " " )
@@ -138,4 +131,4 @@ add_subdirectory(View)
 add_subdirectory(Model)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
-target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS} Qt5::Widgets Qt5::Core Controler View Model jsoncpp)
+target_link_libraries (${PROJECT_NAME}  ${CONAN_LIBS} Qt5::Widgets Qt5::Core Controler View Model jsoncpp stdc++fs dl)
