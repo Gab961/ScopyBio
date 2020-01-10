@@ -56,8 +56,8 @@ public:
      * @brief dessinerFaisceau draw on the layer a beam
      * @param pos1 point of origin
      * @param pos2 opposite point
-     * @param labelWidth width of the layer
-     * @param labelHeight height of the layer
+     * @param labelWidth width of the label
+     * @param labelHeight height of the label
      */
     void dessinerFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
@@ -65,8 +65,8 @@ public:
      * @brief dessinerRectangle draw on the layer a rectangle
      * @param pos1 point of origin
      * @param pos2 opposite point
-     * @param labelWidth width of the layer
-     * @param labelHeight height of the layer
+     * @param labelWidth width of the label
+     * @param labelHeight height of the label
      */
     void dessinerRectangle(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
 
@@ -83,8 +83,8 @@ public:
      * @param pos1 begin of the line
      * @param pos2 end of the line
      * @param brushSize width of the line
-     * @param labelWidth width of the layer
-     * @param labelHeight height of the layer
+     * @param labelWidth width of the label
+     * @param labelHeight height of the label
      * @param isDrawing To know if we draw (true) or erase (false)
      */
     void dessinerLigne(QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing);
@@ -100,8 +100,8 @@ public:
      * @brief dessinerCarre draw a square in the layer at the position of the mouse
      * @param posOrig position of the mouse
      * @param diameter size of the square
-     * @param labelWidth width of the layer
-     * @param labelHeight height of the layer
+     * @param labelWidth width of the label
+     * @param labelHeight height of the label
      */
     void dessinerCarre(QPoint posOrig, int diameter, int labelWidth, int labelHeight);
 
@@ -109,8 +109,8 @@ public:
      * @brief dessinerCercle draw circle on the layer at the position of the mouse
      * @param posOrig position of the mouse
      * @param diameter diameter of the circle
-     * @param labelWidth width of the layer
-     * @param labelHeight height of the layer
+     * @param labelWidth width of the label
+     * @param labelHeight height of the label
      */
     void dessinerCercle(QPoint posOrig, int diameter, int labelWidth, int labelHeight);
 
@@ -137,8 +137,8 @@ public:
      * @param pos1 position of the mouse
      * @param text_a_ecrire text that should be displayed
      * @param fontSize size of the text
-     * @param labelWidth width of the layer
-     * @param labelHeight height of the layer
+     * @param labelWidth width of the label
+     * @param labelHeight height of the label
      */
     void ecrireText(QPoint pos1, std::string text_a_ecrire, int fontSize, int labelWidth, int labelHeight);
 

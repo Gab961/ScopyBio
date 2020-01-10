@@ -266,12 +266,12 @@ CImg<float> dessin_model::saveZoomFromArea(QPoint posTopLeft, QPoint posBottomRi
     return zoom;
 }
 
-void dessin_model::savePics(int x1, int y1, int x2, int y2, unsigned char color, CImg<float> currentPicture){
+//void dessin_model::savePics(int x1, int y1, int x2, int y2, unsigned char color, CImg<float> currentPicture){
 
-    //Dessin du rectangle et affichage sur l'image principale
-    //currentPicture.draw_rectangle(x1,y1,x2,y2,color,1,~0U);
-    currentPicture.save_bmp(pathOfMainDisplay.c_str());
-}
+//    //Dessin du rectangle et affichage sur l'image principale
+//    //currentPicture.draw_rectangle(x1,y1,x2,y2,color,1,~0U);
+//    currentPicture.save_bmp(pathOfMainDisplay.c_str());
+//}
 
 CImg<float> dessin_model::applyGreenFilter(CImg<float> picture)
 {

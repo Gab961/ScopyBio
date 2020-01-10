@@ -34,8 +34,8 @@ public:
      * @param pos1 position of the mouse
      * @param text_a_ecrire text that should be displayed
      * @param fontSize size of the text
-     * @param labelWidth width of the layer
-     * @param labelHeight height of the layer
+     * @param labelWidth width of the label
+     * @param labelHeight height of the label
      * @param currentPicture the layer to draw in
      * @return the layer with the new draw
      */
@@ -45,8 +45,8 @@ public:
      * @brief dessinerRectangle draw on the layer a rectangle
      * @param pos1 point of origin
      * @param pos2 opposite point
-     * @param labelWidth width of the layer
-     * @param labelHeight height of the layer
+     * @param labelWidth width of the label
+     * @param labelHeight height of the label
      * @param currentPicture the layer to draw in
      * @return the layer with the new draw
      */
@@ -56,8 +56,8 @@ public:
      * @brief dessinerFaisceau draw on the layer a beam
      * @param pos1 point of origin
      * @param pos2 opposite point
-     * @param labelWidth width of the layer
-     * @param labelHeight height of the layer
+     * @param labelWidth width of the label
+     * @param labelHeight height of the label
      * @param currentPicture the layer to draw in
      * @return the layer with the new draw
      */
@@ -67,8 +67,8 @@ public:
      * @brief dessinerRond draw round on the layer at the position of the mouse
      * @param posOrig position of the mouse
      * @param diameter diameter of the circle
-     * @param labelWidth width of the layer
-     * @param labelHeight height of the layer
+     * @param labelWidth width of the label
+     * @param labelHeight height of the label
      * @param currentPicture the layer to draw in
      * @return the layer with the new draw
      */
@@ -99,8 +99,8 @@ public:
      * @param pos2 end of the line
      * @param isDrawing to know if we draw (true) or erase (false)
      * @param brushSize width of the line
-     * @param labelWidth width of the layer
-     * @param labelHeight height of the layer
+     * @param labelWidth width of the label
+     * @param labelHeight height of the label
      * @param currentPicture the layer to draw in
      * @return the layer with the new draw
      * @return
@@ -111,8 +111,8 @@ public:
      * @brief dessinerCarre draw a square in the layer at the position of the mouse
      * @param posOrig position of the mouse
      * @param diameter size of the square
-     * @param labelWidth width of the layer
-     * @param labelHeight height of the layer
+     * @param labelWidth width of the label
+     * @param labelHeight height of the label
      * @param currentPicture the layer to draw in
      * @return the layer with the new draw
      */
@@ -122,8 +122,8 @@ public:
      * @brief dessinerCercle draw circle on the layer at the position of the mouse
      * @param posOrig position of the mouse
      * @param diameter diameter of the circle
-     * @param labelWidth width of the layer
-     * @param labelHeight height of the layer
+     * @param labelWidth width of the label
+     * @param labelHeight height of the label
      * @param currentPicture the layer to draw in
      * @return the layer with the new draw
      */
@@ -154,30 +154,31 @@ public:
      * @brief saveZoomFromPicture Save the selected area with the beam in the zoom view
      * @param pos1 point of origin
      * @param pos2 opposite point
-     * @param labelWidth width of the layer
-     * @param labelHeight height of the layer
+     * @param labelWidth width of the label
+     * @param labelHeight height of the label
      * @param currentPicture current picture used to do the zoom
      */
     void saveZoomFromPicture(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight, CImg<float> currentPicture);
 
+    //TODO
     /**
      * @brief saveZoomFromArea
-     * @param pos1
-     * @param pos2
+     * @param pos1 point of origin
+     * @param pos2 opposite point
      * @param currentPicture
      */
     CImg<float> saveZoomFromArea(QPoint pos1, QPoint pos2, CImg<float> currentPicture);
 
-    /**
-     * @brief savePics Je sais pas
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
-     * @param color
-     * @param currentPicture
-     */
-    void savePics(int x1, int y1, int x2, int y2, unsigned char color, CImg<float> currentPicture);
+//    /**
+//     * @brief savePics Je sais pas
+//     * @param x1
+//     * @param y1
+//     * @param x2
+//     * @param y2
+//     * @param color
+//     * @param currentPicture
+//     */
+//    void savePics(int x1, int y1, int x2, int y2, unsigned char color, CImg<float> currentPicture);
 
     /**
      * @brief saveImageAsMainDisplay Enregistre l'image en paramètre en tant que main display
@@ -186,9 +187,18 @@ public:
     void saveImageAsMainDisplay(CImg<float> pictureToShow);
 
     //Filtres
-        //Filtre vert
+    /**
+     * @brief applyGreenFilter apply green filter on the image
+     * @param picture the layer to draw in
+     * @return the layer with the new draw
+     */
     CImg<float> applyGreenFilter(CImg<float> picture);
-        //Filtre contraste
+
+    /**
+     * @brief applyHistogramFilter change the contrast of the image
+     * @param picture the layer to draw in
+     * @return the layer with the new draw
+     */
     CImg<float> applyHistogramFilter(CImg<float> picture);
 
     /**
