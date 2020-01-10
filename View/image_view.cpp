@@ -149,7 +149,7 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
             setNewPicture();
         }
         //Si on dessine au crayon
-        if (m_scopybioController->getListenPenClick())
+        if (m_scopybioController->getListenPenClick() || m_scopybioController->getListenEraserClick())
         {
             m_scopybioController->addMemento();
         }
