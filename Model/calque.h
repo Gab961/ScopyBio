@@ -119,9 +119,8 @@ public:
      */
     void filtreVert();
 
-    //TODO
     /**
-     * @brief filtreHistogram TODO
+     * @brief filtreHistogram Apply the contrast filter on the layer
      */
     void filtreHistogram();
 

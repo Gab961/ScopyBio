@@ -57,7 +57,6 @@ void ComparePopup::fillComboBoxes()
 
     for (unsigned int i=0; i<iconsfilenames.size(); i++)
     {
-        //TODO Voir si les dossiers seront a terme dans tmp sinon modifier le substr
         imageName = QString::fromStdString(iconsfilenames[i].substr(4,iconsfilenames[i].length()-1));
         m_firstImage->addItem(imageName);
         m_secondImage->addItem(imageName);

@@ -160,9 +160,20 @@ public:
      */
     void reinitFaisceauCalque();
 
-    //TODO
+    /**
+     * @brief manageNewUserAnalyse Draw pertinence squares depending of the user analysis
+     * @param pertinence Value of the pertinence
+     * @param pos1 Top left position of the square to draw
+     * @param pos2 Bottom right position of the square to draw
+     */
     void manageNewUserAnalyse(int pertinence, QPoint pos1, QPoint pos2);
-    //TODO
+
+    /**
+     * @brief manageNewAnalyse Draw pertinence squares depending of the full analysis
+     * @param pertinence Value of the pertinence
+     * @param pos1 Top left position of the square to draw
+     * @param pos2 Bottom right position of the square to draw
+     */
     void manageNewAnalyse(int pertinence, QPoint pos1, QPoint pos2);
 
     /**
@@ -196,15 +207,18 @@ public:
      */
     void updateZoomResultat();
 
-    //TODO
     /**
-     * @brief updateQuadrillage
-     * @param columns
-     * @param lines
+     * @brief updateQuadrillage Draw a new grid with the values of columns and lines
+     * @param columns Amount of columns
+     * @param lines Amount of lines
      */
     void updateQuadrillage(int columns, int lines);
 
-    //TODO
+    /**
+     * @brief updateUserQuadrillage Draw a new grid with the values of columns and lines on the zoom
+     * @param columns Amount of columns
+     * @param lines Amount of lines
+     */
     void updateUserQuadrillage(int columns, int lines);
 
     /**

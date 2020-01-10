@@ -517,7 +517,6 @@ void analyse_model::getDataFromArea(QPoint area, int labelWidth, int labelHeight
     }
 }
 
-//TODO ICI
 void analyse_model::getDataFromZoomArea(QPoint area, int labelWidth, int labelHeight, std::string zoomPath) {
 
     CImg<float> zoomPicture;
