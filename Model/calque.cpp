@@ -81,13 +81,12 @@ void calque::addMemento(){
         mementoList.erase(mementoList.begin()+numList+1,mementoList.end());
         highWater = numList+1;
     }
-    std::cout << "numList = " << numList << " Highwater = " << highWater << std::endl;
 
     mementoList.push_back(_calque);
     numList++;
     highWater++;
-    std::cout << "numList = " << numList << " Highwater = " << highWater << std::endl;
-    std::cout << "memento.size = " << mementoList.size() << std::endl;
+	
+	//RIEN
 }
 
 void calque::clearMemento(){
