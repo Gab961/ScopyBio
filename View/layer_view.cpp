@@ -65,8 +65,8 @@ void LayerView::loadLayers(int currentRow)
         m_scopybioController->setCurrentCalqueId(-1);
     else
     {
-        setCurrentRow(0);
-        m_scopybioController->setCurrentCalqueId(layerIdList[0]);
+        setCurrentRow(layerIdList.size()-1);
+        m_scopybioController->setCurrentCalqueId(layerIdList[layerIdList.size()-1]);
     }
 
     this->update();
