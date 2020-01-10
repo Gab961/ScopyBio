@@ -1,10 +1,15 @@
 #include <QPoint>
 #include <algorithm>
 #include <iostream>
+#include "definition.h"
 
 #include "gestionnaire_calques_model.h"
 
-gestionnaire_calque_model::gestionnaire_calque_model(): id(0),isGreen(false),isHistogram(false),isResultat(false),isZoomResultat(true){
+gestionnaire_calque_model::gestionnaire_calque_model(): id(0),isGreen(false),isHistogram(false),isResultat(false),isZoomResultat(true)
+{
+    pathOfHistogramSave = "tmp";
+    pathOfHistogramSave = separator;
+    pathOfHistogramSave += "histogram.bmp";
 }
 
 void gestionnaire_calque_model::init(int newPileWidth, int newPileHeight){
@@ -43,7 +48,11 @@ void gestionnaire_calque_model::saveTmpforDisplay(int idCalque){
 
     CImg<float> calquetmp = listOfCalque[search].getCalque();
 
-    std::string path = "./tmp/calque" + std::to_string(listOfCalque[search].getId()) + ".png";
+    std::string path = ".";
+    path += separator;
+    path += "tmp";
+    path += separator;
+    path += "calque" + std::to_string(listOfCalque[search].getId()) + ".png";
 
     calquetmp.save_png(path.c_str(),0);
 }
@@ -153,8 +162,6 @@ void gestionnaire_calque_model::reinitUserPertinenceCalque(int width, int height
 
     CImg<float> newImage(width,height,1,4,0);
     newCalque.setCalque(newImage);
-
-    //newCalque.getCalque().save_bmp("/home/etudiant/reinit.bmp");
 
     listOfCalque[idUserPertinenceCalque] = newCalque;
 }

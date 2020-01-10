@@ -4,9 +4,20 @@
 #include "gestionnaire_calques_model.h"
 #include "analyse_model.h"
 #include "dessin_model.h"
+#include "definition.h"
 
 analyse_model::analyse_model() : areaIsSelected(false), userAreaIsSelected(false), isDataReady(false), columnAmount(30), linesAmount(30), errorMargin(5)
-{}
+{
+    pathOfResultsStorage = "tmp";
+    pathOfResultsStorage += separator;
+    pathOfResultsStorage += "saveAnalyse";
+    pathOfResultsStorage += separator;
+    pathOfResultsStorage += "resultDisplay";
+
+    pathOfResultsDisplay = "tmp";
+    pathOfResultsDisplay = separator;
+    pathOfResultsDisplay = "resultDisplay.tmp";
+}
 
 void analyse_model::init(){
     areaIsSelected = false;
@@ -469,10 +480,15 @@ void analyse_model::createResultsDisplay(int index, int imagesSize, int whiteVal
 
     image.draw_text(10,hauteurAbscisse-15,abscisseText.c_str(),blue,white,1);
 
-    //TODO Separator
     std::string chemin;
     if (isUserAnalysis)
-        chemin = pathOfResultsStorage + "/user/" + std::to_string(index) + ".bmp";
+    {
+        chemin = pathOfResultsStorage;
+        chemin += separator;
+        chemin += "user";
+        chemin += separator;
+        chemin += std::to_string(index) + ".bmp";
+    }
     else
         chemin = pathOfResultsStorage + std::to_string(index) + ".bmp";
 
@@ -533,7 +549,12 @@ void analyse_model::getDataFromZoomArea(QPoint area, int labelWidth, int labelHe
 
             currentArea = i;
             //TODO Separator
-            std::string graphFromArea = pathOfResultsStorage + "/user/" + std::to_string(i) + ".bmp";
+            std::string graphFromArea = pathOfResultsStorage;
+            graphFromArea += separator;
+            graphFromArea += "user";
+            graphFromArea += separator;
+            graphFromArea += std::to_string(i) + ".bmp";
+
             CImg<float> graphImg;
             graphImg.load_bmp(graphFromArea.c_str());
             graphImg.save_bmp(pathOfResultsDisplay.c_str());

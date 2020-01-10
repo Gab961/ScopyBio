@@ -241,8 +241,8 @@ private:
     int currentArea;
     int errorMargin;
 
-    std::string pathOfResultsStorage = "tmp/saveAnalyse/resultDisplay";
-    std::string pathOfResultsDisplay = "tmp/resultDisplay.tmp";
+    std::string pathOfResultsStorage;
+    std::string pathOfResultsDisplay;
     std::vector<Resultat> results;
     std::vector<Resultat> userResults;
 };

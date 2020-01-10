@@ -324,7 +324,7 @@ protected:
     bool isHistogram; //Allow to display the histogram filter
     bool isResultat; // Allow to display the result filter
     bool isZoomResultat; // Allow to display the user result (beam) filter
-    std::string pathOfHistogramSave = "tmp/histogram.bmp";
+    std::string pathOfHistogramSave;
     int idPertinenceCalque;
     int idUserPertinenceCalque;
     int idCurrentCalque; // To know which layer is currently used

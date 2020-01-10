@@ -2,6 +2,7 @@
 #include <json/json.h>
 #include <iostream>
 #include <filesystem>
+#include "definition.h"
 
 //#define PATH "../../Resources/Config/config.json"
 
@@ -101,7 +102,12 @@ void pile_model::load(string path)
     {
         CImg<float> img = images[i];
 
-        std::string chemin = "tmp/pileDisplay/" + std::to_string(i) + ".bpm";
+        std::string chemin = "tmp";
+        chemin += separator;
+        chemin += "pileDisplay";
+        chemin += separator;
+        chemin += std::to_string(i) + ".bpm";
+
         img.save_bmp(chemin.c_str());         // problem here
         images_icons_filename.push_back(chemin);
     }

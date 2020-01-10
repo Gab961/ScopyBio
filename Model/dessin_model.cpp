@@ -1,9 +1,20 @@
 #include <QPoint>
 #include <iostream>
 #include "dessin_model.h"
+#include "definition.h"
 
 dessin_model::dessin_model() : zoomReady(false), baseColorGiven(false), listenPipetteClick(false), whiteColor(0), penSize(5), shapeSize(10), textSize(10), eraserSize(10), circleIsSelected(true)
-{}
+{
+    pathOfMainDisplay = "tmp";
+    pathOfMainDisplay += separator;
+    pathOfMainDisplay += "mainDisplay";
+    pathOfMainDisplay += separator;
+    pathOfMainDisplay += "mainDisplay0.bmp";
+
+    pathOfZoomedDisplay = "tmp";
+    pathOfZoomedDisplay += separator;
+    pathOfZoomedDisplay += "zoomedDisplay.bmp";
+}
 
 void dessin_model::init()
 {
@@ -378,7 +389,12 @@ void dessin_model::manageNewWhiteColor(int newWhite)
 
 void dessin_model::switchSaveLocation()
 {
-    std::string newPath = "tmp/mainDisplay/mainDisplay" + std::to_string(pathOfMainDisplayIndex) + ".bmp";
+    std::string newPath = "tmp";
+    newPath += separator;
+    newPath += "mainDisplay";
+    newPath += separator;
+    newPath += "mainDisplay" + std::to_string(pathOfMainDisplayIndex) + ".bmp";
+
     pathOfMainDisplayIndex++;
 
     if (pathOfMainDisplayIndex == 30)
