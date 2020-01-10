@@ -219,6 +219,10 @@ void MainWindow::connections()
 
     //Sélectionne le premier élément après le chargement de la pile
     QObject::connect(this, &MainWindow::initAtFirstItemInPile, m_pileView, &Pile_View::changeToElement);
+
+    // Permet l'utilisation du bouton hide
+    QObject::connect(m_options, &menu_option::askFullAnalysis, m_tools, &Menu_Draw_Button::enableHideButton);
+    QObject::connect(m_options, &menu_option::askForUserAnalyse, m_tools, &Menu_Draw_Button::enableHideButton);
 }
 
 void MainWindow::closeEvent(QCloseEvent* e)

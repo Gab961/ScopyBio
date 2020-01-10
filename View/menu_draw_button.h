@@ -41,6 +41,16 @@ class Menu_Draw_Button: public QGroupBox
          */
         void changePipetteStyleWhenUsed();
 
+        /**
+         * @brief changeHideStyleChenUsed
+         */
+        void changeHideStyleWhenUsed();
+
+        /**
+         * @brief enableHideButton
+         */
+        void enableHideButton();
+
     public slots:
         /**
          * @brief activatePenAnnotation : Manage the buttons style when the pen button is (not) activated
@@ -171,6 +181,7 @@ class Menu_Draw_Button: public QGroupBox
         bool isFiltersButtonActive = false;
         bool isLayerButtonActive = false;
         bool isSelectionButtonActive = false;
+        bool isHideButtonActive = false;
 
         QPushButton *m_eraser;
         QPushButton *m_pipette;
