@@ -15,8 +15,8 @@ analyse_model::analyse_model() : areaIsSelected(false), userAreaIsSelected(false
     pathOfResultsStorage += "resultDisplay";
 
     pathOfResultsDisplay = "tmp";
-    pathOfResultsDisplay = separator;
-    pathOfResultsDisplay = "resultDisplay.tmp";
+    pathOfResultsDisplay += separator;
+    pathOfResultsDisplay += "resultDisplay.tmp";
 }
 
 void analyse_model::init(){
