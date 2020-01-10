@@ -8,7 +8,7 @@
 gestionnaire_calque_model::gestionnaire_calque_model(): id(0),isGreen(false),isHistogram(false),isResultat(false),isZoomResultat(true)
 {
     pathOfHistogramSave = "tmp";
-    pathOfHistogramSave = separator;
+    pathOfHistogramSave += separator;
     pathOfHistogramSave += "histogram.bmp";
 }
 
