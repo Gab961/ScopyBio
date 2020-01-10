@@ -35,10 +35,6 @@ void Zoom_View::enableDisplay()
     readyToShow = true;
 }
 
-/**
- * @brief Zoom_View::setNewPicture Affiche l'image située au path dans la fenêtre
- * @param path
- */
 void Zoom_View::setNewPicture(int zoneWidth, int zoneHeight)
 {
     if (readyToShow)
@@ -76,7 +72,6 @@ void Zoom_View::setNewPicture(int zoneWidth, int zoneHeight)
         }
 
         m_layout->addWidget(m_image);
-        //m_layout->setMargin(0);
         m_image->setAlignment(Qt::AlignCenter);
 
         QPixmap pm(m_scopybioController->getZoomDisplayPath().c_str());
@@ -89,11 +84,13 @@ void Zoom_View::setNewPicture(int zoneWidth, int zoneHeight)
 
 void Zoom_View::readyForClick() { m_scopybioController->setPipetteClick(true); }
 
-void Zoom_View::mousePressEvent( QMouseEvent* ev )
+void Zoom_View::mousePressEvent(QMouseEvent* ev)
 {
     if (m_scopybioController->getZoomReady())
     {
         QPoint origPoint = ev->pos();
+
+        // Si l'outil pipette est activé et qu'on clique sur la zoom view, met une nouvelle valeur de blanc
         if (m_scopybioController->getPipetteClick())
         {
             m_scopybioController->setPipetteClick(false);
@@ -103,12 +100,12 @@ void Zoom_View::mousePressEvent( QMouseEvent* ev )
 
             emit pipetteClicked();
         }
-        //If une analyse a été effectuée
+        //Si une analyse a été effectuée, retourne les données de la zone cliquée
         else
         {
             origPoint.setX(origPoint.x() - m_image->x());
             origPoint.setY(origPoint.y() - m_image->y());
-            getData(origPoint,m_image->width(),m_image->height());
+            getData(origPoint, m_image->width(), m_image->height());
         }
 
     }

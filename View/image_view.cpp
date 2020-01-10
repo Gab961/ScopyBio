@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include <QDateTime>
 #include "scopybio_controller.h"
+#include <cstdlib>
 
 #define cimg_use_tiff
 #include "CImg.h"
@@ -93,12 +94,15 @@ void Image_View::mouseReleaseEvent( QMouseEvent* ev )
                     secondPoint.setX(secondPoint.x()-m_image->x());
                     secondPoint.setY(secondPoint.y()-m_image->y());
 
+                    m_scopybioController->reinitUserPertinenceCalque(1,1);
+
                     if (!(origPoint.x() == secondPoint.x() && origPoint.y() == secondPoint.y()))
                         emit drawRectOnMouse(origPoint,secondPoint,widthOfLabel, heightOfLabel);
                 }
             }
             else
             {
+                m_scopybioController->reinitUserPertinenceCalque(1,1);
                 emit getDataFromArea(origPoint, widthOfLabel, heightOfLabel);
             }
         }
@@ -257,7 +261,6 @@ void Image_View::nouvelleSelectionUtilisateur(QPoint pos1, QPoint pos2, int labe
     m_scopybioController->dessinerFaisceau(labelWidth, labelHeight);
     m_scopybioController->setUserAreaIsSelected();
     setNewPicture();
-
 
     emit activateLocalAnalyse();
     emit clearDataView();

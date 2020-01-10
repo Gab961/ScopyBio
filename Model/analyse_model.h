@@ -90,6 +90,11 @@ public:
     void createResultsDisplay(int index, int imagesSize, int whiteValue, bool isUserAnalysis);
 
     /**
+     * @brief createAllResultsDisplay
+     */
+    void createAllResultsDisplay(int size, int whiteValue);
+
+    /**
      * @brief calculPlacementY Calcul le placement d'un point précis pour le positionner correctement sur le graph de données
      * @param imageHeight
      * @param y
@@ -221,7 +226,6 @@ public:
      * @brief getErrorMargin
      */
     int getErrorMargin();
-
 
 private:
     bool areaIsSelected;

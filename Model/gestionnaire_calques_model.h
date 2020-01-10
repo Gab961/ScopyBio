@@ -35,6 +35,7 @@ public:
 
     int getCalqueIndex(int id);
     void addCalques(std::vector<calque> calques, int taille);
+    void addCalqueSpecial(CImg<float> cal, int id);
     void removeCalques(int idCalque);
     void calqueShowable(int idCalque, bool show);
     void dessineFaisceau(QPoint pos1, QPoint pos2, int labelWidth, int labelHeight);
@@ -50,7 +51,7 @@ public:
     void updateCalqueVert();
     void updateHistogram();
     void updateResultat();
-    void updateZoomResultat(CImg<float> zoom, std::string zoomPath);
+    void updateZoomResultat();
     void dessinLigne(int idCalque, QPoint pos1, QPoint pos2, int brushSize, int labelWidth, int labelHeight, bool isDrawing);
     void updateQuadrillage(int columns, int lines);
     void updateUserQuadrillage(int columns, int lines);

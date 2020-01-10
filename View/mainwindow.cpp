@@ -200,7 +200,8 @@ void MainWindow::connections()
     QObject::connect(m_tools, &Menu_Draw_Button::hideClicked, this, &MainWindow::changeStateGrid);
 
     // Met à jour les calques en fonction de l'image sélectionnée
-    QObject::connect(m_pileView, &Pile_View::rowClicked, m_layerView, &LayerView::loadLayers);
+    QObject::connect(m_pileView, &Pile_View::rowClicked, m_layerView, &LayerView::loadLayers);    
+    QObject::connect(m_options, &menu_option::reloadLayers, m_layerView, &LayerView::loadLayers);
 
     // Met à jour l'affichage de l'image après chaque action effectuée dans le layer_view (suppression, création, affichage)
     QObject::connect(m_layerView, &LayerView::actionDoneWithLayer, this, &MainWindow::recreateMainDisplay);
@@ -215,6 +216,9 @@ void MainWindow::connections()
 
     //Mise à jour de l'interface quand on créé un nouveau calque
     QObject::connect(m_options, &menu_option::switchToIndex, m_pileView, &Pile_View::changeToElement);
+
+    //Sélectionne le premier élément après le chargement de la pile
+    QObject::connect(this, &MainWindow::initAtFirstItemInPile, m_pileView, &Pile_View::changeToElement);
 }
 
 void MainWindow::closeEvent(QCloseEvent* e)
@@ -244,7 +248,7 @@ void MainWindow::open()
             m_saveFile->setEnabled(true);
 
 
-            std::string tifPath = path.substr(0, path.size()-3) + "tif";
+            std::string tifPath = path.substr(0, path.size()-3) + "tiff";
             emit sendPath(tifPath);
 
             //TODO Gerer séparator multi os
@@ -252,6 +256,8 @@ void MainWindow::open()
         }
         else
             emit sendPath(path);
+
+        emit initAtFirstItemInPile(0);
 
         if (m_scopybioController->is24Bits())
         {
@@ -278,6 +284,7 @@ void MainWindow::open()
             m_loop->setEnabled(false);
             m_compare->setEnabled(false);
             m_saveAs->setEnabled(false);
+            m_saveFile->setEnabled(false);
             m_saveCurrentDisplay->setEnabled(false);
         }
     }
@@ -296,6 +303,8 @@ void MainWindow::saveAs()
 
         m_scopybioController->save_as(path);
     }
+
+    m_saveFile->setEnabled(true);
 }
 
 void MainWindow::saveCurrentDisplay()
@@ -566,6 +575,8 @@ void MainWindow::fullAnalysisEnded()
     QMessageBox::information(this, "", "Full analysis completed");
 
     m_options->closeMessageBox();
+    m_tools->activateSelectionAnnotation();
+    m_options->selection();
     emit changeMainPicture();
 }
 
@@ -575,6 +586,8 @@ void MainWindow::userAnalysisEnded()
     m_scopybioController->saveZoomOfUserArea();
 
     m_options->closeMessageBox();
+    m_tools->activateSelectionAnnotation();
+    m_options->selection();
     emit changeZoomedPicture();
 }
 
