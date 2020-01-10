@@ -245,17 +245,12 @@ void MainWindow::open()
         //Ouverture d'un fichier projet
         if (path.substr(path.size()-3, path.size()) == "scb")
         {
-            //TODO Adapter pour séparateur
-            //std::string directoryPath = path.substr(0,path.find_last_of('/'));
-
             m_scopybioController->changeSavePaths(path.substr(0,path.find_last_of(separator)));
             m_saveFile->setEnabled(true);
-
 
             std::string tifPath = path.substr(0, path.size()-3) + "tiff";
             emit sendPath(tifPath);
 
-            //TODO Gerer séparator multi os
             emit sendPathProjet(path);
         }
         else
@@ -376,7 +371,7 @@ void MainWindow::createActions()
     m_saveCurrentDisplay->setEnabled(false);
     fileMenu->addAction(m_saveCurrentDisplay);
 
-    //TODO faire attention si y a plus d'action faut griser
+    //TODO Il faut griser les actions si nécessaire (undo/redo à faire notamment)
     QMenu *editMenu = menuBar()->addMenu(tr("&Edit"));
 
     m_undo = new QAction(tr("Undo..."), this);
@@ -423,7 +418,6 @@ void MainWindow::updateSave()
 {
     m_saveFile->setEnabled(true);
 }
-
 
 void MainWindow::undo()
 {

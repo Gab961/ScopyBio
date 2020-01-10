@@ -39,9 +39,6 @@ public:
      */
     int calculPertinence(std::vector<float> data, int whiteValue);
 
-    //TODO SUPPRIMER CELLE CI ET RENOMMER LA VERSION DEUX
-    void processResultsWithCrops(CImgList<float> allPictures, QPoint pos1, QPoint pos2, int whiteValue, int labelWidth, int labelHeight);
-
     /**
      * @brief processResultsWithCrops Process an analysis on a specific area
      * @param allPictures List of all pictures

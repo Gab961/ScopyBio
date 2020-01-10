@@ -42,22 +42,6 @@ void gestionnaire_calque_model::initGlobalCalques(int pileWidth, int pileHeight)
     idUserPertinenceCalque = 3;
 }
 
-
-void gestionnaire_calque_model::saveTmpforDisplay(int idCalque){
-    int search = getCalqueIndex(idCalque);
-
-    CImg<float> calquetmp = listOfCalque[search].getCalque();
-
-    std::string path = ".";
-    path += separator;
-    path += "tmp";
-    path += separator;
-    path += "calque" + std::to_string(listOfCalque[search].getId()) + ".png";
-
-    calquetmp.save_png(path.c_str(),0);
-}
-
-
 bool gestionnaire_calque_model::existeCalque(int id){
     auto res = std::find_if(listOfCalque.begin(), listOfCalque.end(), [&id](calque &a)->bool { return a.getId() == id; } );
     if(res != listOfCalque.end()){
@@ -66,8 +50,6 @@ bool gestionnaire_calque_model::existeCalque(int id){
         return false;
     }
 }
-
-
 
 int gestionnaire_calque_model::getCalqueIndex(int id){
     int index(0);
@@ -96,7 +78,7 @@ void gestionnaire_calque_model::addCalques(std::vector<calque> calques, int tail
     }
 }
 
-void gestionnaire_calque_model::addCalqueSpecial(CImg<float> cal, int id){
+void gestionnaire_calque_model::setImageInSpecialLayer(CImg<float> cal, int id){
     int search = getCalqueIndex(id);
     listOfCalque[search].setCalque(cal);
 }
@@ -111,7 +93,7 @@ void gestionnaire_calque_model::removeCalques(int idCalque){
 
 
 
-void gestionnaire_calque_model::calqueShowable(int idCalque, bool show){
+void gestionnaire_calque_model::setCalqueShowable(int idCalque, bool show){
     int search = getCalqueIndex(idCalque);
     if(search != -1){
         listOfCalque[search].setCanShow(show);

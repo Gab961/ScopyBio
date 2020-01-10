@@ -27,7 +27,7 @@ void ScopyBio_Controller::DisplayResultImage(int idImage){
 
 void ScopyBio_Controller::afficherCalque(int id, bool aff) {
     if(m_gestion_calque->existeCalque(id)){
-        m_gestion_calque->calqueShowable(id,aff);
+        m_gestion_calque->setCalqueShowable(id,aff);
     }
 }
 
@@ -95,7 +95,7 @@ void ScopyBio_Controller::openProject(std::string pathProject){
         if(!resCalque.empty()){
             CImg<float> resCal;
             resCal.load_cimg(resCalque.c_str());
-            m_gestion_calque->addCalqueSpecial(resCal,RESULTAT_VIEW);
+            m_gestion_calque->setImageInSpecialLayer(resCal,RESULTAT_VIEW);
             m_gestion_calque->setShowResultat(true);
         }
     }

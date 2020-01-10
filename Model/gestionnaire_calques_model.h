@@ -36,13 +36,6 @@ public:
      */
     void initGlobalCalques(int _pileWidth, int _pileHeight);
 
-    //TODO A supprimer?
-    /**
-     * @brief saveTmpforDisplay save layer temporarily for display on screen.
-     * @param idCalque
-     */
-    void saveTmpforDisplay(int idCalque);
-
     /**
      * @brief existeCalque check if the layer exists or not
      * @param  id of the layer
@@ -84,13 +77,12 @@ public:
      */
     void addCalques(std::vector<calque> calques, int taille);
 
-    //TODO rename?
     /**
      * @brief addCalqueSpecial set the image of a special layer /!\ USED ONLY BY LOAD_MODEL !
      * @param cal image to apply to the layer
      * @param id id of the special layer
      */
-    void addCalqueSpecial(CImg<float> cal, int id);
+    void setImageInSpecialLayer(CImg<float> cal, int id);
 
     /**
      * @brief removeCalques remove a user layer from the list of layers
@@ -98,13 +90,12 @@ public:
      */
     void removeCalques(int idCalque);
 
-    //TODO: rename
     /**
-     * @brief calqueShowable set the layer to showable or not
+     * @brief setCalqueShowable set the layer to showable or not
      * @param idCalque id of the layer
      * @param show true can show, false can't
      */
-    void calqueShowable(int idCalque, bool show);
+    void setCalqueShowable(int idCalque, bool show);
 
     /**
      * @brief dessinerFaisceau draw in the correct layer a beam

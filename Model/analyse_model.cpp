@@ -548,7 +548,7 @@ void analyse_model::getDataFromZoomArea(QPoint area, int labelWidth, int labelHe
                 && userResults[i].getBottomRightPoint().y() > y) {
 
             currentArea = i;
-            //TODO Separator
+
             std::string graphFromArea = pathOfResultsStorage;
             graphFromArea += separator;
             graphFromArea += "user";
