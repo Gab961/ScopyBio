@@ -40,8 +40,8 @@ class Zoom_View : public QGroupBox
         /**
          * @brief getData : Get the datas of the area clicked.
          * @param area : Point clicked
-         * @param labelWidth : Width of the label
-         * @param labelHeight : Height of the label
+         * @param labelWidth
+         * @param labelHeight
          */
         void getData(QPoint area, int labelWidth, int labelHeight);
 

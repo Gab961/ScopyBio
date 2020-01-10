@@ -97,7 +97,6 @@ void CompareView::drawSlider()
     }
 
     m_displayLayout->addWidget(m_display);
-    //m_mainLayout->setMargin(0);
     m_display->setAlignment(Qt::AlignCenter);
 
     m_display->setScaledContents(true);

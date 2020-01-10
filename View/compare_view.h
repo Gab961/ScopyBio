@@ -17,13 +17,42 @@ class CompareView: public QWidget
     Q_OBJECT
 
     public:
+        /**
+         * @brief CompareView
+         * @param parent
+         * @param scopybioController
+         */
         CompareView(QWidget *parent, ScopyBio_Controller *scopybioController);
+
+        /**
+         * @brief createView : Create the empty view
+         */
         void createView();
+
+        /**
+         * @brief connections
+         */
         void connections();
+
+        /**
+         * @brief drawSlider : Create a picture with two other in order to compare them
+         *                     and place it in the view
+         */
         void drawSlider();
+
+        /**
+         * @brief setImages : Get the two images to compare from compare_popup and
+         *                    call drawSlider to build the initial view
+         * @param image1
+         * @param image2
+         */
         void setImages(QString image1, QString image2);
 
     public slots:
+        /**
+         * @brief compare : Get the value from the QSlider and call drawSlider to build
+         *                  the corresponding view
+         */
         void compare();
 
     private:

@@ -13,13 +13,39 @@ class ComparePopup: public QWidget
     Q_OBJECT
 
     public:
+        /**
+         * @brief ComparePopup
+         * @param parent
+         * @param scopybioController
+         */
         ComparePopup(QWidget *parent, ScopyBio_Controller *scopybioController);
+
+        /**
+         * @brief createView : Create the empty view
+         */
         void createView();
+
+        /**
+         * @brief connections
+         */
         void connections();
+
+        /**
+         * @brief fillComboBoxes : Fill the combo boxes with the list of all pictures
+         */
         void fillComboBoxes();
 
     public slots:
+        /**
+         * @brief createComparePopup : Call fillComboBoxes() and show the popup
+         */
         void createComparePopup();
+
+        /**
+         * @brief openCompareView : Send the two selected pictures to the compare view and close
+         *                          the popup. Return a message box if the two selected pictures
+         *                          are the same.
+         */
         void openCompareView();
 
 

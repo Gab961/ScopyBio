@@ -20,7 +20,8 @@ void Data_View::createView()
     m_image = new QLabel(this);
 
     m_layout->addWidget(m_image);
-    m_layout->setMargin(0);
+    // TODO si ça bug sur l'affichage du graph, voir en décommentant ça, sinon le virer
+    //m_layout->setMargin(0);
     m_image->setAlignment(Qt::AlignCenter);
     m_image->setText("No data to show");
 
@@ -34,6 +35,7 @@ void Data_View::resetDataView()
     m_image->setText("No data to show");
 }
 
+// TODO peut être plus appelée (en lien avec la méthode en dessous)
 void Data_View::drawResults()
 {
     if (readyToShow)
@@ -46,19 +48,19 @@ void Data_View::drawResults()
     }
 }
 
+// TODO  peut être plus appelée, elle lance l'analyse mais je sais pas pq
 void Data_View::processingResults(int labelWidth, int labelHeight)
 {
-    m_scopybioController->processResultsWithCrop( labelWidth, labelHeight);
+    m_scopybioController->processResultsWithCrop(labelWidth, labelHeight);
     drawResults();
 }
-
 
 void Data_View::enableDisplay()
 {
     readyToShow = true;
 }
 
-void Data_View::mousePressEvent( QMouseEvent* ev )
+void Data_View::mousePressEvent(QMouseEvent* ev)
 {
     QPoint origPoint = ev->pos();
     if (m_scopybioController->dataReady())
@@ -68,8 +70,10 @@ void Data_View::mousePressEvent( QMouseEvent* ev )
     }
 }
 
-void Data_View::hoverEnter(QHoverEvent * event) { }
-void Data_View::hoverLeave(QHoverEvent * event) { }
+void Data_View::hoverEnter(QHoverEvent * event) {}
+
+void Data_View::hoverLeave(QHoverEvent * event) {}
+
 void Data_View::hoverMove(QHoverEvent * event) {
     if (m_scopybioController->dataReady())
     {
@@ -157,7 +161,7 @@ void Data_View::setGraphFromFile()
     }
 
     m_layout->addWidget(m_image);
-    m_layout->setMargin(0);
+    //m_layout->setMargin(0);
     m_image->setAlignment(Qt::AlignCenter);
 
     m_image->setPixmap(pm);
