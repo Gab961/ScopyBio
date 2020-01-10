@@ -12,7 +12,9 @@
 std::string save_model::getFileName(std::string filePath, bool withExtension, char seperator){
     // Get last dot position
     std::size_t dotPos = filePath.rfind('.');
-    std::size_t sepPos = filePath.rfind(seperator);
+    //Impossible d'utiliser le separator ici. Windows semble utiliser dans ce cas précis un separator comme UNIX
+    // c'est à dire en /. Si on utilise le separator, alors ce serait un \ recherché
+    std::size_t sepPos = filePath.rfind("/");
 
     if(sepPos != std::string::npos)
     {
@@ -29,12 +31,17 @@ save_model::save_model()
 void save_model::changeSavePaths(std::string newSavePath)
 {
     savePath = newSavePath;
-    saveCalquesPath = newSavePath + separator + "Calques";
+
+    saveCalquesPath = newSavePath;
+    saveCalquesPath += separator;
+    saveCalquesPath += "Calques";
 }
 
 
 void save_model::saveTiff(){
-    std::string name = savePath + separator + filename + ".tiff";
+    std::string name = savePath;
+    name += separator;
+    name += filename + ".tiff";
     if(!std::filesystem::exists(name.c_str())){
         std::filesystem::copy(localTiffSave, name.c_str());
     }
@@ -66,7 +73,6 @@ void save_model::saveJsonFile(std::vector<calque> calques, const std::vector<Res
     _filename += std::string(".scb");
 
     Json::Value value;
-
 
     if(calques.size() != 0){
         Json::Value calquesValue;
