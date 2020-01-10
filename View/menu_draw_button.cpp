@@ -17,70 +17,70 @@ void Menu_Draw_Button::createView()
 
     QString buttonStyle = "QPushButton{border:none;background-color:rgba(255, 255, 255,100);} QPushButton:hover{background-color:rgba(255, 151, 49,100);}";
 
-    m_pen = new QPushButton(QIcon("../../Resources/Icons/pen.svg"), "", this);
+    m_pen = new QPushButton(QIcon("../../Resources/Icons/pen.png"), "", this);
     m_pen->setStyleSheet(buttonStyle);
     m_pen->setIconSize(QSize(20,20));
     m_pen->setMinimumSize(25,25);
     m_pen->setMaximumSize(25,25);
     m_gridTools->addWidget(m_pen, 0, 0);
 
-    m_shapes = new QPushButton(QIcon("../../Resources/Icons/circle-outline.svg"), "", this);
+    m_shapes = new QPushButton(QIcon("../../Resources/Icons/circle-outline.png"), "", this);
     m_shapes->setStyleSheet(buttonStyle);
     m_shapes->setIconSize(QSize(20,20));
     m_shapes->setMinimumSize(25,25);
     m_shapes->setMaximumSize(25,25);
     m_gridTools->addWidget(m_shapes, 0, 1);
 
-    m_text = new QPushButton(QIcon("../../Resources/Icons/font.svg"), "", this);
+    m_text = new QPushButton(QIcon("../../Resources/Icons/font.png"), "", this);
     m_text->setStyleSheet(buttonStyle);
     m_text->setIconSize(QSize(20,20));
     m_text->setMinimumSize(25,25);
     m_text->setMaximumSize(25,25);
     m_gridTools->addWidget(m_text, 0, 2);
 
-    m_eraser = new QPushButton(QIcon("../../Resources/Icons/eraser.svg"), "", this);
+    m_eraser = new QPushButton(QIcon("../../Resources/Icons/eraser.png"), "", this);
     m_eraser->setStyleSheet(buttonStyle);
     m_eraser->setIconSize(QSize(20,20));
     m_eraser->setMinimumSize(25,25);
     m_eraser->setMaximumSize(25,25);
     m_gridTools->addWidget(m_eraser, 0, 3);
 
-    m_select = new QPushButton(QIcon("../../Resources/Icons/selection.svg"), "", this);
+    m_select = new QPushButton(QIcon("../../Resources/Icons/selection.png"), "", this);
     m_select->setStyleSheet(buttonStyle);
     m_select->setIconSize(QSize(20,20));
     m_select->setMinimumSize(25,25);
     m_select->setMaximumSize(25,25);
     m_gridTools->addWidget(m_select, 0, 4);
 
-    m_pipette = new QPushButton(QIcon("../../Resources/Icons/pipette.svg"), "", this);
+    m_pipette = new QPushButton(QIcon("../../Resources/Icons/pipette.png"), "", this);
     m_pipette->setStyleSheet(buttonStyle);
     m_pipette->setIconSize(QSize(20,20));
     m_pipette->setMinimumSize(25,25);
     m_pipette->setMaximumSize(25,25);
     m_gridTools->addWidget(m_pipette, 1, 0);
 
-    m_filters = new QPushButton(QIcon("../../Resources/Icons/filter.svg"), "", this);
+    m_filters = new QPushButton(QIcon("../../Resources/Icons/filter.png"), "", this);
     m_filters->setStyleSheet(buttonStyle);
     m_filters->setIconSize(QSize(20,20));
     m_filters->setMinimumSize(25,25);
     m_filters->setMaximumSize(25,25);
     m_gridTools->addWidget(m_filters, 1, 1);
 
-    m_analysis = new QPushButton(QIcon("../../Resources/Icons/analysis.svg"), "", this);
+    m_analysis = new QPushButton(QIcon("../../Resources/Icons/analysis.png"), "", this);
     m_analysis->setStyleSheet(buttonStyle);
     m_analysis->setIconSize(QSize(20,20));
     m_analysis->setMinimumSize(25,25);
     m_analysis->setMaximumSize(25,25);
     m_gridTools->addWidget(m_analysis, 1, 2);
 
-    m_newLayer = new QPushButton(QIcon("../../Resources/Icons/new-file.svg"), "", this);
+    m_newLayer = new QPushButton(QIcon("../../Resources/Icons/new-file.png"), "", this);
     m_newLayer->setStyleSheet(buttonStyle);
     m_newLayer->setIconSize(QSize(20,20));
     m_newLayer->setMinimumSize(25,25);
     m_newLayer->setMaximumSize(25,25);
     m_gridTools->addWidget(m_newLayer, 1, 3);
 
-    m_hide = new QPushButton(QIcon("../../Resources/Icons/visibility.svg"), "", this);
+    m_hide = new QPushButton(QIcon("../../Resources/Icons/visibility.png"), "", this);
     m_hide->setIconSize(QSize(20,20));
     m_hide->setMinimumSize(25,25);
     m_hide->setMaximumSize(25,25);

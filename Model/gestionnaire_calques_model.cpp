@@ -306,7 +306,6 @@ void gestionnaire_calque_model::mergeCalques(std::vector<int> ids, CImg<float> c
     {
         //Et tous les autres ensuite
         for(auto i : ids){
-            //std::cout << "I = " << i << std::endl;
             calque overlay = getCalqueOfId(i);
             if(overlay.getCanShow()){
                 currentDisplayedImage.draw_image(0,0,0,0,overlay.getCalque(),overlay.getCalque().get_channel(3),1,255);

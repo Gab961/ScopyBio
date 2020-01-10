@@ -27,7 +27,7 @@ void LayerView::loadLayers(int currentRow)
         m_layerId = new QLabel(QString::number(layerIdList[i]));
         m_itemLayout->addWidget(m_layerId, 0, 0);
 
-        m_delete = new QPushButton(QIcon("../../Resources/Icons/delete-cross.svg"), "", this);
+        m_delete = new QPushButton(QIcon("../../Resources/Icons/delete-cross.png"), "", this);
         m_delete->setStyleSheet(buttonStyle);
         m_delete->setIconSize(QSize(20,20));
         m_delete->setMinimumSize(25,25);
@@ -36,7 +36,7 @@ void LayerView::loadLayers(int currentRow)
 
         QObject::connect(m_delete, &QPushButton::clicked, this, &LayerView::removeLayer);
 
-        m_hide = new QPushButton(QIcon("../../Resources/Icons/visibility.svg"), "", this);
+        m_hide = new QPushButton(QIcon("../../Resources/Icons/visibility.png"), "", this);
 
         if(m_scopybioController->isHidden(layerIdList[i]))
             m_hide->setStyleSheet(buttonStylePressed);
