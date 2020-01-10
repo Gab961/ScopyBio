@@ -8,6 +8,7 @@
 #include <QApplication>
 #include <QWidget>
 #include <QDesktopWidget>
+#include <QIcon>
 
 #include "Model/save_model.h"
 
@@ -46,6 +47,17 @@ int main(int argc, char* argv[])
     QApplication scopyBio(argc, argv);
 
     MainWindow mainWindow;
+    std::string pathOfIcon = "..";
+    pathOfIcon += separator;
+    pathOfIcon += "..";
+    pathOfIcon += separator;
+    pathOfIcon += "Resources";
+    pathOfIcon += separator;
+    pathOfIcon += "Icons";
+    pathOfIcon += separator;
+    pathOfIcon += "Logo_Scopy.png";
+
+    mainWindow.setWindowIcon(QIcon(pathOfIcon.c_str()));
 
     QRect screenGeometry = QApplication::desktop()->screenGeometry();
     int x = (screenGeometry.width()-mainWindow.width()) / 2;
