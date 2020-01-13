@@ -36,8 +36,11 @@ conan install .. --build=missing
 cmake ..
 cmake --build .
 ```
-> Note : Il peut être nécessaire de forcer la compilation avec gcc8: conan install .. -s compiler.version=8 --build=missing
-> Note : La première commande prend du temps puisqu'elle télécharge automatiquement tous ce qu'il faut pour pouvoir compiler les sources.
+L'exécutable est alors produit dans Build/bin.
+
+> Note : Sur ubuntu, ill peut être nécessaire de forcer la compilation avec gcc8: conan install .. -s compiler.version=8 --build=missing
+
+> Note : La première commande prend du temps puisqu'elle télécharge automatiquement tout ce qu'il faut pour pouvoir compiler les sources.
+
 > Note : Seule la dernière commande est à réitérer pour compiler après une modification des sources.
 
-L'exécutable est alors produit dans Build/bin.
