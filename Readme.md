@@ -22,7 +22,7 @@ Dépendant de votre système d'exploitation:
 - Windows : MSVC (obtenable en installant Visual Studio)
 - MacOs : clang
 ### Conan
-Conan est un package manager téléchargeable ici : ([https://conan.io/](https://conan.io/))
+Conan est un package manager téléchargeable ici : [https://conan.io/](https://conan.io/)
 ## Compilation
 Une fois ces éléments installés, ouvrir un terminal
 
