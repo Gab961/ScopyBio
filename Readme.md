@@ -4,12 +4,12 @@ Le logiciel **ScopyBio** permet de gagner du temps sur vos analyses de mitochond
 
 
 # Utilisation
-## Windows
+## Windows (Testé sur Windows 7 et 10)
 Récupérez l'archive **ScopyBioWindows** située dans le dossier **Exécutable**. Décompressez l'archive, installez les deux installeurs situés dans le dossier **Prérequis**. Vous pouvez alors lancer l'application située dans le dossier **Build/bin/**.
-## Linux
+## Linux (Testé sur Ubuntu 16.04 LTS)
 Récupérez l'archive **ScopyBioLinux** située dans le dossier **Exécutable**. Décompressez l'archive, et lancez le script bash **Installation.sh**. Vous pouvez alors lancer l'application située dans le dossier **Build/bin/**.
-## MacOs
-Une version MacOs est théoriquement possible avec les sources, cependant nous n'avons pas pu la tester.
+## MacOs (Non testé)
+Une version MacOs est théoriquement possible avec les sources, cependant nous n'avons pas pu la produire.
 
 # Développement
 ## Prérequis
@@ -38,7 +38,7 @@ cmake --build .
 ```
 L'exécutable est alors produit dans Build/bin.
 
-> Note : Sur ubuntu, il peut être nécessaire de forcer la compilation avec gcc8: 
+> Note : Sur Ubuntu, il peut être nécessaire de forcer la compilation avec gcc8: 
 > conan install .. -s compiler.version=8 --build=missing
 
 > Note : La première commande prend du temps puisqu'elle télécharge automatiquement tout ce qu'il faut pour pouvoir compiler les sources.
