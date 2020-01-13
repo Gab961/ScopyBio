@@ -22,7 +22,7 @@ Dépendant de votre système d'exploitation:
 - Windows : MSVC (obtenable en installant Visual Studio)
 - MacOs : clang
 ### Conan
-Conan est un package manager téléchargeable ici : conan (package manager)([https://conan.io/](https://conan.io/))
+Conan est un package manager téléchargeable ici : ([https://conan.io/](https://conan.io/))
 ## Compilation
 Une fois ces éléments installés, ouvrir un terminal
 
@@ -38,7 +38,8 @@ cmake --build .
 ```
 L'exécutable est alors produit dans Build/bin.
 
-> Note : Sur ubuntu, ill peut être nécessaire de forcer la compilation avec gcc8: conan install .. -s compiler.version=8 --build=missing
+> Note : Sur ubuntu, il peut être nécessaire de forcer la compilation avec gcc8: 
+> conan install .. -s compiler.version=8 --build=missing
 
 > Note : La première commande prend du temps puisqu'elle télécharge automatiquement tout ce qu'il faut pour pouvoir compiler les sources.
 
