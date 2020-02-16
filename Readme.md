@@ -44,4 +44,3 @@ L'exécutable est alors produit dans Build/bin.
 > Note : La première commande prend du temps puisqu'elle télécharge automatiquement tout ce qu'il faut pour pouvoir compiler les sources.
 
 > Note : Seule la dernière commande est à réitérer pour compiler après une modification des sources.
-

@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::createView()
 {
     QDesktopWidget dw;
-    int screenWidth = dw.width()*0.7;
+    int screenWidth = (dw.width()*0.7)/dw.screenCount();
     int screenHeight = dw.height()*0.7;
     setMinimumSize(screenWidth, screenHeight);
 
@@ -200,7 +200,7 @@ void MainWindow::connections()
     QObject::connect(m_tools, &Menu_Draw_Button::hideClicked, this, &MainWindow::changeStateGrid);
 
     // Met à jour les calques en fonction de l'image sélectionnée
-    QObject::connect(m_pileView, &Pile_View::rowClicked, m_layerView, &LayerView::loadLayers);    
+    QObject::connect(m_pileView, &Pile_View::rowClicked, m_layerView, &LayerView::loadLayers);
     QObject::connect(m_options, &menu_option::reloadLayers, m_layerView, &LayerView::loadLayers);
 
     // Met à jour l'affichage de l'image après chaque action effectuée dans le layer_view (suppression, création, affichage)
@@ -329,12 +329,17 @@ void MainWindow::aboutUs()
 {
     QMessageBox::about(this, tr("About ScopyBio"),
                        tr("<p><b>ScopyBio</b> is a software developed by Mouget Gabriel, Saout Thomas,"
-                          " Pigache Bastien and Mohr Anaïs from the UFR des Sciences, Angers."
-                          " It allows to do some operations on .tiff files to compare the different"
-                          " images with some options."
-                          " This program was developed with Qt and C++ language."
-                          ""
-                          "Icons made by Freepik, Pixel Perfect from www.flaticon.com.</p>"));
+                          " Pigache Bastien and Mohr Anaïs from the UFR des Sciences, Angers. It is"
+                          " created in collaboration with the Mitolab laboratory.</p>"
+                          " <p>It allows to do some operations on .tiff files to compare the different"
+                          " images with some options.</p>"
+                          " <p>This program was developed with Qt and C++ language.</p>"
+                          " <p>Icons made by Freepik, Pixel Perfect from www.flaticon.com.</p>"
+                          " <br/> "
+                          " <center><img src=\"../../Resources/Icons/logo_ua.png\" height=\"75\"/> </center> "
+                          " <center><p>Université des Sciences,<br/> 2 Boulevard de Lavoisier,<br/> 49000 Angers</p></center>"
+                          " <center><img src=\"../../Resources/Icons/mit0lab.jpg\" height=\"50\"/> </center>"
+                          " <center><p> Laboratoire MitoVasc,<br/> UMR CNRS 6015 – INSERM U1083 ,<br/> équipe  CHU Bât IRIS/IBS,<br/> 4 rue Larrey,<br/> 49933 Angers cedex 9, <br/> http://mitovasc.univ-angers.fr/en/index.html</p></center>"));
 }
 
 void MainWindow::howToUse()
