@@ -18,7 +18,7 @@ Il faut tout d'abord installer certains composants.
 Téléchargeable à l'adresse suivante : [https://cmake.org/](https://cmake.org/)
 ### Compilateur
 Dépendant de votre système d'exploitation:
-- Linux : g++
+- Linux : g++ / gcc (>= 8)
 - Windows : MSVC (obtenable en installant Visual Studio)
 - MacOs : clang
 ### Conan
